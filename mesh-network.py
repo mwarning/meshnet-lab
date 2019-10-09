@@ -207,7 +207,7 @@ os.system('ip -all netns delete')
 exec('ip netns add "switch"')
 
 # disable IPv6 in switch namespace (no need, less overhead)
-exec('ip netns exec "switch" sysctl -w net.ipv6.conf.all.disable_ipv6=1 > /dev/null')
+exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
 print("Init network")
 with open(sys.argv[2]) as file:
