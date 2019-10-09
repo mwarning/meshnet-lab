@@ -1,0 +1,16 @@
+{
+  "links": [
+    {
+      "source": "a",
+      "target": "b",
+      "source_tc": "netem delay 10ms 20ms distribution normal",
+      "target_tc": "netem loss 0.1"
+    },
+    {
+      "source": "b",
+      "target": "c",
+      "source_tc": "tbf rate 100mbit burst 8192 latency 1ms",
+      "target_tc": "tbf rate 100mbit burst 8192 latency 1ms"
+    }
+  ]
+}
