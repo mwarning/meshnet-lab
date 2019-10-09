@@ -1,10 +1,10 @@
-# Mesh Network Builder
+# Mesh Network Laboratory
 
 Create a mesh network defined in a JSON file. Uses Linux network namespaces and bridges on linux.
 The mesh routing program ([batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [yggdrasil](https://github.com/yggdrasil-network) or [babel](https://www.irif.fr/~jch/software/babel/)) will see only network interface `uplink` to receive and send packets.
 Packets send will be received on all connected instances via their own `uplink` interface.
 
-Tools needed: pyhon, ip, bridge
+Tools needed: python, ip, bridge
 
 ```
 {
