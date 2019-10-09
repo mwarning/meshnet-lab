@@ -126,10 +126,12 @@ def start_batmanadv_instances():
 def start_babel_instances():
     print("init babel")
     for name in nodes:
-        print("  start banel on {}".format(name))
+        exec('mkdir -p /var/run/babel')
+        exec('rm -f /var/run/babel/*.pid')
+        print("  start babel on {}".format(name))
 
         nsname = 'ns-{}'.format(name)
-        exec('sudo ip netns exec "{}" babeld uplink &'.format(nsname))
+        exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid uplink &'.format(nsname, name))
 
 
 class Statistics:
