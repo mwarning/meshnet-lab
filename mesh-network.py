@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import time
 import json
 import sys
 import os
@@ -131,12 +132,60 @@ def start_babel_instances():
         exec('sudo ip netns exec "{}" babeld uplink &'.format(nsname))
 
 
-def get_statistics(nsname):
-    # todo: parse output
-    exec('ip netns exec "{}" ip -statistics link show'.format(nsname))
+class Statistics:
+    def __init__(self, name, output):
+        self.name = name
+        self.valid = False
+        lines = output.split("\n")
+        if len(lines) == 7:
+            link_toks = lines[1].split()
+            rx_toks = lines[3].split()
+            tx_toks = lines[5].split()
+            self.mac = link_toks[1]
+            self.rx_bytes = int(rx_toks[0])
+            self.rx_packets = int(rx_toks[1])
+            self.tx_bytes = int(tx_toks[0])
+            self.tx_packets = int(tx_toks[1])
+            self.valid = True
+        else:
+            print('warning: failed to parse statistics of {}'.format(name))
 
-def run_test():
-    pass
+def format_bytes(size):
+    # 2**10 = 1024
+    power = 2**10
+    n = 0
+    power_labels = {0 : '', 1: 'K', 2: 'M', 3: 'G', 4: 'T'}
+    while size > power:
+        size /= power
+        n += 1
+    return '{:.2f} {}B'.format(size, power_labels[n])
+
+def print_statistics():
+    stats = []
+
+    # fetch uplink statistics
+    for name in nodes:
+        nsname = 'ns-{}'.format(name)
+        output = os.popen('ip netns exec "{}" ip -statistics link show dev uplink'.format(nsname)).read()
+        stat = Statistics(name, output)
+        if stat.valid:
+            stats.append(stat)
+
+    # sum all up
+    rx_bytes = 0
+    rx_packets = 0
+    tx_bytes = 0
+    tx_packets = 0
+
+    for stat in stats:
+        rx_bytes += stat.rx_bytes
+        rx_packets += stat.rx_packets
+        tx_bytes += stat.tx_bytes
+        tx_packets += stat.tx_packets
+
+    print('nodes: {}, packets: {}/{}, traffic: {}/{} (on uplink interfaces)'.format(
+        len(stats), rx_packets, tx_packets, format_bytes(rx_bytes), format_bytes(tx_bytes)))
+
 
 user_id = os.popen('id -u').read()
 
@@ -149,12 +198,13 @@ if len(sys.argv) != 3:
     exit(1)
 
 
+print("Cleanup old network")
 os.system('ip -all netns delete')
 
 # add switch namespace to contain all bridges (the wiring of the mesh)
 exec('ip netns add "switch"')
 
-# disable IPv6 in namespace
+# disable IPv6 in switch namespace (no need, less overhead)
 exec('ip netns exec "switch" sysctl -w net.ipv6.conf.all.disable_ipv6=1 > /dev/null')
 
 print("Init network")
@@ -172,6 +222,16 @@ elif sys.argv[1] == "babel":
 else:
     print('Error: unknown routing protocol: {}'.format(sys.argv[1]))
 
-run_test()
-
 print('done')
+
+'''
+print("Let's wait 10 seconds for things to settle...")
+time.sleep(10)
+
+print_statistics()
+
+print("Now wait 5 minutes for the second measurement...")
+time.sleep(5 * 60)
+
+print_statistics()
+'''
