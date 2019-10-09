@@ -29,7 +29,7 @@ def create_node(name):
     nsname = 'ns-{}'.format(name)
     brname = "br-{}".format(name)
     upname = "uplink"
-    downname = "downlink-{}".format(name)
+    downname = "dl-{}".format(name)
 
     exec('ip netns add "{}"'.format(nsname))
 
@@ -65,16 +65,19 @@ def create_link(source, target, source_tc, target_tc):
 
     if source not in nodes:
         create_node(source)
-        nodes[source] = True
+        nodes[source] = len(nodes)
 
     if target not in nodes:
         create_node(target)
-        nodes[target] = True
+        nodes[target] = len(nodes)
 
+    # use numbers to shorten interface names
+    id1 = nodes[source]
+    id2 = nodes[target]
     nsname1 = "ns-{}".format(source)
     nsname2 = "ns-{}".format(target)
-    ifname1 = "veth-{}-{}".format(source, target)
-    ifname2 = "veth-{}-{}".format(target, source)
+    ifname1 = "veth-{}-{}".format(id1, id2)
+    ifname2 = "veth-{}-{}".format(id2, id1)
 
     br1name = "br-{}".format(source)
     br2name = "br-{}".format(target)
