@@ -10,7 +10,7 @@ nodes = {}
 def exec(cmd):
     rc = os.system(cmd)
     if rc != 0:
-        print('Abort, command failed: "{}"'.format(cmd))
+        print('Abort, command failed: {}'.format(cmd))
         os.system('ip -all netns delete')
         print('Cleanup done')
         exit(1)
