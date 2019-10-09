@@ -46,7 +46,7 @@ This is what the script does:
     1. disable IPv6 since no IPv6 network logic is needed here
 2. For every node (`<name>`)
     1. create a network namespace (`ns-<name>`)
-    2. create a bridge in namepace `switch` (`br-<name>`) with arp and multicast disabled
+    2. create a bridge (`br-<name>`) in namepace `switch` with arp and multicast disabled
     3. create a pair of connected interfaces (`dl-<name>` and `<uplink>`) in namespace `switch`
         1. put `downlink-<name>` into bridge `br-<name>`
         2. move `<uplink>` into the namespace of the node
