@@ -51,10 +51,6 @@ else:
     print('unknown geometry: {}'.format(geometry))
     exit(1)
 
-if os.path.isfile(path):
-    print('File already exists: {}'.format(path))
-    exit(1)
-
 with open(path, "w") as file:
     json.dump({'links': links}, file)
     print('Wrote {} ({} links)'.format(path, len(links)))
