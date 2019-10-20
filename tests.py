@@ -205,6 +205,19 @@ def stop_babel_instances(nsnames):
         exec('rm -f /var/run/babel')
         exec('ip netns exec "{}" pkill babeld'.format(nsname, nsname))
 
+def start_olsr_instances(nsnames):
+    for nsname in nsnames:
+        if verbose:
+            print("  start olsr on {}".format(nsname))
+
+        exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname, nsname))
+
+def stop_olsr_instances(nsnames):
+    for nsname in nsnames:
+        if verbose:
+            print("  stop olsr on {}".format(nsname))
+
+        exec('ip netns exec "{}" pkill olsrd'.format(nsname, nsname))
 
 def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
@@ -215,6 +228,8 @@ def start_routing_protocol(protocol, nsnames):
         start_yggdrasil_instances(nsnames)
     elif protocol == "babel":
         start_babel_instances(nsnames)
+    elif protocol == "olsr":
+        start_olsr_instances(nsnames)
     elif protocol == "none":
         start_none_instances(nsnames)
     else:
@@ -228,6 +243,8 @@ def stop_routing_protocol(protocol, nsnames):
         stop_yggdrasil_instances(nsnames)
     elif protocol == "babel":
         stop_babel_instances(nsnames)
+    elif protocol == "olsr":
+        stop_olsr_instances(nsnames)
     elif protocol == "none":
         stop_none_instances(nsnames)
     else:
@@ -337,7 +354,7 @@ if os.popen('id -u').read().strip() != "0":
     exit(1)
 
 if len(sys.argv) != 3:
-    print("Usage: {} <none|babel|batman-adv|yggdrasil> <start|stop|test_misc|test_traffic|test_convergence>".format(sys.argv[0]))
+    print("Usage: {} <none|babel|batman-adv|olsr|yggdrasil> <start|stop|test_misc|test_traffic|test_convergence>".format(sys.argv[0]))
     exit(1)
 
 protocol = sys.argv[1]
@@ -347,7 +364,7 @@ nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('
 # network interface to send packets to/from
 uplink_interface = "uplink"
 
-if protocol in ['none', 'babel', 'batman-adv', 'yggdrasil']:
+if protocol in ['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil']:
     # batman-adv uses its own interface as entry point to the mesh
     if protocol == 'batman-adv':
         uplink_interface = 'bat0'
