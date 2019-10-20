@@ -5,6 +5,8 @@ A packet send on an interface will be received on all uplinks in all connected n
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org) and [yggdrasil](https://github.com/yggdrasil-network).
 
+Topology and link quality changes are supported.
+
 graph.json:
 ```
 {
