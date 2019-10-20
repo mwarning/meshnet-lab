@@ -5,9 +5,6 @@ A packet send on an interface will be received on all uplinks in all connected n
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org) and [yggdrasil](https://github.com/yggdrasil-network).
 
-Run `sudo ./network.py none graph.json` to create a network.
-Run `sudo ./tests.py batman-adv` to start batman-adv in every network namespace and run some tests.
-
 graph.json:
 ```
 {
