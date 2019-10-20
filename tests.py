@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import time
+import random
+import datetime
 import json
 import sys
 import os
@@ -18,6 +19,9 @@ def exec(cmd):
         #print('Cleanup done')
         exit(1)
 
+def now():
+    return datetime.datetime.now().replace(microsecond = 0)
+
 def get_addr(nsname, interface):
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
     for line in output.split("\n"):
@@ -34,6 +38,9 @@ class PingStatistics:
 
         nstarget_addr = get_addr(nstarget, interface)
         if nstarget_addr is not None:
+            if (verbose):
+                print('From {} ping {} ({})'.format(nssource, nstarget_addr, nstarget))
+
             output = os.popen('ip netns exec "{}" ping -c {} -W {} -D -I {} {} '.format(nssource, packets, wait, interface, nstarget_addr)).read()
             #print(output)
             lines = output.split('\n')
@@ -71,17 +78,27 @@ class PingStatisticsSummary:
             self.paths_tested, self.all_reached, self.all_lost, self.duration
         ))
 
-def get_ping_statistics(nsnames, interface, packets, wait):
+def get_ping_statistics(nsnames, interface, samples = None):
+    packets = 1
+    wait = 1
+    max_pairs = len(nsnames) * (len(nsnames) - 1)
+    if (samples is None) or (samples > max_pairs):
+        samples = max_pairs
+    probability =  samples / max_pairs
     stats = []
-    start_time = time.time()
+    start_time = now()
+    count = 0
+
     for node1 in nsnames:
         for node2 in nsnames:
             if node1 == node2:
                 continue
-            stats.append(PingStatistics(node1, node2, interface, packets, wait))
+            if random.random() < probability and count < samples:
+                stats.append(PingStatistics(node1, node2, interface, packets, wait))
+                count += 1
 
     summary = PingStatisticsSummary()
-    summary.duration = time.time() - start_time
+    summary.duration = now() - start_time
     summary.paths_tested = len(stats)
     for stat in stats:
         #print("{} -> {}: stat.packet_loss {}".format(stat.nssource, stat.nstarget, stat.packet_loss))
@@ -114,10 +131,9 @@ class TrafficStatisticsSummary:
         self.tx_packets = 0
 
     def print(self):
-        print('packets: {}/{}, traffic: {}/{} (duration: {})'.format(
-            self.rx_packets, self.tx_packets,
-            format_bytes(self.rx_bytes), format_bytes(self.tx_bytes),
-            self.duration
+        print('received {} ({} bytes, {} packets), send: {} ({} bytes, {} packets)'.format(
+            format_bytes(self.rx_bytes), self.rx_bytes, self.rx_packets,
+            format_bytes(self.tx_bytes), self.tx_bytes, self.tx_bytes
         ))
 
 def format_bytes(size):
@@ -131,7 +147,7 @@ def format_bytes(size):
 
 def get_traffic_statistics(nsnames):
     stats = []
-    start_time = time.time()
+    start_time = now()
 
     # fetch uplink statistics
     for nsname in nsnames:
@@ -139,7 +155,7 @@ def get_traffic_statistics(nsnames):
 
     # sum all up
     summary = TrafficStatisticsSummary()
-    summary.duration = time.time() - start_time
+    summary.duration = now() - start_time
     for stat in stats:
         summary.rx_bytes += stat.rx_bytes
         summary.rx_packets += stat.rx_packets
@@ -155,7 +171,9 @@ def stop_none_instances(nsnames):
     pass
 
 def start_yggdrasil_instances():
-    print("start yggdrasil")
+    if verbose:
+        print("start yggdrasil")
+
     for name in nodes:
         nsname = 'ns-{}'.format(name)
         if verbose:
@@ -164,7 +182,9 @@ def start_yggdrasil_instances():
         exec('sudo ip netns exec "{}" sh -c \'echo "{{AdminListen: none}}" | yggdrasil -useconf &\''.format(nsname))
 
 def stop_yggdrasil_instances():
-    print("stop yggdrasil")
+    if verbose:
+        print("stop yggdrasil")
+
     for name in nodes:
         nsname = 'ns-{}'.format(name)
         if verbose:
@@ -173,7 +193,9 @@ def stop_yggdrasil_instances():
         exec('sudo ip netns exec "{}" pkill yggdrasil'.format(nsname))
 
 def start_batmanadv_instances(nsnames):
-    print("start batman-adv")
+    if verbose:
+        print("start batman-adv")
+
     for nsname in nsnames:
         if verbose:
             print('  start batman-adv on {}'.format(nsname))
@@ -199,7 +221,9 @@ def start_babel_instances(nsnames):
         exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
-    print("start babel")
+    if verbose:
+        print("start babel")
+
     for nsname in nsnames:
         if verbose:
             print("  stop babel on {}".format(nsname))
@@ -239,14 +263,13 @@ if os.popen('id -u').read().strip() != "0":
     exit(1)
 
 if len(sys.argv) != 2:
-    print("Usage: {} <routing-protocol>".format(sys.argv[0]))
+    print("Usage: {} <none|babel|batman-adv|yggdrasil>".format(sys.argv[0]))
     exit(1)
 
-# get all nodes network name spaces
+# get all nodes network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
-start_time = time.time()
-print('Time to start {}: {}'.format(sys.argv[1], time.time() - start_time))
+start_time = now()
 
 # The actual tests...
 start_routing_protocol(sys.argv[1])
@@ -259,7 +282,7 @@ ts = get_traffic_statistics(nsnames)
 ts.print()
 
 print("ping all node pairs")
-ps = get_ping_statistics(nsnames, test_uplink, 3, 1)
+ps = get_ping_statistics(nsnames, test_uplink, 10)
 ps.print()
 
 print("get traffic statistics")
@@ -269,4 +292,4 @@ ts.print()
 #time.sleep(10)
 stop_routing_protocol(sys.argv[1])
 
-print('done')
+print('Whole test duration: {}'.format(now() - start_time))
