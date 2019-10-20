@@ -68,7 +68,7 @@ sudo ./network.py cleanup
 
 ## Internal Working
 
-Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
+Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
 
 All interfaces in the bridges (except the `<dl-node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `<dl-node>` interface, but not between them.
 
