@@ -27,12 +27,6 @@ def exec(cmd):
         print('Network might be in an undefined state!')
         exit(1)
 
-def ns_exists(nsname):
-    if os.system('ip netns exec "{}" true'.format(nsname)) == 0:
-        return True
-    else:
-        return False
-
 def configure_interface(nsname, ifname):
     # up interface
     exec('ip netns exec "{}" ip link set dev "{}" up'.format(nsname, ifname))
@@ -146,7 +140,13 @@ def create_link(link):
     exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname1))
     exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname2))
 
-    update_link(link)
+    # source -> target
+    if link.source_tc is not None:
+        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.source_tc))
+
+    # target -> source
+    if link.target_tc is not None:
+        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 class Link:
     def __init__(self, source, target, source_tc, target_tc):
@@ -254,11 +254,10 @@ elif len(sys.argv) == 2 and sys.argv[1] == "list":
 elif len(sys.argv) == 3:
     data = get_data(sys.argv[1], sys.argv[2])
 
-    # add switch namespace to contain all bridges (the wiring of the mesh)
-    if not ns_exists("switch"):
-        exec('ip netns add "switch"')
-        # disable IPv6 in switch namespace (no need, less overhead)
-        exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
+    # makesure namespace switch exists (contains the entire wiring of the mesh)
+    exec('ip netns add "switch" > /dev/null 2>&1')
+    # disable IPv6 in switch namespace (no need, less overhead)
+    exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
     #print("links_update: {}, links_create: {}, links_remove: {}".format(
     #    len(data.links_update), len(data.links_create), len(data.links_remove)))
