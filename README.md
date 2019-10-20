@@ -38,7 +38,7 @@ Useful commands:
 
 - `./network.py list`: List all network namespaces.
 - `./network.py cleanup`: Remove all network namespaces.
-- `./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
+- `./network.py <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
 - `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Usage
