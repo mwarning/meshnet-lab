@@ -251,7 +251,7 @@ def test_convergence(nsnames):
         ps = get_ping_statistics(pairs, uplink_interface)
         ts = get_traffic_statistics(nsnames)
         stop = now()
-        print('reached: {:02}%'.format(100 * ps.reached / (ps.lost + ps.reached)))
+        print('reached: {:0.2f}%'.format(100 * ps.reached / (ps.lost + ps.reached)))
         d = now() - start
         seconds = d.seconds + d.microseconds / 1000000
         print('send: {}/s ({}/s per node)'.format(
