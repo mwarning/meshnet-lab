@@ -57,4 +57,4 @@ if os.path.isfile(path):
 
 with open(path, "w") as file:
     json.dump({'links': links}, file)
-    print('Wrote {}'.format(path))
+    print('Wrote {} ({} links)'.format(path, len(links)))
