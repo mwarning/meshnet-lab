@@ -272,7 +272,7 @@ def test_traffic(nsnames):
         print('Network of at least two nodes needed!')
         exit(1)
 
-    d = 5
+    d = 10
     print('meassure traffic over {} seconds...'.format(d))
     start = now()
     ts1 = get_traffic_statistics(nsnames)
