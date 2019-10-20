@@ -77,7 +77,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 ## TODO
 
 - Do not require the present state to be given.
-- Better a topology generator.
+- Better topology generator (more features).
 
 ## Related Projects
 
