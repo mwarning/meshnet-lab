@@ -174,8 +174,8 @@ def parse_json_files(json_data):
     links = {}
     nodes = {}
     for link in json_data['links']:
-        source = link['source']
-        target = link['target']
+        source = str(link['source'])
+        target = str(link['target'])
         source_tc = link.get('source_tc')
         target_tc = link.get('target_tc')
 
