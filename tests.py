@@ -3,11 +3,9 @@
 import random
 import datetime
 import time
-import json
 import sys
 import os
 import re
-import glob
 
 verbose = False
 
@@ -20,7 +18,7 @@ def exec(cmd):
         exit(1)
 
 def now():
-    return datetime.datetime.now().replace(microsecond = 0)
+    return datetime.datetime.now()
 
 def get_addr(nsname, interface):
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
@@ -69,13 +67,13 @@ class PingStatistics:
 class PingStatisticsSummary:
     def __init__(self):
         self.paths_tested = 0
-        self.all_lost = 0
-        self.all_reached = 0
+        self.lost = 0
+        self.reached = 0
         self.duration = 0
 
     def print(self):
         print("{} paths tested, reached: {}, lost: {} (duration: {})".format(
-            self.paths_tested, self.all_reached, self.all_lost, self.duration
+            self.paths_tested, self.reached, self.lost, self.duration
         ))
 
 def get_ping_statistics(pairs, interface):
@@ -92,9 +90,9 @@ def get_ping_statistics(pairs, interface):
     summary.paths_tested = len(stats)
     for stat in stats:
         if stat.packet_loss == 100:
-            summary.all_lost += 1
+            summary.lost += 1
         if stat.packet_loss == 0:
-            summary.all_reached += 1
+            summary.reached += 1
 
     return summary
 
@@ -207,10 +205,8 @@ def stop_babel_instances(nsnames):
         exec('rm -f /var/run/babel')
         exec('ip netns exec "{}" pkill babeld'.format(nsname, nsname))
 
-# network interface to send packets to/from
-uplink_interface = "uplink"
 
-def start_routing_protocol(protocol):
+def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
         start_batmanadv_instances(nsnames)
         global uplink_interface
@@ -225,7 +221,7 @@ def start_routing_protocol(protocol):
         print('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
 
-def stop_routing_protocol(protocol):
+def stop_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
         stop_batmanadv_instances(nsnames)
     elif protocol == "yggdrasil":
@@ -238,49 +234,111 @@ def stop_routing_protocol(protocol):
         print('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
 
+# test convergence of the routing protocol
+def test_convergence(nsnames):
+    paths = 100
+    pairs = random.sample(list(zip(nsnames, nsnames)), min(len(nsnames), paths))
+
+    prev_ts = get_traffic_statistics(nsnames)
+
+    for n in range(1, 15):
+        start = now()
+        time.sleep(1)
+        ps = get_ping_statistics(pairs, uplink_interface)
+        ts = get_traffic_statistics(nsnames)
+        stop = now()
+        print('reached: {}%'.format(100 * ps.reached / (ps.lost + ps.reached)))
+        d = now() - start
+        seconds = d.seconds + d.microseconds / 1000000
+        print('traffic: {}/s'.format(format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds)))
+        prev_ts = ts
+        if ps.reached == len(pairs):
+            print('all reached after {} iterations'.format(n))
+            break
+
+def test_traffic(nsnames):
+    d = 5
+    print('meassure traffic over {} seconds...'.format(d))
+    start = now()
+    ts1 = get_traffic_statistics(nsnames)
+    time.sleep(5)
+    ts2 = get_traffic_statistics(nsnames)
+    stop = now()
+    d = now() - start
+    seconds = d.seconds + d.microseconds / 1000000
+    print('traffic: {}/s'.format(format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds)))
+
+# some miscellaneous tests
+def test_misc(nsnames):
+    # create a list of 10 unique test pairs
+    pairs = random.sample(list(zip(nsnames, nsnames)), 10)
+
+    start_time = now()
+
+    print('start {}'.format(protocol))
+    start_routing_protocol(protocol)
+
+    print("get traffic statistics")
+    ts = get_traffic_statistics(nsnames)
+    ts.print()
+
+    print('wait 10 seconds')
+    time.sleep(10)
+
+    print("1. ping")
+    ps = get_ping_statistics(pairs, uplink_interface)
+    ps.print()
+
+    print('wait 10 seconds')
+    time.sleep(10)
+
+    print("2. ping")
+    ps = get_ping_statistics(pairs, uplink_interface)
+    ps.print()
+
+    print("get traffic statistics")
+    ts = get_traffic_statistics(nsnames)
+    ts.print()
+
+    print('stop {}'.format(protocol))
+    stop_routing_protocol(protocol)
+
+    print('Whole test duration: {}'.format(now() - start_time))
+
+
 if os.popen('id -u').read().strip() != "0":
     print("Need to run as root.")
     exit(1)
 
-if len(sys.argv) != 2:
-    print("Usage: {} <none|babel|batman-adv|yggdrasil>".format(sys.argv[0]))
+if len(sys.argv) != 3:
+    print("Usage: {} <none|babel|batman-adv|yggdrasil> <start|stop|test_misc|test_traffic|test_convergence>".format(sys.argv[0]))
     exit(1)
 
-# get all nodes network namespaces
+protocol = sys.argv[1]
+command = sys.argv[2]
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
-start_time = now()
-protocol = sys.argv[1]
-# create a list of 10 unique test pairs
-pairs = random.sample(list(zip(nsnames, nsnames)), 10)
+# network interface to send packets to/from
+uplink_interface = "uplink"
 
-# The actual tests...
-print('start {}'.format(protocol))
-start_routing_protocol(protocol)
+if protocol in ['none', 'babel', 'batman-adv', 'yggdrasil']:
+    # batman-adv uses its own interface as entry point to the mesh
+    if protocol == 'batman-adv':
+        uplink_interface = 'bat0'
+else:
+    print('unknown protocol: {}'.format(protocol))
+    exit(1)
 
-print("get traffic statistics")
-ts = get_traffic_statistics(nsnames)
-ts.print()
-
-print('wait 10 seconds')
-time.sleep(10)
-
-print("1. ping")
-ps = get_ping_statistics(pairs, uplink_interface)
-ps.print()
-
-print('wait 10 seconds')
-time.sleep(10)
-
-print("2. ping")
-ps = get_ping_statistics(pairs, uplink_interface)
-ps.print()
-
-print("get traffic statistics")
-ts = get_traffic_statistics(nsnames)
-ts.print()
-
-print('stop {}'.format(protocol))
-stop_routing_protocol(protocol)
-
-print('Whole test duration: {}'.format(now() - start_time))
+if command == 'start':
+    start_routing_protocol(protocol, nsnames)
+elif command == 'stop':
+    stop_routing_protocol(protocol, nsnames)
+elif command == 'test_traffic':
+    test_traffic(nsnames)
+elif command == 'test_misc':
+    test_misc(nsnames)
+elif command == 'test_convergence':
+    test_convergence(nsnames)
+else:
+    print('unknown command: {}'.format(command))
+    exit(1)
