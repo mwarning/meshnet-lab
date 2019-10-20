@@ -41,6 +41,9 @@ JSON keys:
 ## Usage
 
 ```
+# Remove all namespaces (just in case)
+sudo ./network.py cleanup
+
 # Create a 10x10 lattice and write it to a file called graph.json
 sudo ./topology.py lattice4 10 graph.json
 
