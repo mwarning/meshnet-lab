@@ -281,6 +281,3 @@ elif len(sys.argv) == 3:
 else:
     print_usage(sys.argv[0])
     exit(1)
-
-if verbose:
-    print('...done')
