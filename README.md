@@ -1,11 +1,14 @@
 # Mesh Network Laboratory
 
-Create a mesh network defined in a JSON file. Uses Linux network namespaces and bridges on linux.
-The mesh routing program ([batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [yggdrasil](https://github.com/yggdrasil-network) or [babel](https://www.irif.fr/~jch/software/babel/)) will see only network interface `uplink` to receive and send packets.
-Packets send will be received on all connected instances via their own `uplink` interface.
+Create connected Linux network namespaces each with a single `uplink` interface.
+A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file.
 
-Tools needed: python, ip, bridge
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are ([batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [yggdrasil](https://github.com/yggdrasil-network) and [babel](https://www.irif.fr/~jch/software/babel/)).
 
+Run `sudo ./network.py none data.json` to create a network.
+Run `sudo ./tests.py batman-adv` to start batman-adv in every network namespace and run some tests.
+
+data.json:
 ```
 {
   "links": [
@@ -24,40 +27,29 @@ Tools needed: python, ip, bridge
   ]
 }
 ```
-(from `data.json`)
-
-Run `sudo mesh-network.py batman-adv data.json` to create a mesh network with batman-adv running.
+(The format is somewhat compatible with the [netjson](http://netjson.org/) format)
 
 JSON keys:
-- `source`, `target`: Mandatory. Name for the nodes on each side of a link.
+- `source`, `target`: Mandatory. Name of the network namespace. Maximum of 6 characters long.
 - `source_tc`, `target_tc`: Optional. Will be appended to `tc qdisc add dev <ifname> root ` command to influence traffic on outgoing traffic of a links interface. (TODO: verify that this actually works)
 
-Useful commands:
-
-- List all namespaces: `ip netns list`
-- Remove all namespaces: `ip -all netns delete`
-- Inspect batman-adv state: `ip netns exec "ns-a" batctl o`
+`./network.py list`: List all network namespaces.
+`./network.py cleanup`: Remove all network namespaces.
+`./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
+`ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Internal Working
 
-This is what the script does:
+Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
 
-1. Create a network namespace `switch` for all the virtual links between nodes.
-    1. disable IPv6 since no IPv6 network logic is needed here
-2. For every node (`<name>`)
-    1. create a network namespace (`ns-<name>`)
-    2. create a bridge (`br-<name>`) in namepace `switch` with arp and multicast disabled
-    3. create a pair of connected interfaces (`dl-<name>` and `<uplink>`) in namespace `switch`
-        1. put `downlink-<name>` into bridge `br-<name>`
-        2. move `<uplink>` into the namespace of the node
-3. For every link
-    1. create a pair of connected interfaces (`<veth-<from>-<to>` and `<veth-<to>-<from>`) in namespace `switch`
-    2. put each interface into the bridge of the nodes bridge
-    3. enable isolation on both interfaces so they speak only to the `downlink-<name>` interface of the bridge
+All interfaces in the bridges (except the `<dl-node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `<dl-node>` interface, but not between them.
+
+All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave link a hub. A packet from the uplink will be send to all connections, but not between them.
 
 ## TODO
 
-Create a topology generator and tests.
+- Do not require the present state to be given.
+- Create a topology generator.
 
 ## Related Projects
 
