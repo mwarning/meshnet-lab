@@ -48,6 +48,8 @@ def create_line(count, loop = False):
     if loop and (count > 2):
         links.append({'source': (offset + 0), 'target': (offset + count - 1)})
 
+    return links
+
 if len(sys.argv) != 4:
     print("Usage: {} [lattice4|lattice8|circle|line] <n> <output-file>".format(sys.argv[0]))
     exit(1)
