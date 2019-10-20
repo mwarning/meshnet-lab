@@ -38,6 +38,28 @@ JSON keys:
 `./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
 `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
+## Usage
+
+```
+# Create a 10x10 lattice and write it to a file called graph.json
+sudo ./topology.py lattice4 10 graph.json
+
+# Setup the network structure of namespaces
+sudo ./network.py none graph.json
+
+# Start batman-adv in every namespace
+sudo ./tests.py batman-adv start
+
+# Test convergence by sending a few pings on random paths
+sudo ./tests.py batman-adv test_convergence
+
+# Stop batman-adv
+sudo ./tests.py batman-adv stop
+
+# Remove all namespaces
+sudo ./network.py cleanup
+```
+
 ## Internal Working
 
 Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
