@@ -255,7 +255,7 @@ elif len(sys.argv) == 3:
     data = get_data(sys.argv[1], sys.argv[2])
 
     # makesure namespace switch exists (contains the entire wiring of the mesh)
-    exec('ip netns add "switch" > /dev/null 2>&1')
+    os.system('ip netns add "switch" > /dev/null 2>&1')
     # disable IPv6 in switch namespace (no need, less overhead)
     exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
