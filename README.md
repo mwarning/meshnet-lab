@@ -1,4 +1,4 @@
-# Mesh Network Laboratory
+# Mesh Network Lab
 
 Create connected Linux network namespaces each with a single `uplink` interface.
 A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file.
