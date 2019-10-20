@@ -164,11 +164,10 @@ class Data:
         self.nodes_create = []
         self.nodes_remove = []
 
-def parse_json_files(json_file):
-    data = json.load(json_file)
+def parse_json_files(json_data):
     links = {}
     nodes = {}
-    for link in data['links']:
+    for link in json_data['links']:
         source = link['source']
         target = link['target']
         source_tc = link.get('source_tc')
@@ -196,17 +195,18 @@ def parse_json_files(json_file):
     return (links, nodes)
 
 def get_data(arg1, arg2):
-    old_json = '{"links":[]}'
-    new_json = '{"links":[]}'
+    # empty defaults
+    old = json.loads('{"links":[]}')
+    new = json.loads('{"links":[]}')
 
     if arg1 != 'none':
-        json_data_old = open(arg1)
+        old = json.load(open(arg1))
 
     if arg2 != 'none':
-        json_data_new = open(arg2)
+        new = json.load(open(arg2))
 
-    (links_old, nodes_old) = parse_json_files(json_data_old)
-    (links_new, nodes_new) = parse_json_files(json_data_new)
+    (links_old, nodes_old) = parse_json_files(old)
+    (links_new, nodes_new) = parse_json_files(new)
 
     data = Data()
 
