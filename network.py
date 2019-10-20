@@ -5,6 +5,7 @@ import json
 import sys
 import os
 
+verbose = True
 
 def print_usage(prog_name):
     print((
@@ -42,7 +43,8 @@ def configure_interface(nsname, ifname):
 
 def remove_node(node):
     name = node.name
-    print("  remove node {}".format(name))
+    if verbose:
+        print("  remove node {}".format(name))
 
     nsname = 'ns-{}'.format(name)
     brname = "br-{}".format(name)
@@ -59,7 +61,8 @@ def remove_node(node):
 
 def create_node(node):
     name = node.name
-    print("  create node {}".format(name))
+    if verbose:
+        print("  create node {}".format(name))
 
     nsname = 'ns-{}'.format(name)
     brname = "br-{}".format(name)
@@ -95,14 +98,16 @@ def create_node(node):
     configure_interface(nsname, upname)
 
 def remove_link(link):
-    print("  remove link {} <-> {}".format(link.source, link.target))
+    if verbose:
+        print("  remove link {} <-> {}".format(link.source, link.target))
 
     ifname1 = "ve-{}-{}".format(link.source, link.target)
     ifname2 = "ve-{}-{}".format(link.target, link.source)
     exec('ip netns exec "switch" ip link del "{}" type veth peer name "{}"'.format(ifname1, ifname2))
 
 def update_link(link):
-    print("  update link {} <-> {}".format(link.source, link.target))
+    if verbose:
+        print("  update link {} <-> {}".format(link.source, link.target))
 
     ifname1 = "ve-{}-{}".format(link.source, link.target)
     ifname2 = "ve-{}-{}".format(link.target, link.source)
@@ -116,7 +121,8 @@ def update_link(link):
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 def create_link(link):
-    print("  create link {} <-> {}".format(link.source, link.target))
+    if verbose:
+        print("  create link {} <-> {}".format(link.source, link.target))
 
     nsname1 = "ns-{}".format(link.source)
     nsname2 = "ns-{}".format(link.target)
@@ -277,4 +283,5 @@ else:
     print_usage(sys.argv[0])
     exit(1)
 
-print('...done')
+if verbose:
+    print('...done')
