@@ -12,6 +12,7 @@ import glob
 def create_lattice(x_count, y_count, diag = False):
     links = []
     offset = 0
+
     if x_count < 1 or y_count < 1:
         return links
 
@@ -33,9 +34,22 @@ def create_lattice(x_count, y_count, diag = False):
 
     return links
 
+def create_line(count, loop = False):
+    links = []
+    offset = 0
+
+    if count < 1:
+        return links
+
+    for i in range(0, count):
+        if i > 0:
+            links.append({'source': (offset + i - 1), 'target': (offset + i)})
+
+    if loop and (count > 2):
+        links.append({'source': (offset + 0), 'target': (offset + count - 1)})
 
 if len(sys.argv) != 4:
-    print("Usage: {} [lattice4|lattice8] <n> <output-file>".format(sys.argv[0]))
+    print("Usage: {} [lattice4|lattice8|circle|line] <n> <output-file>".format(sys.argv[0]))
     exit(1)
 
 geometry = sys.argv[1]
@@ -47,6 +61,10 @@ if geometry == 'lattice4':
 	links = create_lattice(number, number, False)
 elif geometry == 'lattice8':
 	links = create_lattice(number, number, True)
+elif geometry == 'circle':
+    links = create_line(number, True)
+elif geometry == 'line':
+    links = create_line(number, False)
 else:
     print('unknown geometry: {}'.format(geometry))
     exit(1)
