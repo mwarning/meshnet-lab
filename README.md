@@ -30,13 +30,17 @@ data.json:
 (The format is somewhat compatible with the [netjson](http://netjson.org/) format)
 
 JSON keys:
+
 - `source`, `target`: Mandatory. Name of the network namespace. Maximum of 6 characters long.
 - `source_tc`, `target_tc`: Optional. Will be appended to `tc qdisc add dev <ifname> root ` command to influence traffic on outgoing traffic of a links interface. (TODO: verify that this actually works)
 
-`./network.py list`: List all network namespaces.
-`./network.py cleanup`: Remove all network namespaces.
-`./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
-`ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
+
+Useful commands:
+
+- `./network.py list`: List all network namespaces.
+- `./network.py cleanup`: Remove all network namespaces.
+- `./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
+- `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Usage
 
@@ -74,7 +78,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 ## TODO
 
 - Do not require the present state to be given.
-- Create a topology generator.
+- Better a topology generator.
 
 ## Related Projects
 
