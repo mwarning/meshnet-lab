@@ -236,6 +236,10 @@ def stop_routing_protocol(protocol, nsnames):
 
 # test convergence of the routing protocol
 def test_convergence(nsnames):
+    if len(nsnames) < 2:
+        print('Network of at least two nodes needed!')
+        exit(1)
+
     paths = 100
     pairs = random.sample(list(zip(nsnames, nsnames)), min(len(nsnames), paths))
 
@@ -247,16 +251,27 @@ def test_convergence(nsnames):
         ps = get_ping_statistics(pairs, uplink_interface)
         ts = get_traffic_statistics(nsnames)
         stop = now()
-        print('reached: {}%'.format(100 * ps.reached / (ps.lost + ps.reached)))
+        print('reached: {:02}%'.format(100 * ps.reached / (ps.lost + ps.reached)))
         d = now() - start
         seconds = d.seconds + d.microseconds / 1000000
-        print('traffic: {}/s'.format(format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds)))
+        print('send: {}/s ({}/s per node)'.format(
+            format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds),
+            format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds / len(nsnames))
+        ))
+        print('received: {}/s ({}/s per node)'.format(
+            format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds),
+            format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds / len(nsnames))
+        ))
         prev_ts = ts
         if ps.reached == len(pairs):
-            print('all reached after {} iterations'.format(n))
+            print('all instances reached after {} iterations'.format(n))
             break
 
 def test_traffic(nsnames):
+    if len(nsnames) < 2:
+        print('Network of at least two nodes needed!')
+        exit(1)
+
     d = 5
     print('meassure traffic over {} seconds...'.format(d))
     start = now()
@@ -266,10 +281,21 @@ def test_traffic(nsnames):
     stop = now()
     d = now() - start
     seconds = d.seconds + d.microseconds / 1000000
-    print('traffic: {}/s'.format(format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds)))
+    print('send: {}/s ({}/s per node)'.format(
+        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds),
+        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames))
+    ))
+    print('received: {}/s ({}/s per node)'.format(
+        format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds),
+        format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames))
+    ))
 
 # some miscellaneous tests
 def test_misc(nsnames):
+    if len(nsnames) < 2:
+        print('Network of at least two nodes needed!')
+        exit(1)
+
     # create a list of 10 unique test pairs
     pairs = random.sample(list(zip(nsnames, nsnames)), 10)
 
