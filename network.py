@@ -38,11 +38,11 @@ def configure_interface(nsname, ifname):
 def remove_node(node):
     name = node.name
     if verbose:
-        print("  remove node {}".format(name))
+        print('  remove node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
-    brname = "br-{}".format(name)
-    downname = "dl-{}".format(name)
+    brname = 'br-{}'.format(name)
+    downname = 'dl-{}'.format(name)
 
     # remove veth pair upname/downname (removes both)
     exec('ip netns exec "switch" ip link delete "{}"'.format(downname))
@@ -56,12 +56,12 @@ def remove_node(node):
 def create_node(node):
     name = node.name
     if verbose:
-        print("  create node {}".format(name))
+        print('  create node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
-    brname = "br-{}".format(name)
-    upname = "uplink"
-    downname = "dl-{}".format(name)
+    brname = 'br-{}'.format(name)
+    upname = 'uplink'
+    downname = 'dl-{}'.format(name)
 
     exec('ip netns add "{}"'.format(nsname))
 
@@ -93,18 +93,18 @@ def create_node(node):
 
 def remove_link(link):
     if verbose:
-        print("  remove link {} <-> {}".format(link.source, link.target))
+        print('  remove link {} <-> {}'.format(link.source, link.target))
 
-    ifname1 = "ve-{}-{}".format(link.source, link.target)
-    ifname2 = "ve-{}-{}".format(link.target, link.source)
+    ifname1 = 've-{}-{}'.format(link.source, link.target)
+    ifname2 = 've-{}-{}'.format(link.target, link.source)
     exec('ip netns exec "switch" ip link del "{}" type veth peer name "{}"'.format(ifname1, ifname2))
 
 def update_link(link):
     if verbose:
-        print("  update link {} <-> {}".format(link.source, link.target))
+        print('  update link {} <-> {}'.format(link.source, link.target))
 
-    ifname1 = "ve-{}-{}".format(link.source, link.target)
-    ifname2 = "ve-{}-{}".format(link.target, link.source)
+    ifname1 = 've-{}-{}'.format(link.source, link.target)
+    ifname2 = 've-{}-{}'.format(link.target, link.source)
 
     # source -> target
     if link.source_tc is not None:
@@ -116,21 +116,21 @@ def update_link(link):
 
 def create_link(link):
     if verbose:
-        print("  create link {} <-> {}".format(link.source, link.target))
+        print('  create link {} <-> {}'.format(link.source, link.target))
 
-    nsname1 = "ns-{}".format(link.source)
-    nsname2 = "ns-{}".format(link.target)
-    ifname1 = "ve-{}-{}".format(link.source, link.target)
-    ifname2 = "ve-{}-{}".format(link.target, link.source)
+    nsname1 = 'ns-{}'.format(link.source)
+    nsname2 = 'ns-{}'.format(link.target)
+    ifname1 = 've-{}-{}'.format(link.source, link.target)
+    ifname2 = 've-{}-{}'.format(link.target, link.source)
 
-    br1name = "br-{}".format(link.source)
-    br2name = "br-{}".format(link.target)
+    br1name = 'br-{}'.format(link.source)
+    br2name = 'br-{}'.format(link.target)
 
     # create pair of interfaces
     exec('ip netns exec "switch" ip link add "{}" type veth peer name "{}"'.format(ifname1, ifname2))
 
-    configure_interface("switch", ifname1)
-    configure_interface("switch", ifname2)
+    configure_interface('switch', ifname1)
+    configure_interface('switch', ifname2)
 
     # put into bridge
     exec('ip netns exec "switch" ip link set "{}" master "{}"'.format(ifname2, br2name))
@@ -242,14 +242,14 @@ def get_data(arg1, arg2):
     return data
 
 
-if os.popen('id -u').read().strip() != "0":
-    print("Need to run as root.")
+if os.popen('id -u').read().strip() != '0':
+    print('Need to run as root.')
     exit(1)
 
-if len(sys.argv) == 2 and sys.argv[1] == "cleanup":
+if len(sys.argv) == 2 and sys.argv[1] == 'cleanup':
     os.system('ip -all netns delete')
     # TODO: kill all programs in network namespaces
-elif len(sys.argv) == 2 and sys.argv[1] == "list":
+elif len(sys.argv) == 2 and sys.argv[1] == 'list':
     os.system('ip netns list')
 elif len(sys.argv) == 3:
     data = get_data(sys.argv[1], sys.argv[2])
