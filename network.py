@@ -162,7 +162,7 @@ class Node:
     def __init__(self, name):
         self.name = name
 
-class Data:
+class Task:
     def __init__(self):
         self.links_create = []
         self.links_update = []
@@ -170,7 +170,7 @@ class Data:
         self.nodes_create = []
         self.nodes_remove = []
 
-def parse_json_files(json_data):
+def process_json(json_data):
     links = {}
     nodes = {}
     for link in json_data['links']:
@@ -200,7 +200,7 @@ def parse_json_files(json_data):
 
     return (links, nodes)
 
-def get_data(arg1, arg2):
+def get_task(arg1, arg2):
     # empty defaults
     old = json.loads('{"links":[]}')
     new = json.loads('{"links":[]}')
@@ -211,10 +211,10 @@ def get_data(arg1, arg2):
     if arg2 != 'none':
         new = json.load(open(arg2))
 
-    (links_old, nodes_old) = parse_json_files(old)
-    (links_new, nodes_new) = parse_json_files(new)
+    (links_old, nodes_old) = process_json(old)
+    (links_new, nodes_new) = process_json(new)
 
-    data = Data()
+    data = Task()
 
     for key in links_new:
         if not key in links_old:
@@ -252,7 +252,7 @@ if len(sys.argv) == 2 and sys.argv[1] == 'cleanup':
 elif len(sys.argv) == 2 and sys.argv[1] == 'list':
     os.system('ip netns list')
 elif len(sys.argv) == 3:
-    data = get_data(sys.argv[1], sys.argv[2])
+    data = get_task(sys.argv[1], sys.argv[2])
 
     # makesure namespace switch exists (contains the entire wiring of the mesh)
     os.system('ip netns add "switch" > /dev/null 2>&1')
