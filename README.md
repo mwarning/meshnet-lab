@@ -7,7 +7,7 @@ This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supporte
 
 Topology and link quality changes are supported.
 
-graph.json:
+Example JSON file:
 ```
 {
   "links": [
@@ -26,13 +26,11 @@ graph.json:
   ]
 }
 ```
-(The format is somewhat compatible with the [netjson](http://netjson.org/) format)
 
 JSON keys:
 
 - `source`, `target`: Mandatory. Name of the network namespace. Maximum of 6 characters long.
-- `source_tc`, `target_tc`: Optional. Will be appended to `tc qdisc add dev <ifname> root ` command to influence traffic on outgoing traffic of a links interface. (TODO: verify that this actually works)
-
+- `source_tc`, `target_tc`: Optional. It will be appended to the `tc qdisc add dev <veth-interface> root` command and affects outgoing traffic on interface pairs connecting the bridges. (TODO: verify that this actually works)
 
 Useful commands:
 
@@ -68,7 +66,7 @@ sudo ./network.py cleanup
 
 ## Internal Working
 
-Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
+Every node is represented by its own network namespace and a bridge in the dedicated network namespace named `switch`. The node namespace and bridge in `switch` are connected by a veth interface pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
 
 All interfaces in the bridges (except the `<dl-node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `<dl-node>` interface, but not between them.
 
