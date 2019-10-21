@@ -10,7 +10,13 @@ import re
 verbose = False
 
 def exec(cmd):
-    rc = os.system(cmd)
+    rc = 0
+
+    if verbose:
+        rc = os.system(cmd)
+    else:
+        rc = os.system('{} > /dev/null 2>&1'.format(cmd))
+
     if rc != 0:
         print('Abort, command failed: {}'.format(cmd))
         #todo: kill routing programs!
@@ -162,14 +168,15 @@ def start_yggdrasil_instances(nsnames):
         if verbose:
             print("  start yggdrasil on {}".format(nsname))
 
-        exec('sudo ip netns exec "{}" sh -c \'echo "AdminListen: none" | yggdrasil -useconf &\''.format(nsname))
+        exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
+        exec('ip netns exec "{}" sh -c \'echo "AdminListen: none" | yggdrasil -useconf &\''.format(nsname))
 
 def stop_yggdrasil_instances(nsnames):
-    for nsname in nsnames:
-        if verbose:
-            print("  stop yggdrasil on {}".format(nsname))
+    if verbose:
+       print("  stop yggdrasil in all namespaces")
 
-        exec('sudo ip netns exec "{}" pkill yggdrasil'.format(nsname))
+    if len(nsnames) > 0:
+        exec('pkill yggdrasil')
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
@@ -196,26 +203,26 @@ def start_babel_instances(nsnames):
         exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
-    for nsname in nsnames:
-        if verbose:
-            print("  stop babel on {}".format(nsname))
+    if verbose:
+        print("  stop babel in all namespaces")
 
+    if len(nsnames) > 0:
         exec('rm -f /var/run/babel')
-        exec('ip netns exec "{}" pkill babeld'.format(nsname, nsname))
+        exec('pkill babeld')
 
 def start_olsr_instances(nsnames):
     for nsname in nsnames:
         if verbose:
             print("  start olsr on {}".format(nsname))
 
-        exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname, nsname))
+        exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname))
 
 def stop_olsr_instances(nsnames):
-    for nsname in nsnames:
-        if verbose:
-            print("  stop olsr on {}".format(nsname))
+    if verbose:
+        print("  stop olsr in all namespaces")
 
-        exec('ip netns exec "{}" pkill olsrd'.format(nsname, nsname))
+    if len(nsnames) > 0:
+        exec('pkill olsrd')
 
 def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
