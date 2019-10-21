@@ -36,7 +36,7 @@ Useful commands:
 
 - `./network.py list`: List all network namespaces.
 - `./network.py cleanup`: Remove all network namespaces.
-- `./network.py <from-state> <to-state>`: Change the network from defined in `<state1>` to `<state2>` via JSON files. `none` can be used as an alias for an empty network. (TODO: do not require an explicit current state)
+- `./network.py <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
 - `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Usage
@@ -66,16 +66,16 @@ sudo ./network.py cleanup
 
 ## Internal Working
 
-Every node is represented by its own network namespace and a bridge in the dedicated network namespace named `switch`. The node namespace and bridge in `switch` are connected by a veth interface pair `ulink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth pairs in the `switch` namespace.
+Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth interface pairs in the `switch` namespace.
 
-All interfaces in the bridges (except the `<dl-node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `<dl-node>` interface, but not between them.
+All interfaces in the bridges (except the `dl-<node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `dl-<node>` interface, but not between them.
 
 All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave link a hub. A packet from the uplink will be send to all connections, but not between them.
 
 ## TODO
 
 - Do not require the present state to be given.
-- Better a topology generator.
+- Better topology generator (more features).
 
 ## Related Projects
 
