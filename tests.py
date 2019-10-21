@@ -157,17 +157,15 @@ def start_none_instances(nsnames):
 def stop_none_instances(nsnames):
     pass
 
-def start_yggdrasil_instances():
-    for name in nodes:
-        nsname = 'ns-{}'.format(name)
+def start_yggdrasil_instances(nsnames):
+    for nsname in nsnames:
         if verbose:
             print("  start yggdrasil on {}".format(nsname))
 
-        exec('sudo ip netns exec "{}" sh -c \'echo "{{AdminListen: none}}" | yggdrasil -useconf &\''.format(nsname))
+        exec('sudo ip netns exec "{}" sh -c \'echo "AdminListen: none" | yggdrasil -useconf &\''.format(nsname))
 
-def stop_yggdrasil_instances():
-    for name in nodes:
-        nsname = 'ns-{}'.format(name)
+def stop_yggdrasil_instances(nsnames):
+    for nsname in nsnames:
         if verbose:
             print("  stop yggdrasil on {}".format(nsname))
 
@@ -222,8 +220,6 @@ def stop_olsr_instances(nsnames):
 def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
         start_batmanadv_instances(nsnames)
-        global uplink_interface
-        uplink_interface = "bat0"
     elif protocol == "yggdrasil":
         start_yggdrasil_instances(nsnames)
     elif protocol == "babel":
@@ -368,6 +364,8 @@ if protocol in ['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil']:
     # batman-adv uses its own interface as entry point to the mesh
     if protocol == 'batman-adv':
         uplink_interface = 'bat0'
+    elif protocol == 'yggdrasil':
+        uplink_interface = 'tun0'
 else:
     print('unknown protocol: {}'.format(protocol))
     exit(1)
