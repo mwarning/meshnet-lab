@@ -79,6 +79,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Related Projects
 
+- [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
 - [mlc](https://github.com/axn/mlc) (for bmx routing daemon, very complex)
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, very simple)
 - [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, simple)
