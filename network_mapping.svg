@@ -197,7 +197,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="325.5519"
+     inkscape:cx="154.36202"
      inkscape:cy="343.0995"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -219,7 +219,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -249,14 +249,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.47662687px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27978918"
-       x="29.80014"
-       y="134.75305"
+       x="8.6858482"
+       y="134.48579"
        id="text825"><tspan
          sodipodi:role="line"
          id="tspan823"
-         x="29.80014"
-         y="134.75305"
-         style="font-size:9.87777805px;stroke-width:0.27978918">Simple Network as Namespace</tspan></text>
+         x="8.6858482"
+         y="134.48579"
+         style="font-size:8.46666622px;stroke-width:0.27978918">A Simple Network with Linux Namespaces</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.26896524;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect815-3"
@@ -450,52 +450,52 @@
          style="stroke-width:0.27978918">ve-2-1</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.54036772;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 57.247326,143.54166 H 84.666667"
+       d="M 78.413992,143.54167 H 105.83333"
        id="path12468"
        inkscape:connector-curvature="0" />
     <circle
        style="opacity:1;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:1.48045933;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path961-6-2"
-       cx="85.645927"
+       cx="106.81259"
        cy="143.43158"
        r="2.2383137" />
     <circle
        style="opacity:1;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:1.48045933;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path961-6-1"
-       cx="57.527115"
+       cx="78.693779"
        cy="143.29167"
        r="2.2383137" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.47662687px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27978918"
-       x="56.278362"
+       x="77.44503"
        y="144.54799"
        id="text12472"><tspan
          sodipodi:role="line"
          id="tspan12470"
-         x="56.278362"
+         x="77.44503"
          y="144.54799"
          style="font-size:3.73052263px;stroke-width:0.27978918">1</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.47662687px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27978918"
-       x="84.604362"
+       x="105.77103"
        y="144.76724"
        id="text12472-9"><tspan
          sodipodi:role="line"
          id="tspan12470-3"
-         x="84.604362"
+         x="105.77103"
          y="144.76724"
          style="font-size:3.73052263px;stroke-width:0.27978918">2</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.47662687px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27978918"
-       x="51.091961"
+       x="72.258629"
        y="145.54016"
        id="text12494"><tspan
          sodipodi:role="line"
          id="tspan12492"
-         x="51.091961"
+         x="72.258629"
          y="145.54016"
          style="font-size:6.71494055px;stroke-width:0.27978918">(                 )</tspan></text>
     <text
