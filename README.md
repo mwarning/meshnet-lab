@@ -5,6 +5,8 @@ A packet send on an interface will be received on all uplinks in all connected n
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org) and [yggdrasil](https://github.com/yggdrasil-network).
 
+Please note that wireless interference patterns are not part of the simulation.
+
 Topology and link quality changes are supported.
 
 Example JSON file:
@@ -66,7 +68,7 @@ sudo ./network.py cleanup
 
 ## Internal Working
 
-Every node is represented by its own network namespace and a bridge in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`.  The nodes are connected by connecting the bridges with veth interface pairs in the `switch` namespace.
+Every node is represented by its own network namespace and a bridge that resides in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`. Veth interface pairs connect the bridges in the `switch` namespace.
 
 All interfaces in the bridges (except the `dl-<node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `dl-<node>` interface, but not between them.
 
@@ -85,3 +87,4 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - [mlc](https://github.com/axn/mlc) (for bmx routing daemon, very complex)
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, very simple)
 - [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, simple)
+- [Running Babel/OLSR/BMX7 inside kubernetes](https://media.freifunk.net/v/multipathtcp-with-un-meshed-networks-and-running-babel-olsr-bmx7-inside-kubernetes-and-containers)
