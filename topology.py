@@ -2,6 +2,7 @@
 
 import random
 import datetime
+import argparse
 import time
 import json
 import sys
@@ -85,12 +86,11 @@ def create_random_tree(count, intra = 0):
 
     return list(links.values())
 
-import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("geometry",
-    choices=['lattice4', 'lattice8', 'circle', 'line', 'tree'],
-    help="Geometry to be created.")
+parser.add_argument('geometry',
+    choices=['lattice4', 'lattice8', 'circle', 'line', 'tree', 'rtree'],
+    help='Geometry to be created.')
 parser.add_argument('ns', nargs='+', type=int,
     help='Number argumets for the geometry.')
 parser.add_argument('--source-tc',
