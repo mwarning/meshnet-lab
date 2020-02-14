@@ -92,7 +92,11 @@ parser.add_argument("geometry",
     choices=['lattice4', 'lattice8', 'circle', 'line', 'tree'],
     help="Geometry to be created.")
 parser.add_argument('ns', nargs='+', type=int,
-    help="Number argumets for the geometry.")
+    help='Number argumets for the geometry.')
+parser.add_argument('--source-tc',
+    help='Value for each links source_tc.')
+parser.add_argument('--target-tc',
+    help='Value for each links target_tc.')
 
 args = parser.parse_args()
 
@@ -131,5 +135,11 @@ elif args.geometry == 'tree':
 else:
   sys.stderr.write('Unknown geometry: {}\n'.format(args.geometry))
   exit(1)
+
+for link in links:
+    if args.source_tc:
+        link['source_tc'] = args.source_tc
+    if args.target_tc:
+        link['target_tc'] = args.target_tc
 
 json.dump({'links': links}, sys.stdout)
