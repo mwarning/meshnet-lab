@@ -132,6 +132,12 @@ elif args.geometry == 'tree':
   else:
     sys.stderr.write('Depth and degree expected for tree.\n')
     exit(1)
+elif args.geometry == 'rtree':
+  if len(args.ns) == 2:
+    links = create_random_tree(args.ns[0], args.ns[1])
+  else:
+    sys.stderr.write('Number of nodes and interconnections expected for random tree.\n')
+    exit(1)
 else:
   sys.stderr.write('Unknown geometry: {}\n'.format(args.geometry))
   exit(1)
