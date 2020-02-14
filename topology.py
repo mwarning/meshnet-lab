@@ -50,27 +50,86 @@ def create_line(count, loop = False):
 
     return links
 
-if len(sys.argv) != 4:
-    print("Usage: {} [lattice4|lattice8|circle|line] <n> <output-file>".format(sys.argv[0]))
-    exit(1)
+def create_tree(depth, degree):
+    links = []
+    i = 0
+    j = 0
 
-geometry = sys.argv[1]
-number = int(sys.argv[2])
-path = sys.argv[3]
+    for d in range(0, depth):
+        for _ in range(0, 0 + int(degree ** d)):
+            for _ in range(0, degree):
+                j += 1
+                links.append({'source': i, 'target': j})
+            i += 1
+
+    return links
+
+def create_random_tree(count, intra = 0):
+    links = {}
+
+    def get_id(i, j):
+        if i > j:
+            return '{}-{}'.format(i, j)
+        else:
+            return '{}-{}'.format(j, i)
+
+    # Connect random nodes
+    for i in range(1, count):
+        # Connect node with random previous node
+        while True:
+            j = random.randint(0, i)
+            id = get_id(i, j)
+            if i != j and id not in links:
+                links[id] = {'source': i, 'target': j}
+                break
+
+    return list(links.values())
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("geometry",
+    choices=['lattice4', 'lattice8', 'circle', 'line', 'tree'],
+    help="Geometry to be created.")
+parser.add_argument('ns', nargs='+', type=int,
+    help="Number argumets for the geometry.")
+
+args = parser.parse_args()
+
 links = []
 
-if geometry == 'lattice4':
-	links = create_lattice(number, number, False)
-elif geometry == 'lattice8':
-	links = create_lattice(number, number, True)
-elif geometry == 'circle':
-    links = create_line(number, True)
-elif geometry == 'line':
-    links = create_line(number, False)
-else:
-    print('unknown geometry: {}'.format(geometry))
+if args.geometry == 'lattice4':
+  if len(args.ns) == 2:
+    links = create_lattice(args.ns[0], args.ns[1], diag = False)
+  else:
+    sys.stderr.write('Number of x and y nodes expected for lattice4.\n')
     exit(1)
+elif args.geometry == 'lattice8':
+  if len(args.ns) == 2:
+    links = create_lattice(args.ns[0], args.ns[1], diag = True)
+  else:
+    sys.stderr.write('Number of x and y nodes expected for lattice8.\n')
+    exit(1)
+elif args.geometry == 'circle':
+  if len(args.ns) == 1:
+    links = create_line(args.ns[0], loop = True)
+  else:
+    sys.stderr.write('Number of nodes expected for circle.\n')
+    exit(1)
+elif args.geometry == 'line':
+  if len(args.ns) == 1:
+    links = create_line(args.ns[0], loop = False)
+  else:
+    sys.stderr.write('Number of nodes expected for line.\n')
+    exit(1)
+elif args.geometry == 'tree':
+  if len(args.ns) == 2:
+    links = create_tree(args.ns[0], args.ns[1])
+  else:
+    sys.stderr.write('Depth and degree expected for tree.\n')
+    exit(1)
+else:
+  sys.stderr.write('Unknown geometry: {}\n'.format(args.geometry))
+  exit(1)
 
-with open(path, "w") as file:
-    json.dump({'links': links}, file)
-    print('Wrote {} ({} links)'.format(path, len(links)))
+json.dump({'links': links}, sys.stdout)

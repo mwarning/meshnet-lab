@@ -48,7 +48,7 @@ Useful commands:
 sudo ./network.py cleanup
 
 # Create a 10x10 lattice and write it to a file called graph.json
-sudo ./topology.py lattice4 10 graph.json
+./topology.py lattice4 10 10 > graph.json
 
 # Setup the network structure of namespaces
 sudo ./network.py none graph.json
