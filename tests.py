@@ -2,6 +2,7 @@
 
 import random
 import datetime
+import argparse
 import time
 import sys
 import os
@@ -353,40 +354,46 @@ def test_misc(nsnames):
 
 
 if os.popen('id -u').read().strip() != "0":
-    print("Need to run as root.")
+    sys.stderr.write('Need to run as root.\n')
     exit(1)
 
-if len(sys.argv) != 3:
-    print("Usage: {} <none|babel|batman-adv|olsr|yggdrasil> <start|stop|test_misc|test_traffic|test_convergence>".format(sys.argv[0]))
-    exit(1)
+parser = argparse.ArgumentParser()
+parser.add_argument('protocol',
+    choices=['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil'],
+    help='Routing protocol to set up.')
+parser.add_argument('action',
+    choices=['start', 'stop', 'test_misc', 'test_traffic', 'test_convergence'],
+    help='Action to be performed.')
 
-protocol = sys.argv[1]
-command = sys.argv[2]
+args = parser.parse_args()
+
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
 # network interface to send packets to/from
 uplink_interface = "uplink"
 
-if protocol in ['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil']:
-    # batman-adv uses its own interface as entry point to the mesh
-    if protocol == 'batman-adv':
-        uplink_interface = 'bat0'
-    elif protocol == 'yggdrasil':
-        uplink_interface = 'tun0'
-else:
-    print('unknown protocol: {}'.format(protocol))
-    exit(1)
 
-if command == 'start':
-    start_routing_protocol(protocol, nsnames)
-elif command == 'stop':
-    stop_routing_protocol(protocol, nsnames)
-elif command == 'test_traffic':
-    test_traffic(nsnames)
-elif command == 'test_misc':
+output = os.environ.get('CVSFILE')
+cvsfile = None
+if output is not None:
+    cvsfile = open(output, 'a+')
+
+# batman-adv uses its own interface as entry point to the mesh
+if args.protocol == 'batman-adv':
+    uplink_interface = 'bat0'
+elif args.protocol == 'yggdrasil':
+    uplink_interface = 'tun0'
+
+if args.action == 'start':
+    start_routing_protocol(args.protocol, nsnames)
+elif args.action == 'stop':
+    stop_routing_protocol(args.protocol, nsnames)
+elif args.action == 'test_traffic':
+    test_traffic(nsnames, 30, cvsfile)
+elif args.action == 'test_misc':
     test_misc(nsnames)
-elif command == 'test_convergence':
+elif args.action == 'test_convergence':
     test_convergence(nsnames)
 else:
-    print('unknown command: {}'.format(command))
+    sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
