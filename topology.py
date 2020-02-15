@@ -97,6 +97,8 @@ parser.add_argument('--source-tc',
     help='Value for each links source_tc.')
 parser.add_argument('--target-tc',
     help='Value for each links target_tc.')
+parser.add_argument('--formatted',
+    help='Output formatted json.')
 
 args = parser.parse_args()
 
@@ -148,4 +150,7 @@ for link in links:
     if args.target_tc:
         link['target_tc'] = args.target_tc
 
-json.dump({'links': links}, sys.stdout)
+if args.formatted:
+    json.dump({'links': links}, sys.stdout, indent="  ")
+else:
+    json.dump({'links': links}, sys.stdout)
