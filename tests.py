@@ -8,12 +8,11 @@ import sys
 import os
 import re
 
-verbose = False
 
 def exec(cmd):
     rc = 0
 
-    if verbose:
+    if args.verbose:
         rc = os.system(cmd)
     else:
         rc = os.system('{} > /dev/null 2>&1'.format(cmd))
@@ -43,7 +42,7 @@ class PingStatistics:
 
         nstarget_addr = get_addr(nstarget, interface)
         if nstarget_addr is not None:
-            if (verbose):
+            if args.verbose:
                 print('From {} ping {} ({} on interface {})'.format(nssource, nstarget_addr, nstarget, interface))
 
             output = os.popen('ip netns exec "{}" ping -c {} -W {} -D {} '.format(nssource, packets, wait, nstarget_addr)).read()
@@ -166,14 +165,14 @@ def stop_none_instances(nsnames):
 
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
-        if verbose:
+        if args.verbose:
             print("  start yggdrasil on {}".format(nsname))
 
         exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
         exec('ip netns exec "{}" sh -c \'echo "AdminListen: none" | yggdrasil -useconf &\''.format(nsname))
 
 def stop_yggdrasil_instances(nsnames):
-    if verbose:
+    if args.verbose:
        print("  stop yggdrasil in all namespaces")
 
     if len(nsnames) > 0:
@@ -181,7 +180,7 @@ def stop_yggdrasil_instances(nsnames):
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
-        if verbose:
+        if args.verbose:
             print('  start batman-adv on {}'.format(nsname))
 
         exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
@@ -190,21 +189,21 @@ def start_batmanadv_instances(nsnames):
 
 def stop_batmanadv_instances(nsnames):
     for nsname in nsnames:
-        if verbose:
+        if args.verbose:
             print("  stop batman-adv on {}".format(nsname))
 
         exec('ip netns exec "{}" batctl meshif "bat0" interface del "uplink"'.format(nsname))
 
 def start_babel_instances(nsnames):
     for nsname in nsnames:
-        if verbose:
+        if args.verbose:
             print("  start babel on {}".format(nsname))
 
         exec('mkdir -p /var/run/babel')
         exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
-    if verbose:
+    if args.verbose:
         print("  stop babel in all namespaces")
 
     if len(nsnames) > 0:
@@ -219,7 +218,7 @@ def start_olsr_instances(nsnames):
         exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname))
 
 def stop_olsr_instances(nsnames):
-    if verbose:
+    if args.verbose:
         print("  stop olsr in all namespaces")
 
     if len(nsnames) > 0:
@@ -364,6 +363,9 @@ parser.add_argument('protocol',
 parser.add_argument('action',
     choices=['start', 'stop', 'test_misc', 'test_traffic', 'test_convergence'],
     help='Action to be performed.')
+parser.add_argument('--verbose',
+    action='store_true',
+    help='Enable verbose output.')
 
 args = parser.parse_args()
 
