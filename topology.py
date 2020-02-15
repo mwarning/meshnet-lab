@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
 import random
-import datetime
 import argparse
-import time
 import json
 import sys
 import os
-import re
 import glob
 
 def create_lattice(x_count, y_count, diag = False):
