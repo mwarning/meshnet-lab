@@ -26,6 +26,22 @@ def exec(cmd):
 def now():
     return datetime.datetime.now()
 
+def get_random_samples(items, npairs):
+    samples = {}
+    i = 0
+
+    while i < (npairs * 4) and len(samples) != npairs:
+        i += 1
+        e1 = random.choice(items)
+        e2 = random.choice(items)
+        if e1 == e2:
+            continue
+        key = "{}-{}".format(e1, e2)
+        if key not in samples:
+            samples[key] = (e1, e2)
+
+    return samples.values()
+
 def get_addr(nsname, interface):
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
     for line in output.split("\n"):
@@ -260,8 +276,7 @@ def test_convergence(nsnames):
         print('Network of at least two nodes needed!')
         exit(1)
 
-    paths = 100
-    pairs = random.sample(list(zip(nsnames, nsnames)), min(len(nsnames), paths))
+    pairs = get_random_samples(nsnames, 100)
 
     prev_ts = get_traffic_statistics(nsnames)
 
@@ -271,7 +286,9 @@ def test_convergence(nsnames):
         ps = get_ping_statistics(pairs, uplink_interface)
         ts = get_traffic_statistics(nsnames)
         stop = now()
-        print('pings reached: {:0.2f}% ({} paths tested)'.format(100 * ps.reached / (ps.lost + ps.reached), paths))
+
+        print('pings reached: {:0.2f}% ({} paths tested)'.format(100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
+
         d = now() - start
         seconds = d.seconds + d.microseconds / 1000000
         print('send: {}/s ({}/s per node)'.format(
