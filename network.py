@@ -256,15 +256,13 @@ elif len(sys.argv) == 3:
 
     data = get_task(from_state, to_state)
 
+    # add "switch" namespace
     if from_state == 'none':
+        if verbose:
+            print('  create "switch"')
         exec('ip netns add "switch" || true')
         # disable IPv6 in switch namespace (no need, less overhead)
         exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
-
-    #print("links_update: {}, links_create: {}, links_remove: {}".format(
-    #    len(data.links_update), len(data.links_create), len(data.links_remove)))
-    #print("nodes_create: {}, nodes_remove: {}".format(
-    #    len(data.nodes_create), len(data.nodes_remove)))
 
     for link in data.links_update:
         update_link(link)
@@ -281,8 +279,10 @@ elif len(sys.argv) == 3:
     for node in data.nodes_remove:
         remove_node(node)
 
-    # "switch" namespace not needed
+    # remove "switch" namespace
     if to_state == 'none':
+        if verbose:
+            print('  remove "switch"')
         exec('ip netns del "switch" || true')
 
 else:
