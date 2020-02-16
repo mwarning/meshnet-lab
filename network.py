@@ -200,16 +200,16 @@ def process_json(json_data):
 
     return (links, nodes)
 
-def get_task(arg1, arg2):
+def get_task(from_state, to_state):
     # empty defaults
     old = json.loads('{"links":[]}')
     new = json.loads('{"links":[]}')
 
-    if arg1 != 'none':
-        old = json.load(open(arg1))
+    if from_state != 'none':
+        old = json.load(open(from_state))
 
-    if arg2 != 'none':
-        new = json.load(open(arg2))
+    if to_state != 'none':
+        new = json.load(open(to_state))
 
     (links_old, nodes_old) = process_json(old)
     (links_new, nodes_new) = process_json(new)
@@ -248,16 +248,18 @@ if os.popen('id -u').read().strip() != '0':
 
 if len(sys.argv) == 2 and sys.argv[1] == 'cleanup':
     os.system('ip -all netns delete')
-    # TODO: kill all programs in network namespaces
 elif len(sys.argv) == 2 and sys.argv[1] == 'list':
     os.system('ip netns list')
 elif len(sys.argv) == 3:
-    data = get_task(sys.argv[1], sys.argv[2])
+    from_state = sys.argv[1]
+    to_state = sys.argv[2]
 
-    # makesure namespace switch exists (contains the entire wiring of the mesh)
-    os.system('ip netns add "switch" > /dev/null 2>&1')
-    # disable IPv6 in switch namespace (no need, less overhead)
-    exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
+    data = get_task(from_state, to_state)
+
+    if from_state == 'none':
+        exec('ip netns add "switch" || true')
+        # disable IPv6 in switch namespace (no need, less overhead)
+        exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
     #print("links_update: {}, links_create: {}, links_remove: {}".format(
     #    len(data.links_update), len(data.links_create), len(data.links_remove)))
@@ -278,6 +280,11 @@ elif len(sys.argv) == 3:
 
     for node in data.nodes_remove:
         remove_node(node)
+
+    # "switch" namespace not needed
+    if to_state == 'none':
+        exec('ip netns del "switch" || true')
+
 else:
     print_usage(sys.argv[0])
     exit(1)
