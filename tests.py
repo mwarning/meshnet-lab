@@ -42,13 +42,18 @@ def get_random_samples(items, npairs):
 
     return samples.values()
 
+# get IPv6 address, use fe80:: address as fallback
 def get_addr(nsname, interface):
+    lladdr = None
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
     for line in output.split("\n"):
-        if "inet6 fe80" in line:
+        if 'inet6 ' in line:
             addr = line.split()[1].split("/")[0]
             if addr.startswith('fe80'):
+                lladdr = addr
+            else:
                 return addr
+
     return None
 
 class PingStatistics:
