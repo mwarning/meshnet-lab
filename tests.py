@@ -180,12 +180,19 @@ def stop_none_instances(nsnames):
     pass
 
 def start_yggdrasil_instances(nsnames):
+
     for nsname in nsnames:
         if args.verbose:
             print("  start yggdrasil on {}".format(nsname))
 
+        # Create a configuration file
+        configfile = "/tmp/yggdrasil-{}.conf".format(nsname)
+        f = open(configfile, "w")
+        f.write("AdminListen: none")
+        f.close()
+
         exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
-        exec('ip netns exec "{}" sh -c \'echo "AdminListen: none" | yggdrasil -useconf &\''.format(nsname))
+        exec('ip netns exec  "{}" yggdrasil -useconffile {} &'.format(nsname, configfile))
 
 def stop_yggdrasil_instances(nsnames):
     if args.verbose:
