@@ -197,7 +197,6 @@ def start_yggdrasil_instances(nsnames):
         f.write("AdminListen: none")
         f.close()
 
-        exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
         exec('ip netns exec  "{}" yggdrasil -useconffile {} &'.format(nsname, configfile))
 
 def stop_yggdrasil_instances(nsnames):
@@ -212,7 +211,6 @@ def start_batmanadv_instances(nsnames):
         if args.verbose:
             print('  start batman-adv on {}'.format(nsname))
 
-        exec('ip netns exec "{}" ip a flush "uplink"'.format(nsname))
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
         exec('ip netns exec "{}" ip link set "bat0" up'.format(nsname))
 
