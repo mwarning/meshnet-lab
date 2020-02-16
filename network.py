@@ -32,8 +32,8 @@ def configure_interface(nsname, ifname):
     exec('ip netns exec "{}" ip link set dev "{}" up'.format(nsname, ifname))
 
     # disable arp & multicast (we do not want the OS to send packets on their own)
-    exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
-    exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
+    #exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
+    #exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
 
 def remove_node(node):
     name = node.name
