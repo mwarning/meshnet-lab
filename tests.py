@@ -64,8 +64,9 @@ class PingStatistics:
         nstarget_addr = get_addr(nstarget, interface)
         if nstarget_addr is not None:
             if args.verbose:
-                print('From {} ping {} ({} on interface {})'.format(nssource, nstarget_addr, nstarget, interface))
+                print('Ping {} => {} ({} / {})'.format(nssource, nstarget, nstarget_addr, interface))
 
+            # perform the ping!
             output = os.popen('ip netns exec "{}" ping -c {} -W {} -D {} '.format(nssource, packets, wait, nstarget_addr)).read()
             #print(output)
             lines = output.split('\n')
@@ -87,9 +88,9 @@ class PingStatistics:
             self.mdev = float(toks[4])
             '''
         else:
-            self.loss = 100
+            self.packet_loss = 100
             self.time = 0
-            print("Cannot get link local address of node {}".format(nsname))
+            print("{}: Cannot get link local address of interface {}".format(nstarget, interface))
 
 class PingStatisticsSummary:
     def __init__(self):
