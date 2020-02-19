@@ -76,6 +76,10 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ![Visual Example](network_mapping.png)
 
+- Application can be started in ns1, ns2 and see only interface uplink
+- bridges have stp_state, ageing_time and forward_delay set to 0
+- ve-* interfaces have isolated set to on
+
 ## TODO
 
 - Do not require the present state to be given.
