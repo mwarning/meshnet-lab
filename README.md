@@ -43,28 +43,29 @@ Useful commands:
 
 ## Usage
 
-```
-# Remove all namespaces (just in case)
-sudo ./network.py cleanup
+Most commands need root. So we assume all commands are execute as root:
 
+```
 # Create a 10x10 lattice and write it to a file called graph.json
 ./topology.py lattice4 10 10 > graph.json
 
-# Setup the network structure of namespaces
-sudo ./network.py none graph.json
+# Setup the network structure
+./network.py none graph.json
 
-# Start batman-adv in every namespace
-sudo ./tests.py batman-adv start
+# Start batman-adv in every node/namespace
+./tests.py batman-adv start
 
 # Test convergence by sending a few pings on random paths
-sudo ./tests.py batman-adv test_convergence
+./tests.py batman-adv test_convergence
 
 # Stop batman-adv
-sudo ./tests.py batman-adv stop
+./tests.py batman-adv stop
 
-# Remove all namespaces
-sudo ./network.py cleanup
+# Remove namespaces
+./network.py graph.json none
 ```
+
+As an alternative, you can remove all namespace using `./network.py cleanup`.
 
 ## Internal Working
 
@@ -84,6 +85,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 - Do not require the present state to be given.
 - Better topology generator (more features).
+- Mobility
 
 ## Related Projects
 
