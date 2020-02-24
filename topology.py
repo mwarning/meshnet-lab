@@ -85,61 +85,47 @@ def create_random_tree(count, intra = 0):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('geometry',
-    choices=['lattice4', 'lattice8', 'circle', 'line', 'tree', 'rtree'],
-    help='Geometry to be created.')
-parser.add_argument('ns', nargs='+', type=int,
-    help='Number argumets for the geometry.')
-parser.add_argument('--source-tc',
-    help='Value for each links source_tc.')
-parser.add_argument('--target-tc',
-    help='Value for each links target_tc.')
-parser.add_argument('--formatted',
-    help='Output formatted json.')
+parser.add_argument('--source-tc', help='Value for each links source_tc.')
+parser.add_argument('--target-tc', help='Value for each links target_tc.')
+parser.add_argument('--formatted', action='store_true', help='Output formatted json.')
+
+subparsers = parser.add_subparsers(dest='topology', required=True)
+parser_lattice4 = subparsers.add_parser('lattice4', help='Create a lattice structure with horizontal and vertical connections.')
+parser_lattice4.add_argument('n', type=int, help='Node count in X direction.')
+parser_lattice4.add_argument('m', type=int, help='Node count in Y direction.')
+parser_lattice8 = subparsers.add_parser('lattice8', help='Create a lattice structure of horizontal, vertical and vertical connections.')
+parser_lattice8.add_argument('n', type=int, help='Node count in X direction.')
+parser_lattice8.add_argument('m', type=int, help='Node count in Y direction.')
+parser_circle = subparsers.add_parser('circle', help='Create nodes connected into a circle.')
+parser_circle.add_argument('n', type=int, help='Node count.')
+parser_line = subparsers.add_parser('line', help='Create nodes connected in a line.')
+parser_line.add_argument('n', type=int, help='Node count.')
+parser_tree = subparsers.add_parser('tree', help='Create nodes connected in a balanced regular tree.')
+parser_tree.add_argument('depth', type=int, help='Depth of the tree.')
+parser_tree.add_argument('degree', type=int, help='Number of tree branches.')
+parser_rtree = subparsers.add_parser('rtree', help='Create nodes connected in a random tree.')
+parser_rtree.add_argument('count', type=int, help='A random tree.')
+parser_rtree.add_argument('intra', type=int, help='Intraconnections that disrupt the tree structure.')
 
 args = parser.parse_args()
 
 links = []
 
-if args.geometry == 'lattice4':
-  if len(args.ns) == 2:
-    links = create_lattice(args.ns[0], args.ns[1], diag = False)
-  else:
-    sys.stderr.write('Number of x and y nodes expected for lattice4.\n')
-    exit(1)
-elif args.geometry == 'lattice8':
-  if len(args.ns) == 2:
-    links = create_lattice(args.ns[0], args.ns[1], diag = True)
-  else:
-    sys.stderr.write('Number of x and y nodes expected for lattice8.\n')
-    exit(1)
-elif args.geometry == 'circle':
-  if len(args.ns) == 1:
-    links = create_line(args.ns[0], loop = True)
-  else:
-    sys.stderr.write('Number of nodes expected for circle.\n')
-    exit(1)
-elif args.geometry == 'line':
-  if len(args.ns) == 1:
-    links = create_line(args.ns[0], loop = False)
-  else:
-    sys.stderr.write('Number of nodes expected for line.\n')
-    exit(1)
-elif args.geometry == 'tree':
-  if len(args.ns) == 2:
-    links = create_tree(args.ns[0], args.ns[1])
-  else:
-    sys.stderr.write('Depth and degree expected for tree.\n')
-    exit(1)
-elif args.geometry == 'rtree':
-  if len(args.ns) == 2:
-    links = create_random_tree(args.ns[0], args.ns[1])
-  else:
-    sys.stderr.write('Number of nodes and interconnections expected for random tree.\n')
-    exit(1)
+if args.topology == 'lattice4':
+    links = create_lattice(args.n, args.m, diag = False)
+elif args.topology == 'lattice8':
+    links = create_lattice(args.n, args.m, diag = True)
+elif args.topology == 'circle':
+    links = create_line(args.n, loop = True)
+elif args.topology == 'line':
+    links = create_line(args.n, loop = False)
+elif args.topology == 'tree':
+    links = create_tree(args.depth, args.degree)
+elif args.topology == 'rtree':
+    links = create_random_tree(args.count, args.intra)
 else:
-  sys.stderr.write('Unknown geometry: {}\n'.format(args.geometry))
-  exit(1)
+    sys.stderr.write('Unknown topology: {}\n'.format(args.topology))
+    exit(1)
 
 for link in links:
     if args.source_tc:
