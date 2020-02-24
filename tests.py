@@ -282,16 +282,20 @@ def stop_routing_protocol(protocol, nsnames):
         exit(1)
 
 # test convergence of the routing protocol
-def test_convergence(nsnames):
+# we want to keep it running until stopped..
+def test_convergence(nsnames, rounds, max_samples, cvsfile = None):
     if len(nsnames) < 2:
         print('Network of at least two nodes needed!')
         exit(1)
 
-    pairs = get_random_samples(nsnames, 100)
+    pairs = get_random_samples(nsnames, max_samples)
 
     prev_ts = get_traffic_statistics(nsnames)
+    ts = prev_ts
+    n = 0
 
-    for n in range(1, 15):
+    for n in range(1, rounds):
+        print('Start test ({}/{})'.format(n, rounds))
         start = now()
         time.sleep(1)
         ps = get_ping_statistics(pairs, uplink_interface)
@@ -310,21 +314,31 @@ def test_convergence(nsnames):
             format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds),
             format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds / len(nsnames))
         ))
-        prev_ts = ts
+
         if ps.reached == len(pairs):
             print('all instances reached after {} iterations'.format(n))
             break
 
-def test_traffic(nsnames):
+        prev_ts = ts
+
+        if cvsfile is not None:
+            cvsfile.write('{} {} {} {:0.2f} {:0.2f}'.format(
+                n,
+                seconds,
+                len(nsnames),
+                (ts.rx_bytes - prev_ts.rx_bytes),
+                (ts.tx_bytes - prev_ts.tx_bytes)
+            ))
+
+def test_traffic(nsnames, duration, cvsfile = None):
     if len(nsnames) < 2:
         print('Network of at least two nodes needed!')
         exit(1)
 
-    d = 10
-    print('meassure traffic over {} seconds...'.format(d))
+    print('meassure traffic over {} seconds...'.format(duration))
     start = now()
     ts1 = get_traffic_statistics(nsnames)
-    time.sleep(5)
+    time.sleep(duration)
     ts2 = get_traffic_statistics(nsnames)
     stop = now()
     d = now() - start
@@ -337,6 +351,14 @@ def test_traffic(nsnames):
         format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds),
         format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames))
     ))
+
+    if cvsfile is not None:
+        print('write line to cvs file')
+        cvsfile.write('{} {:0.2f} {:0.2f}\n'.format(
+            duration,
+            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames),
+            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames)
+        ))
 
 # some miscellaneous tests
 def test_misc(nsnames):
@@ -388,12 +410,22 @@ parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
     choices=['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil'],
     help='Routing protocol to set up.')
-parser.add_argument('action',
-    choices=['start', 'stop', 'test_misc', 'test_traffic', 'test_convergence'],
-    help='Action to be performed.')
 parser.add_argument('--verbose',
     action='store_true',
     help='Enable verbose output.')
+parser.add_argument('--cvsout',
+    dest='cvsout',
+    help='Write CSV formatted data to file.')
+
+subparsers = parser.add_subparsers(dest='action', required=True, help='Action help')
+parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
+parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
+parser_test_misc = subparsers.add_parser('test_misc', help='Start some unspecified test.')
+parser_test_traffic = subparsers.add_parser('test_traffic', help='Measure the traffic across the network.')
+parser_test_traffic.add_argument('duration', help='Measure traffic of this timespan in seconds.')
+parser_test_convergence  = subparsers.add_parser('test_convergence', help='Test if every node is connected to each.')
+parser_test_convergence.add_argument('rounds', default=1, help='Send one ping on every sampled route.')
+parser_test_convergence.add_argument('samples', default=100, help='Maximum number of source/target routes to be tested.')
 
 args = parser.parse_args()
 
@@ -402,11 +434,9 @@ nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('
 # network interface to send packets to/from
 uplink_interface = "uplink"
 
-
-output = os.environ.get('CVSFILE')
 cvsfile = None
-if output is not None:
-    cvsfile = open(output, 'a+')
+if args.cvsout is not None:
+    cvsfile = open(args.cvsout, 'a+')
 
 # batman-adv uses its own interface as entry point to the mesh
 if args.protocol == 'batman-adv':
@@ -419,11 +449,11 @@ if args.action == 'start':
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
 elif args.action == 'test_traffic':
-    test_traffic(nsnames, 30, cvsfile)
+    test_traffic(nsnames, args.duration, cvsfile)
 elif args.action == 'test_misc':
     test_misc(nsnames)
 elif args.action == 'test_convergence':
-    test_convergence(nsnames)
+    test_convergence(nsnames, args.rounds, args.samples, cvsfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
