@@ -283,9 +283,9 @@ def stop_routing_protocol(protocol, nsnames):
 
 # test convergence of the routing protocol
 # we want to keep it running until stopped..
-def test_convergence(nsnames, rounds, max_samples, cvsfile = None):
+def check_convergence(nsnames, rounds, max_samples, cvsfile = None):
     if len(nsnames) < 2:
-        print('Network of at least two nodes needed!')
+        print('Network needs at least two nodes!')
         exit(1)
 
     pairs = get_random_samples(nsnames, max_samples)
@@ -294,7 +294,7 @@ def test_convergence(nsnames, rounds, max_samples, cvsfile = None):
     ts = prev_ts
     n = 0
 
-    for n in range(1, rounds):
+    for n in range(1, rounds + 1):
         print('Start test ({}/{})'.format(n, rounds))
         start = now()
         time.sleep(1)
@@ -306,20 +306,18 @@ def test_convergence(nsnames, rounds, max_samples, cvsfile = None):
 
         d = now() - start
         seconds = d.seconds + d.microseconds / 1000000
+
+        # output data:
+
         print('send: {}/s ({}/s per node)'.format(
             format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds),
             format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds / len(nsnames))
         ))
+
         print('received: {}/s ({}/s per node)'.format(
             format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds),
             format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds / len(nsnames))
         ))
-
-        if ps.reached == len(pairs):
-            print('all instances reached after {} iterations'.format(n))
-            break
-
-        prev_ts = ts
 
         if cvsfile is not None:
             cvsfile.write('{} {} {} {:0.2f} {:0.2f}'.format(
@@ -330,7 +328,13 @@ def test_convergence(nsnames, rounds, max_samples, cvsfile = None):
                 (ts.tx_bytes - prev_ts.tx_bytes)
             ))
 
-def test_traffic(nsnames, duration, cvsfile = None):
+        if ps.reached == len(pairs):
+            print('all instances reached after {} iterations'.format(n))
+            break
+
+        prev_ts = ts
+
+def measure_traffic(nsnames, duration, cvsfile = None):
     if len(nsnames) < 2:
         print('Network of at least two nodes needed!')
         exit(1)
@@ -343,6 +347,7 @@ def test_traffic(nsnames, duration, cvsfile = None):
     stop = now()
     d = now() - start
     seconds = d.seconds + d.microseconds / 1000000
+
     print('send: {}/s ({}/s per node)'.format(
         format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds),
         format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames))
@@ -421,14 +426,15 @@ subparsers = parser.add_subparsers(dest='action', required=True, help='Action he
 parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
 parser_test_misc = subparsers.add_parser('test_misc', help='Start some unspecified test.')
-parser_test_traffic = subparsers.add_parser('test_traffic', help='Measure the traffic across the network.')
-parser_test_traffic.add_argument('duration', help='Measure traffic of this timespan in seconds.')
-parser_test_convergence  = subparsers.add_parser('test_convergence', help='Test if every node is connected to each.')
-parser_test_convergence.add_argument('rounds', default=1, help='Send one ping on every sampled route.')
-parser_test_convergence.add_argument('samples', default=100, help='Maximum number of source/target routes to be tested.')
+parser_measure_traffic = subparsers.add_parser('measure_traffic', help='Measure the traffic across the network.')
+parser_measure_traffic.add_argument('duration', help='Measure traffic of this timespan in seconds.')
+parser_check_convergence  = subparsers.add_parser('check_convergence', help='Test if every node is connected to each.')
+parser_check_convergence.add_argument('rounds', default=1, help='Maximum number of rounds until all pings reach its target.')
+parser_check_convergence.add_argument('samples', default=100, help='Maximum number of source/target routes to be tested.')
 
 args = parser.parse_args()
 
+# all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
 # network interface to send packets to/from
@@ -448,12 +454,12 @@ if args.action == 'start':
     start_routing_protocol(args.protocol, nsnames)
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
-elif args.action == 'test_traffic':
-    test_traffic(nsnames, args.duration, cvsfile)
+elif args.action == 'measure_traffic':
+    measure_traffic(nsnames, args.duration, cvsfile)
 elif args.action == 'test_misc':
     test_misc(nsnames)
-elif args.action == 'test_convergence':
-    test_convergence(nsnames, args.rounds, args.samples, cvsfile)
+elif args.action == 'check_convergence':
+    check_convergence(nsnames, args.rounds, args.samples, cvsfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
