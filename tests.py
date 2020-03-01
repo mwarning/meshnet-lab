@@ -9,13 +9,27 @@ import os
 import re
 
 
-def exec(cmd):
+def exec(cmd, detach=False):
     rc = 0
 
-    if args.verbose:
-        rc = os.system(cmd)
+    if args.verbosity == 'verbose':
+        if detach:
+            rc = os.system("{} &".format(cmd))
+        else:
+            rc = os.system("{}".format(cmd))
+    elif args.verbosity == 'normal':
+        if detach:
+            rc = os.system('{} > /dev/null &'.format(cmd))
+        else:
+            rc = os.system('{} > /dev/null'.format(cmd))
+    elif args.verbosity == 'quiet':
+        if detach:
+            rc = os.system('{} > /dev/null 2>&1 &'.format(cmd))
+        else:
+            rc = os.system('{} > /dev/null 2>&1'.format(cmd))
     else:
-        rc = os.system('{} > /dev/null 2>&1'.format(cmd))
+        print('Abort, invalid verbosity: {}'.format(args.verbosity))
+        exit(1)
 
     if rc != 0:
         print('Abort, command failed: {}'.format(cmd))
@@ -63,7 +77,7 @@ class PingStatistics:
 
         nstarget_addr = get_addr(nstarget, interface)
         if nstarget_addr is not None:
-            if args.verbose:
+            if args.verbosity == 'verbose':
                 print('Ping {} => {} ({} / {})'.format(nssource, nstarget, nstarget_addr, interface))
 
             # perform the ping!
@@ -180,15 +194,16 @@ def get_traffic_statistics(nsnames):
     return summary
 
 def start_none_instances(nsnames):
+    # nothing to do
     pass
 
 def stop_none_instances(nsnames):
+    # nothing to do
     pass
 
 def start_yggdrasil_instances(nsnames):
-
     for nsname in nsnames:
-        if args.verbose:
+        if args.verbosity == 'verbose':
             print("  start yggdrasil on {}".format(nsname))
 
         # Create a configuration file
@@ -197,10 +212,10 @@ def start_yggdrasil_instances(nsnames):
         f.write("AdminListen: none")
         f.close()
 
-        exec('ip netns exec  "{}" yggdrasil -useconffile {} &'.format(nsname, configfile))
+        exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
-    if args.verbose:
+    if args.verbosity == 'verbose':
        print("  stop yggdrasil in all namespaces")
 
     if len(nsnames) > 0:
@@ -208,7 +223,7 @@ def stop_yggdrasil_instances(nsnames):
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
-        if args.verbose:
+        if args.verbosity == 'verbose':
             print('  start batman-adv on {}'.format(nsname))
 
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
@@ -216,21 +231,21 @@ def start_batmanadv_instances(nsnames):
 
 def stop_batmanadv_instances(nsnames):
     for nsname in nsnames:
-        if args.verbose:
+        if args.verbosity == 'verbose':
             print("  stop batman-adv on {}".format(nsname))
 
         exec('ip netns exec "{}" batctl meshif "bat0" interface del "uplink"'.format(nsname))
 
 def start_babel_instances(nsnames):
     for nsname in nsnames:
-        if args.verbose:
+        if args.verbosity == 'verbose':
             print("  start babel on {}".format(nsname))
 
         exec('mkdir -p /var/run/babel')
         exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
-    if args.verbose:
+    if args.verbosity == 'verbose':
         print("  stop babel in all namespaces")
 
     if len(nsnames) > 0:
@@ -245,7 +260,7 @@ def start_olsr_instances(nsnames):
         exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname))
 
 def stop_olsr_instances(nsnames):
-    if args.verbose:
+    if args.verbosity == 'verbose':
         print("  stop olsr in all namespaces")
 
     if len(nsnames) > 0:
@@ -302,7 +317,8 @@ def check_convergence(nsnames, rounds, max_samples, cvsfile = None):
         ts = get_traffic_statistics(nsnames)
         stop = now()
 
-        print('pings reached: {:0.2f}% ({} paths tested)'.format(100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
+        print('pings reached: {:0.2f}% ({} paths tested)'.format(
+            100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
 
         d = now() - start
         seconds = d.seconds + d.microseconds / 1000000
@@ -360,9 +376,12 @@ def measure_traffic(nsnames, duration, cvsfile = None):
     if cvsfile is not None:
         print('write line to cvs file')
         cvsfile.write('{} {:0.2f} {:0.2f}\n'.format(
+            # measurement duration
             duration,
-            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames),
-            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames)
+            # send bytes/s per node
+            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames),
+            # received bytes/s per node
+            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames)
         ))
 
 # some miscellaneous tests
@@ -407,17 +426,14 @@ def test_misc(nsnames):
     print('Whole test duration: {}'.format(now() - start_time))
 
 
-if os.popen('id -u').read().strip() != "0":
-    sys.stderr.write('Need to run as root.\n')
-    exit(1)
-
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
     choices=['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil'],
     help='Routing protocol to set up.')
-parser.add_argument('--verbose',
-    action='store_true',
-    help='Enable verbose output.')
+parser.add_argument('--verbosity',
+    choices=['verbose', 'normal', 'quiet'],
+    default='normal',
+    help='Set verbosity.')
 parser.add_argument('--cvsout',
     dest='cvsout',
     help='Write CSV formatted data to file.')
@@ -427,12 +443,16 @@ parser_start = subparsers.add_parser('start', help='Start protocol daemons in ev
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
 parser_test_misc = subparsers.add_parser('test_misc', help='Start some unspecified test.')
 parser_measure_traffic = subparsers.add_parser('measure_traffic', help='Measure the traffic across the network.')
-parser_measure_traffic.add_argument('duration', help='Measure traffic of this timespan in seconds.')
+parser_measure_traffic.add_argument('duration', type=int, default=10, help='Measure traffic of this timespan in seconds.')
 parser_check_convergence  = subparsers.add_parser('check_convergence', help='Test if every node is connected to each.')
-parser_check_convergence.add_argument('rounds', default=1, help='Maximum number of rounds until all pings reach its target.')
-parser_check_convergence.add_argument('samples', default=100, help='Maximum number of source/target routes to be tested.')
+parser_check_convergence.add_argument('rounds', type=int, default=1, help='Maximum number of rounds until all pings reach its target.')
+parser_check_convergence.add_argument('samples', type=int, default=100, help='Maximum number of source/target routes to be tested.')
 
 args = parser.parse_args()
+
+if os.popen('id -u').read().strip() != "0":
+    sys.stderr.write('Need to run as root.\n')
+    exit(1)
 
 # all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
@@ -449,6 +469,7 @@ if args.protocol == 'batman-adv':
     uplink_interface = 'bat0'
 elif args.protocol == 'yggdrasil':
     uplink_interface = 'tun0'
+
 
 if args.action == 'start':
     start_routing_protocol(args.protocol, nsnames)
