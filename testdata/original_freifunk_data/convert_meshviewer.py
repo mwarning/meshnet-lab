@@ -30,7 +30,7 @@ with open(args.input, "r") as file:
 		target_tq = link['target_tq']
 
 		# TODO: set source_tc and target_tc
-		links.append({'source': nodes[source], 'target': nodes[target]})
+		links.append({'source': nodes[source]['id'], 'target': nodes[target]['id']})
 
 if args.formatted:
 	json.dump({'nodes': list(nodes.values()), 'links': links}, sys.stdout, indent="  ", sort_keys = True)

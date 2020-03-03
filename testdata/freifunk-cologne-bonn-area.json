@@ -1,1 +1,4354 @@
-{"links": [{"source": {"id": "0", "name": "BN-v2-1043Nv5-01"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "0", "name": "BN-v2-1043Nv5-01"}, "target": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}}, {"source": {"id": "0", "name": "BN-v2-1043Nv5-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "0", "name": "BN-v2-1043Nv5-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "0", "name": "BN-v2-1043Nv5-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "0", "name": "BN-v2-1043Nv5-01"}}, {"source": {"id": "0", "name": "BN-v2-1043Nv5-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "87", "name": "Johnny-26"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "160", "name": "ERX-CMA"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "1", "name": "BN-85"}}, {"source": {"id": "1", "name": "BN-85"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "2", "name": "BN-25"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "4", "name": "Friedlandstr_70-4"}, "target": {"id": "172", "name": "Friedlandstr_70-2"}}, {"source": {"id": "4", "name": "Friedlandstr_70-4"}, "target": {"id": "26", "name": "Friedlandstr_70-3"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "4", "name": "Friedlandstr_70-4"}}, {"source": {"id": "4", "name": "Friedlandstr_70-4"}, "target": {"id": "26", "name": "Friedlandstr_70-3"}}, {"source": {"id": "4", "name": "Friedlandstr_70-4"}, "target": {"id": "172", "name": "Friedlandstr_70-2"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}, "target": {"id": "236", "name": "netgear-r6120_02"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}, "target": {"id": "214", "name": "FWS-OG3-13F"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "236", "name": "netgear-r6120_02"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "5", "name": "BN-v2-UnifiAcLite-14"}}, {"source": {"id": "209", "name": "GHS-OG2-Ost"}, "target": {"id": "6", "name": "GHS-EG-Sec"}}, {"source": {"id": "209", "name": "GHS-OG2-Ost"}, "target": {"id": "6", "name": "GHS-EG-Sec"}}, {"source": {"id": "6", "name": "GHS-EG-Sec"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "7", "name": "netgear-r6120_01"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "236", "name": "netgear-r6120_02"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "7", "name": "netgear-r6120_01"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "7", "name": "netgear-r6120_01"}}, {"source": {"id": "76", "name": "slartibartfast06"}, "target": {"id": "8", "name": "slartibartfast04"}}, {"source": {"id": "8", "name": "slartibartfast04"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "9", "name": "ffkbuu-buehil"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "10", "name": "BN-106"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "10", "name": "BN-106"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "118", "name": "BN-87"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "10", "name": "BN-106"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "10", "name": "BN-106"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "10", "name": "BN-106"}, "target": {"id": "87", "name": "Johnny-26"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "12", "name": "ffkbu-802aa8941d37"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "220", "name": "BN-24"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "201", "name": "BN-32"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "13", "name": "BN-03"}, "target": {"id": "126", "name": "BN-29"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "14", "name": "N2-Garten"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "15", "name": "BN-FWS-KG-Uplink"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "63", "name": "FWS-EG-Sec"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "122", "name": "FWS-OG2-69"}}, {"source": {"id": "161", "name": "FWS-OG1-41"}, "target": {"id": "15", "name": "BN-FWS-KG-Uplink"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "206", "name": "FWS-OG1-Flurbox"}}, {"source": {"id": "271", "name": "FWS_OG1-071"}, "target": {"id": "15", "name": "BN-FWS-KG-Uplink"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "55", "name": "FWS-Master-Of-Connectivity"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "203", "name": "FWS-EG-Lager2"}}, {"source": {"id": "15", "name": "BN-FWS-KG-Uplink"}, "target": {"id": "227", "name": "FWS-EG-Seminar"}}, {"source": {"id": "220", "name": "BN-24"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "16", "name": "BN-09"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "16", "name": "BN-09"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "16", "name": "BN-09"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "220", "name": "BN-24"}, "target": {"id": "16", "name": "BN-09"}}, {"source": {"id": "17", "name": "BN-88"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "197", "name": "BN-86"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "73", "name": "BN-83"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "17", "name": "BN-88"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "220", "name": "BN-24"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "220", "name": "BN-24"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "18", "name": "BN-08"}}, {"source": {"id": "18", "name": "BN-08"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "18", "name": "BN-08"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "19", "name": "Castell"}, "target": {"id": "127", "name": "CastellOffloader"}}, {"source": {"id": "20", "name": "BN_Muffendorf_GT8_Kueche"}, "target": {"id": "129", "name": "BN_Muffendorf_GT8-UG"}}, {"source": {"id": "20", "name": "BN_Muffendorf_GT8_Kueche"}, "target": {"id": "134", "name": "BN_Muffendorf_GT8_EG1"}}, {"source": {"id": "21", "name": "ffkbu-50c7bf16b034"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "22", "name": "ffkbu-MSP-Hifistudio"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "236", "name": "netgear-r6120_02"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "236", "name": "netgear-r6120_02"}, "target": {"id": "23", "name": "BN-v2-UnifiMesh-2"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "23", "name": "BN-v2-UnifiMesh-2"}, "target": {"id": "91", "name": "Bonn3"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "24", "name": "American-Paranoia"}}, {"source": {"id": "255", "name": "St-Marien-West"}, "target": {"id": "25", "name": "ffbn01-Bullet"}}, {"source": {"id": "25", "name": "ffbn01-Bullet"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "181", "name": "ffbn01-Eifelstrasse"}, "target": {"id": "25", "name": "ffbn01-Bullet"}}, {"source": {"id": "26", "name": "Friedlandstr_70-3"}, "target": {"id": "172", "name": "Friedlandstr_70-2"}}, {"source": {"id": "26", "name": "Friedlandstr_70-3"}, "target": {"id": "172", "name": "Friedlandstr_70-2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "26", "name": "Friedlandstr_70-3"}}, {"source": {"id": "27", "name": "Johnny-20"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "27", "name": "Johnny-20"}}, {"source": {"id": "28", "name": "ffkbu-koblenzer11-fd"}, "target": {"id": "275", "name": "ffkbu-koblenzer11-wg"}}, {"source": {"id": "28", "name": "ffkbu-koblenzer11-fd"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "28", "name": "ffkbu-koblenzer11-fd"}, "target": {"id": "275", "name": "ffkbu-koblenzer11-wg"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "29", "name": "BN-v2-ZyXEL-NBG6617-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "30", "name": "BN-v2-940Nv6-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "30", "name": "BN-v2-940Nv6-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "30", "name": "BN-v2-940Nv6-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "162", "name": "Bonn.digital_FreifunkKBU_EC"}, "target": {"id": "31", "name": "Bonn.digital_FreifunkKBU_84"}}, {"source": {"id": "276", "name": "Bonn.digital_FreifunkKBU_D8"}, "target": {"id": "31", "name": "Bonn.digital_FreifunkKBU_84"}}, {"source": {"id": "52", "name": "Bonn.digital_FreifunkKBU_D4"}, "target": {"id": "31", "name": "Bonn.digital_FreifunkKBU_84"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "31", "name": "Bonn.digital_FreifunkKBU_84"}}, {"source": {"id": "32", "name": "Duenenfuechse_Pavillon"}, "target": {"id": "43", "name": "Duenenfuechse_ITA5"}}, {"source": {"id": "32", "name": "Duenenfuechse_Pavillon"}, "target": {"id": "74", "name": "Duenenfuechse-ACT-nanowelle"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "290", "name": "Remiguis-GW"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "86", "name": "Remigius-NW"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "86", "name": "Remigius-NW"}}, {"source": {"id": "226", "name": "Markt-Hinterhof"}, "target": {"id": "33", "name": "Remigius-SW"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "33", "name": "Remigius-SW"}, "target": {"id": "290", "name": "Remiguis-GW"}}, {"source": {"id": "123", "name": "slartibartfast02"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "302", "name": "slartibartfast07"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "231", "name": "slartibartfast05"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "170", "name": "slartibartfast01"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "76", "name": "slartibartfast06"}, "target": {"id": "34", "name": "slartibartfast03"}}, {"source": {"id": "178", "name": "BN-51"}, "target": {"id": "35", "name": "BN-58"}}, {"source": {"id": "35", "name": "BN-58"}, "target": {"id": "53", "name": "BN-57"}}, {"source": {"id": "35", "name": "BN-58"}, "target": {"id": "229", "name": "BN-60"}}, {"source": {"id": "35", "name": "BN-58"}, "target": {"id": "229", "name": "BN-60"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "37", "name": "freifunk-bonn-tanne1"}}, {"source": {"id": "38", "name": "ffkbu-90f652f86974"}, "target": {"id": "254", "name": "Am Westhover Berg 19_2"}}, {"source": {"id": "240", "name": "ffkbu-10feed2b1b36"}, "target": {"id": "38", "name": "ffkbu-90f652f86974"}}, {"source": {"id": "27", "name": "Johnny-20"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "143", "name": "Johnny-10"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "139", "name": "Johnny-5"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "39", "name": "Johnny-13"}, "target": {"id": "85", "name": "Johnny-9"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "299", "name": "Johnny-8"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "143", "name": "Johnny-10"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "39", "name": "Johnny-13"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "39", "name": "Johnny-13"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "92", "name": "ERX-Karl-Finkenburg"}, "target": {"id": "39", "name": "Johnny-13"}}, {"source": {"id": "39", "name": "Johnny-13"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "40", "name": "DDM A.Fechner - UG"}}, {"source": {"id": "40", "name": "DDM A.Fechner - UG"}, "target": {"id": "246", "name": "DDM A.Fechner - WZ"}}, {"source": {"id": "40", "name": "DDM A.Fechner - UG"}, "target": {"id": "246", "name": "DDM A.Fechner - WZ"}}, {"source": {"id": "41", "name": "Hembach1"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "42", "name": "ff-bouderath-3"}, "target": {"id": "232", "name": "ff-bouderath-1"}}, {"source": {"id": "42", "name": "ff-bouderath-3"}, "target": {"id": "88", "name": "ff-bouderath-2"}}, {"source": {"id": "43", "name": "Duenenfuechse_ITA5"}, "target": {"id": "300", "name": "Duenenfuechse_Park"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "44", "name": "ffkbu-am-trutzenberg-wg"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "63", "name": "FWS-EG-Sec"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "216", "name": "HW-Aushang"}}, {"source": {"id": "153", "name": "bwinf1"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "286", "name": "ADFC_Bonn-Rhein-Sieg"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "60", "name": "Duenenfuechse_Garten"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "96", "name": "Cafe_de_Art"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "144", "name": "JAP-3"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "54", "name": "cryptopartykbn"}}, {"source": {"id": "169", "name": "Freifunk"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "292", "name": "Horizont Reisen"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "186", "name": "Baeckerei-Klein--Tannenbusch"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "257", "name": "JAP-2"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "259", "name": "bwinf3"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "155", "name": "freifunk-lv-426.space"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "301", "name": "JAP-1"}}, {"source": {"id": "309", "name": "Freifunk "}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "207", "name": "Freifunk "}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "188", "name": "katja-doerner.de"}}, {"source": {"id": "94", "name": "ffkbu-hi-muf-001"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "159", "name": "KW-2.1"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "180", "name": "Oscar_Romero_Haus"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "136", "name": "BlackVeg"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "300", "name": "Duenenfuechse_Park"}}, {"source": {"id": "195", "name": "Marvin"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "45", "name": "Bonn2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "261", "name": "Bonn5"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "91", "name": "Bonn3"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "165", "name": "bwinf0"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "134", "name": "BN_Muffendorf_GT8_EG1"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "61", "name": "Palstek"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "242", "name": "enjoy-freifunk-kbu-50321bruehl"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "275", "name": "ffkbu-koblenzer11-wg"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "158", "name": "Fliegendes-Spaghettimonster"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "285", "name": "Johnny-1-Offloader"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "237", "name": "ffkbu-0c8063e5fda2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "51", "name": "ffkbu-88ee-bn-v2-wireguard"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "238", "name": "ffkbu-kkr-41"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "258", "name": "THW-TLTG_Heilsbach-GW"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "56", "name": "ffkbu-c8d3a35826d8"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "49", "name": "Duenenfuechse_Hochhaus_Loco"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "265", "name": "ffkbu-wolf23"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "75", "name": "ffkbu-b0be76599151"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "247", "name": "Bonner-Bogen-2"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "213", "name": "ffbam-egbam-01"}}, {"source": {"id": "45", "name": "Bonn2"}, "target": {"id": "92", "name": "ERX-Karl-Finkenburg"}}, {"source": {"id": "46", "name": "K-Weiss-1-North"}, "target": {"id": "51", "name": "ffkbu-88ee-bn-v2-wireguard"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "46", "name": "K-Weiss-1-North"}}, {"source": {"id": "213", "name": "ffbam-egbam-01"}, "target": {"id": "47", "name": "ffbam-egbam-02"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "48", "name": "Johnny-12"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "137", "name": "Johnny-21"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "48", "name": "Johnny-12"}}, {"source": {"id": "48", "name": "Johnny-12"}, "target": {"id": "92", "name": "ERX-Karl-Finkenburg"}}, {"source": {"id": "49", "name": "Duenenfuechse_Hochhaus_Loco"}, "target": {"id": "60", "name": "Duenenfuechse_Garten"}}, {"source": {"id": "252", "name": "THW Bonn 2"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "117", "name": "THW Bonn 7"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "114", "name": "THW Bonn 3"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "114", "name": "THW Bonn 3"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "252", "name": "THW Bonn 2"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "50", "name": "THW Bonn 4"}}, {"source": {"id": "52", "name": "Bonn.digital_FreifunkKBU_D4"}, "target": {"id": "162", "name": "Bonn.digital_FreifunkKBU_EC"}}, {"source": {"id": "52", "name": "Bonn.digital_FreifunkKBU_D4"}, "target": {"id": "276", "name": "Bonn.digital_FreifunkKBU_D8"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "52", "name": "Bonn.digital_FreifunkKBU_D4"}}, {"source": {"id": "178", "name": "BN-51"}, "target": {"id": "53", "name": "BN-57"}}, {"source": {"id": "229", "name": "BN-60"}, "target": {"id": "53", "name": "BN-57"}}, {"source": {"id": "146", "name": "Markt-SO"}, "target": {"id": "54", "name": "cryptopartykbn"}}, {"source": {"id": "57", "name": "ffbn01-Markthallen"}, "target": {"id": "181", "name": "ffbn01-Eifelstrasse"}}, {"source": {"id": "58", "name": "Azade-1"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "58", "name": "Azade-1"}, "target": {"id": "141", "name": "azade-2"}}, {"source": {"id": "267", "name": "BN-OHS-171"}, "target": {"id": "59", "name": "BN-OHS-Computerraum"}}, {"source": {"id": "59", "name": "BN-OHS-Computerraum"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "59", "name": "BN-OHS-Computerraum"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "211", "name": "BN-OHS-170"}, "target": {"id": "59", "name": "BN-OHS-Computerraum"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "59", "name": "BN-OHS-Computerraum"}}, {"source": {"id": "78", "name": "BN-OHS-172"}, "target": {"id": "59", "name": "BN-OHS-Computerraum"}}, {"source": {"id": "104", "name": "BN-OHS-79"}, "target": {"id": "59", "name": "BN-OHS-Computerraum"}}, {"source": {"id": "59", "name": "BN-OHS-Computerraum"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "239", "name": "nobridge"}, "target": {"id": "61", "name": "Palstek"}}, {"source": {"id": "239", "name": "nobridge"}, "target": {"id": "61", "name": "Palstek"}}, {"source": {"id": "203", "name": "FWS-EG-Lager2"}, "target": {"id": "63", "name": "FWS-EG-Sec"}}, {"source": {"id": "206", "name": "FWS-OG1-Flurbox"}, "target": {"id": "63", "name": "FWS-EG-Sec"}}, {"source": {"id": "81", "name": "BN-v2-841n-v9-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "65", "name": "Baeckerei_Kamps"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "92", "name": "ERX-Karl-Finkenburg"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "143", "name": "Johnny-10"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "66", "name": "Johnny-3"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "102", "name": "Johnny-23"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "102", "name": "Johnny-23"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "66", "name": "Johnny-3"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "205", "name": "BN-v2-841n-v10-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "68", "name": "Remigius-NO"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "290", "name": "Remiguis-GW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "290", "name": "Remiguis-GW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "68", "name": "Remigius-NO"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "130", "name": "BN-OHS-71"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "69", "name": "BN-OHS-76"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "211", "name": "BN-OHS-170"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "78", "name": "BN-OHS-172"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "104", "name": "BN-OHS-79"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "267", "name": "BN-OHS-171"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "69", "name": "BN-OHS-76"}}, {"source": {"id": "69", "name": "BN-OHS-76"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "216", "name": "HW-Aushang"}, "target": {"id": "70", "name": "HW-EG-Balkon"}}, {"source": {"id": "216", "name": "HW-Aushang"}, "target": {"id": "70", "name": "HW-EG-Balkon"}}, {"source": {"id": "215", "name": "HW-EG-Buero"}, "target": {"id": "70", "name": "HW-EG-Balkon"}}, {"source": {"id": "274", "name": "MBZ-Rheinland-A"}, "target": {"id": "71", "name": "MBZ-Rheinland-S2"}}, {"source": {"id": "243", "name": "MBZ-Rheinland-S1"}, "target": {"id": "71", "name": "MBZ-Rheinland-S2"}}, {"source": {"id": "142", "name": "VCD-Service"}, "target": {"id": "72", "name": "Baeckerei-Klein--Altstadt"}}, {"source": {"id": "72", "name": "Baeckerei-Klein--Altstadt"}, "target": {"id": "112", "name": "FF-die-Linken"}}, {"source": {"id": "72", "name": "Baeckerei-Klein--Altstadt"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "73", "name": "BN-83"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "87", "name": "Johnny-26"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "73", "name": "BN-83"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "74", "name": "Duenenfuechse-ACT-nanowelle"}, "target": {"id": "43", "name": "Duenenfuechse_ITA5"}}, {"source": {"id": "74", "name": "Duenenfuechse-ACT-nanowelle"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "76", "name": "slartibartfast06"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "76", "name": "slartibartfast06"}, "target": {"id": "170", "name": "slartibartfast01"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "76", "name": "slartibartfast06"}}, {"source": {"id": "76", "name": "slartibartfast06"}, "target": {"id": "123", "name": "slartibartfast02"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "77", "name": "ffkbu-f4ec38b315c5"}}, {"source": {"id": "78", "name": "BN-OHS-172"}, "target": {"id": "211", "name": "BN-OHS-170"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "78", "name": "BN-OHS-172"}}, {"source": {"id": "78", "name": "BN-OHS-172"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "78", "name": "BN-OHS-172"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "269", "name": "BN-67"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "119", "name": "BN-65"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "296", "name": "BN-64"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "187", "name": "BN-72"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "190", "name": "Johnny-15"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "221", "name": "BN-73"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "79", "name": "bn-90 (Master)"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "246", "name": "DDM A.Fechner - WZ"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "112", "name": "FF-die-Linken"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "291", "name": "ffkbu-b0be76e99f7fnn"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "156", "name": "Freifunk-Bonn-Plittersdorf-2"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "298", "name": "freifunk-kbu-cheeseburger-str"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "268", "name": "DDM A.Fechner - OG"}}, {"source": {"id": "229", "name": "BN-60"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "129", "name": "BN_Muffendorf_GT8-UG"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "215", "name": "HW-EG-Buero"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "179", "name": "Baeckerei-Klein--Buschdorf"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "157", "name": "ffkbu-mk"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "172", "name": "Friedlandstr_70-2"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "287", "name": "Cafe_Cortado"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "130", "name": "BN-OHS-71"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "80", "name": "Bonn4"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "261", "name": "Bonn5"}}, {"source": {"id": "80", "name": "Bonn4"}, "target": {"id": "91", "name": "Bonn3"}}, {"source": {"id": "205", "name": "BN-v2-841n-v10-01"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "30", "name": "BN-v2-940Nv6-01"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "81", "name": "BN-v2-841n-v9-01"}, "target": {"id": "67", "name": "mhunap-86"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "81", "name": "BN-v2-841n-v9-01"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "83", "name": "Freifunk"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "295", "name": "refugees_welcome_neu"}, "target": {"id": "84", "name": "refugees_welcome"}}, {"source": {"id": "139", "name": "Johnny-5"}, "target": {"id": "85", "name": "Johnny-9"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "290", "name": "Remiguis-GW"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "290", "name": "Remiguis-GW"}}, {"source": {"id": "86", "name": "Remigius-NW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "87", "name": "Johnny-26"}}, {"source": {"id": "303", "name": "BN-111"}, "target": {"id": "87", "name": "Johnny-26"}}, {"source": {"id": "87", "name": "Johnny-26"}, "target": {"id": "118", "name": "BN-87"}}, {"source": {"id": "87", "name": "Johnny-26"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "87", "name": "Johnny-26"}}, {"source": {"id": "87", "name": "Johnny-26"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "88", "name": "ff-bouderath-2"}, "target": {"id": "232", "name": "ff-bouderath-1"}}, {"source": {"id": "250", "name": "le-sabot"}, "target": {"id": "89", "name": "Babel_Bar"}}, {"source": {"id": "90", "name": "FF-KBU-FB-001"}, "target": {"id": "279", "name": "FF-KBU-FB-002"}}, {"source": {"id": "97", "name": "FF-KBU-FB-003"}, "target": {"id": "90", "name": "FF-KBU-FB-001"}}, {"source": {"id": "97", "name": "FF-KBU-FB-003"}, "target": {"id": "90", "name": "FF-KBU-FB-001"}}, {"source": {"id": "90", "name": "FF-KBU-FB-001"}, "target": {"id": "279", "name": "FF-KBU-FB-002"}}, {"source": {"id": "90", "name": "FF-KBU-FB-001"}, "target": {"id": "293", "name": "FF-KBU-FB-005"}}, {"source": {"id": "90", "name": "FF-KBU-FB-001"}, "target": {"id": "307", "name": "FF-KBU-FB-004"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "278", "name": "Baeckerei-Klein--Dransdorf"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "139", "name": "Johnny-5"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "91", "name": "Bonn3"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "261", "name": "Bonn5"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "279", "name": "FF-KBU-FB-002"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "228", "name": "hoze-unifi-offloader"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "152", "name": "Die_Sozialliberalen_003"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "120", "name": "ffkbu-zahnarzt-beerwerth"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "236", "name": "netgear-r6120_02"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "249", "name": "Gallusstr. 8"}}, {"source": {"id": "91", "name": "Bonn3"}, "target": {"id": "295", "name": "refugees_welcome_neu"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "92", "name": "ERX-Karl-Finkenburg"}}, {"source": {"id": "92", "name": "ERX-Karl-Finkenburg"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "92", "name": "ERX-Karl-Finkenburg"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "92", "name": "ERX-Karl-Finkenburg"}}, {"source": {"id": "92", "name": "ERX-Karl-Finkenburg"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "92", "name": "ERX-Karl-Finkenburg"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "112", "name": "FF-die-Linken"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "262", "name": "CPE210_v3_nu"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "266", "name": "St-Marien-Ost"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "255", "name": "St-Marien-West"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "142", "name": "VCD-Service"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "255", "name": "St-Marien-West"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "97", "name": "FF-KBU-FB-003"}, "target": {"id": "279", "name": "FF-KBU-FB-002"}}, {"source": {"id": "195", "name": "Marvin"}, "target": {"id": "98", "name": "Ford"}}, {"source": {"id": "234", "name": "Arthur"}, "target": {"id": "98", "name": "Ford"}}, {"source": {"id": "99", "name": "Campanile"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "100", "name": "USS Salcombe"}, "target": {"id": "173", "name": "USS Newton"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "100", "name": "USS Salcombe"}}, {"source": {"id": "100", "name": "USS Salcombe"}, "target": {"id": "173", "name": "USS Newton"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "143", "name": "Johnny-10"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "102", "name": "Johnny-23"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "269", "name": "BN-67"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "269", "name": "BN-67"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "119", "name": "BN-65"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "103", "name": "BN-70"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "190", "name": "Johnny-15"}}, {"source": {"id": "103", "name": "BN-70"}, "target": {"id": "221", "name": "BN-73"}}, {"source": {"id": "267", "name": "BN-OHS-171"}, "target": {"id": "104", "name": "BN-OHS-79"}}, {"source": {"id": "104", "name": "BN-OHS-79"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "211", "name": "BN-OHS-170"}, "target": {"id": "104", "name": "BN-OHS-79"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "104", "name": "BN-OHS-79"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "109", "name": "BN-89"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "160", "name": "ERX-CMA"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "105", "name": "Johnny-47"}, "target": {"id": "109", "name": "BN-89"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "143", "name": "Johnny-10"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "106", "name": "Johnny-22"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "107", "name": "BN-109"}}, {"source": {"id": "107", "name": "BN-109"}, "target": {"id": "303", "name": "BN-111"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "108", "name": "BM-CommanderKnoten"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "109", "name": "BN-89"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "118", "name": "BN-87"}}, {"source": {"id": "160", "name": "ERX-CMA"}, "target": {"id": "109", "name": "BN-89"}}, {"source": {"id": "109", "name": "BN-89"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "110", "name": "ffkbu-50c7bf16a3fe"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "111", "name": "Mehlemer-Stuebchen-2"}, "target": {"id": "192", "name": "Johnny-1"}}, {"source": {"id": "111", "name": "Mehlemer-Stuebchen-2"}, "target": {"id": "168", "name": "Mehlemer-Stuebchen-1"}}, {"source": {"id": "111", "name": "Mehlemer-Stuebchen-2"}, "target": {"id": "158", "name": "Fliegendes-Spaghettimonster"}}, {"source": {"id": "133", "name": "Johnny-6"}, "target": {"id": "111", "name": "Mehlemer-Stuebchen-2"}}, {"source": {"id": "112", "name": "FF-die-Linken"}, "target": {"id": "136", "name": "BlackVeg"}}, {"source": {"id": "142", "name": "VCD-Service"}, "target": {"id": "112", "name": "FF-die-Linken"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "113", "name": "ffkbu-b0be7677d959-reichshof-eckenhagen-nachbarschaftstreff"}}, {"source": {"id": "114", "name": "THW Bonn 3"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "114", "name": "THW Bonn 3"}}, {"source": {"id": "114", "name": "THW Bonn 3"}, "target": {"id": "117", "name": "THW Bonn 7"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "114", "name": "THW Bonn 3"}}, {"source": {"id": "114", "name": "THW Bonn 3"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "114", "name": "THW Bonn 3"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "267", "name": "BN-OHS-171"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "211", "name": "BN-OHS-170"}}, {"source": {"id": "116", "name": "BN-OHS-Erz-E2S"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "252", "name": "THW Bonn 2"}, "target": {"id": "117", "name": "THW Bonn 7"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "117", "name": "THW Bonn 7"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "117", "name": "THW Bonn 7"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "118", "name": "BN-87"}}, {"source": {"id": "118", "name": "BN-87"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "119", "name": "BN-65"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "119", "name": "BN-65"}}, {"source": {"id": "119", "name": "BN-65"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "190", "name": "Johnny-15"}, "target": {"id": "119", "name": "BN-65"}}, {"source": {"id": "221", "name": "BN-73"}, "target": {"id": "119", "name": "BN-65"}}, {"source": {"id": "269", "name": "BN-67"}, "target": {"id": "119", "name": "BN-65"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "121", "name": "BN-v2-UnifiAcLite-12"}}, {"source": {"id": "122", "name": "FWS-OG2-69"}, "target": {"id": "206", "name": "FWS-OG1-Flurbox"}}, {"source": {"id": "271", "name": "FWS_OG1-071"}, "target": {"id": "122", "name": "FWS-OG2-69"}}, {"source": {"id": "122", "name": "FWS-OG2-69"}, "target": {"id": "63", "name": "FWS-EG-Sec"}}, {"source": {"id": "161", "name": "FWS-OG1-41"}, "target": {"id": "122", "name": "FWS-OG2-69"}}, {"source": {"id": "289", "name": "slartibartfast09"}, "target": {"id": "123", "name": "slartibartfast02"}}, {"source": {"id": "123", "name": "slartibartfast02"}, "target": {"id": "170", "name": "slartibartfast01"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "123", "name": "slartibartfast02"}}, {"source": {"id": "182", "name": "slartibartfast08"}, "target": {"id": "123", "name": "slartibartfast02"}}, {"source": {"id": "302", "name": "slartibartfast07"}, "target": {"id": "123", "name": "slartibartfast02"}}, {"source": {"id": "123", "name": "slartibartfast02"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "124", "name": "ffkbu-waldbroel-dahl"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "126", "name": "BN-29"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "220", "name": "BN-24"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "126", "name": "BN-29"}, "target": {"id": "220", "name": "BN-24"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "126", "name": "BN-29"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "127", "name": "CastellOffloader"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "128", "name": "BN-v2-UnifiAcLite-10"}}, {"source": {"id": "130", "name": "BN-OHS-71"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "211", "name": "BN-OHS-170"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "267", "name": "BN-OHS-171"}, "target": {"id": "130", "name": "BN-OHS-71"}}, {"source": {"id": "131", "name": "Hochstaden"}, "target": {"id": "262", "name": "CPE210_v3_nu"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "308", "name": "THW Bonn 1"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "132", "name": "THW Bonn 6"}, "target": {"id": "308", "name": "THW Bonn 1"}}, {"source": {"id": "133", "name": "Johnny-6"}, "target": {"id": "192", "name": "Johnny-1"}}, {"source": {"id": "133", "name": "Johnny-6"}, "target": {"id": "158", "name": "Fliegendes-Spaghettimonster"}}, {"source": {"id": "135", "name": "Freifunk"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "136", "name": "BlackVeg"}, "target": {"id": "95", "name": "St-Marien-Nord"}}, {"source": {"id": "142", "name": "VCD-Service"}, "target": {"id": "136", "name": "BlackVeg"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "137", "name": "Johnny-21"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "137", "name": "Johnny-21"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "137", "name": "Johnny-21"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "137", "name": "Johnny-21"}}, {"source": {"id": "137", "name": "Johnny-21"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "139", "name": "Johnny-5"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "241", "name": "BN-v2-841n-v11-02"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "142", "name": "VCD-Service"}, "target": {"id": "255", "name": "St-Marien-West"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "299", "name": "Johnny-8"}, "target": {"id": "143", "name": "Johnny-10"}}, {"source": {"id": "257", "name": "JAP-2"}, "target": {"id": "144", "name": "JAP-3"}}, {"source": {"id": "146", "name": "Markt-SO"}, "target": {"id": "218", "name": "guelistan-testbetrieb"}}, {"source": {"id": "226", "name": "Markt-Hinterhof"}, "target": {"id": "146", "name": "Markt-SO"}}, {"source": {"id": "146", "name": "Markt-SO"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "211", "name": "BN-OHS-170"}, "target": {"id": "147", "name": "BN-OHS-92"}}, {"source": {"id": "148", "name": "Baeckerei-Klein--Endenich"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "149", "name": "swzrhd-001"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "150", "name": "BN-v2-841n-v9-34"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "150", "name": "BN-v2-841n-v9-34"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "163", "name": "Johnny-42"}, "target": {"id": "151", "name": "Johnny-44"}}, {"source": {"id": "153", "name": "bwinf1"}, "target": {"id": "165", "name": "bwinf0"}}, {"source": {"id": "168", "name": "Mehlemer-Stuebchen-1"}, "target": {"id": "158", "name": "Fliegendes-Spaghettimonster"}}, {"source": {"id": "192", "name": "Johnny-1"}, "target": {"id": "158", "name": "Fliegendes-Spaghettimonster"}}, {"source": {"id": "160", "name": "ERX-CMA"}, "target": {"id": "197", "name": "BN-86"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "160", "name": "ERX-CMA"}}, {"source": {"id": "271", "name": "FWS_OG1-071"}, "target": {"id": "161", "name": "FWS-OG1-41"}}, {"source": {"id": "161", "name": "FWS-OG1-41"}, "target": {"id": "206", "name": "FWS-OG1-Flurbox"}}, {"source": {"id": "276", "name": "Bonn.digital_FreifunkKBU_D8"}, "target": {"id": "162", "name": "Bonn.digital_FreifunkKBU_EC"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "163", "name": "Johnny-42"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "259", "name": "bwinf3"}, "target": {"id": "165", "name": "bwinf0"}}, {"source": {"id": "166", "name": "BN-107"}, "target": {"id": "303", "name": "BN-111"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "167", "name": "CryptopartyKBNmobil2"}}, {"source": {"id": "168", "name": "Mehlemer-Stuebchen-1"}, "target": {"id": "192", "name": "Johnny-1"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "168", "name": "Mehlemer-Stuebchen-1"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "170", "name": "slartibartfast01"}}, {"source": {"id": "302", "name": "slartibartfast07"}, "target": {"id": "170", "name": "slartibartfast01"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "269", "name": "BN-67"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "190", "name": "Johnny-15"}}, {"source": {"id": "171", "name": "BN-66"}, "target": {"id": "221", "name": "BN-73"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "245", "name": "FWS-EG-S84A"}, "target": {"id": "175", "name": "BN-CWP-EG01"}}, {"source": {"id": "210", "name": "BN-CWP-OG2"}, "target": {"id": "175", "name": "BN-CWP-EG01"}}, {"source": {"id": "175", "name": "BN-CWP-EG01"}, "target": {"id": "283", "name": "BN-CWP-HM"}}, {"source": {"id": "176", "name": "FWS-EG-S85K"}, "target": {"id": "175", "name": "BN-CWP-EG01"}}, {"source": {"id": "176", "name": "FWS-EG-S85K"}, "target": {"id": "245", "name": "FWS-EG-S84A"}}, {"source": {"id": "176", "name": "FWS-EG-S85K"}, "target": {"id": "210", "name": "BN-CWP-OG2"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}}, {"source": {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "178", "name": "BN-51"}, "target": {"id": "229", "name": "BN-60"}}, {"source": {"id": "263", "name": "Faehrpavillon_Graurheindorf"}, "target": {"id": "179", "name": "Baeckerei-Klein--Buschdorf"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "182", "name": "slartibartfast08"}}, {"source": {"id": "289", "name": "slartibartfast09"}, "target": {"id": "182", "name": "slartibartfast08"}}, {"source": {"id": "183", "name": "ffkbu-98ded091fd88"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}, "target": {"id": "236", "name": "netgear-r6120_02"}}, {"source": {"id": "236", "name": "netgear-r6120_02"}, "target": {"id": "184", "name": "BN-v2-UnifiAcLite-11"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}}, {"source": {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, "target": {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}}, {"source": {"id": "269", "name": "BN-67"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "221", "name": "BN-73"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "187", "name": "BN-72"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "269", "name": "BN-67"}, "target": {"id": "190", "name": "Johnny-15"}}, {"source": {"id": "190", "name": "Johnny-15"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "190", "name": "Johnny-15"}, "target": {"id": "187", "name": "BN-72"}}, {"source": {"id": "221", "name": "BN-73"}, "target": {"id": "190", "name": "Johnny-15"}}, {"source": {"id": "285", "name": "Johnny-1-Offloader"}, "target": {"id": "192", "name": "Johnny-1"}}, {"source": {"id": "165", "name": "bwinf0"}, "target": {"id": "194", "name": "bwinf2"}}, {"source": {"id": "259", "name": "bwinf3"}, "target": {"id": "194", "name": "bwinf2"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "194", "name": "bwinf2"}}, {"source": {"id": "234", "name": "Arthur"}, "target": {"id": "195", "name": "Marvin"}}, {"source": {"id": "234", "name": "Arthur"}, "target": {"id": "195", "name": "Marvin"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "196", "name": "FF-KBU-Sued-001"}}, {"source": {"id": "290", "name": "Remiguis-GW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "290", "name": "Remiguis-GW"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "199", "name": "schaumburger-hof.de"}, "target": {"id": "202", "name": "schaumburger-hof.de"}}, {"source": {"id": "199", "name": "schaumburger-hof.de"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}}, {"source": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "201", "name": "BN-32"}, "target": {"id": "220", "name": "BN-24"}}, {"source": {"id": "227", "name": "FWS-EG-Seminar"}, "target": {"id": "203", "name": "FWS-EG-Lager2"}}, {"source": {"id": "227", "name": "FWS-EG-Seminar"}, "target": {"id": "203", "name": "FWS-EG-Lager2"}}, {"source": {"id": "55", "name": "FWS-Master-Of-Connectivity"}, "target": {"id": "203", "name": "FWS-EG-Lager2"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, "target": {"id": "205", "name": "BN-v2-841n-v10-01"}}, {"source": {"id": "205", "name": "BN-v2-841n-v10-01"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "227", "name": "FWS-EG-Seminar"}, "target": {"id": "206", "name": "FWS-OG1-Flurbox"}}, {"source": {"id": "271", "name": "FWS_OG1-071"}, "target": {"id": "206", "name": "FWS-OG1-Flurbox"}}, {"source": {"id": "207", "name": "Freifunk "}, "target": {"id": "309", "name": "Freifunk "}}, {"source": {"id": "210", "name": "BN-CWP-OG2"}, "target": {"id": "283", "name": "BN-CWP-HM"}}, {"source": {"id": "210", "name": "BN-CWP-OG2"}, "target": {"id": "238", "name": "ffkbu-kkr-41"}}, {"source": {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "236", "name": "netgear-r6120_02"}, "target": {"id": "214", "name": "FWS-OG3-13F"}}, {"source": {"id": "215", "name": "HW-EG-Buero"}, "target": {"id": "216", "name": "HW-Aushang"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "218", "name": "guelistan-testbetrieb"}}, {"source": {"id": "220", "name": "BN-24"}, "target": {"id": "264", "name": "THW-TLTG_Link"}}, {"source": {"id": "221", "name": "BN-73"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "223", "name": "yanosz-balkon"}}, {"source": {"id": "225", "name": "Hohetanne38"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "226", "name": "Markt-Hinterhof"}, "target": {"id": "68", "name": "Remigius-NO"}}, {"source": {"id": "226", "name": "Markt-Hinterhof"}, "target": {"id": "198", "name": "Remigius-SO"}}, {"source": {"id": "227", "name": "FWS-EG-Seminar"}, "target": {"id": "55", "name": "FWS-Master-Of-Connectivity"}}, {"source": {"id": "271", "name": "FWS_OG1-071"}, "target": {"id": "227", "name": "FWS-EG-Seminar"}}, {"source": {"id": "289", "name": "slartibartfast09"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "232", "name": "ff-bouderath-1"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "235", "name": "BN-v2-UnifiAcLite-01"}}, {"source": {"id": "176", "name": "FWS-EG-S85K"}, "target": {"id": "238", "name": "ffkbu-kkr-41"}}, {"source": {"id": "239", "name": "nobridge"}, "target": {"id": "266", "name": "St-Marien-Ost"}}, {"source": {"id": "240", "name": "ffkbu-10feed2b1b36"}, "target": {"id": "254", "name": "Am Westhover Berg 19_2"}}, {"source": {"id": "241", "name": "BN-v2-841n-v11-02"}, "target": {"id": "174", "name": "BN-v2-ArcherC25v1-01"}}, {"source": {"id": "274", "name": "MBZ-Rheinland-A"}, "target": {"id": "243", "name": "MBZ-Rheinland-S1"}}, {"source": {"id": "268", "name": "DDM A.Fechner - OG"}, "target": {"id": "246", "name": "DDM A.Fechner - WZ"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "289", "name": "slartibartfast09"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "8", "name": "slartibartfast04"}}, {"source": {"id": "248", "name": "mhunap-78"}, "target": {"id": "302", "name": "slartibartfast07"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "248", "name": "mhunap-78"}}, {"source": {"id": "286", "name": "ADFC_Bonn-Rhein-Sieg"}, "target": {"id": "250", "name": "le-sabot"}}, {"source": {"id": "250", "name": "le-sabot"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "308", "name": "THW Bonn 1"}, "target": {"id": "252", "name": "THW Bonn 2"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "270", "name": "Johnny-24"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "270", "name": "Johnny-24"}}, {"source": {"id": "253", "name": "Johnny-7"}, "target": {"id": "299", "name": "Johnny-8"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "254", "name": "Am Westhover Berg 19_2"}}, {"source": {"id": "131", "name": "Hochstaden"}, "target": {"id": "255", "name": "St-Marien-West"}}, {"source": {"id": "262", "name": "CPE210_v3_nu"}, "target": {"id": "255", "name": "St-Marien-West"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "260", "name": "BNOK02"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "261", "name": "Bonn5"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "283", "name": "BN-CWP-HM"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "3", "name": "ffkbu-8416f9d34150"}}, {"source": {"id": "281", "name": "Karmeliter-2"}, "target": {"id": "261", "name": "Bonn5"}}, {"source": {"id": "261", "name": "Bonn5"}, "target": {"id": "305", "name": "ffkbu-42"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "262", "name": "CPE210_v3_nu"}}, {"source": {"id": "262", "name": "CPE210_v3_nu"}, "target": {"id": "25", "name": "ffbn01-Bullet"}}, {"source": {"id": "269", "name": "BN-67"}, "target": {"id": "296", "name": "BN-64"}}, {"source": {"id": "270", "name": "Johnny-24"}, "target": {"id": "102", "name": "Johnny-23"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "272", "name": "USS Stargazer"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "274", "name": "MBZ-Rheinland-A"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, "target": {"id": "280", "name": "BN-v2-UnifiAcLite-18"}}, {"source": {"id": "176", "name": "FWS-EG-S85K"}, "target": {"id": "283", "name": "BN-CWP-HM"}}, {"source": {"id": "245", "name": "FWS-EG-S84A"}, "target": {"id": "283", "name": "BN-CWP-HM"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "284", "name": "BN-v2-1043NDv1-01"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "288", "name": "waldorf"}}, {"source": {"id": "289", "name": "slartibartfast09"}, "target": {"id": "302", "name": "slartibartfast07"}}, {"source": {"id": "293", "name": "FF-KBU-FB-005"}, "target": {"id": "307", "name": "FF-KBU-FB-004"}}, {"source": {"id": "294", "name": "Lannesdorf1"}, "target": {"id": "306", "name": "Bonn1"}}, {"source": {"id": "302", "name": "slartibartfast07"}, "target": {"id": "231", "name": "slartibartfast05"}}, {"source": {"id": "303", "name": "BN-111"}, "target": {"id": "118", "name": "BN-87"}}, {"source": {"id": "303", "name": "BN-111"}, "target": {"id": "73", "name": "BN-83"}}, {"source": {"id": "306", "name": "Bonn1"}, "target": {"id": "308", "name": "THW Bonn 1"}}], "nodes": [{"id": "0", "name": "BN-v2-1043Nv5-01"}, {"id": "1", "name": "BN-85"}, {"id": "2", "name": "BN-25"}, {"id": "3", "name": "ffkbu-8416f9d34150"}, {"id": "4", "name": "Friedlandstr_70-4"}, {"id": "5", "name": "BN-v2-UnifiAcLite-14"}, {"id": "6", "name": "GHS-EG-Sec"}, {"id": "7", "name": "netgear-r6120_01"}, {"id": "8", "name": "slartibartfast04"}, {"id": "9", "name": "ffkbuu-buehil"}, {"id": "10", "name": "BN-106"}, {"id": "11", "name": "BN-103"}, {"id": "12", "name": "ffkbu-802aa8941d37"}, {"id": "13", "name": "BN-03"}, {"id": "14", "name": "N2-Garten"}, {"id": "15", "name": "BN-FWS-KG-Uplink"}, {"id": "16", "name": "BN-09"}, {"id": "17", "name": "BN-88"}, {"id": "18", "name": "BN-08"}, {"id": "19", "name": "Castell"}, {"id": "20", "name": "BN_Muffendorf_GT8_Kueche"}, {"id": "21", "name": "ffkbu-50c7bf16b034"}, {"id": "22", "name": "ffkbu-MSP-Hifistudio"}, {"id": "23", "name": "BN-v2-UnifiMesh-2"}, {"id": "24", "name": "American-Paranoia"}, {"id": "25", "name": "ffbn01-Bullet"}, {"id": "26", "name": "Friedlandstr_70-3"}, {"id": "27", "name": "Johnny-20"}, {"id": "28", "name": "ffkbu-koblenzer11-fd"}, {"id": "29", "name": "BN-v2-ZyXEL-NBG6617-01"}, {"id": "30", "name": "BN-v2-940Nv6-01"}, {"id": "31", "name": "Bonn.digital_FreifunkKBU_84"}, {"id": "32", "name": "Duenenfuechse_Pavillon"}, {"id": "33", "name": "Remigius-SW"}, {"id": "34", "name": "slartibartfast03"}, {"id": "35", "name": "BN-58"}, {"id": "36", "name": "ffkbu-v2-fritzbox-4040-02"}, {"id": "37", "name": "freifunk-bonn-tanne1"}, {"id": "38", "name": "ffkbu-90f652f86974"}, {"id": "39", "name": "Johnny-13"}, {"id": "40", "name": "DDM A.Fechner - UG"}, {"id": "41", "name": "Hembach1"}, {"id": "42", "name": "ff-bouderath-3"}, {"id": "43", "name": "Duenenfuechse_ITA5"}, {"id": "44", "name": "ffkbu-am-trutzenberg-wg"}, {"id": "45", "name": "Bonn2"}, {"id": "46", "name": "K-Weiss-1-North"}, {"id": "47", "name": "ffbam-egbam-02"}, {"id": "48", "name": "Johnny-12"}, {"id": "49", "name": "Duenenfuechse_Hochhaus_Loco"}, {"id": "50", "name": "THW Bonn 4"}, {"id": "51", "name": "ffkbu-88ee-bn-v2-wireguard"}, {"id": "52", "name": "Bonn.digital_FreifunkKBU_D4"}, {"id": "53", "name": "BN-57"}, {"id": "54", "name": "cryptopartykbn"}, {"id": "55", "name": "FWS-Master-Of-Connectivity"}, {"id": "56", "name": "ffkbu-c8d3a35826d8"}, {"id": "57", "name": "ffbn01-Markthallen"}, {"id": "58", "name": "Azade-1"}, {"id": "59", "name": "BN-OHS-Computerraum"}, {"id": "60", "name": "Duenenfuechse_Garten"}, {"id": "61", "name": "Palstek"}, {"id": "62", "name": "ffkbu-30b5c222dba6"}, {"id": "63", "name": "FWS-EG-Sec"}, {"id": "64", "name": "BN-v2-Haus-Der-Jugend-mitte"}, {"id": "65", "name": "Baeckerei_Kamps"}, {"id": "66", "name": "Johnny-3"}, {"id": "67", "name": "mhunap-86"}, {"id": "68", "name": "Remigius-NO"}, {"id": "69", "name": "BN-OHS-76"}, {"id": "70", "name": "HW-EG-Balkon"}, {"id": "71", "name": "MBZ-Rheinland-S2"}, {"id": "72", "name": "Baeckerei-Klein--Altstadt"}, {"id": "73", "name": "BN-83"}, {"id": "74", "name": "Duenenfuechse-ACT-nanowelle"}, {"id": "75", "name": "ffkbu-b0be76599151"}, {"id": "76", "name": "slartibartfast06"}, {"id": "77", "name": "ffkbu-f4ec38b315c5"}, {"id": "78", "name": "BN-OHS-172"}, {"id": "79", "name": "bn-90 (Master)"}, {"id": "80", "name": "Bonn4"}, {"id": "81", "name": "BN-v2-841n-v9-01"}, {"id": "82", "name": "BN-v2-Haus-Der-Jugend-oben"}, {"id": "83", "name": "Freifunk"}, {"id": "84", "name": "refugees_welcome"}, {"id": "85", "name": "Johnny-9"}, {"id": "86", "name": "Remigius-NW"}, {"id": "87", "name": "Johnny-26"}, {"id": "88", "name": "ff-bouderath-2"}, {"id": "89", "name": "Babel_Bar"}, {"id": "90", "name": "FF-KBU-FB-001"}, {"id": "91", "name": "Bonn3"}, {"id": "92", "name": "ERX-Karl-Finkenburg"}, {"id": "93", "name": "Bonn5"}, {"id": "94", "name": "ffkbu-hi-muf-001"}, {"id": "95", "name": "St-Marien-Nord"}, {"id": "96", "name": "Cafe_de_Art"}, {"id": "97", "name": "FF-KBU-FB-003"}, {"id": "98", "name": "Ford"}, {"id": "99", "name": "Campanile"}, {"id": "100", "name": "USS Salcombe"}, {"id": "101", "name": "Bonn2"}, {"id": "102", "name": "Johnny-23"}, {"id": "103", "name": "BN-70"}, {"id": "104", "name": "BN-OHS-79"}, {"id": "105", "name": "Johnny-47"}, {"id": "106", "name": "Johnny-22"}, {"id": "107", "name": "BN-109"}, {"id": "108", "name": "BM-CommanderKnoten"}, {"id": "109", "name": "BN-89"}, {"id": "110", "name": "ffkbu-50c7bf16a3fe"}, {"id": "111", "name": "Mehlemer-Stuebchen-2"}, {"id": "112", "name": "FF-die-Linken"}, {"id": "113", "name": "ffkbu-b0be7677d959-reichshof-eckenhagen-nachbarschaftstreff"}, {"id": "114", "name": "THW Bonn 3"}, {"id": "115", "name": "Bonn4"}, {"id": "116", "name": "BN-OHS-Erz-E2S"}, {"id": "117", "name": "THW Bonn 7"}, {"id": "118", "name": "BN-87"}, {"id": "119", "name": "BN-65"}, {"id": "120", "name": "ffkbu-zahnarzt-beerwerth"}, {"id": "121", "name": "BN-v2-UnifiAcLite-12"}, {"id": "122", "name": "FWS-OG2-69"}, {"id": "123", "name": "slartibartfast02"}, {"id": "124", "name": "ffkbu-waldbroel-dahl"}, {"id": "125", "name": "FFKBU-HB-0-30B5C2ED4548"}, {"id": "126", "name": "BN-29"}, {"id": "127", "name": "CastellOffloader"}, {"id": "128", "name": "BN-v2-UnifiAcLite-10"}, {"id": "129", "name": "BN_Muffendorf_GT8-UG"}, {"id": "130", "name": "BN-OHS-71"}, {"id": "131", "name": "Hochstaden"}, {"id": "132", "name": "THW Bonn 6"}, {"id": "133", "name": "Johnny-6"}, {"id": "134", "name": "BN_Muffendorf_GT8_EG1"}, {"id": "135", "name": "Freifunk"}, {"id": "136", "name": "BlackVeg"}, {"id": "137", "name": "Johnny-21"}, {"id": "138", "name": "OHS-GHSOG2N"}, {"id": "139", "name": "Johnny-5"}, {"id": "140", "name": "BN-v2-UnifiAcMesh-01"}, {"id": "141", "name": "azade-2"}, {"id": "142", "name": "VCD-Service"}, {"id": "143", "name": "Johnny-10"}, {"id": "144", "name": "JAP-3"}, {"id": "145", "name": "Johnny-15"}, {"id": "146", "name": "Markt-SO"}, {"id": "147", "name": "BN-OHS-92"}, {"id": "148", "name": "Baeckerei-Klein--Endenich"}, {"id": "149", "name": "swzrhd-001"}, {"id": "150", "name": "BN-v2-841n-v9-34"}, {"id": "151", "name": "Johnny-44"}, {"id": "152", "name": "Die_Sozialliberalen_003"}, {"id": "153", "name": "bwinf1"}, {"id": "154", "name": "ffkbu-bn111"}, {"id": "155", "name": "freifunk-lv-426.space"}, {"id": "156", "name": "Freifunk-Bonn-Plittersdorf-2"}, {"id": "157", "name": "ffkbu-mk"}, {"id": "158", "name": "Fliegendes-Spaghettimonster"}, {"id": "159", "name": "KW-2.1"}, {"id": "160", "name": "ERX-CMA"}, {"id": "161", "name": "FWS-OG1-41"}, {"id": "162", "name": "Bonn.digital_FreifunkKBU_EC"}, {"id": "163", "name": "Johnny-42"}, {"id": "164", "name": "BN-v2-UnifiAcLite-13"}, {"id": "165", "name": "bwinf0"}, {"id": "166", "name": "BN-107"}, {"id": "167", "name": "CryptopartyKBNmobil2"}, {"id": "168", "name": "Mehlemer-Stuebchen-1"}, {"id": "169", "name": "Freifunk"}, {"id": "170", "name": "slartibartfast01"}, {"id": "171", "name": "BN-66"}, {"id": "172", "name": "Friedlandstr_70-2"}, {"id": "173", "name": "USS Newton"}, {"id": "174", "name": "BN-v2-ArcherC25v1-01"}, {"id": "175", "name": "BN-CWP-EG01"}, {"id": "176", "name": "FWS-EG-S85K"}, {"id": "177", "name": "BN-v2-UnifiAcLite-15"}, {"id": "178", "name": "BN-51"}, {"id": "179", "name": "Baeckerei-Klein--Buschdorf"}, {"id": "180", "name": "Oscar_Romero_Haus"}, {"id": "181", "name": "ffbn01-Eifelstrasse"}, {"id": "182", "name": "slartibartfast08"}, {"id": "183", "name": "ffkbu-98ded091fd88"}, {"id": "184", "name": "BN-v2-UnifiAcLite-11"}, {"id": "185", "name": "BN-v2-FRITZ-Box-4040-01"}, {"id": "186", "name": "Baeckerei-Klein--Tannenbusch"}, {"id": "187", "name": "BN-72"}, {"id": "188", "name": "katja-doerner.de"}, {"id": "189", "name": "ffkbu-v2-fritzbox-4020-01"}, {"id": "190", "name": "Johnny-15"}, {"id": "191", "name": "Bonn4"}, {"id": "192", "name": "Johnny-1"}, {"id": "193", "name": "FFKBU-HB-1-30B5C2ED4D2C"}, {"id": "194", "name": "bwinf2"}, {"id": "195", "name": "Marvin"}, {"id": "196", "name": "FF-KBU-Sued-001"}, {"id": "197", "name": "BN-86"}, {"id": "198", "name": "Remigius-SO"}, {"id": "199", "name": "schaumburger-hof.de"}, {"id": "200", "name": "Bonn_Alte-VHS_Uplink"}, {"id": "201", "name": "BN-32"}, {"id": "202", "name": "schaumburger-hof.de"}, {"id": "203", "name": "FWS-EG-Lager2"}, {"id": "204", "name": "FWS-UG-S81S"}, {"id": "205", "name": "BN-v2-841n-v10-01"}, {"id": "206", "name": "FWS-OG1-Flurbox"}, {"id": "207", "name": "Freifunk "}, {"id": "208", "name": "Bonn5"}, {"id": "209", "name": "GHS-OG2-Ost"}, {"id": "210", "name": "BN-CWP-OG2"}, {"id": "211", "name": "BN-OHS-170"}, {"id": "212", "name": "BN-v2-Haus-Der-Jugend-unten"}, {"id": "213", "name": "ffbam-egbam-01"}, {"id": "214", "name": "FWS-OG3-13F"}, {"id": "215", "name": "HW-EG-Buero"}, {"id": "216", "name": "HW-Aushang"}, {"id": "217", "name": "BN-v2-841n-v11-Ehrenamt"}, {"id": "218", "name": "guelistan-testbetrieb"}, {"id": "219", "name": "ffkbu-RAVITA-Pflegedienst"}, {"id": "220", "name": "BN-24"}, {"id": "221", "name": "BN-73"}, {"id": "222", "name": "Bonn1"}, {"id": "223", "name": "yanosz-balkon"}, {"id": "224", "name": "Freifunk-Bonn-Plittersdorf"}, {"id": "225", "name": "Hohetanne38"}, {"id": "226", "name": "Markt-Hinterhof"}, {"id": "227", "name": "FWS-EG-Seminar"}, {"id": "228", "name": "hoze-unifi-offloader"}, {"id": "229", "name": "BN-60"}, {"id": "230", "name": "Oscar_Romero_Haus4_1EG"}, {"id": "231", "name": "slartibartfast05"}, {"id": "232", "name": "ff-bouderath-1"}, {"id": "233", "name": "ffkbu-LEIHROUTER"}, {"id": "234", "name": "Arthur"}, {"id": "235", "name": "BN-v2-UnifiAcLite-01"}, {"id": "236", "name": "netgear-r6120_02"}, {"id": "237", "name": "ffkbu-0c8063e5fda2"}, {"id": "238", "name": "ffkbu-kkr-41"}, {"id": "239", "name": "nobridge"}, {"id": "240", "name": "ffkbu-10feed2b1b36"}, {"id": "241", "name": "BN-v2-841n-v11-02"}, {"id": "242", "name": "enjoy-freifunk-kbu-50321bruehl"}, {"id": "243", "name": "MBZ-Rheinland-S1"}, {"id": "244", "name": "Konstantin"}, {"id": "245", "name": "FWS-EG-S84A"}, {"id": "246", "name": "DDM A.Fechner - WZ"}, {"id": "247", "name": "Bonner-Bogen-2"}, {"id": "248", "name": "mhunap-78"}, {"id": "249", "name": "Gallusstr. 8"}, {"id": "250", "name": "le-sabot"}, {"id": "251", "name": "Bonn3"}, {"id": "252", "name": "THW Bonn 2"}, {"id": "253", "name": "Johnny-7"}, {"id": "254", "name": "Am Westhover Berg 19_2"}, {"id": "255", "name": "St-Marien-West"}, {"id": "256", "name": "slartibartfast00"}, {"id": "257", "name": "JAP-2"}, {"id": "258", "name": "THW-TLTG_Heilsbach-GW"}, {"id": "259", "name": "bwinf3"}, {"id": "260", "name": "BNOK02"}, {"id": "261", "name": "Bonn5"}, {"id": "262", "name": "CPE210_v3_nu"}, {"id": "263", "name": "Faehrpavillon_Graurheindorf"}, {"id": "264", "name": "THW-TLTG_Link"}, {"id": "265", "name": "ffkbu-wolf23"}, {"id": "266", "name": "St-Marien-Ost"}, {"id": "267", "name": "BN-OHS-171"}, {"id": "268", "name": "DDM A.Fechner - OG"}, {"id": "269", "name": "BN-67"}, {"id": "270", "name": "Johnny-24"}, {"id": "271", "name": "FWS_OG1-071"}, {"id": "272", "name": "USS Stargazer"}, {"id": "273", "name": "Konstantin-C7"}, {"id": "274", "name": "MBZ-Rheinland-A"}, {"id": "275", "name": "ffkbu-koblenzer11-wg"}, {"id": "276", "name": "Bonn.digital_FreifunkKBU_D8"}, {"id": "277", "name": "BN-v2-UnifiAcLite-19"}, {"id": "278", "name": "Baeckerei-Klein--Dransdorf"}, {"id": "279", "name": "FF-KBU-FB-002"}, {"id": "280", "name": "BN-v2-UnifiAcLite-18"}, {"id": "281", "name": "Karmeliter-2"}, {"id": "282", "name": "CPE210v1.1_nntk"}, {"id": "283", "name": "BN-CWP-HM"}, {"id": "284", "name": "BN-v2-1043NDv1-01"}, {"id": "285", "name": "Johnny-1-Offloader"}, {"id": "286", "name": "ADFC_Bonn-Rhein-Sieg"}, {"id": "287", "name": "Cafe_Cortado"}, {"id": "288", "name": "waldorf"}, {"id": "289", "name": "slartibartfast09"}, {"id": "290", "name": "Remiguis-GW"}, {"id": "291", "name": "ffkbu-b0be76e99f7fnn"}, {"id": "292", "name": "Horizont Reisen"}, {"id": "293", "name": "FF-KBU-FB-005"}, {"id": "294", "name": "Lannesdorf1"}, {"id": "295", "name": "refugees_welcome_neu"}, {"id": "296", "name": "BN-64"}, {"id": "297", "name": "Bonn3"}, {"id": "298", "name": "freifunk-kbu-cheeseburger-str"}, {"id": "299", "name": "Johnny-8"}, {"id": "300", "name": "Duenenfuechse_Park"}, {"id": "301", "name": "JAP-1"}, {"id": "302", "name": "slartibartfast07"}, {"id": "303", "name": "BN-111"}, {"id": "304", "name": "Bonn4"}, {"id": "305", "name": "ffkbu-42"}, {"id": "306", "name": "Bonn1"}, {"id": "307", "name": "FF-KBU-FB-004"}, {"id": "308", "name": "THW Bonn 1"}, {"id": "309", "name": "Freifunk "}]}
+{
+  "links": [
+    {
+      "source": "0",
+      "target": "212"
+    },
+    {
+      "source": "0",
+      "target": "82"
+    },
+    {
+      "source": "0",
+      "target": "64"
+    },
+    {
+      "source": "0",
+      "target": "235"
+    },
+    {
+      "source": "140",
+      "target": "0"
+    },
+    {
+      "source": "241",
+      "target": "0"
+    },
+    {
+      "source": "0",
+      "target": "174"
+    },
+    {
+      "source": "1",
+      "target": "197"
+    },
+    {
+      "source": "166",
+      "target": "1"
+    },
+    {
+      "source": "87",
+      "target": "1"
+    },
+    {
+      "source": "118",
+      "target": "1"
+    },
+    {
+      "source": "109",
+      "target": "1"
+    },
+    {
+      "source": "10",
+      "target": "1"
+    },
+    {
+      "source": "105",
+      "target": "1"
+    },
+    {
+      "source": "1",
+      "target": "17"
+    },
+    {
+      "source": "107",
+      "target": "1"
+    },
+    {
+      "source": "1",
+      "target": "151"
+    },
+    {
+      "source": "1",
+      "target": "73"
+    },
+    {
+      "source": "163",
+      "target": "1"
+    },
+    {
+      "source": "109",
+      "target": "1"
+    },
+    {
+      "source": "160",
+      "target": "1"
+    },
+    {
+      "source": "1",
+      "target": "197"
+    },
+    {
+      "source": "105",
+      "target": "1"
+    },
+    {
+      "source": "163",
+      "target": "1"
+    },
+    {
+      "source": "166",
+      "target": "1"
+    },
+    {
+      "source": "1",
+      "target": "151"
+    },
+    {
+      "source": "118",
+      "target": "1"
+    },
+    {
+      "source": "1",
+      "target": "73"
+    },
+    {
+      "source": "2",
+      "target": "306"
+    },
+    {
+      "source": "4",
+      "target": "172"
+    },
+    {
+      "source": "4",
+      "target": "26"
+    },
+    {
+      "source": "80",
+      "target": "4"
+    },
+    {
+      "source": "4",
+      "target": "26"
+    },
+    {
+      "source": "4",
+      "target": "172"
+    },
+    {
+      "source": "7",
+      "target": "5"
+    },
+    {
+      "source": "5",
+      "target": "236"
+    },
+    {
+      "source": "23",
+      "target": "5"
+    },
+    {
+      "source": "184",
+      "target": "5"
+    },
+    {
+      "source": "5",
+      "target": "214"
+    },
+    {
+      "source": "23",
+      "target": "5"
+    },
+    {
+      "source": "7",
+      "target": "5"
+    },
+    {
+      "source": "184",
+      "target": "5"
+    },
+    {
+      "source": "236",
+      "target": "5"
+    },
+    {
+      "source": "7",
+      "target": "5"
+    },
+    {
+      "source": "23",
+      "target": "5"
+    },
+    {
+      "source": "184",
+      "target": "5"
+    },
+    {
+      "source": "91",
+      "target": "5"
+    },
+    {
+      "source": "209",
+      "target": "6"
+    },
+    {
+      "source": "209",
+      "target": "6"
+    },
+    {
+      "source": "6",
+      "target": "306"
+    },
+    {
+      "source": "7",
+      "target": "184"
+    },
+    {
+      "source": "23",
+      "target": "7"
+    },
+    {
+      "source": "7",
+      "target": "236"
+    },
+    {
+      "source": "7",
+      "target": "184"
+    },
+    {
+      "source": "7",
+      "target": "184"
+    },
+    {
+      "source": "91",
+      "target": "7"
+    },
+    {
+      "source": "76",
+      "target": "8"
+    },
+    {
+      "source": "8",
+      "target": "231"
+    },
+    {
+      "source": "306",
+      "target": "9"
+    },
+    {
+      "source": "107",
+      "target": "10"
+    },
+    {
+      "source": "10",
+      "target": "151"
+    },
+    {
+      "source": "10",
+      "target": "73"
+    },
+    {
+      "source": "166",
+      "target": "10"
+    },
+    {
+      "source": "10",
+      "target": "118"
+    },
+    {
+      "source": "109",
+      "target": "10"
+    },
+    {
+      "source": "105",
+      "target": "10"
+    },
+    {
+      "source": "10",
+      "target": "163"
+    },
+    {
+      "source": "10",
+      "target": "17"
+    },
+    {
+      "source": "10",
+      "target": "87"
+    },
+    {
+      "source": "80",
+      "target": "12"
+    },
+    {
+      "source": "13",
+      "target": "220"
+    },
+    {
+      "source": "13",
+      "target": "201"
+    },
+    {
+      "source": "13",
+      "target": "16"
+    },
+    {
+      "source": "13",
+      "target": "18"
+    },
+    {
+      "source": "13",
+      "target": "264"
+    },
+    {
+      "source": "13",
+      "target": "126"
+    },
+    {
+      "source": "306",
+      "target": "14"
+    },
+    {
+      "source": "306",
+      "target": "15"
+    },
+    {
+      "source": "15",
+      "target": "63"
+    },
+    {
+      "source": "15",
+      "target": "122"
+    },
+    {
+      "source": "161",
+      "target": "15"
+    },
+    {
+      "source": "15",
+      "target": "206"
+    },
+    {
+      "source": "271",
+      "target": "15"
+    },
+    {
+      "source": "15",
+      "target": "55"
+    },
+    {
+      "source": "15",
+      "target": "203"
+    },
+    {
+      "source": "15",
+      "target": "227"
+    },
+    {
+      "source": "220",
+      "target": "16"
+    },
+    {
+      "source": "201",
+      "target": "16"
+    },
+    {
+      "source": "16",
+      "target": "18"
+    },
+    {
+      "source": "16",
+      "target": "264"
+    },
+    {
+      "source": "126",
+      "target": "16"
+    },
+    {
+      "source": "126",
+      "target": "16"
+    },
+    {
+      "source": "16",
+      "target": "18"
+    },
+    {
+      "source": "220",
+      "target": "16"
+    },
+    {
+      "source": "17",
+      "target": "151"
+    },
+    {
+      "source": "118",
+      "target": "17"
+    },
+    {
+      "source": "197",
+      "target": "17"
+    },
+    {
+      "source": "73",
+      "target": "17"
+    },
+    {
+      "source": "109",
+      "target": "17"
+    },
+    {
+      "source": "105",
+      "target": "17"
+    },
+    {
+      "source": "163",
+      "target": "17"
+    },
+    {
+      "source": "126",
+      "target": "18"
+    },
+    {
+      "source": "220",
+      "target": "18"
+    },
+    {
+      "source": "126",
+      "target": "18"
+    },
+    {
+      "source": "220",
+      "target": "18"
+    },
+    {
+      "source": "201",
+      "target": "18"
+    },
+    {
+      "source": "18",
+      "target": "264"
+    },
+    {
+      "source": "18",
+      "target": "306"
+    },
+    {
+      "source": "19",
+      "target": "127"
+    },
+    {
+      "source": "20",
+      "target": "129"
+    },
+    {
+      "source": "20",
+      "target": "134"
+    },
+    {
+      "source": "21",
+      "target": "306"
+    },
+    {
+      "source": "306",
+      "target": "22"
+    },
+    {
+      "source": "23",
+      "target": "184"
+    },
+    {
+      "source": "23",
+      "target": "236"
+    },
+    {
+      "source": "23",
+      "target": "184"
+    },
+    {
+      "source": "236",
+      "target": "23"
+    },
+    {
+      "source": "23",
+      "target": "184"
+    },
+    {
+      "source": "23",
+      "target": "91"
+    },
+    {
+      "source": "306",
+      "target": "24"
+    },
+    {
+      "source": "255",
+      "target": "25"
+    },
+    {
+      "source": "25",
+      "target": "95"
+    },
+    {
+      "source": "181",
+      "target": "25"
+    },
+    {
+      "source": "26",
+      "target": "172"
+    },
+    {
+      "source": "26",
+      "target": "172"
+    },
+    {
+      "source": "45",
+      "target": "26"
+    },
+    {
+      "source": "27",
+      "target": "143"
+    },
+    {
+      "source": "48",
+      "target": "27"
+    },
+    {
+      "source": "28",
+      "target": "275"
+    },
+    {
+      "source": "28",
+      "target": "45"
+    },
+    {
+      "source": "28",
+      "target": "275"
+    },
+    {
+      "source": "45",
+      "target": "29"
+    },
+    {
+      "source": "241",
+      "target": "30"
+    },
+    {
+      "source": "30",
+      "target": "185"
+    },
+    {
+      "source": "30",
+      "target": "205"
+    },
+    {
+      "source": "30",
+      "target": "174"
+    },
+    {
+      "source": "30",
+      "target": "150"
+    },
+    {
+      "source": "30",
+      "target": "67"
+    },
+    {
+      "source": "30",
+      "target": "235"
+    },
+    {
+      "source": "140",
+      "target": "30"
+    },
+    {
+      "source": "30",
+      "target": "64"
+    },
+    {
+      "source": "30",
+      "target": "185"
+    },
+    {
+      "source": "30",
+      "target": "82"
+    },
+    {
+      "source": "30",
+      "target": "174"
+    },
+    {
+      "source": "30",
+      "target": "150"
+    },
+    {
+      "source": "241",
+      "target": "30"
+    },
+    {
+      "source": "30",
+      "target": "212"
+    },
+    {
+      "source": "162",
+      "target": "31"
+    },
+    {
+      "source": "276",
+      "target": "31"
+    },
+    {
+      "source": "52",
+      "target": "31"
+    },
+    {
+      "source": "306",
+      "target": "31"
+    },
+    {
+      "source": "32",
+      "target": "43"
+    },
+    {
+      "source": "32",
+      "target": "74"
+    },
+    {
+      "source": "33",
+      "target": "290"
+    },
+    {
+      "source": "33",
+      "target": "198"
+    },
+    {
+      "source": "33",
+      "target": "86"
+    },
+    {
+      "source": "33",
+      "target": "68"
+    },
+    {
+      "source": "33",
+      "target": "86"
+    },
+    {
+      "source": "226",
+      "target": "33"
+    },
+    {
+      "source": "33",
+      "target": "68"
+    },
+    {
+      "source": "33",
+      "target": "198"
+    },
+    {
+      "source": "33",
+      "target": "290"
+    },
+    {
+      "source": "123",
+      "target": "34"
+    },
+    {
+      "source": "302",
+      "target": "34"
+    },
+    {
+      "source": "231",
+      "target": "34"
+    },
+    {
+      "source": "170",
+      "target": "34"
+    },
+    {
+      "source": "248",
+      "target": "34"
+    },
+    {
+      "source": "76",
+      "target": "34"
+    },
+    {
+      "source": "178",
+      "target": "35"
+    },
+    {
+      "source": "35",
+      "target": "53"
+    },
+    {
+      "source": "35",
+      "target": "229"
+    },
+    {
+      "source": "35",
+      "target": "229"
+    },
+    {
+      "source": "80",
+      "target": "37"
+    },
+    {
+      "source": "38",
+      "target": "254"
+    },
+    {
+      "source": "240",
+      "target": "38"
+    },
+    {
+      "source": "27",
+      "target": "39"
+    },
+    {
+      "source": "143",
+      "target": "39"
+    },
+    {
+      "source": "139",
+      "target": "39"
+    },
+    {
+      "source": "39",
+      "target": "85"
+    },
+    {
+      "source": "48",
+      "target": "39"
+    },
+    {
+      "source": "299",
+      "target": "39"
+    },
+    {
+      "source": "270",
+      "target": "39"
+    },
+    {
+      "source": "48",
+      "target": "39"
+    },
+    {
+      "source": "143",
+      "target": "39"
+    },
+    {
+      "source": "137",
+      "target": "39"
+    },
+    {
+      "source": "39",
+      "target": "106"
+    },
+    {
+      "source": "253",
+      "target": "39"
+    },
+    {
+      "source": "39",
+      "target": "66"
+    },
+    {
+      "source": "92",
+      "target": "39"
+    },
+    {
+      "source": "39",
+      "target": "102"
+    },
+    {
+      "source": "306",
+      "target": "40"
+    },
+    {
+      "source": "40",
+      "target": "246"
+    },
+    {
+      "source": "40",
+      "target": "246"
+    },
+    {
+      "source": "41",
+      "target": "45"
+    },
+    {
+      "source": "42",
+      "target": "232"
+    },
+    {
+      "source": "42",
+      "target": "88"
+    },
+    {
+      "source": "43",
+      "target": "300"
+    },
+    {
+      "source": "91",
+      "target": "44"
+    },
+    {
+      "source": "45",
+      "target": "63"
+    },
+    {
+      "source": "45",
+      "target": "216"
+    },
+    {
+      "source": "153",
+      "target": "45"
+    },
+    {
+      "source": "286",
+      "target": "45"
+    },
+    {
+      "source": "60",
+      "target": "45"
+    },
+    {
+      "source": "96",
+      "target": "45"
+    },
+    {
+      "source": "45",
+      "target": "144"
+    },
+    {
+      "source": "45",
+      "target": "54"
+    },
+    {
+      "source": "169",
+      "target": "45"
+    },
+    {
+      "source": "292",
+      "target": "45"
+    },
+    {
+      "source": "186",
+      "target": "45"
+    },
+    {
+      "source": "257",
+      "target": "45"
+    },
+    {
+      "source": "259",
+      "target": "45"
+    },
+    {
+      "source": "155",
+      "target": "45"
+    },
+    {
+      "source": "45",
+      "target": "301"
+    },
+    {
+      "source": "309",
+      "target": "45"
+    },
+    {
+      "source": "207",
+      "target": "45"
+    },
+    {
+      "source": "45",
+      "target": "188"
+    },
+    {
+      "source": "94",
+      "target": "45"
+    },
+    {
+      "source": "159",
+      "target": "45"
+    },
+    {
+      "source": "45",
+      "target": "180"
+    },
+    {
+      "source": "45",
+      "target": "136"
+    },
+    {
+      "source": "45",
+      "target": "300"
+    },
+    {
+      "source": "195",
+      "target": "45"
+    },
+    {
+      "source": "306",
+      "target": "45"
+    },
+    {
+      "source": "45",
+      "target": "80"
+    },
+    {
+      "source": "45",
+      "target": "261"
+    },
+    {
+      "source": "45",
+      "target": "91"
+    },
+    {
+      "source": "45",
+      "target": "165"
+    },
+    {
+      "source": "45",
+      "target": "134"
+    },
+    {
+      "source": "45",
+      "target": "61"
+    },
+    {
+      "source": "45",
+      "target": "242"
+    },
+    {
+      "source": "45",
+      "target": "275"
+    },
+    {
+      "source": "45",
+      "target": "158"
+    },
+    {
+      "source": "45",
+      "target": "285"
+    },
+    {
+      "source": "45",
+      "target": "237"
+    },
+    {
+      "source": "45",
+      "target": "51"
+    },
+    {
+      "source": "45",
+      "target": "238"
+    },
+    {
+      "source": "45",
+      "target": "258"
+    },
+    {
+      "source": "45",
+      "target": "56"
+    },
+    {
+      "source": "45",
+      "target": "49"
+    },
+    {
+      "source": "45",
+      "target": "265"
+    },
+    {
+      "source": "45",
+      "target": "75"
+    },
+    {
+      "source": "45",
+      "target": "247"
+    },
+    {
+      "source": "45",
+      "target": "213"
+    },
+    {
+      "source": "45",
+      "target": "92"
+    },
+    {
+      "source": "46",
+      "target": "51"
+    },
+    {
+      "source": "306",
+      "target": "46"
+    },
+    {
+      "source": "213",
+      "target": "47"
+    },
+    {
+      "source": "48",
+      "target": "106"
+    },
+    {
+      "source": "48",
+      "target": "66"
+    },
+    {
+      "source": "270",
+      "target": "48"
+    },
+    {
+      "source": "48",
+      "target": "102"
+    },
+    {
+      "source": "48",
+      "target": "143"
+    },
+    {
+      "source": "48",
+      "target": "137"
+    },
+    {
+      "source": "253",
+      "target": "48"
+    },
+    {
+      "source": "48",
+      "target": "92"
+    },
+    {
+      "source": "49",
+      "target": "60"
+    },
+    {
+      "source": "252",
+      "target": "50"
+    },
+    {
+      "source": "132",
+      "target": "50"
+    },
+    {
+      "source": "117",
+      "target": "50"
+    },
+    {
+      "source": "114",
+      "target": "50"
+    },
+    {
+      "source": "308",
+      "target": "50"
+    },
+    {
+      "source": "114",
+      "target": "50"
+    },
+    {
+      "source": "132",
+      "target": "50"
+    },
+    {
+      "source": "252",
+      "target": "50"
+    },
+    {
+      "source": "308",
+      "target": "50"
+    },
+    {
+      "source": "52",
+      "target": "162"
+    },
+    {
+      "source": "52",
+      "target": "276"
+    },
+    {
+      "source": "261",
+      "target": "52"
+    },
+    {
+      "source": "178",
+      "target": "53"
+    },
+    {
+      "source": "229",
+      "target": "53"
+    },
+    {
+      "source": "146",
+      "target": "54"
+    },
+    {
+      "source": "57",
+      "target": "181"
+    },
+    {
+      "source": "58",
+      "target": "306"
+    },
+    {
+      "source": "58",
+      "target": "141"
+    },
+    {
+      "source": "267",
+      "target": "59"
+    },
+    {
+      "source": "59",
+      "target": "130"
+    },
+    {
+      "source": "59",
+      "target": "147"
+    },
+    {
+      "source": "211",
+      "target": "59"
+    },
+    {
+      "source": "116",
+      "target": "59"
+    },
+    {
+      "source": "78",
+      "target": "59"
+    },
+    {
+      "source": "104",
+      "target": "59"
+    },
+    {
+      "source": "59",
+      "target": "69"
+    },
+    {
+      "source": "239",
+      "target": "61"
+    },
+    {
+      "source": "239",
+      "target": "61"
+    },
+    {
+      "source": "203",
+      "target": "63"
+    },
+    {
+      "source": "206",
+      "target": "63"
+    },
+    {
+      "source": "81",
+      "target": "64"
+    },
+    {
+      "source": "235",
+      "target": "64"
+    },
+    {
+      "source": "140",
+      "target": "64"
+    },
+    {
+      "source": "241",
+      "target": "64"
+    },
+    {
+      "source": "212",
+      "target": "64"
+    },
+    {
+      "source": "82",
+      "target": "64"
+    },
+    {
+      "source": "140",
+      "target": "64"
+    },
+    {
+      "source": "82",
+      "target": "64"
+    },
+    {
+      "source": "306",
+      "target": "65"
+    },
+    {
+      "source": "253",
+      "target": "66"
+    },
+    {
+      "source": "270",
+      "target": "66"
+    },
+    {
+      "source": "92",
+      "target": "66"
+    },
+    {
+      "source": "143",
+      "target": "66"
+    },
+    {
+      "source": "137",
+      "target": "66"
+    },
+    {
+      "source": "66",
+      "target": "106"
+    },
+    {
+      "source": "102",
+      "target": "66"
+    },
+    {
+      "source": "270",
+      "target": "66"
+    },
+    {
+      "source": "253",
+      "target": "66"
+    },
+    {
+      "source": "102",
+      "target": "66"
+    },
+    {
+      "source": "137",
+      "target": "66"
+    },
+    {
+      "source": "306",
+      "target": "67"
+    },
+    {
+      "source": "174",
+      "target": "67"
+    },
+    {
+      "source": "150",
+      "target": "67"
+    },
+    {
+      "source": "235",
+      "target": "67"
+    },
+    {
+      "source": "140",
+      "target": "67"
+    },
+    {
+      "source": "241",
+      "target": "67"
+    },
+    {
+      "source": "185",
+      "target": "67"
+    },
+    {
+      "source": "205",
+      "target": "67"
+    },
+    {
+      "source": "140",
+      "target": "67"
+    },
+    {
+      "source": "185",
+      "target": "67"
+    },
+    {
+      "source": "174",
+      "target": "67"
+    },
+    {
+      "source": "86",
+      "target": "68"
+    },
+    {
+      "source": "68",
+      "target": "198"
+    },
+    {
+      "source": "290",
+      "target": "68"
+    },
+    {
+      "source": "290",
+      "target": "68"
+    },
+    {
+      "source": "68",
+      "target": "198"
+    },
+    {
+      "source": "86",
+      "target": "68"
+    },
+    {
+      "source": "130",
+      "target": "69"
+    },
+    {
+      "source": "69",
+      "target": "147"
+    },
+    {
+      "source": "211",
+      "target": "69"
+    },
+    {
+      "source": "116",
+      "target": "69"
+    },
+    {
+      "source": "78",
+      "target": "69"
+    },
+    {
+      "source": "104",
+      "target": "69"
+    },
+    {
+      "source": "267",
+      "target": "69"
+    },
+    {
+      "source": "116",
+      "target": "69"
+    },
+    {
+      "source": "69",
+      "target": "80"
+    },
+    {
+      "source": "216",
+      "target": "70"
+    },
+    {
+      "source": "216",
+      "target": "70"
+    },
+    {
+      "source": "215",
+      "target": "70"
+    },
+    {
+      "source": "274",
+      "target": "71"
+    },
+    {
+      "source": "243",
+      "target": "71"
+    },
+    {
+      "source": "142",
+      "target": "72"
+    },
+    {
+      "source": "72",
+      "target": "112"
+    },
+    {
+      "source": "72",
+      "target": "306"
+    },
+    {
+      "source": "166",
+      "target": "73"
+    },
+    {
+      "source": "73",
+      "target": "151"
+    },
+    {
+      "source": "118",
+      "target": "73"
+    },
+    {
+      "source": "163",
+      "target": "73"
+    },
+    {
+      "source": "163",
+      "target": "73"
+    },
+    {
+      "source": "166",
+      "target": "73"
+    },
+    {
+      "source": "87",
+      "target": "73"
+    },
+    {
+      "source": "107",
+      "target": "73"
+    },
+    {
+      "source": "109",
+      "target": "73"
+    },
+    {
+      "source": "105",
+      "target": "73"
+    },
+    {
+      "source": "73",
+      "target": "151"
+    },
+    {
+      "source": "118",
+      "target": "73"
+    },
+    {
+      "source": "74",
+      "target": "43"
+    },
+    {
+      "source": "74",
+      "target": "80"
+    },
+    {
+      "source": "76",
+      "target": "231"
+    },
+    {
+      "source": "76",
+      "target": "170"
+    },
+    {
+      "source": "248",
+      "target": "76"
+    },
+    {
+      "source": "76",
+      "target": "123"
+    },
+    {
+      "source": "306",
+      "target": "77"
+    },
+    {
+      "source": "78",
+      "target": "211"
+    },
+    {
+      "source": "116",
+      "target": "78"
+    },
+    {
+      "source": "78",
+      "target": "130"
+    },
+    {
+      "source": "78",
+      "target": "147"
+    },
+    {
+      "source": "103",
+      "target": "79"
+    },
+    {
+      "source": "269",
+      "target": "79"
+    },
+    {
+      "source": "119",
+      "target": "79"
+    },
+    {
+      "source": "296",
+      "target": "79"
+    },
+    {
+      "source": "171",
+      "target": "79"
+    },
+    {
+      "source": "187",
+      "target": "79"
+    },
+    {
+      "source": "190",
+      "target": "79"
+    },
+    {
+      "source": "221",
+      "target": "79"
+    },
+    {
+      "source": "306",
+      "target": "79"
+    },
+    {
+      "source": "80",
+      "target": "246"
+    },
+    {
+      "source": "80",
+      "target": "112"
+    },
+    {
+      "source": "80",
+      "target": "291"
+    },
+    {
+      "source": "80",
+      "target": "156"
+    },
+    {
+      "source": "80",
+      "target": "264"
+    },
+    {
+      "source": "80",
+      "target": "298"
+    },
+    {
+      "source": "80",
+      "target": "268"
+    },
+    {
+      "source": "229",
+      "target": "80"
+    },
+    {
+      "source": "129",
+      "target": "80"
+    },
+    {
+      "source": "215",
+      "target": "80"
+    },
+    {
+      "source": "179",
+      "target": "80"
+    },
+    {
+      "source": "157",
+      "target": "80"
+    },
+    {
+      "source": "172",
+      "target": "80"
+    },
+    {
+      "source": "287",
+      "target": "80"
+    },
+    {
+      "source": "130",
+      "target": "80"
+    },
+    {
+      "source": "306",
+      "target": "80"
+    },
+    {
+      "source": "80",
+      "target": "261"
+    },
+    {
+      "source": "80",
+      "target": "91"
+    },
+    {
+      "source": "205",
+      "target": "81"
+    },
+    {
+      "source": "30",
+      "target": "81"
+    },
+    {
+      "source": "150",
+      "target": "81"
+    },
+    {
+      "source": "81",
+      "target": "67"
+    },
+    {
+      "source": "140",
+      "target": "81"
+    },
+    {
+      "source": "241",
+      "target": "81"
+    },
+    {
+      "source": "212",
+      "target": "81"
+    },
+    {
+      "source": "185",
+      "target": "81"
+    },
+    {
+      "source": "82",
+      "target": "235"
+    },
+    {
+      "source": "140",
+      "target": "82"
+    },
+    {
+      "source": "82",
+      "target": "174"
+    },
+    {
+      "source": "82",
+      "target": "150"
+    },
+    {
+      "source": "140",
+      "target": "82"
+    },
+    {
+      "source": "82",
+      "target": "150"
+    },
+    {
+      "source": "241",
+      "target": "82"
+    },
+    {
+      "source": "82",
+      "target": "212"
+    },
+    {
+      "source": "82",
+      "target": "64"
+    },
+    {
+      "source": "82",
+      "target": "185"
+    },
+    {
+      "source": "82",
+      "target": "174"
+    },
+    {
+      "source": "83",
+      "target": "306"
+    },
+    {
+      "source": "295",
+      "target": "84"
+    },
+    {
+      "source": "139",
+      "target": "85"
+    },
+    {
+      "source": "86",
+      "target": "198"
+    },
+    {
+      "source": "86",
+      "target": "290"
+    },
+    {
+      "source": "86",
+      "target": "290"
+    },
+    {
+      "source": "86",
+      "target": "198"
+    },
+    {
+      "source": "166",
+      "target": "87"
+    },
+    {
+      "source": "303",
+      "target": "87"
+    },
+    {
+      "source": "87",
+      "target": "118"
+    },
+    {
+      "source": "87",
+      "target": "163"
+    },
+    {
+      "source": "107",
+      "target": "87"
+    },
+    {
+      "source": "87",
+      "target": "151"
+    },
+    {
+      "source": "88",
+      "target": "232"
+    },
+    {
+      "source": "250",
+      "target": "89"
+    },
+    {
+      "source": "90",
+      "target": "279"
+    },
+    {
+      "source": "97",
+      "target": "90"
+    },
+    {
+      "source": "97",
+      "target": "90"
+    },
+    {
+      "source": "90",
+      "target": "279"
+    },
+    {
+      "source": "90",
+      "target": "293"
+    },
+    {
+      "source": "90",
+      "target": "307"
+    },
+    {
+      "source": "91",
+      "target": "278"
+    },
+    {
+      "source": "91",
+      "target": "139"
+    },
+    {
+      "source": "306",
+      "target": "91"
+    },
+    {
+      "source": "91",
+      "target": "261"
+    },
+    {
+      "source": "91",
+      "target": "279"
+    },
+    {
+      "source": "91",
+      "target": "228"
+    },
+    {
+      "source": "91",
+      "target": "184"
+    },
+    {
+      "source": "91",
+      "target": "152"
+    },
+    {
+      "source": "91",
+      "target": "200"
+    },
+    {
+      "source": "91",
+      "target": "120"
+    },
+    {
+      "source": "91",
+      "target": "236"
+    },
+    {
+      "source": "91",
+      "target": "249"
+    },
+    {
+      "source": "91",
+      "target": "295"
+    },
+    {
+      "source": "270",
+      "target": "92"
+    },
+    {
+      "source": "92",
+      "target": "102"
+    },
+    {
+      "source": "137",
+      "target": "92"
+    },
+    {
+      "source": "253",
+      "target": "92"
+    },
+    {
+      "source": "92",
+      "target": "143"
+    },
+    {
+      "source": "92",
+      "target": "106"
+    },
+    {
+      "source": "112",
+      "target": "95"
+    },
+    {
+      "source": "262",
+      "target": "95"
+    },
+    {
+      "source": "266",
+      "target": "95"
+    },
+    {
+      "source": "255",
+      "target": "95"
+    },
+    {
+      "source": "142",
+      "target": "95"
+    },
+    {
+      "source": "255",
+      "target": "95"
+    },
+    {
+      "source": "97",
+      "target": "279"
+    },
+    {
+      "source": "195",
+      "target": "98"
+    },
+    {
+      "source": "234",
+      "target": "98"
+    },
+    {
+      "source": "99",
+      "target": "306"
+    },
+    {
+      "source": "100",
+      "target": "173"
+    },
+    {
+      "source": "261",
+      "target": "100"
+    },
+    {
+      "source": "100",
+      "target": "173"
+    },
+    {
+      "source": "270",
+      "target": "102"
+    },
+    {
+      "source": "143",
+      "target": "102"
+    },
+    {
+      "source": "137",
+      "target": "102"
+    },
+    {
+      "source": "102",
+      "target": "106"
+    },
+    {
+      "source": "253",
+      "target": "102"
+    },
+    {
+      "source": "137",
+      "target": "102"
+    },
+    {
+      "source": "103",
+      "target": "269"
+    },
+    {
+      "source": "103",
+      "target": "187"
+    },
+    {
+      "source": "103",
+      "target": "269"
+    },
+    {
+      "source": "103",
+      "target": "119"
+    },
+    {
+      "source": "103",
+      "target": "296"
+    },
+    {
+      "source": "171",
+      "target": "103"
+    },
+    {
+      "source": "103",
+      "target": "187"
+    },
+    {
+      "source": "103",
+      "target": "190"
+    },
+    {
+      "source": "103",
+      "target": "221"
+    },
+    {
+      "source": "267",
+      "target": "104"
+    },
+    {
+      "source": "104",
+      "target": "130"
+    },
+    {
+      "source": "211",
+      "target": "104"
+    },
+    {
+      "source": "116",
+      "target": "104"
+    },
+    {
+      "source": "105",
+      "target": "109"
+    },
+    {
+      "source": "105",
+      "target": "160"
+    },
+    {
+      "source": "105",
+      "target": "197"
+    },
+    {
+      "source": "105",
+      "target": "197"
+    },
+    {
+      "source": "105",
+      "target": "163"
+    },
+    {
+      "source": "105",
+      "target": "109"
+    },
+    {
+      "source": "137",
+      "target": "106"
+    },
+    {
+      "source": "270",
+      "target": "106"
+    },
+    {
+      "source": "143",
+      "target": "106"
+    },
+    {
+      "source": "253",
+      "target": "106"
+    },
+    {
+      "source": "107",
+      "target": "163"
+    },
+    {
+      "source": "166",
+      "target": "107"
+    },
+    {
+      "source": "107",
+      "target": "303"
+    },
+    {
+      "source": "306",
+      "target": "108"
+    },
+    {
+      "source": "109",
+      "target": "197"
+    },
+    {
+      "source": "166",
+      "target": "109"
+    },
+    {
+      "source": "109",
+      "target": "118"
+    },
+    {
+      "source": "160",
+      "target": "109"
+    },
+    {
+      "source": "109",
+      "target": "197"
+    },
+    {
+      "source": "110",
+      "target": "306"
+    },
+    {
+      "source": "111",
+      "target": "192"
+    },
+    {
+      "source": "111",
+      "target": "168"
+    },
+    {
+      "source": "111",
+      "target": "158"
+    },
+    {
+      "source": "133",
+      "target": "111"
+    },
+    {
+      "source": "112",
+      "target": "136"
+    },
+    {
+      "source": "142",
+      "target": "112"
+    },
+    {
+      "source": "306",
+      "target": "113"
+    },
+    {
+      "source": "114",
+      "target": "252"
+    },
+    {
+      "source": "132",
+      "target": "114"
+    },
+    {
+      "source": "114",
+      "target": "117"
+    },
+    {
+      "source": "308",
+      "target": "114"
+    },
+    {
+      "source": "114",
+      "target": "252"
+    },
+    {
+      "source": "132",
+      "target": "114"
+    },
+    {
+      "source": "116",
+      "target": "267"
+    },
+    {
+      "source": "116",
+      "target": "130"
+    },
+    {
+      "source": "116",
+      "target": "147"
+    },
+    {
+      "source": "116",
+      "target": "211"
+    },
+    {
+      "source": "116",
+      "target": "130"
+    },
+    {
+      "source": "252",
+      "target": "117"
+    },
+    {
+      "source": "132",
+      "target": "117"
+    },
+    {
+      "source": "308",
+      "target": "117"
+    },
+    {
+      "source": "118",
+      "target": "151"
+    },
+    {
+      "source": "118",
+      "target": "163"
+    },
+    {
+      "source": "166",
+      "target": "118"
+    },
+    {
+      "source": "118",
+      "target": "151"
+    },
+    {
+      "source": "119",
+      "target": "296"
+    },
+    {
+      "source": "171",
+      "target": "119"
+    },
+    {
+      "source": "119",
+      "target": "187"
+    },
+    {
+      "source": "190",
+      "target": "119"
+    },
+    {
+      "source": "221",
+      "target": "119"
+    },
+    {
+      "source": "269",
+      "target": "119"
+    },
+    {
+      "source": "177",
+      "target": "121"
+    },
+    {
+      "source": "277",
+      "target": "121"
+    },
+    {
+      "source": "164",
+      "target": "121"
+    },
+    {
+      "source": "177",
+      "target": "121"
+    },
+    {
+      "source": "277",
+      "target": "121"
+    },
+    {
+      "source": "121",
+      "target": "200"
+    },
+    {
+      "source": "164",
+      "target": "121"
+    },
+    {
+      "source": "122",
+      "target": "206"
+    },
+    {
+      "source": "271",
+      "target": "122"
+    },
+    {
+      "source": "122",
+      "target": "63"
+    },
+    {
+      "source": "161",
+      "target": "122"
+    },
+    {
+      "source": "289",
+      "target": "123"
+    },
+    {
+      "source": "123",
+      "target": "170"
+    },
+    {
+      "source": "248",
+      "target": "123"
+    },
+    {
+      "source": "182",
+      "target": "123"
+    },
+    {
+      "source": "302",
+      "target": "123"
+    },
+    {
+      "source": "123",
+      "target": "231"
+    },
+    {
+      "source": "306",
+      "target": "124"
+    },
+    {
+      "source": "201",
+      "target": "126"
+    },
+    {
+      "source": "126",
+      "target": "220"
+    },
+    {
+      "source": "126",
+      "target": "264"
+    },
+    {
+      "source": "126",
+      "target": "220"
+    },
+    {
+      "source": "201",
+      "target": "126"
+    },
+    {
+      "source": "306",
+      "target": "127"
+    },
+    {
+      "source": "306",
+      "target": "128"
+    },
+    {
+      "source": "130",
+      "target": "147"
+    },
+    {
+      "source": "211",
+      "target": "130"
+    },
+    {
+      "source": "267",
+      "target": "130"
+    },
+    {
+      "source": "131",
+      "target": "262"
+    },
+    {
+      "source": "132",
+      "target": "308"
+    },
+    {
+      "source": "132",
+      "target": "252"
+    },
+    {
+      "source": "132",
+      "target": "252"
+    },
+    {
+      "source": "132",
+      "target": "308"
+    },
+    {
+      "source": "133",
+      "target": "192"
+    },
+    {
+      "source": "133",
+      "target": "158"
+    },
+    {
+      "source": "135",
+      "target": "306"
+    },
+    {
+      "source": "136",
+      "target": "95"
+    },
+    {
+      "source": "142",
+      "target": "136"
+    },
+    {
+      "source": "270",
+      "target": "137"
+    },
+    {
+      "source": "253",
+      "target": "137"
+    },
+    {
+      "source": "270",
+      "target": "137"
+    },
+    {
+      "source": "253",
+      "target": "137"
+    },
+    {
+      "source": "137",
+      "target": "143"
+    },
+    {
+      "source": "139",
+      "target": "143"
+    },
+    {
+      "source": "140",
+      "target": "205"
+    },
+    {
+      "source": "140",
+      "target": "174"
+    },
+    {
+      "source": "140",
+      "target": "212"
+    },
+    {
+      "source": "140",
+      "target": "241"
+    },
+    {
+      "source": "140",
+      "target": "185"
+    },
+    {
+      "source": "140",
+      "target": "150"
+    },
+    {
+      "source": "140",
+      "target": "235"
+    },
+    {
+      "source": "140",
+      "target": "235"
+    },
+    {
+      "source": "140",
+      "target": "185"
+    },
+    {
+      "source": "140",
+      "target": "174"
+    },
+    {
+      "source": "140",
+      "target": "174"
+    },
+    {
+      "source": "142",
+      "target": "255"
+    },
+    {
+      "source": "253",
+      "target": "143"
+    },
+    {
+      "source": "270",
+      "target": "143"
+    },
+    {
+      "source": "253",
+      "target": "143"
+    },
+    {
+      "source": "299",
+      "target": "143"
+    },
+    {
+      "source": "257",
+      "target": "144"
+    },
+    {
+      "source": "146",
+      "target": "218"
+    },
+    {
+      "source": "226",
+      "target": "146"
+    },
+    {
+      "source": "146",
+      "target": "306"
+    },
+    {
+      "source": "211",
+      "target": "147"
+    },
+    {
+      "source": "148",
+      "target": "306"
+    },
+    {
+      "source": "149",
+      "target": "306"
+    },
+    {
+      "source": "241",
+      "target": "150"
+    },
+    {
+      "source": "185",
+      "target": "150"
+    },
+    {
+      "source": "150",
+      "target": "205"
+    },
+    {
+      "source": "150",
+      "target": "174"
+    },
+    {
+      "source": "150",
+      "target": "235"
+    },
+    {
+      "source": "150",
+      "target": "174"
+    },
+    {
+      "source": "241",
+      "target": "150"
+    },
+    {
+      "source": "150",
+      "target": "212"
+    },
+    {
+      "source": "150",
+      "target": "64"
+    },
+    {
+      "source": "185",
+      "target": "150"
+    },
+    {
+      "source": "163",
+      "target": "151"
+    },
+    {
+      "source": "166",
+      "target": "151"
+    },
+    {
+      "source": "163",
+      "target": "151"
+    },
+    {
+      "source": "153",
+      "target": "165"
+    },
+    {
+      "source": "168",
+      "target": "158"
+    },
+    {
+      "source": "192",
+      "target": "158"
+    },
+    {
+      "source": "160",
+      "target": "197"
+    },
+    {
+      "source": "306",
+      "target": "160"
+    },
+    {
+      "source": "271",
+      "target": "161"
+    },
+    {
+      "source": "161",
+      "target": "206"
+    },
+    {
+      "source": "276",
+      "target": "162"
+    },
+    {
+      "source": "166",
+      "target": "163"
+    },
+    {
+      "source": "166",
+      "target": "163"
+    },
+    {
+      "source": "164",
+      "target": "280"
+    },
+    {
+      "source": "164",
+      "target": "177"
+    },
+    {
+      "source": "164",
+      "target": "200"
+    },
+    {
+      "source": "164",
+      "target": "177"
+    },
+    {
+      "source": "164",
+      "target": "280"
+    },
+    {
+      "source": "164",
+      "target": "200"
+    },
+    {
+      "source": "164",
+      "target": "277"
+    },
+    {
+      "source": "164",
+      "target": "177"
+    },
+    {
+      "source": "164",
+      "target": "280"
+    },
+    {
+      "source": "164",
+      "target": "200"
+    },
+    {
+      "source": "259",
+      "target": "165"
+    },
+    {
+      "source": "166",
+      "target": "303"
+    },
+    {
+      "source": "261",
+      "target": "167"
+    },
+    {
+      "source": "168",
+      "target": "192"
+    },
+    {
+      "source": "306",
+      "target": "168"
+    },
+    {
+      "source": "248",
+      "target": "170"
+    },
+    {
+      "source": "302",
+      "target": "170"
+    },
+    {
+      "source": "171",
+      "target": "269"
+    },
+    {
+      "source": "171",
+      "target": "296"
+    },
+    {
+      "source": "171",
+      "target": "187"
+    },
+    {
+      "source": "171",
+      "target": "190"
+    },
+    {
+      "source": "171",
+      "target": "221"
+    },
+    {
+      "source": "174",
+      "target": "235"
+    },
+    {
+      "source": "185",
+      "target": "174"
+    },
+    {
+      "source": "174",
+      "target": "64"
+    },
+    {
+      "source": "174",
+      "target": "212"
+    },
+    {
+      "source": "174",
+      "target": "235"
+    },
+    {
+      "source": "185",
+      "target": "174"
+    },
+    {
+      "source": "241",
+      "target": "174"
+    },
+    {
+      "source": "174",
+      "target": "235"
+    },
+    {
+      "source": "245",
+      "target": "175"
+    },
+    {
+      "source": "210",
+      "target": "175"
+    },
+    {
+      "source": "175",
+      "target": "283"
+    },
+    {
+      "source": "176",
+      "target": "175"
+    },
+    {
+      "source": "176",
+      "target": "245"
+    },
+    {
+      "source": "176",
+      "target": "210"
+    },
+    {
+      "source": "177",
+      "target": "280"
+    },
+    {
+      "source": "177",
+      "target": "200"
+    },
+    {
+      "source": "277",
+      "target": "177"
+    },
+    {
+      "source": "277",
+      "target": "177"
+    },
+    {
+      "source": "177",
+      "target": "280"
+    },
+    {
+      "source": "277",
+      "target": "177"
+    },
+    {
+      "source": "177",
+      "target": "200"
+    },
+    {
+      "source": "178",
+      "target": "229"
+    },
+    {
+      "source": "263",
+      "target": "179"
+    },
+    {
+      "source": "248",
+      "target": "182"
+    },
+    {
+      "source": "289",
+      "target": "182"
+    },
+    {
+      "source": "183",
+      "target": "306"
+    },
+    {
+      "source": "184",
+      "target": "236"
+    },
+    {
+      "source": "236",
+      "target": "184"
+    },
+    {
+      "source": "306",
+      "target": "185"
+    },
+    {
+      "source": "185",
+      "target": "235"
+    },
+    {
+      "source": "185",
+      "target": "205"
+    },
+    {
+      "source": "185",
+      "target": "174"
+    },
+    {
+      "source": "241",
+      "target": "185"
+    },
+    {
+      "source": "241",
+      "target": "185"
+    },
+    {
+      "source": "185",
+      "target": "212"
+    },
+    {
+      "source": "185",
+      "target": "64"
+    },
+    {
+      "source": "269",
+      "target": "187"
+    },
+    {
+      "source": "221",
+      "target": "187"
+    },
+    {
+      "source": "187",
+      "target": "296"
+    },
+    {
+      "source": "269",
+      "target": "190"
+    },
+    {
+      "source": "190",
+      "target": "296"
+    },
+    {
+      "source": "190",
+      "target": "187"
+    },
+    {
+      "source": "221",
+      "target": "190"
+    },
+    {
+      "source": "285",
+      "target": "192"
+    },
+    {
+      "source": "165",
+      "target": "194"
+    },
+    {
+      "source": "259",
+      "target": "194"
+    },
+    {
+      "source": "306",
+      "target": "194"
+    },
+    {
+      "source": "234",
+      "target": "195"
+    },
+    {
+      "source": "234",
+      "target": "195"
+    },
+    {
+      "source": "306",
+      "target": "196"
+    },
+    {
+      "source": "290",
+      "target": "198"
+    },
+    {
+      "source": "290",
+      "target": "198"
+    },
+    {
+      "source": "199",
+      "target": "202"
+    },
+    {
+      "source": "199",
+      "target": "306"
+    },
+    {
+      "source": "200",
+      "target": "280"
+    },
+    {
+      "source": "277",
+      "target": "200"
+    },
+    {
+      "source": "277",
+      "target": "200"
+    },
+    {
+      "source": "200",
+      "target": "280"
+    },
+    {
+      "source": "200",
+      "target": "280"
+    },
+    {
+      "source": "201",
+      "target": "264"
+    },
+    {
+      "source": "201",
+      "target": "220"
+    },
+    {
+      "source": "227",
+      "target": "203"
+    },
+    {
+      "source": "227",
+      "target": "203"
+    },
+    {
+      "source": "55",
+      "target": "203"
+    },
+    {
+      "source": "241",
+      "target": "205"
+    },
+    {
+      "source": "174",
+      "target": "205"
+    },
+    {
+      "source": "205",
+      "target": "235"
+    },
+    {
+      "source": "227",
+      "target": "206"
+    },
+    {
+      "source": "271",
+      "target": "206"
+    },
+    {
+      "source": "207",
+      "target": "309"
+    },
+    {
+      "source": "210",
+      "target": "283"
+    },
+    {
+      "source": "210",
+      "target": "238"
+    },
+    {
+      "source": "212",
+      "target": "235"
+    },
+    {
+      "source": "236",
+      "target": "214"
+    },
+    {
+      "source": "215",
+      "target": "216"
+    },
+    {
+      "source": "306",
+      "target": "218"
+    },
+    {
+      "source": "220",
+      "target": "264"
+    },
+    {
+      "source": "221",
+      "target": "296"
+    },
+    {
+      "source": "306",
+      "target": "223"
+    },
+    {
+      "source": "225",
+      "target": "306"
+    },
+    {
+      "source": "226",
+      "target": "68"
+    },
+    {
+      "source": "226",
+      "target": "198"
+    },
+    {
+      "source": "227",
+      "target": "55"
+    },
+    {
+      "source": "271",
+      "target": "227"
+    },
+    {
+      "source": "289",
+      "target": "231"
+    },
+    {
+      "source": "232",
+      "target": "306"
+    },
+    {
+      "source": "241",
+      "target": "235"
+    },
+    {
+      "source": "176",
+      "target": "238"
+    },
+    {
+      "source": "239",
+      "target": "266"
+    },
+    {
+      "source": "240",
+      "target": "254"
+    },
+    {
+      "source": "241",
+      "target": "174"
+    },
+    {
+      "source": "274",
+      "target": "243"
+    },
+    {
+      "source": "268",
+      "target": "246"
+    },
+    {
+      "source": "248",
+      "target": "289"
+    },
+    {
+      "source": "248",
+      "target": "231"
+    },
+    {
+      "source": "248",
+      "target": "8"
+    },
+    {
+      "source": "248",
+      "target": "302"
+    },
+    {
+      "source": "306",
+      "target": "248"
+    },
+    {
+      "source": "286",
+      "target": "250"
+    },
+    {
+      "source": "250",
+      "target": "306"
+    },
+    {
+      "source": "308",
+      "target": "252"
+    },
+    {
+      "source": "308",
+      "target": "252"
+    },
+    {
+      "source": "253",
+      "target": "270"
+    },
+    {
+      "source": "253",
+      "target": "270"
+    },
+    {
+      "source": "253",
+      "target": "299"
+    },
+    {
+      "source": "306",
+      "target": "254"
+    },
+    {
+      "source": "131",
+      "target": "255"
+    },
+    {
+      "source": "262",
+      "target": "255"
+    },
+    {
+      "source": "306",
+      "target": "260"
+    },
+    {
+      "source": "306",
+      "target": "261"
+    },
+    {
+      "source": "261",
+      "target": "283"
+    },
+    {
+      "source": "261",
+      "target": "3"
+    },
+    {
+      "source": "281",
+      "target": "261"
+    },
+    {
+      "source": "261",
+      "target": "305"
+    },
+    {
+      "source": "306",
+      "target": "262"
+    },
+    {
+      "source": "262",
+      "target": "25"
+    },
+    {
+      "source": "269",
+      "target": "296"
+    },
+    {
+      "source": "270",
+      "target": "102"
+    },
+    {
+      "source": "306",
+      "target": "272"
+    },
+    {
+      "source": "306",
+      "target": "274"
+    },
+    {
+      "source": "277",
+      "target": "280"
+    },
+    {
+      "source": "277",
+      "target": "280"
+    },
+    {
+      "source": "176",
+      "target": "283"
+    },
+    {
+      "source": "245",
+      "target": "283"
+    },
+    {
+      "source": "306",
+      "target": "284"
+    },
+    {
+      "source": "306",
+      "target": "288"
+    },
+    {
+      "source": "289",
+      "target": "302"
+    },
+    {
+      "source": "293",
+      "target": "307"
+    },
+    {
+      "source": "294",
+      "target": "306"
+    },
+    {
+      "source": "302",
+      "target": "231"
+    },
+    {
+      "source": "303",
+      "target": "118"
+    },
+    {
+      "source": "303",
+      "target": "73"
+    },
+    {
+      "source": "306",
+      "target": "308"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "0",
+      "name": "BN-v2-1043Nv5-01"
+    },
+    {
+      "id": "1",
+      "name": "BN-85"
+    },
+    {
+      "id": "2",
+      "name": "BN-25"
+    },
+    {
+      "id": "3",
+      "name": "ffkbu-8416f9d34150"
+    },
+    {
+      "id": "4",
+      "name": "Friedlandstr_70-4"
+    },
+    {
+      "id": "5",
+      "name": "BN-v2-UnifiAcLite-14"
+    },
+    {
+      "id": "6",
+      "name": "GHS-EG-Sec"
+    },
+    {
+      "id": "7",
+      "name": "netgear-r6120_01"
+    },
+    {
+      "id": "8",
+      "name": "slartibartfast04"
+    },
+    {
+      "id": "9",
+      "name": "ffkbuu-buehil"
+    },
+    {
+      "id": "10",
+      "name": "BN-106"
+    },
+    {
+      "id": "11",
+      "name": "BN-103"
+    },
+    {
+      "id": "12",
+      "name": "ffkbu-802aa8941d37"
+    },
+    {
+      "id": "13",
+      "name": "BN-03"
+    },
+    {
+      "id": "14",
+      "name": "N2-Garten"
+    },
+    {
+      "id": "15",
+      "name": "BN-FWS-KG-Uplink"
+    },
+    {
+      "id": "16",
+      "name": "BN-09"
+    },
+    {
+      "id": "17",
+      "name": "BN-88"
+    },
+    {
+      "id": "18",
+      "name": "BN-08"
+    },
+    {
+      "id": "19",
+      "name": "Castell"
+    },
+    {
+      "id": "20",
+      "name": "BN_Muffendorf_GT8_Kueche"
+    },
+    {
+      "id": "21",
+      "name": "ffkbu-50c7bf16b034"
+    },
+    {
+      "id": "22",
+      "name": "ffkbu-MSP-Hifistudio"
+    },
+    {
+      "id": "23",
+      "name": "BN-v2-UnifiMesh-2"
+    },
+    {
+      "id": "24",
+      "name": "American-Paranoia"
+    },
+    {
+      "id": "25",
+      "name": "ffbn01-Bullet"
+    },
+    {
+      "id": "26",
+      "name": "Friedlandstr_70-3"
+    },
+    {
+      "id": "27",
+      "name": "Johnny-20"
+    },
+    {
+      "id": "28",
+      "name": "ffkbu-koblenzer11-fd"
+    },
+    {
+      "id": "29",
+      "name": "BN-v2-ZyXEL-NBG6617-01"
+    },
+    {
+      "id": "30",
+      "name": "BN-v2-940Nv6-01"
+    },
+    {
+      "id": "31",
+      "name": "Bonn.digital_FreifunkKBU_84"
+    },
+    {
+      "id": "32",
+      "name": "Duenenfuechse_Pavillon"
+    },
+    {
+      "id": "33",
+      "name": "Remigius-SW"
+    },
+    {
+      "id": "34",
+      "name": "slartibartfast03"
+    },
+    {
+      "id": "35",
+      "name": "BN-58"
+    },
+    {
+      "id": "36",
+      "name": "ffkbu-v2-fritzbox-4040-02"
+    },
+    {
+      "id": "37",
+      "name": "freifunk-bonn-tanne1"
+    },
+    {
+      "id": "38",
+      "name": "ffkbu-90f652f86974"
+    },
+    {
+      "id": "39",
+      "name": "Johnny-13"
+    },
+    {
+      "id": "40",
+      "name": "DDM A.Fechner - UG"
+    },
+    {
+      "id": "41",
+      "name": "Hembach1"
+    },
+    {
+      "id": "42",
+      "name": "ff-bouderath-3"
+    },
+    {
+      "id": "43",
+      "name": "Duenenfuechse_ITA5"
+    },
+    {
+      "id": "44",
+      "name": "ffkbu-am-trutzenberg-wg"
+    },
+    {
+      "id": "45",
+      "name": "Bonn2"
+    },
+    {
+      "id": "46",
+      "name": "K-Weiss-1-North"
+    },
+    {
+      "id": "47",
+      "name": "ffbam-egbam-02"
+    },
+    {
+      "id": "48",
+      "name": "Johnny-12"
+    },
+    {
+      "id": "49",
+      "name": "Duenenfuechse_Hochhaus_Loco"
+    },
+    {
+      "id": "50",
+      "name": "THW Bonn 4"
+    },
+    {
+      "id": "51",
+      "name": "ffkbu-88ee-bn-v2-wireguard"
+    },
+    {
+      "id": "52",
+      "name": "Bonn.digital_FreifunkKBU_D4"
+    },
+    {
+      "id": "53",
+      "name": "BN-57"
+    },
+    {
+      "id": "54",
+      "name": "cryptopartykbn"
+    },
+    {
+      "id": "55",
+      "name": "FWS-Master-Of-Connectivity"
+    },
+    {
+      "id": "56",
+      "name": "ffkbu-c8d3a35826d8"
+    },
+    {
+      "id": "57",
+      "name": "ffbn01-Markthallen"
+    },
+    {
+      "id": "58",
+      "name": "Azade-1"
+    },
+    {
+      "id": "59",
+      "name": "BN-OHS-Computerraum"
+    },
+    {
+      "id": "60",
+      "name": "Duenenfuechse_Garten"
+    },
+    {
+      "id": "61",
+      "name": "Palstek"
+    },
+    {
+      "id": "62",
+      "name": "ffkbu-30b5c222dba6"
+    },
+    {
+      "id": "63",
+      "name": "FWS-EG-Sec"
+    },
+    {
+      "id": "64",
+      "name": "BN-v2-Haus-Der-Jugend-mitte"
+    },
+    {
+      "id": "65",
+      "name": "Baeckerei_Kamps"
+    },
+    {
+      "id": "66",
+      "name": "Johnny-3"
+    },
+    {
+      "id": "67",
+      "name": "mhunap-86"
+    },
+    {
+      "id": "68",
+      "name": "Remigius-NO"
+    },
+    {
+      "id": "69",
+      "name": "BN-OHS-76"
+    },
+    {
+      "id": "70",
+      "name": "HW-EG-Balkon"
+    },
+    {
+      "id": "71",
+      "name": "MBZ-Rheinland-S2"
+    },
+    {
+      "id": "72",
+      "name": "Baeckerei-Klein--Altstadt"
+    },
+    {
+      "id": "73",
+      "name": "BN-83"
+    },
+    {
+      "id": "74",
+      "name": "Duenenfuechse-ACT-nanowelle"
+    },
+    {
+      "id": "75",
+      "name": "ffkbu-b0be76599151"
+    },
+    {
+      "id": "76",
+      "name": "slartibartfast06"
+    },
+    {
+      "id": "77",
+      "name": "ffkbu-f4ec38b315c5"
+    },
+    {
+      "id": "78",
+      "name": "BN-OHS-172"
+    },
+    {
+      "id": "79",
+      "name": "bn-90 (Master)"
+    },
+    {
+      "id": "80",
+      "name": "Bonn4"
+    },
+    {
+      "id": "81",
+      "name": "BN-v2-841n-v9-01"
+    },
+    {
+      "id": "82",
+      "name": "BN-v2-Haus-Der-Jugend-oben"
+    },
+    {
+      "id": "83",
+      "name": "Freifunk"
+    },
+    {
+      "id": "84",
+      "name": "refugees_welcome"
+    },
+    {
+      "id": "85",
+      "name": "Johnny-9"
+    },
+    {
+      "id": "86",
+      "name": "Remigius-NW"
+    },
+    {
+      "id": "87",
+      "name": "Johnny-26"
+    },
+    {
+      "id": "88",
+      "name": "ff-bouderath-2"
+    },
+    {
+      "id": "89",
+      "name": "Babel_Bar"
+    },
+    {
+      "id": "90",
+      "name": "FF-KBU-FB-001"
+    },
+    {
+      "id": "91",
+      "name": "Bonn3"
+    },
+    {
+      "id": "92",
+      "name": "ERX-Karl-Finkenburg"
+    },
+    {
+      "id": "93",
+      "name": "Bonn5"
+    },
+    {
+      "id": "94",
+      "name": "ffkbu-hi-muf-001"
+    },
+    {
+      "id": "95",
+      "name": "St-Marien-Nord"
+    },
+    {
+      "id": "96",
+      "name": "Cafe_de_Art"
+    },
+    {
+      "id": "97",
+      "name": "FF-KBU-FB-003"
+    },
+    {
+      "id": "98",
+      "name": "Ford"
+    },
+    {
+      "id": "99",
+      "name": "Campanile"
+    },
+    {
+      "id": "100",
+      "name": "USS Salcombe"
+    },
+    {
+      "id": "101",
+      "name": "Bonn2"
+    },
+    {
+      "id": "102",
+      "name": "Johnny-23"
+    },
+    {
+      "id": "103",
+      "name": "BN-70"
+    },
+    {
+      "id": "104",
+      "name": "BN-OHS-79"
+    },
+    {
+      "id": "105",
+      "name": "Johnny-47"
+    },
+    {
+      "id": "106",
+      "name": "Johnny-22"
+    },
+    {
+      "id": "107",
+      "name": "BN-109"
+    },
+    {
+      "id": "108",
+      "name": "BM-CommanderKnoten"
+    },
+    {
+      "id": "109",
+      "name": "BN-89"
+    },
+    {
+      "id": "110",
+      "name": "ffkbu-50c7bf16a3fe"
+    },
+    {
+      "id": "111",
+      "name": "Mehlemer-Stuebchen-2"
+    },
+    {
+      "id": "112",
+      "name": "FF-die-Linken"
+    },
+    {
+      "id": "113",
+      "name": "ffkbu-b0be7677d959-reichshof-eckenhagen-nachbarschaftstreff"
+    },
+    {
+      "id": "114",
+      "name": "THW Bonn 3"
+    },
+    {
+      "id": "115",
+      "name": "Bonn4"
+    },
+    {
+      "id": "116",
+      "name": "BN-OHS-Erz-E2S"
+    },
+    {
+      "id": "117",
+      "name": "THW Bonn 7"
+    },
+    {
+      "id": "118",
+      "name": "BN-87"
+    },
+    {
+      "id": "119",
+      "name": "BN-65"
+    },
+    {
+      "id": "120",
+      "name": "ffkbu-zahnarzt-beerwerth"
+    },
+    {
+      "id": "121",
+      "name": "BN-v2-UnifiAcLite-12"
+    },
+    {
+      "id": "122",
+      "name": "FWS-OG2-69"
+    },
+    {
+      "id": "123",
+      "name": "slartibartfast02"
+    },
+    {
+      "id": "124",
+      "name": "ffkbu-waldbroel-dahl"
+    },
+    {
+      "id": "125",
+      "name": "FFKBU-HB-0-30B5C2ED4548"
+    },
+    {
+      "id": "126",
+      "name": "BN-29"
+    },
+    {
+      "id": "127",
+      "name": "CastellOffloader"
+    },
+    {
+      "id": "128",
+      "name": "BN-v2-UnifiAcLite-10"
+    },
+    {
+      "id": "129",
+      "name": "BN_Muffendorf_GT8-UG"
+    },
+    {
+      "id": "130",
+      "name": "BN-OHS-71"
+    },
+    {
+      "id": "131",
+      "name": "Hochstaden"
+    },
+    {
+      "id": "132",
+      "name": "THW Bonn 6"
+    },
+    {
+      "id": "133",
+      "name": "Johnny-6"
+    },
+    {
+      "id": "134",
+      "name": "BN_Muffendorf_GT8_EG1"
+    },
+    {
+      "id": "135",
+      "name": "Freifunk"
+    },
+    {
+      "id": "136",
+      "name": "BlackVeg"
+    },
+    {
+      "id": "137",
+      "name": "Johnny-21"
+    },
+    {
+      "id": "138",
+      "name": "OHS-GHSOG2N"
+    },
+    {
+      "id": "139",
+      "name": "Johnny-5"
+    },
+    {
+      "id": "140",
+      "name": "BN-v2-UnifiAcMesh-01"
+    },
+    {
+      "id": "141",
+      "name": "azade-2"
+    },
+    {
+      "id": "142",
+      "name": "VCD-Service"
+    },
+    {
+      "id": "143",
+      "name": "Johnny-10"
+    },
+    {
+      "id": "144",
+      "name": "JAP-3"
+    },
+    {
+      "id": "145",
+      "name": "Johnny-15"
+    },
+    {
+      "id": "146",
+      "name": "Markt-SO"
+    },
+    {
+      "id": "147",
+      "name": "BN-OHS-92"
+    },
+    {
+      "id": "148",
+      "name": "Baeckerei-Klein--Endenich"
+    },
+    {
+      "id": "149",
+      "name": "swzrhd-001"
+    },
+    {
+      "id": "150",
+      "name": "BN-v2-841n-v9-34"
+    },
+    {
+      "id": "151",
+      "name": "Johnny-44"
+    },
+    {
+      "id": "152",
+      "name": "Die_Sozialliberalen_003"
+    },
+    {
+      "id": "153",
+      "name": "bwinf1"
+    },
+    {
+      "id": "154",
+      "name": "ffkbu-bn111"
+    },
+    {
+      "id": "155",
+      "name": "freifunk-lv-426.space"
+    },
+    {
+      "id": "156",
+      "name": "Freifunk-Bonn-Plittersdorf-2"
+    },
+    {
+      "id": "157",
+      "name": "ffkbu-mk"
+    },
+    {
+      "id": "158",
+      "name": "Fliegendes-Spaghettimonster"
+    },
+    {
+      "id": "159",
+      "name": "KW-2.1"
+    },
+    {
+      "id": "160",
+      "name": "ERX-CMA"
+    },
+    {
+      "id": "161",
+      "name": "FWS-OG1-41"
+    },
+    {
+      "id": "162",
+      "name": "Bonn.digital_FreifunkKBU_EC"
+    },
+    {
+      "id": "163",
+      "name": "Johnny-42"
+    },
+    {
+      "id": "164",
+      "name": "BN-v2-UnifiAcLite-13"
+    },
+    {
+      "id": "165",
+      "name": "bwinf0"
+    },
+    {
+      "id": "166",
+      "name": "BN-107"
+    },
+    {
+      "id": "167",
+      "name": "CryptopartyKBNmobil2"
+    },
+    {
+      "id": "168",
+      "name": "Mehlemer-Stuebchen-1"
+    },
+    {
+      "id": "169",
+      "name": "Freifunk"
+    },
+    {
+      "id": "170",
+      "name": "slartibartfast01"
+    },
+    {
+      "id": "171",
+      "name": "BN-66"
+    },
+    {
+      "id": "172",
+      "name": "Friedlandstr_70-2"
+    },
+    {
+      "id": "173",
+      "name": "USS Newton"
+    },
+    {
+      "id": "174",
+      "name": "BN-v2-ArcherC25v1-01"
+    },
+    {
+      "id": "175",
+      "name": "BN-CWP-EG01"
+    },
+    {
+      "id": "176",
+      "name": "FWS-EG-S85K"
+    },
+    {
+      "id": "177",
+      "name": "BN-v2-UnifiAcLite-15"
+    },
+    {
+      "id": "178",
+      "name": "BN-51"
+    },
+    {
+      "id": "179",
+      "name": "Baeckerei-Klein--Buschdorf"
+    },
+    {
+      "id": "180",
+      "name": "Oscar_Romero_Haus"
+    },
+    {
+      "id": "181",
+      "name": "ffbn01-Eifelstrasse"
+    },
+    {
+      "id": "182",
+      "name": "slartibartfast08"
+    },
+    {
+      "id": "183",
+      "name": "ffkbu-98ded091fd88"
+    },
+    {
+      "id": "184",
+      "name": "BN-v2-UnifiAcLite-11"
+    },
+    {
+      "id": "185",
+      "name": "BN-v2-FRITZ-Box-4040-01"
+    },
+    {
+      "id": "186",
+      "name": "Baeckerei-Klein--Tannenbusch"
+    },
+    {
+      "id": "187",
+      "name": "BN-72"
+    },
+    {
+      "id": "188",
+      "name": "katja-doerner.de"
+    },
+    {
+      "id": "189",
+      "name": "ffkbu-v2-fritzbox-4020-01"
+    },
+    {
+      "id": "190",
+      "name": "Johnny-15"
+    },
+    {
+      "id": "191",
+      "name": "Bonn4"
+    },
+    {
+      "id": "192",
+      "name": "Johnny-1"
+    },
+    {
+      "id": "193",
+      "name": "FFKBU-HB-1-30B5C2ED4D2C"
+    },
+    {
+      "id": "194",
+      "name": "bwinf2"
+    },
+    {
+      "id": "195",
+      "name": "Marvin"
+    },
+    {
+      "id": "196",
+      "name": "FF-KBU-Sued-001"
+    },
+    {
+      "id": "197",
+      "name": "BN-86"
+    },
+    {
+      "id": "198",
+      "name": "Remigius-SO"
+    },
+    {
+      "id": "199",
+      "name": "schaumburger-hof.de"
+    },
+    {
+      "id": "200",
+      "name": "Bonn_Alte-VHS_Uplink"
+    },
+    {
+      "id": "201",
+      "name": "BN-32"
+    },
+    {
+      "id": "202",
+      "name": "schaumburger-hof.de"
+    },
+    {
+      "id": "203",
+      "name": "FWS-EG-Lager2"
+    },
+    {
+      "id": "204",
+      "name": "FWS-UG-S81S"
+    },
+    {
+      "id": "205",
+      "name": "BN-v2-841n-v10-01"
+    },
+    {
+      "id": "206",
+      "name": "FWS-OG1-Flurbox"
+    },
+    {
+      "id": "207",
+      "name": "Freifunk "
+    },
+    {
+      "id": "208",
+      "name": "Bonn5"
+    },
+    {
+      "id": "209",
+      "name": "GHS-OG2-Ost"
+    },
+    {
+      "id": "210",
+      "name": "BN-CWP-OG2"
+    },
+    {
+      "id": "211",
+      "name": "BN-OHS-170"
+    },
+    {
+      "id": "212",
+      "name": "BN-v2-Haus-Der-Jugend-unten"
+    },
+    {
+      "id": "213",
+      "name": "ffbam-egbam-01"
+    },
+    {
+      "id": "214",
+      "name": "FWS-OG3-13F"
+    },
+    {
+      "id": "215",
+      "name": "HW-EG-Buero"
+    },
+    {
+      "id": "216",
+      "name": "HW-Aushang"
+    },
+    {
+      "id": "217",
+      "name": "BN-v2-841n-v11-Ehrenamt"
+    },
+    {
+      "id": "218",
+      "name": "guelistan-testbetrieb"
+    },
+    {
+      "id": "219",
+      "name": "ffkbu-RAVITA-Pflegedienst"
+    },
+    {
+      "id": "220",
+      "name": "BN-24"
+    },
+    {
+      "id": "221",
+      "name": "BN-73"
+    },
+    {
+      "id": "222",
+      "name": "Bonn1"
+    },
+    {
+      "id": "223",
+      "name": "yanosz-balkon"
+    },
+    {
+      "id": "224",
+      "name": "Freifunk-Bonn-Plittersdorf"
+    },
+    {
+      "id": "225",
+      "name": "Hohetanne38"
+    },
+    {
+      "id": "226",
+      "name": "Markt-Hinterhof"
+    },
+    {
+      "id": "227",
+      "name": "FWS-EG-Seminar"
+    },
+    {
+      "id": "228",
+      "name": "hoze-unifi-offloader"
+    },
+    {
+      "id": "229",
+      "name": "BN-60"
+    },
+    {
+      "id": "230",
+      "name": "Oscar_Romero_Haus4_1EG"
+    },
+    {
+      "id": "231",
+      "name": "slartibartfast05"
+    },
+    {
+      "id": "232",
+      "name": "ff-bouderath-1"
+    },
+    {
+      "id": "233",
+      "name": "ffkbu-LEIHROUTER"
+    },
+    {
+      "id": "234",
+      "name": "Arthur"
+    },
+    {
+      "id": "235",
+      "name": "BN-v2-UnifiAcLite-01"
+    },
+    {
+      "id": "236",
+      "name": "netgear-r6120_02"
+    },
+    {
+      "id": "237",
+      "name": "ffkbu-0c8063e5fda2"
+    },
+    {
+      "id": "238",
+      "name": "ffkbu-kkr-41"
+    },
+    {
+      "id": "239",
+      "name": "nobridge"
+    },
+    {
+      "id": "240",
+      "name": "ffkbu-10feed2b1b36"
+    },
+    {
+      "id": "241",
+      "name": "BN-v2-841n-v11-02"
+    },
+    {
+      "id": "242",
+      "name": "enjoy-freifunk-kbu-50321bruehl"
+    },
+    {
+      "id": "243",
+      "name": "MBZ-Rheinland-S1"
+    },
+    {
+      "id": "244",
+      "name": "Konstantin"
+    },
+    {
+      "id": "245",
+      "name": "FWS-EG-S84A"
+    },
+    {
+      "id": "246",
+      "name": "DDM A.Fechner - WZ"
+    },
+    {
+      "id": "247",
+      "name": "Bonner-Bogen-2"
+    },
+    {
+      "id": "248",
+      "name": "mhunap-78"
+    },
+    {
+      "id": "249",
+      "name": "Gallusstr. 8"
+    },
+    {
+      "id": "250",
+      "name": "le-sabot"
+    },
+    {
+      "id": "251",
+      "name": "Bonn3"
+    },
+    {
+      "id": "252",
+      "name": "THW Bonn 2"
+    },
+    {
+      "id": "253",
+      "name": "Johnny-7"
+    },
+    {
+      "id": "254",
+      "name": "Am Westhover Berg 19_2"
+    },
+    {
+      "id": "255",
+      "name": "St-Marien-West"
+    },
+    {
+      "id": "256",
+      "name": "slartibartfast00"
+    },
+    {
+      "id": "257",
+      "name": "JAP-2"
+    },
+    {
+      "id": "258",
+      "name": "THW-TLTG_Heilsbach-GW"
+    },
+    {
+      "id": "259",
+      "name": "bwinf3"
+    },
+    {
+      "id": "260",
+      "name": "BNOK02"
+    },
+    {
+      "id": "261",
+      "name": "Bonn5"
+    },
+    {
+      "id": "262",
+      "name": "CPE210_v3_nu"
+    },
+    {
+      "id": "263",
+      "name": "Faehrpavillon_Graurheindorf"
+    },
+    {
+      "id": "264",
+      "name": "THW-TLTG_Link"
+    },
+    {
+      "id": "265",
+      "name": "ffkbu-wolf23"
+    },
+    {
+      "id": "266",
+      "name": "St-Marien-Ost"
+    },
+    {
+      "id": "267",
+      "name": "BN-OHS-171"
+    },
+    {
+      "id": "268",
+      "name": "DDM A.Fechner - OG"
+    },
+    {
+      "id": "269",
+      "name": "BN-67"
+    },
+    {
+      "id": "270",
+      "name": "Johnny-24"
+    },
+    {
+      "id": "271",
+      "name": "FWS_OG1-071"
+    },
+    {
+      "id": "272",
+      "name": "USS Stargazer"
+    },
+    {
+      "id": "273",
+      "name": "Konstantin-C7"
+    },
+    {
+      "id": "274",
+      "name": "MBZ-Rheinland-A"
+    },
+    {
+      "id": "275",
+      "name": "ffkbu-koblenzer11-wg"
+    },
+    {
+      "id": "276",
+      "name": "Bonn.digital_FreifunkKBU_D8"
+    },
+    {
+      "id": "277",
+      "name": "BN-v2-UnifiAcLite-19"
+    },
+    {
+      "id": "278",
+      "name": "Baeckerei-Klein--Dransdorf"
+    },
+    {
+      "id": "279",
+      "name": "FF-KBU-FB-002"
+    },
+    {
+      "id": "280",
+      "name": "BN-v2-UnifiAcLite-18"
+    },
+    {
+      "id": "281",
+      "name": "Karmeliter-2"
+    },
+    {
+      "id": "282",
+      "name": "CPE210v1.1_nntk"
+    },
+    {
+      "id": "283",
+      "name": "BN-CWP-HM"
+    },
+    {
+      "id": "284",
+      "name": "BN-v2-1043NDv1-01"
+    },
+    {
+      "id": "285",
+      "name": "Johnny-1-Offloader"
+    },
+    {
+      "id": "286",
+      "name": "ADFC_Bonn-Rhein-Sieg"
+    },
+    {
+      "id": "287",
+      "name": "Cafe_Cortado"
+    },
+    {
+      "id": "288",
+      "name": "waldorf"
+    },
+    {
+      "id": "289",
+      "name": "slartibartfast09"
+    },
+    {
+      "id": "290",
+      "name": "Remiguis-GW"
+    },
+    {
+      "id": "291",
+      "name": "ffkbu-b0be76e99f7fnn"
+    },
+    {
+      "id": "292",
+      "name": "Horizont Reisen"
+    },
+    {
+      "id": "293",
+      "name": "FF-KBU-FB-005"
+    },
+    {
+      "id": "294",
+      "name": "Lannesdorf1"
+    },
+    {
+      "id": "295",
+      "name": "refugees_welcome_neu"
+    },
+    {
+      "id": "296",
+      "name": "BN-64"
+    },
+    {
+      "id": "297",
+      "name": "Bonn3"
+    },
+    {
+      "id": "298",
+      "name": "freifunk-kbu-cheeseburger-str"
+    },
+    {
+      "id": "299",
+      "name": "Johnny-8"
+    },
+    {
+      "id": "300",
+      "name": "Duenenfuechse_Park"
+    },
+    {
+      "id": "301",
+      "name": "JAP-1"
+    },
+    {
+      "id": "302",
+      "name": "slartibartfast07"
+    },
+    {
+      "id": "303",
+      "name": "BN-111"
+    },
+    {
+      "id": "304",
+      "name": "Bonn4"
+    },
+    {
+      "id": "305",
+      "name": "ffkbu-42"
+    },
+    {
+      "id": "306",
+      "name": "Bonn1"
+    },
+    {
+      "id": "307",
+      "name": "FF-KBU-FB-004"
+    },
+    {
+      "id": "308",
+      "name": "THW Bonn 1"
+    },
+    {
+      "id": "309",
+      "name": "Freifunk "
+    }
+  ]
+}
