@@ -363,16 +363,16 @@ def test_convergence(nsnames, max_samples, wait, cvsfile = None):
     d = now() - start
     seconds = d.seconds + d.microseconds / 1000000
 
-    # output data:
-
-    print('send: {}/s ({}/s per node)'.format(
-        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds),
-        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames))
-    ))
+    # output data
 
     print('received: {}/s ({}/s per node)'.format(
         format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds),
         format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds / len(nsnames))
+    ))
+
+    print('send: {}/s ({}/s per node)'.format(
+        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds),
+        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames))
     ))
 
     if cvsfile is not None:
@@ -401,13 +401,14 @@ def measure_traffic(nsnames, duration, cvsfile = None):
     d = now() - start
     seconds = d.seconds + d.microseconds / 1000000
 
-    print('send: {}/s ({}/s per node)'.format(
-        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds),
-        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames))
-    ))
     print('received: {}/s ({}/s per node)'.format(
         format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds),
         format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames))
+    ))
+
+    print('send: {}/s ({}/s per node)'.format(
+        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds),
+        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames))
     ))
 
     if cvsfile is not None:
@@ -415,10 +416,10 @@ def measure_traffic(nsnames, duration, cvsfile = None):
         cvsfile.write('{} {:0.2f} {:0.2f}\n'.format(
             # measurement duration
             duration,
-            # send bytes/s per node
-            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames),
             # received bytes/s per node
-            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames)
+            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames),
+            # send bytes/s per node
+            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames)
         ))
 
 parser = argparse.ArgumentParser()
