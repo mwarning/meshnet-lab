@@ -57,8 +57,10 @@ def get_random_samples(items, npairs):
     return samples.values()
 
 # get IPv6 address, use fe80:: address as fallback
-def get_addr(nsname, interface):
+# TODO: return IPv6 address of the broadest scope in general
+def get_ipv6_address(nsname, interface):
     lladdr = None
+    # print only IPv6 addresses
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
     for line in output.split("\n"):
         if 'inet6 ' in line:
@@ -68,14 +70,30 @@ def get_addr(nsname, interface):
             else:
                 return addr
 
+    return lladdr
+
+def get_mac_address(nsname, interface):
+    # print only MAC address
+    output = os.popen('ip netns exec "{}" ip -0 addr list dev {}'.format(nsname, interface)).read()
+    for line in output.split("\n"):
+        if 'link/ether ' in line:
+            return line.split()[1]
+
     return None
+
+def eui64_suffix(nsname, interface):
+    mac = get_mac_address(nsname, interface)
+    return '{:02x}{}:{}ff:fe{}:{}{}'.format(
+        int(mac[0:2], 16) ^ 2, # byte with flipped bit
+        mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
+    )
 
 class PingStatistics:
     def __init__(self, nssource, nstarget, interface, packets, wait):
         self.nssource = nssource
         self.nstarget = nstarget
 
-        nstarget_addr = get_addr(nstarget, interface)
+        nstarget_addr = get_ipv6_address(nstarget, interface)
         if nstarget_addr is not None:
             if args.verbosity == 'verbose':
                 print('Ping {} => {} ({} / {})'.format(nssource, nstarget, nstarget_addr, interface))
@@ -104,7 +122,7 @@ class PingStatistics:
         else:
             self.packet_loss = 100
             self.time = 0
-            print("{}: Cannot get link local address of interface {}".format(nstarget, interface))
+            print("{}: Cannot get any IPv6 address of interface {}".format(nstarget, interface))
 
 class PingStatisticsSummary:
     def __init__(self):
@@ -198,8 +216,7 @@ def start_none_instances(nsnames):
     pass
 
 def stop_none_instances(nsnames):
-    # nothing to do
-    pass
+    exec('rm -f /tmp/yggdrasil-*.conf')
 
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
@@ -241,30 +258,58 @@ def start_babel_instances(nsnames):
         if args.verbosity == 'verbose':
             print("  start babel on {}".format(nsname))
 
-        exec('mkdir -p /var/run/babel')
-        exec('ip netns exec "{}" babeld -D -I /var/run/babel/{}.pid "uplink"'.format(nsname, nsname))
+        exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
     if args.verbosity == 'verbose':
         print("  stop babel in all namespaces")
 
     if len(nsnames) > 0:
-        exec('rm -f /var/run/babel')
+        exec('rm -f /tmp/babel-*.pid')
         exec('pkill babeld')
 
-def start_olsr_instances(nsnames):
+def start_olsr2_instances(nsnames):
     for nsname in nsnames:
-        if verbose:
-            print("  start olsr on {}".format(nsname))
+        if args.verbosity == 'verbose':
+            print("  start olsr2 on {}".format(nsname))
 
-        exec('ip netns exec "{}" olsrd -d 0 "uplink"'.format(nsname))
+        # Create a configuration file
+        # Print all settings: olsrd2_static --schema=all
+        configfile = "/tmp/olsrd2-{}.conf".format(nsname)
+        f = open(configfile, "w")
+        f.write(
+            '[global]\n'
+            'fork       yes\n'
+            'lockfile   -\n'
+            '\n'
+            # restrict to IPv6
+            '[olsrv2]\n'
+            'originator  -0.0.0.0/0\n'
+            'originator  -::1/128\n'
+            'originator  default_accept\n'
+            '\n'
+            # restrict to IPv6
+            '[interface]\n'
+            'bindto  -0.0.0.0/0\n'
+            'bindto  -::1/128\n'
+            'bindto  default_accept\n'
+            )
+        f.close()
 
-def stop_olsr_instances(nsnames):
+        # TODO: down interface, flush interface, up interface, assign address
+        exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
+        exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev uplink'.format(
+            nsname,
+            eui64_suffix(nsname, 'uplink')
+        ))
+
+def stop_olsr2_instances(nsnames):
     if args.verbosity == 'verbose':
-        print("  stop olsr in all namespaces")
+        print("  stop olsr2 in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill olsrd')
+        exec('pkill olsrd2')
+        exec('rm -f /tmp/olsrd2-*.conf')
 
 def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
@@ -273,8 +318,8 @@ def start_routing_protocol(protocol, nsnames):
         start_yggdrasil_instances(nsnames)
     elif protocol == "babel":
         start_babel_instances(nsnames)
-    elif protocol == "olsr":
-        start_olsr_instances(nsnames)
+    elif protocol == "olsr2":
+        start_olsr2_instances(nsnames)
     elif protocol == "none":
         start_none_instances(nsnames)
     else:
@@ -288,8 +333,8 @@ def stop_routing_protocol(protocol, nsnames):
         stop_yggdrasil_instances(nsnames)
     elif protocol == "babel":
         stop_babel_instances(nsnames)
-    elif protocol == "olsr":
-        stop_olsr_instances(nsnames)
+    elif protocol == "olsr2":
+        stop_olsr2_instances(nsnames)
     elif protocol == "none":
         stop_none_instances(nsnames)
     else:
@@ -298,57 +343,49 @@ def stop_routing_protocol(protocol, nsnames):
 
 # test convergence of the routing protocol
 # we want to keep it running until stopped..
-def check_convergence(nsnames, rounds, max_samples, cvsfile = None):
+def test_convergence(nsnames, max_samples, wait, cvsfile = None):
     if len(nsnames) < 2:
         print('Network needs at least two nodes!')
         exit(1)
 
     pairs = get_random_samples(nsnames, max_samples)
 
-    prev_ts = get_traffic_statistics(nsnames)
-    ts = prev_ts
-    n = 0
+    ts_beg = get_traffic_statistics(nsnames)
+    start = now()
+    time.sleep(wait)
+    ps = get_ping_statistics(pairs, uplink_interface)
+    stop = now()
+    ts_end = get_traffic_statistics(nsnames)
 
-    for n in range(1, rounds + 1):
-        print('Start test ({}/{})'.format(n, rounds))
-        start = now()
-        time.sleep(1)
-        ps = get_ping_statistics(pairs, uplink_interface)
-        ts = get_traffic_statistics(nsnames)
-        stop = now()
+    print('pings reached: {:0.2f}% ({} paths tested)'.format(
+        100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
 
-        print('pings reached: {:0.2f}% ({} paths tested)'.format(
-            100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
+    d = now() - start
+    seconds = d.seconds + d.microseconds / 1000000
 
-        d = now() - start
-        seconds = d.seconds + d.microseconds / 1000000
+    # output data:
 
-        # output data:
+    print('send: {}/s ({}/s per node)'.format(
+        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds),
+        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames))
+    ))
 
-        print('send: {}/s ({}/s per node)'.format(
-            format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds),
-            format_bytes((ts.tx_bytes - prev_ts.tx_bytes) / seconds / len(nsnames))
+    print('received: {}/s ({}/s per node)'.format(
+        format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds),
+        format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds / len(nsnames))
+    ))
+
+    if cvsfile is not None:
+        cvsfile.write('{} {:0.2f} {:0.2f} {:0.2f}\n'.format(
+            # duration of the ping period
+            seconds,
+            # reached pings in %
+            100 * ps.reached / (ps.lost + ps.reached),
+            # received data during ping tests
+            (ts_end.rx_bytes - ts_beg.rx_bytes),
+            # send data during pings tests
+            (ts_end.tx_bytes - ts_beg.tx_bytes)
         ))
-
-        print('received: {}/s ({}/s per node)'.format(
-            format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds),
-            format_bytes((ts.rx_bytes - prev_ts.rx_bytes) / seconds / len(nsnames))
-        ))
-
-        if cvsfile is not None:
-            cvsfile.write('{} {} {} {:0.2f} {:0.2f}'.format(
-                n,
-                seconds,
-                len(nsnames),
-                (ts.rx_bytes - prev_ts.rx_bytes),
-                (ts.tx_bytes - prev_ts.tx_bytes)
-            ))
-
-        if ps.reached == len(pairs):
-            print('all instances reached after {} iterations'.format(n))
-            break
-
-        prev_ts = ts
 
 def measure_traffic(nsnames, duration, cvsfile = None):
     if len(nsnames) < 2:
@@ -384,56 +421,17 @@ def measure_traffic(nsnames, duration, cvsfile = None):
             (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames)
         ))
 
-# some miscellaneous tests
-def test_misc(nsnames):
-    if len(nsnames) < 2:
-        print('Network of at least two nodes needed!')
-        exit(1)
-
-    # create a list of 10 unique test pairs
-    pairs = random.sample(list(zip(nsnames, nsnames)), 10)
-
-    start_time = now()
-
-    print('start {}'.format(protocol))
-    start_routing_protocol(protocol)
-
-    print("get traffic statistics")
-    ts = get_traffic_statistics(nsnames)
-    ts.print()
-
-    print('wait 10 seconds')
-    time.sleep(10)
-
-    print("1. ping")
-    ps = get_ping_statistics(pairs, uplink_interface)
-    ps.print()
-
-    print('wait 10 seconds')
-    time.sleep(10)
-
-    print("2. ping")
-    ps = get_ping_statistics(pairs, uplink_interface)
-    ps.print()
-
-    print("get traffic statistics")
-    ts = get_traffic_statistics(nsnames)
-    ts.print()
-
-    print('stop {}'.format(protocol))
-    stop_routing_protocol(protocol)
-
-    print('Whole test duration: {}'.format(now() - start_time))
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
-    choices=['none', 'babel', 'batman-adv', 'olsr', 'yggdrasil'],
+    choices=['none', 'babel', 'batman-adv', 'olsr2', 'yggdrasil'],
     help='Routing protocol to set up.')
 parser.add_argument('--verbosity',
     choices=['verbose', 'normal', 'quiet'],
     default='normal',
     help='Set verbosity.')
+parser.add_argument('--seed',
+    type=int,
+    help='Seed the random generator.')
 parser.add_argument('--cvsout',
     dest='cvsout',
     help='Write CSV formatted data to file.')
@@ -441,18 +439,20 @@ parser.add_argument('--cvsout',
 subparsers = parser.add_subparsers(dest='action', required=True, help='Action help')
 parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
-parser_test_misc = subparsers.add_parser('test_misc', help='Start some unspecified test.')
 parser_measure_traffic = subparsers.add_parser('measure_traffic', help='Measure the traffic across the network.')
-parser_measure_traffic.add_argument('duration', type=int, default=10, help='Measure traffic of this timespan in seconds.')
-parser_check_convergence  = subparsers.add_parser('check_convergence', help='Test if every node is connected to each.')
-parser_check_convergence.add_argument('rounds', type=int, default=1, help='Maximum number of rounds until all pings reach its target.')
-parser_check_convergence.add_argument('samples', type=int, default=100, help='Maximum number of source/target routes to be tested.')
+parser_measure_traffic.add_argument('--duration', type=int, default=10, help='Measure traffic of this timespan in seconds.')
+parser_test_convergence  = subparsers.add_parser('test_convergence', help='Test if every node is connected to each.')
+parser_test_convergence.add_argument('--samples', type=int, default=100, help='Maximum number of source/target routes to be tested.')
+parser_test_convergence.add_argument('--wait', type=int, default=1, help='Seconds to wait for a ping to arrive.')
+parser_test_convergence.add_argument('--exit-early', action='store_true', help='Exit when every ping on all tested paths arrived.')
 
 args = parser.parse_args()
 
 if os.popen('id -u').read().strip() != "0":
     sys.stderr.write('Need to run as root.\n')
     exit(1)
+
+random.seed(args.seed)
 
 # all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
@@ -477,10 +477,8 @@ elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
 elif args.action == 'measure_traffic':
     measure_traffic(nsnames, args.duration, cvsfile)
-elif args.action == 'test_misc':
-    test_misc(nsnames)
-elif args.action == 'check_convergence':
-    check_convergence(nsnames, args.rounds, args.samples, cvsfile)
+elif args.action == 'test_convergence':
+    test_convergence(nsnames, args.samples, args.wait, cvsfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
