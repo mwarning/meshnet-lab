@@ -38,7 +38,7 @@ Useful commands:
 
 - `./network.py list`: List all network namespaces.
 - `./network.py cleanup`: Remove all network namespaces.
-- `./network.py <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
+- `./network.py change <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
 - `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Usage
@@ -50,7 +50,7 @@ Most commands need root. So we assume all commands are execute as root:
 ./topology.py lattice4 10 10 > graph.json
 
 # Setup the network structure
-./network.py none graph.json
+./network.py change none graph.json
 
 # Start batman-adv in every node/namespace
 ./tests.py batman-adv start
@@ -62,7 +62,7 @@ Most commands need root. So we assume all commands are execute as root:
 ./tests.py batman-adv stop
 
 # Remove namespaces
-./network.py graph.json none
+./network.py change graph.json none
 ```
 
 As an alternative, you can remove all namespace using `./network.py cleanup`.

@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 
+import argparse
 import time
 import json
 import sys
 import os
 
-verbose = True
+parser = argparse.ArgumentParser()
+parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
+parser.add_argument('--ignore-tc', action='store_true', help='Ignore tc (traffic control) parameters from JSON.')
 
-def print_usage(prog_name):
-    print((
-        'Usage:\n'
-        '  {} <from-json-file> <to-json-file>\n'
-        '    Change network topology (use "none" as an alias for a file with no links).\n'
-        '\n'
-        '  {} list\n'
-        '    List all network namespaces ("switch" is a special one).\n'
-        '\n'
-        '  {} cleanup\n'
-        '    Remove entire network.\n'
-    ).format(prog_name, prog_name, prog_name))
+subparsers = parser.add_subparsers(dest='action', required=True)
+
+parser_change = subparsers.add_parser('change', help='Create a lattice structure with horizontal and vertical connections.')
+parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
+parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
+subparsers.add_parser('list', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
+subparsers.add_parser('cleanup', help='Remove all Linux network namespaces. Processes still might need to be killed.')
+
+args = parser.parse_args()
 
 def exec(cmd):
     rc = os.system(cmd)
@@ -37,7 +37,7 @@ def configure_interface(nsname, ifname):
 
 def remove_node(node):
     name = node.name
-    if verbose:
+    if args.verbose:
         print('  remove node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
@@ -55,7 +55,7 @@ def remove_node(node):
 
 def create_node(node):
     name = node.name
-    if verbose:
+    if args.verbose:
         print('  create node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
@@ -92,7 +92,7 @@ def create_node(node):
     configure_interface(nsname, upname)
 
 def remove_link(link):
-    if verbose:
+    if args.verbose:
         print('  remove link {} <-> {}'.format(link.source, link.target))
 
     ifname1 = 've-{}-{}'.format(link.source, link.target)
@@ -100,22 +100,22 @@ def remove_link(link):
     exec('ip netns exec "switch" ip link del "{}" type veth peer name "{}"'.format(ifname1, ifname2))
 
 def update_link(link):
-    if verbose:
+    if args.verbose:
         print('  update link {} <-> {}'.format(link.source, link.target))
 
     ifname1 = 've-{}-{}'.format(link.source, link.target)
     ifname2 = 've-{}-{}'.format(link.target, link.source)
 
     # source -> target
-    if link.source_tc is not None:
+    if not args.ignore_tc and link.source_tc is not None:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.source_tc))
 
     # target -> source
-    if link.target_tc is not None:
+    if not args.ignore_tc and link.target_tc is not None:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 def create_link(link):
-    if verbose:
+    if args.verbose:
         print('  create link {} <-> {}'.format(link.source, link.target))
 
     nsname1 = 'ns-{}'.format(link.source)
@@ -141,11 +141,11 @@ def create_link(link):
     exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname2))
 
     # source -> target
-    if link.source_tc is not None:
+    if not args.ignore_tc and link.source_tc is not None:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.source_tc))
 
     # target -> source
-    if link.target_tc is not None:
+    if not args.ignore_tc and link.target_tc is not None:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 class Link:
@@ -246,20 +246,19 @@ if os.popen('id -u').read().strip() != '0':
     print('Need to run as root.')
     exit(1)
 
-if len(sys.argv) == 2 and sys.argv[1] == 'cleanup':
+if args.action == 'cleanup':
     os.system('ip -all netns delete')
-elif len(sys.argv) == 2 and sys.argv[1] == 'list':
+elif args.action == 'list':
     os.system('ip netns list')
-elif len(sys.argv) == 3:
-    from_state = sys.argv[1]
-    to_state = sys.argv[2]
+elif args.action == 'change':
 
-    data = get_task(from_state, to_state)
+    data = get_task(args.from_state, args.to_state)
 
     # add "switch" namespace
-    if from_state == 'none':
-        if verbose:
+    if args.from_state == 'none':
+        if args.verbose:
             print('  create "switch"')
+        # add switch if it does not exist yet
         exec('ip netns add "switch" || true')
         # disable IPv6 in switch namespace (no need, less overhead)
         exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
@@ -280,11 +279,11 @@ elif len(sys.argv) == 3:
         remove_node(node)
 
     # remove "switch" namespace
-    if to_state == 'none':
-        if verbose:
+    if args.to_state == 'none':
+        if args.verbose:
             print('  remove "switch"')
         exec('ip netns del "switch" || true')
 
 else:
-    print_usage(sys.argv[0])
+    print('Invalid command: {}'.format(args.action))
     exit(1)
