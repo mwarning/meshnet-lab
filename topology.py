@@ -104,7 +104,7 @@ parser_tree = subparsers.add_parser('tree', help='Create nodes connected in a ba
 parser_tree.add_argument('depth', type=int, help='Depth of the tree.')
 parser_tree.add_argument('degree', type=int, help='Number of tree branches.')
 parser_rtree = subparsers.add_parser('rtree', help='Create nodes connected in a random tree.')
-parser_rtree.add_argument('count', type=int, help='A random tree.')
+parser_rtree.add_argument('count', type=int, help='Number of nodes.')
 parser_rtree.add_argument('intra', type=int, help='Intraconnections that disrupt the tree structure.')
 
 args = parser.parse_args()
