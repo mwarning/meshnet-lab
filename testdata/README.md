@@ -5,18 +5,27 @@ A collection of test data for simulation. So far without link quality data.
 Line data creation:
 ```
 i=0
-while [ $i -lt 100 ]; do
-	i=$((i + 5))
-	./topology.py "line" $i > line-$(printf "%03d" $i).json
+while [ $i -lt 1000 ]; do
+	i=$((i + 50))
+	./topology.py --formatted line $i > line-$(printf "%04d" $i).json
 done
 ```
 
 Lattice data creation:
 ```
-i=2
-while [ $i -lt 41 ]; do
-	./topology.py "lattice4" $i $i > lattice4-$(printf "%03d" $i).json
-	i=$((i + 3))
+i=1
+while [ $i -lt 32 ]; do
+	i=$((i + 1))
+	./topology.py --formatted lattice4 $i $i > lattice4-$(printf "%04d" $((i * i))).json
+done
+```
+
+Random tree data creation:
+```
+i=0
+while [ $i -lt 1000 ]; do
+	i=$((i + 50))
+	./topology.py --formatted rtree $i $((i / 5)) > rtree-$(printf "%04d" $i).json
 done
 ```
 
