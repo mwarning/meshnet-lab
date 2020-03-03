@@ -36,5 +36,3 @@ if args.formatted:
 	json.dump({'nodes': list(nodes.values()), 'links': links}, sys.stdout, indent="  ", sort_keys = True)
 else:
 	json.dump({'nodes': list(nodes.values()), 'links': links}, sys.stdout, sort_keys = True)
-
-print(len(nodes))
