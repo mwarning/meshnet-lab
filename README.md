@@ -37,7 +37,7 @@ JSON keys:
 Useful commands:
 
 - `./network.py list`: List all network namespaces.
-- `./network.py cleanup`: Remove all network namespaces.
+- `./network.py clear`: Remove all network namespaces.
 - `./network.py change <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
 - `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
@@ -65,7 +65,7 @@ Most commands need root. So we assume all commands are execute as root:
 ./network.py change graph.json none
 ```
 
-As an alternative, you can remove all namespace using `./network.py cleanup`.
+As an alternative, you can remove all namespace using `./network.py clear`.
 
 ## Internal Working
 

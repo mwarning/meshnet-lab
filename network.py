@@ -16,7 +16,7 @@ parser_change = subparsers.add_parser('change', help='Create a lattice structure
 parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
 parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
 subparsers.add_parser('list', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
-subparsers.add_parser('cleanup', help='Remove all Linux network namespaces. Processes still might need to be killed.')
+subparsers.add_parser('clear', help='Remove all Linux network namespaces. Processes still might need to be killed.')
 
 args = parser.parse_args()
 
@@ -246,7 +246,7 @@ if os.popen('id -u').read().strip() != '0':
     print('Need to run as root.')
     exit(1)
 
-if args.action == 'cleanup':
+if args.action == 'clear':
     os.system('ip -all netns delete')
 elif args.action == 'list':
     os.system('ip netns list')
