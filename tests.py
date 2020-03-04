@@ -81,13 +81,6 @@ def get_mac_address(nsname, interface):
 
     return None
 
-def eui64_suffix(nsname, interface):
-    mac = get_mac_address(nsname, interface)
-    return '{:02x}{}:{}ff:fe{}:{}{}'.format(
-        int(mac[0:2], 16) ^ 2, # byte with flipped bit
-        mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
-    )
-
 class PingStatistics:
     def __init__(self, nssource, nstarget, interface, packets, wait):
         self.nssource = nssource
@@ -211,6 +204,22 @@ def get_traffic_statistics(nsnames):
 
     return summary
 
+# Set some IPv6 address
+def setup_uplink(nsname, interface):
+    def eui64_suffix(nsname, interface):
+        mac = get_mac_address(nsname, interface)
+        return '{:02x}{}:{}ff:fe{}:{}{}'.format(
+            int(mac[0:2], 16) ^ 2, # byte with flipped bit
+            mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
+        )
+
+    exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
+    exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev {}'.format(
+        nsname,
+        eui64_suffix(nsname, interface),
+        interface
+    ))
+
 def start_none_instances(nsnames):
     # nothing to do
     pass
@@ -244,7 +253,7 @@ def start_batmanadv_instances(nsnames):
             print('  start batman-adv on {}'.format(nsname))
 
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
-        exec('ip netns exec "{}" ip link set "bat0" up'.format(nsname))
+        setup_uplink(nsname, 'bat0')
 
 def stop_batmanadv_instances(nsnames):
     for nsname in nsnames:
@@ -259,6 +268,7 @@ def start_babel_instances(nsnames):
             print("  start babel on {}".format(nsname))
 
         exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
+        setup_uplink(nsname, 'uplink')
 
 def stop_babel_instances(nsnames):
     if args.verbosity == 'verbose':
@@ -296,12 +306,8 @@ def start_olsr2_instances(nsnames):
             )
         f.close()
 
-        # TODO: down interface, flush interface, up interface, assign address
         exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
-        exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev uplink'.format(
-            nsname,
-            eui64_suffix(nsname, 'uplink')
-        ))
+        setup_uplink(nsname, 'uplink')
 
 def stop_olsr2_instances(nsnames):
     if args.verbosity == 'verbose':
