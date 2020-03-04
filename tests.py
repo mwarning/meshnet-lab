@@ -376,15 +376,15 @@ def test_convergence(nsnames, max_samples, wait, cvsfile = None):
     ))
 
     if cvsfile is not None:
-        cvsfile.write('{} {:0.2f} {:0.2f} {:0.2f}\n'.format(
+        cvsfile.write('{:0.2f} {:0.2f} {:0.2f} {:0.2f}\n'.format(
             # duration of the ping period
             seconds,
             # reached pings in %
             100 * ps.reached / (ps.lost + ps.reached),
             # received data during ping tests
-            (ts_end.rx_bytes - ts_beg.rx_bytes),
+            (ts_end.rx_bytes - ts_beg.rx_bytes) / seconds / len(nsnames),
             # send data during pings tests
-            (ts_end.tx_bytes - ts_beg.tx_bytes)
+            (ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames)
         ))
 
 def measure_traffic(nsnames, duration, cvsfile = None):
