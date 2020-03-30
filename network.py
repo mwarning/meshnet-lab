@@ -6,13 +6,17 @@ import json
 import sys
 import os
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
 parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
-parser.add_argument('--ignore-tc', action='store_true', help='Ignore tc (traffic control) parameters from JSON.')
+parser.add_argument('--ignore-tc', action='store_true', help='Ignore source_tc/target_tc (traffic control) parameters from JSON.')
+parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
+parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
 
 subparsers = parser.add_subparsers(dest='action', required=True)
 
-parser_change = subparsers.add_parser('change', help='Create a lattice structure with horizontal and vertical connections.')
+parser_change = subparsers.add_parser('change', help='Create or change a virtual network.')
 parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
 parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
 subparsers.add_parser('list', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
@@ -31,9 +35,14 @@ def configure_interface(nsname, ifname):
     # up interface
     exec('ip netns exec "{}" ip link set dev "{}" up'.format(nsname, ifname))
 
-    # disable arp & multicast (we do not want the OS to send packets on their own)
-    #exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
-    #exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
+    # disable arp / multicast
+    # we do not want the OS to send packets on its own,
+    # but many mesh protocols need arp/multicast on each link to work
+    if args.block_arp:
+        exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
+
+    if args.block_multicast:
+        exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
 
 def remove_node(node):
     name = node.name
