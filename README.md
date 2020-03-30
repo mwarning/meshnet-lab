@@ -55,8 +55,8 @@ Most commands need root. So we assume all commands are execute as root:
 # Start batman-adv in every node/namespace
 ./tests.py batman-adv start
 
-# Test convergence by sending a few pings on random paths
-./tests.py batman-adv test_convergence
+# Test convergence and traffic
+./tests.py batman-adv test
 
 # Stop batman-adv
 ./tests.py batman-adv stop

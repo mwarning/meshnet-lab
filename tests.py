@@ -3,11 +3,15 @@
 import random
 import datetime
 import argparse
+import subprocess
+import math
 import time
 import sys
 import os
 import re
 
+def eprint(s):
+    sys.stderr.write(s + '\n')
 
 def exec(cmd, detach=False):
     rc = 0
@@ -28,18 +32,20 @@ def exec(cmd, detach=False):
         else:
             rc = os.system('{} > /dev/null 2>&1'.format(cmd))
     else:
-        print('Abort, invalid verbosity: {}'.format(args.verbosity))
+        eprint('Abort, invalid verbosity: {}'.format(args.verbosity))
         exit(1)
 
     if rc != 0:
-        print('Abort, command failed: {}'.format(cmd))
+        eprint('Abort, command failed: {}'.format(cmd))
         #todo: kill routing programs!
         #print('Cleanup done')
         exit(1)
 
-def now():
-    return datetime.datetime.now()
+# get time in milliseconds
+def millis():
+    return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
 
+# get random unique pairs
 def get_random_samples(items, npairs):
     samples = {}
     i = 0
@@ -81,89 +87,124 @@ def get_mac_address(nsname, interface):
 
     return None
 
-class PingStatistics:
-    def __init__(self, nssource, nstarget, interface, packets, wait):
-        self.nssource = nssource
-        self.nstarget = nstarget
+class PingResult:
+    send = 0
+    received = 0
+    rtt_min = 0.0
+    rtt_max = 0.0
+    rtt_avg = 0.0
 
-        nstarget_addr = get_ipv6_address(nstarget, interface)
-        if nstarget_addr is not None:
-            if args.verbosity == 'verbose':
-                print('Ping {} => {} ({} / {})'.format(nssource, nstarget, nstarget_addr, interface))
+    def __init__(self, send = 0, received = 0, rtt_min = 0.0, rtt_max = 0.0, rtt_avg = 0.0):
+        self.send = send
+        self.received = received
+        self.rtt_min = rtt_min
+        self.rtt_max = rtt_max
+        self.rtt_avg = rtt_avg
 
-            # perform the ping!
-            output = os.popen('ip netns exec "{}" ping -c {} -W {} -D {} '.format(nssource, packets, wait, nstarget_addr)).read()
-            #print(output)
-            lines = output.split('\n')
-            #print("lines: {}".format(len(lines)))
-            #print("line: {}".format(lines[len(lines) - 3]))
-            toks = re.split("[/ =,a-z%]+", lines[len(lines) - 3])
-            #print("toks: {}".format(toks))
-            self.packet_loss = int(toks[2])
-            self.time = int(toks[3])
-            #print("{} -> {}: packet_loss: {}".format(self.nssource, self.nstarget, self.packet_loss))
-            
-            '''
-            toks = re.split("[/ =a-z]+", lines[len(lines) - 2])
-            #print("line: {}".format(lines[len(lines) - 2]))
-            #print("toks: {}".format(toks))
-            self.min = float(toks[1])
-            self.avg = float(toks[2])
-            self.max = float(toks[3])
-            self.mdev = float(toks[4])
-            '''
+numbers_re = re.compile('[^0-9.]+')
+
+def parse_ping(output):
+    ret = PingResult()
+    for line in output.split('\n'):
+        if 'packets transmitted' in line:
+            toks = numbers_re.split(line)
+            ret.send = int(toks[0])
+            ret.received = int(toks[1])
+        if line.startswith('rtt min/avg/max/mdev'):
+            toks = numbers_re.split(line)
+            ret.rtt_min = float(toks[1])
+            ret.rtt_avg = float(toks[2])
+            ret.rtt_max = float(toks[3])
+            #ret.rtt_mdev = float(toks[4])
+
+    return ret
+
+def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfile = None):
+    processes = []
+    startup_ms = millis()
+    pairs = list(get_random_samples(nsnames, test_count))
+    ts_beg = get_traffic_statistics(nsnames)
+
+    start_ms = millis()
+    print("startup_ms: {}, interface: {}, test_count: {}, test_duration_ms: {}".format(
+        (start_ms - startup_ms), interface, test_count, test_duration_ms))
+    started = 0
+    while started < len(pairs):
+        # number of expected tests to have been run
+        started_expected = math.ceil(((millis() - start_ms) / test_duration_ms) * len(pairs))
+        # number of test to start
+        #print("started_expected {}, started: {}".format(started_expected, started))
+        if started_expected > started:
+            for _ in range(0, started_expected - started):
+                (nssource, nstarget) = pairs.pop()
+                nstarget_addr = get_ipv6_address(nstarget, interface)
+
+                if args.verbosity == 'verbose':
+                    print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, nssource, nstarget, nstarget_addr, interface))
+
+                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', '1', '-W', '1', '-D', nstarget_addr]
+                process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                processes.append(process)
+                started += 1
         else:
-            self.packet_loss = 100
-            self.time = 0
-            print("{}: Cannot get any IPv6 address of interface {}".format(nstarget, interface))
+            # sleep a small amount
+            time.sleep(test_duration_ms / len(pairs) / 1000.0 / 10.0)
 
-class PingStatisticsSummary:
-    def __init__(self):
-        self.paths_tested = 0
-        self.lost = 0
-        self.reached = 0
-        self.duration = 0
+    stop1_ms = millis()
 
-    def print(self):
-        print("{} paths tested, reached: {}, lost: {} (duration: {})".format(
-            self.paths_tested, self.reached, self.lost, self.duration
+    # wait until test_duration_ms is over
+    if (stop1_ms - start_ms) < test_duration_ms:
+        time.sleep((test_duration_ms - (stop1_ms - start_ms)) / 1000.0)
+
+    stop2_ms = millis()
+
+    ts_end = get_traffic_statistics(nsnames)
+
+    result_packets_send = 0
+    result_packets_received = 0
+    result_rtt_avg = 0.0
+
+    # collect results from pings
+    for process in processes:
+        process.kill()
+        (output, err) = process.communicate()
+        result = parse_ping(output.decode())
+        result_packets_send += result.send
+        result_packets_received += result.received
+        result_rtt_avg += result.rtt_avg
+
+    result_rtt_avg = 0.0 if len(pairs) == 0 else (result_rtt_avg / len(pairs))
+    result_duration_ms = stop1_ms - start_ms
+    result_duration_gap_ms = stop2_ms - stop1_ms
+    result_traffic_kbs = 1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms)
+    result_traffic_kbs_per_node = 0.0 if (len(pairs) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(pairs))
+    result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
+
+    if outfile is not None:
+        outfile.write('{} {} {} {} {:0.2f} {:0.2f} {:0.2f}\n'.format(
+            result_packets_send,
+            result_packets_received,
+            int(result_duration_ms),
+            int(result_duration_gap_ms),
+            result_rtt_avg,
+            result_traffic_kbs,
+            result_traffic_kbs_per_node
         ))
 
-def get_ping_statistics(pairs, interface):
-    packets = 1
-    wait = 1
-    stats = []
-    start_time = now()
+    print("send: {}, received: {}, lost: {:0.2f}% (duration: {}ms + {}ms, startup: {}ms)".format(
+        result_packets_send,
+        result_packets_received,
+        result_lost, result_duration_ms,
+        result_duration_gap_ms,
+        (start_ms - startup_ms)
+    ))
 
-    for (node1, node2) in pairs:
-        stats.append(PingStatistics(node1, node2, interface, packets, wait))
+    print('received: {}/s ({}/s per node)'.format(
+        format_bytes(result_traffic_kbs),
+        format_bytes(result_traffic_kbs_per_node)
+    ))
 
-    summary = PingStatisticsSummary()
-    summary.duration = now() - start_time
-    summary.paths_tested = len(stats)
-    for stat in stats:
-        if stat.packet_loss == 100:
-            summary.lost += 1
-        if stat.packet_loss == 0:
-            summary.reached += 1
-
-    return summary
-
-class TrafficStatistics:
-    def __init__(self, nsname):
-        output = os.popen('ip netns exec "{}" ip -statistics link show dev uplink'.format(nsname)).read()
-        self.nsname = nsname
-        lines = output.split("\n")
-        link_toks = lines[1].split()
-        rx_toks = lines[3].split()
-        tx_toks = lines[5].split()
-        self.mac = link_toks[1]
-        self.rx_bytes = int(rx_toks[0])
-        self.rx_packets = int(rx_toks[1])
-        self.tx_bytes = int(tx_toks[0])
-        self.tx_packets = int(tx_toks[1])
-
-class TrafficStatisticsSummary:
+class TrafficStatisticSummary:
     def __init__(self):
         self.rx_bytes = 0
         self.rx_packets = 0
@@ -186,23 +227,21 @@ def format_bytes(size):
     return '{:.2f} {}B'.format(size, power_labels[n])
 
 def get_traffic_statistics(nsnames):
-    stats = []
-    start_time = now()
+    ret = TrafficStatisticSummary()
 
     # fetch uplink statistics
     for nsname in nsnames:
-        stats.append(TrafficStatistics(nsname))
+        output = os.popen('ip netns exec "{}" ip -statistics link show dev uplink'.format(nsname)).read()
+        lines = output.split('\n')
+        link_toks = lines[1].split()
+        rx_toks = lines[3].split()
+        tx_toks = lines[5].split()
+        ret.rx_bytes += int(rx_toks[0])
+        ret.rx_packets += int(rx_toks[1])
+        ret.tx_bytes += int(tx_toks[0])
+        ret.tx_packets += int(tx_toks[1])
 
-    # sum all up
-    summary = TrafficStatisticsSummary()
-    summary.duration = now() - start_time
-    for stat in stats:
-        summary.rx_bytes += stat.rx_bytes
-        summary.rx_packets += stat.rx_packets
-        summary.tx_bytes += stat.tx_bytes
-        summary.tx_packets += stat.tx_packets
-
-    return summary
+    return ret
 
 # Set some IPv6 address
 def setup_uplink(nsname, interface):
@@ -329,7 +368,7 @@ def start_routing_protocol(protocol, nsnames):
     elif protocol == "none":
         start_none_instances(nsnames)
     else:
-        print('Error: unknown routing protocol: {}'.format(protocol))
+        eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
 
 def stop_routing_protocol(protocol, nsnames):
@@ -344,89 +383,8 @@ def stop_routing_protocol(protocol, nsnames):
     elif protocol == "none":
         stop_none_instances(nsnames)
     else:
-        print('Error: unknown routing protocol: {}'.format(protocol))
+        eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
-
-# test convergence of the routing protocol
-# we want to keep it running until stopped..
-def test_convergence(nsnames, max_samples, wait, cvsfile = None):
-    if len(nsnames) < 2:
-        print('Network needs at least two nodes!')
-        exit(1)
-
-    pairs = get_random_samples(nsnames, max_samples)
-
-    ts_beg = get_traffic_statistics(nsnames)
-    start = now()
-    time.sleep(wait)
-    ps = get_ping_statistics(pairs, uplink_interface)
-    stop = now()
-    ts_end = get_traffic_statistics(nsnames)
-
-    print('pings reached: {:0.2f}% ({} paths tested)'.format(
-        100 * ps.reached / (ps.lost + ps.reached), len(pairs)))
-
-    d = now() - start
-    seconds = d.seconds + d.microseconds / 1000000
-
-    # output data
-
-    print('received: {}/s ({}/s per node)'.format(
-        format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds),
-        format_bytes((ts_end.rx_bytes - ts_beg.rx_bytes) / seconds / len(nsnames))
-    ))
-
-    print('send: {}/s ({}/s per node)'.format(
-        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds),
-        format_bytes((ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames))
-    ))
-
-    if cvsfile is not None:
-        cvsfile.write('{:0.2f} {:0.2f} {:0.2f} {:0.2f}\n'.format(
-            # duration of the ping period
-            seconds,
-            # reached pings in %
-            100 * ps.reached / (ps.lost + ps.reached),
-            # received data during ping tests
-            (ts_end.rx_bytes - ts_beg.rx_bytes) / seconds / len(nsnames),
-            # send data during pings tests
-            (ts_end.tx_bytes - ts_beg.tx_bytes) / seconds / len(nsnames)
-        ))
-
-def measure_traffic(nsnames, duration, cvsfile = None):
-    if len(nsnames) < 2:
-        print('Network of at least two nodes needed!')
-        exit(1)
-
-    print('meassure traffic over {} seconds...'.format(duration))
-    start = now()
-    ts1 = get_traffic_statistics(nsnames)
-    time.sleep(duration)
-    ts2 = get_traffic_statistics(nsnames)
-    stop = now()
-    d = now() - start
-    seconds = d.seconds + d.microseconds / 1000000
-
-    print('received: {}/s ({}/s per node)'.format(
-        format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds),
-        format_bytes((ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames))
-    ))
-
-    print('send: {}/s ({}/s per node)'.format(
-        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds),
-        format_bytes((ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames))
-    ))
-
-    if cvsfile is not None:
-        print('write line to cvs file')
-        cvsfile.write('{} {:0.2f} {:0.2f}\n'.format(
-            # measurement duration
-            duration,
-            # received bytes/s per node
-            (ts2.rx_bytes - ts1.rx_bytes) / seconds / len(nsnames),
-            # send bytes/s per node
-            (ts2.tx_bytes - ts1.tx_bytes) / seconds / len(nsnames)
-        ))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
@@ -439,19 +397,16 @@ parser.add_argument('--verbosity',
 parser.add_argument('--seed',
     type=int,
     help='Seed the random generator.')
-parser.add_argument('--cvsout',
-    dest='cvsout',
-    help='Write CSV formatted data to file.')
+parser.add_argument('--out',
+    dest='out',
+    help='Write TSV formatted data to file.')
 
-subparsers = parser.add_subparsers(dest='action', required=True, help='Action help')
+subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
-parser_measure_traffic = subparsers.add_parser('measure_traffic', help='Measure the traffic across the network.')
-parser_measure_traffic.add_argument('--duration', type=int, default=10, help='Measure traffic of this timespan in seconds.')
-parser_test_convergence  = subparsers.add_parser('test_convergence', help='Test if every node is connected to each.')
-parser_test_convergence.add_argument('--samples', type=int, default=100, help='Maximum number of source/target routes to be tested.')
-parser_test_convergence.add_argument('--wait', type=int, default=1, help='Seconds to wait for a ping to arrive.')
-parser_test_convergence.add_argument('--exit-early', action='store_true', help='Exit when every ping on all tested paths arrived.')
+parser_test = subparsers.add_parser('test', help='Measure reachability and traffic.')
+parser_test.add_argument('--duration', type=int, default=1, help='Duration in seconds for this test.')
+parser_test.add_argument('--samples', type=int, default=10, help='Number of paths to test.')
 
 args = parser.parse_args()
 
@@ -467,9 +422,9 @@ nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('
 # network interface to send packets to/from
 uplink_interface = "uplink"
 
-cvsfile = None
-if args.cvsout is not None:
-    cvsfile = open(args.cvsout, 'a+')
+outfile = None
+if args.out is not None:
+    outfile = open(args.out, 'a+')
 
 # batman-adv uses its own interface as entry point to the mesh
 if args.protocol == 'batman-adv':
@@ -482,10 +437,8 @@ if args.action == 'start':
     start_routing_protocol(args.protocol, nsnames)
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
-elif args.action == 'measure_traffic':
-    measure_traffic(nsnames, args.duration, cvsfile)
-elif args.action == 'test_convergence':
-    test_convergence(nsnames, args.samples, args.wait, cvsfile)
+elif args.action == 'test':
+    run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, outfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
