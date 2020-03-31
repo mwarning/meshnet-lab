@@ -230,12 +230,18 @@ def format_bytes(size):
     return '{:.2f} {}B'.format(size, power_labels[n])
 
 def get_traffic_statistics(nsnames):
-    ret = TrafficStatisticSummary()
-
     # fetch uplink statistics
+    processes = []
     for nsname in nsnames:
-        output = os.popen('ip netns exec "{}" ip -statistics link show dev uplink'.format(nsname)).read()
-        lines = output.split('\n')
+        command = ['ip', 'netns', 'exec', nsname , 'ip', '-statistics', 'link', 'show', 'dev', 'uplink']
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        processes.append(process)
+
+    ret = TrafficStatisticSummary()
+    for process in processes:
+        process.wait()
+        (output, err) = process.communicate()
+        lines = output.decode().split('\n')
         link_toks = lines[1].split()
         rx_toks = lines[3].split()
         tx_toks = lines[5].split()
