@@ -75,7 +75,7 @@ All interfaces in the bridges (except the `dl-<node>`) are set to `isolated`. Th
 
 All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave link a hub. A packet from the uplink will be send to all connections, but not between them.
 
-![Visual Example](network_mapping.png)
+![Visual Example](misc/network_mapping.png)
 
 - Application can be started in ns1, ns2 and see only interface uplink
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
