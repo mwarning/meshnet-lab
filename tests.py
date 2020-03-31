@@ -173,11 +173,11 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
 
-    result_rtt_avg = 0.0 if len(pairs) == 0 else (result_rtt_avg / len(pairs))
+    result_rtt_avg = 0.0 if len(processes) == 0 else (result_rtt_avg / len(processes))
     result_duration_ms = stop1_ms - start_ms
-    result_duration_gap_ms = stop2_ms - stop1_ms
+    result_filler_ms = stop2_ms - stop1_ms
     result_traffic_kbs = 1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms)
-    result_traffic_kbs_per_node = 0.0 if (len(pairs) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(pairs))
+    result_traffic_kbs_per_node = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
     result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
 
     if outfile is not None:
@@ -185,7 +185,7 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
             result_packets_send,
             result_packets_received,
             int(result_duration_ms),
-            int(result_duration_gap_ms),
+            int(result_filler_ms),
             result_rtt_avg,
             result_traffic_kbs,
             result_traffic_kbs_per_node
@@ -195,7 +195,7 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
         result_packets_send,
         result_packets_received,
         result_lost, result_duration_ms,
-        result_duration_gap_ms,
+        result_filler_ms,
         (start_ms - startup_ms)
     ))
 
@@ -264,7 +264,8 @@ def start_none_instances(nsnames):
     pass
 
 def stop_none_instances(nsnames):
-    exec('rm -f /tmp/yggdrasil-*.conf')
+    # nothing to do
+    pass
 
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
@@ -280,11 +281,13 @@ def start_yggdrasil_instances(nsnames):
         exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
+    exec('rm -f /tmp/yggdrasil-*.conf')
+
     if args.verbosity == 'verbose':
        print("  stop yggdrasil in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill yggdrasil')
+        exec('pkill -9 yggdrasil')
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
@@ -315,7 +318,7 @@ def stop_babel_instances(nsnames):
 
     if len(nsnames) > 0:
         exec('rm -f /tmp/babel-*.pid')
-        exec('pkill babeld')
+        exec('pkill -9 babeld')
 
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
@@ -353,7 +356,7 @@ def stop_olsr2_instances(nsnames):
         print("  stop olsr2 in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill olsrd2')
+        exec('pkill -9 olsrd2')
         exec('rm -f /tmp/olsrd2-*.conf')
 
 def start_routing_protocol(protocol, nsnames):
