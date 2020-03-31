@@ -181,6 +181,9 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
     result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
 
     if outfile is not None:
+        if not outfile.tell():
+            outfile.write('# packet send | packets received | duration ms | duration ms | filler ms | rtt-avg ms | traffic KB/s | traffic KB/s/node\n')
+
         outfile.write('{} {} {} {} {:0.2f} {:0.2f} {:0.2f}\n'.format(
             result_packets_send,
             result_packets_received,
