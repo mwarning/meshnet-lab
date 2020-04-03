@@ -3,7 +3,7 @@
 Create connected Linux network namespaces each with a single `uplink` interface.
 A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file.
 
-This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org) and [yggdrasil](https://github.com/yggdrasil-network).
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org), [bmx6](https://github.com/bmx-routing/bmx6)/[bmx7](https://github.com/bmx-routing/bmx7) and [yggdrasil](https://github.com/yggdrasil-network).
 
 Please note that wireless interference patterns are not part of the simulation.
 

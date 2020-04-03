@@ -368,6 +368,40 @@ def stop_olsr2_instances(nsnames):
         exec('pkill -9 olsrd2')
         exec('rm -f /tmp/olsrd2-*.conf')
 
+def start_bmx7_instances(nsnames):
+    for nsname in nsnames:
+        if args.verbosity == 'verbose':
+            print("  start bmx7 on {}".format(nsname))
+
+        exec('rm -rf /tmp/bmx7_*')
+        setup_uplink(nsname, 'uplink')
+        exec('ip netns exec "{}" bmx7 --runtimeDir /tmp/bmx7_{} dev=uplink'.format(nsname, nsname))
+
+def stop_bmx7_instances(nsnames):
+    if args.verbosity == 'verbose':
+        print("  stop bmx7 in all namespaces")
+
+    if len(nsnames) > 0:
+        exec('pkill bmx7')
+        exec('rm -rf /tmp/bmx7_*')
+
+def start_bmx6_instances(nsnames):
+    for nsname in nsnames:
+        if args.verbosity == 'verbose':
+            print("  start bmx6 on {}".format(nsname))
+
+        exec('rm -rf /tmp/bmx6_*')
+        setup_uplink(nsname, 'uplink')
+        exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
+
+def stop_bmx6_instances(nsnames):
+    if args.verbosity == 'verbose':
+        print("  stop bmx6 in all namespaces")
+
+    if len(nsnames) > 0:
+        exec('pkill bmx6')
+        exec('rm -rf /tmp/bmx6_*')
+
 def start_routing_protocol(protocol, nsnames):
     if protocol == "batman-adv":
         start_batmanadv_instances(nsnames)
@@ -377,6 +411,10 @@ def start_routing_protocol(protocol, nsnames):
         start_babel_instances(nsnames)
     elif protocol == "olsr2":
         start_olsr2_instances(nsnames)
+    elif protocol == "bmx6":
+        start_bmx6_instances(nsnames)
+    elif protocol == "bmx7":
+        start_bmx7_instances(nsnames)
     elif protocol == "none":
         start_none_instances(nsnames)
     else:
@@ -392,6 +430,10 @@ def stop_routing_protocol(protocol, nsnames):
         stop_babel_instances(nsnames)
     elif protocol == "olsr2":
         stop_olsr2_instances(nsnames)
+    elif protocol == "bmx6":
+        stop_bmx6_instances(nsnames)
+    elif protocol == "bmx7":
+        stop_bmx7_instances(nsnames)
     elif protocol == "none":
         stop_none_instances(nsnames)
     else:
@@ -400,7 +442,7 @@ def stop_routing_protocol(protocol, nsnames):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
-    choices=['none', 'babel', 'batman-adv', 'olsr2', 'yggdrasil'],
+    choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil'],
     help='Routing protocol to set up.')
 parser.add_argument('--verbosity',
     choices=['verbose', 'normal', 'quiet'],
