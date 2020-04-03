@@ -10,6 +10,7 @@ import sys
 import os
 import re
 
+
 def eprint(s):
     sys.stderr.write(s + '\n')
 
@@ -121,19 +122,28 @@ def parse_ping(output):
 
 def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfile = None):
     processes = []
+
     startup_ms = millis()
+
+    pairs_beg_ms = millis()
     pairs = list(get_random_samples(nsnames, test_count))
+    pairs_end_ms = millis()
+
+    ts_beg_beg_ms = millis()
     ts_beg = get_traffic_statistics(nsnames)
+    ts_beg_end_ms = millis()
+
+    print("interface: {}, test_duration_ms: {}, pairs generation time: {}, traffic measurement time: {}".format(
+        interface, test_duration_ms,
+        (pairs_end_ms - pairs_beg_ms),
+        (ts_beg_end_ms - ts_beg_beg_ms)
+    ))
 
     start_ms = millis()
-    print("startup_ms: {}, interface: {}, test_count: {}, test_duration_ms: {}".format(
-        (start_ms - startup_ms), interface, test_count, test_duration_ms))
     started = 0
     while started < len(pairs):
         # number of expected tests to have been run
         started_expected = math.ceil(((millis() - start_ms) / test_duration_ms) * len(pairs))
-        # number of test to start
-        #print("started_expected {}, started: {}".format(started_expected, started))
         if started_expected > started:
             for _ in range(0, started_expected - started):
                 (nssource, nstarget) = pairs.pop()
@@ -164,11 +174,14 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
     result_packets_received = 0
     result_rtt_avg = 0.0
 
-    # collect results from pings
+    # wait/collect for results from pings (prolongs testing up to 1 second!)
     for process in processes:
-        process.kill()
+        process.wait()
         (output, err) = process.communicate()
         result = parse_ping(output.decode())
+        if result.send != 1:
+            print("no packet send:")
+            print(output.decode())
         result_packets_send += result.send
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
@@ -176,34 +189,27 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
     result_rtt_avg = 0.0 if len(processes) == 0 else (result_rtt_avg / len(processes))
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
-    result_traffic_kbs = 1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms)
     result_traffic_kbs_per_node = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
     result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
 
     if outfile is not None:
         if not outfile.tell():
-            outfile.write('# packet send | packets received | duration ms | duration ms | filler ms | rtt-avg ms | traffic KB/s | traffic KB/s/node\n')
+            outfile.write('# packet send | packets received | duration ms | filler ms | rtt-avg ms | traffic KB/s/node\n')
 
-        outfile.write('{} {} {} {} {:0.2f} {:0.2f} {:0.2f}\n'.format(
+        outfile.write('{}\t\t{}\t\t{}\t\t{}\t\t{:0.2f}\n'.format(
             result_packets_send,
             result_packets_received,
-            int(result_duration_ms),
-            int(result_filler_ms),
-            result_rtt_avg,
-            result_traffic_kbs,
+            int(result_duration_ms + result_filler_ms),
+            int(result_rtt_avg),
             result_traffic_kbs_per_node
         ))
 
-    print("send: {}, received: {}, lost: {:0.2f}% (duration: {}ms + {}ms, startup: {}ms)".format(
+    print("send: {}, received: {}, lost: {:0.2f}%, measurement span: {}ms + {}ms, ingress: {}/s per node".format(
         result_packets_send,
         result_packets_received,
-        result_lost, result_duration_ms,
+        result_lost,
+        result_duration_ms,
         result_filler_ms,
-        (start_ms - startup_ms)
-    ))
-
-    print('received: {}/s ({}/s per node)'.format(
-        format_bytes(result_traffic_kbs),
         format_bytes(result_traffic_kbs_per_node)
     ))
 
@@ -231,15 +237,11 @@ def format_bytes(size):
 
 def get_traffic_statistics(nsnames):
     # fetch uplink statistics
-    processes = []
+    ret = TrafficStatisticSummary()
+
     for nsname in nsnames:
         command = ['ip', 'netns', 'exec', nsname , 'ip', '-statistics', 'link', 'show', 'dev', 'uplink']
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        processes.append(process)
-
-    ret = TrafficStatisticSummary()
-    for process in processes:
-        process.wait()
         (output, err) = process.communicate()
         lines = output.decode().split('\n')
         link_toks = lines[1].split()
@@ -261,6 +263,7 @@ def setup_uplink(nsname, interface):
             mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
         )
 
+    exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, interface))
     exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
     exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev {}'.format(
         nsname,
@@ -303,6 +306,8 @@ def start_batmanadv_instances(nsnames):
         if args.verbosity == 'verbose':
             print('  start batman-adv on {}'.format(nsname))
 
+        exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, 'uplink'))
+        exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, 'uplink'))
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
         setup_uplink(nsname, 'bat0')
 
@@ -318,8 +323,8 @@ def start_babel_instances(nsnames):
         if args.verbosity == 'verbose':
             print("  start babel on {}".format(nsname))
 
-        exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
         setup_uplink(nsname, 'uplink')
+        exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
     if args.verbosity == 'verbose':
@@ -357,8 +362,8 @@ def start_olsr2_instances(nsnames):
             )
         f.close()
 
-        exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
         setup_uplink(nsname, 'uplink')
+        exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
 
 def stop_olsr2_instances(nsnames):
     if args.verbosity == 'verbose':
