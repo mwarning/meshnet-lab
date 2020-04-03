@@ -4,6 +4,8 @@ A collection of test data for simulation. So far without link quality data.
 
 Line data creation:
 ```
+#!/bin/sh
+
 i=0
 while [ $i -lt 1000 ]; do
 	i=$((i + 50))
@@ -13,6 +15,8 @@ done
 
 Lattice data creation:
 ```
+#!/bin/sh
+
 i=1
 while [ $i -lt 32 ]; do
 	i=$((i + 1))
@@ -22,6 +26,8 @@ done
 
 Random tree data creation:
 ```
+#!/bin/sh
+
 i=0
 while [ $i -lt 1000 ]; do
 	i=$((i + 50))
