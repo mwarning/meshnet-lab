@@ -120,7 +120,7 @@ def parse_ping(output):
 
     return ret
 
-def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfile = None):
+def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
     processes = []
 
     startup_ms = millis()
@@ -133,11 +133,18 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
     ts_beg = get_traffic_statistics(nsnames)
     ts_beg_end_ms = millis()
 
-    print("interface: {}, test_duration_ms: {}, pairs generation time: {}, traffic measurement time: {}".format(
-        interface, test_duration_ms,
-        (pairs_end_ms - pairs_beg_ms),
-        (ts_beg_end_ms - ts_beg_beg_ms)
-    ))
+
+    if args.verbosity != 'quiet':
+        print("interface: {}, test_duration_ms: {}, pairs generation time: {}, traffic measurement time: {}".format(
+            interface, test_duration_ms,
+            (pairs_end_ms - pairs_beg_ms),
+            (ts_beg_end_ms - ts_beg_beg_ms)
+        ))
+
+        if wait_ms > 0:
+            print("wait for {} seconds for pings to start.".format(wait_ms / 1000.0))
+
+    time.sleep(wait_ms / 1000.0)
 
     start_ms = millis()
     started = 0
@@ -201,14 +208,15 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, outfi
             result_traffic_kbs_per_node
         ))
 
-    print("send: {}, received: {}, lost: {:0.2f}%, measurement span: {}ms + {}ms, ingress: {}/s per node".format(
-        result_packets_send,
-        result_packets_received,
-        result_lost,
-        result_duration_ms,
-        result_filler_ms,
-        format_bytes(result_traffic_kbs_per_node)
-    ))
+    if args.verbosity != 'quiet':
+        print("send: {}, received: {}, lost: {:0.2f}%, measurement span: {}ms + {}ms, ingress: {}/s per node".format(
+            result_packets_send,
+            result_packets_received,
+            result_lost,
+            result_duration_ms,
+            result_filler_ms,
+            format_bytes(result_traffic_kbs_per_node)
+        ))
 
 class TrafficStatisticSummary:
     def __init__(self):
@@ -462,7 +470,8 @@ parser_start = subparsers.add_parser('start', help='Start protocol daemons in ev
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
 parser_test = subparsers.add_parser('test', help='Measure reachability and traffic.')
 parser_test.add_argument('--duration', type=int, default=1, help='Duration in seconds for this test.')
-parser_test.add_argument('--samples', type=int, default=10, help='Number of paths to test.')
+parser_test.add_argument('--samples', type=int, default=10, help='Number of random paths to test.')
+parser_test.add_argument('--wait', type=int, default=0, help='Seconds to wait after the begin of the traffic measurement before pings are send.')
 
 args = parser.parse_args()
 
@@ -494,7 +503,7 @@ if args.action == 'start':
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
 elif args.action == 'test':
-    run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, outfile)
+    run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000.0, outfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)
