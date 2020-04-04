@@ -11,7 +11,7 @@ for dataid in 'line' 'rtree' 'lattice4'; do
 		set ylabel '% of packets arrived';						\
 		set xlabel 'seconds after start';						\
 		set termoption lw 3;									\
-		set yrange [0:110];										\
+		set yrange [-5:105];										\
 		plot													\
 		'convergence-none-$dataid.tsv' using 3:(100*\$7/\$6) with linespoints title 'none',				\
 		'convergence-batman-adv-$dataid.tsv' using 3:(100*\$7/\$6) with linespoints title 'batman-adv',	\
