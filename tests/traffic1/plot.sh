@@ -1,8 +1,9 @@
 #!/bin/sh
 
+
 for dataid in 'line' 'rtree' 'lattice4'; do
 	gnuplot -e "
-		set title \"Traffic by routing protocol over 60 seconds on $dataid\n300 seconds after setup up to 300 pings are performed in that time frame\";	\
+		set title \"Traffic by routing protocol on $dataid\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings\";	\
 		set grid;																			\
 		set term png;																		\
 		set terminal png size 1280,960;														\
