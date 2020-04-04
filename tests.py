@@ -186,6 +186,12 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_
         process.wait()
         (output, err) = process.communicate()
         result = parse_ping(output.decode())
+
+        if result.send == 0:
+            # Usually: "ping: connect: Network is unreachable"
+            # Let's count packet as send!
+            result.send = 1
+
         result_packets_send += result.send
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
