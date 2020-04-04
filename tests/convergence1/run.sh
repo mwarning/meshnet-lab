@@ -60,8 +60,3 @@ for dataid in 'line' 'rtree' 'lattice4'; do
 		run_test "$protocol" "$dataid"
 	done
 done
-
-# freifunk data set
-for protocol in 'none' 'olsr2' 'yggdrasil' 'bmx7' 'batman-adv' 'babel'; do
-	run_test "$protocol" "freifunk"
-done
