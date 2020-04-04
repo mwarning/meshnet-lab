@@ -3,10 +3,13 @@
 # exit on any error
 set -ex
 
+# to distinguish multiple run
+prefix="$1"
+
 run_test() {
 	local protocol="$1"
 	local dataid="$2"
-	local tsvfile="traffic-$protocol-$dataid.tsv"
+	local tsvfile="${prefix}traffic-$protocol-$dataid.tsv"
 	local seed=42
 
 	for graphfile in data/${dataid}-*.json; do
