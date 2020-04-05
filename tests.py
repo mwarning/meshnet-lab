@@ -191,7 +191,7 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
 
-    result_rtt_avg = 0.0 if len(processes) == 0 else (result_rtt_avg / len(processes))
+    result_rtt_avg = 0.0 if len(processes) == 0 else (result_rtt_avg / result_packets_received)
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
     result_traffic_kbs_per_node = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
