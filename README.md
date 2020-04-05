@@ -87,6 +87,13 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - Better topology generator (more features).
 - Mobility
 
+## Routing Protocol Notes
+
+- batman-adv:
+  - needs batctl installed for tests
+  - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
+- olsr needs the Linux kernel to be compiled with CONFIG_IPV6_MULTIPLE_TABLES (but it still seems to work without)
+
 ## Related Projects
 
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
