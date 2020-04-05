@@ -89,14 +89,14 @@ def get_mac_address(nsname, interface):
     return None
 
 class PingResult:
-    send = 0
+    transmitted = 0
     received = 0
     rtt_min = 0.0
     rtt_max = 0.0
     rtt_avg = 0.0
 
-    def __init__(self, send = 0, received = 0, rtt_min = 0.0, rtt_max = 0.0, rtt_avg = 0.0):
-        self.send = send
+    def __init__(self, transmitted = 0, received = 0, rtt_min = 0.0, rtt_max = 0.0, rtt_avg = 0.0):
+        self.transmitted = transmitted
         self.received = received
         self.rtt_min = rtt_min
         self.rtt_max = rtt_max
@@ -109,7 +109,7 @@ def parse_ping(output):
     for line in output.split('\n'):
         if 'packets transmitted' in line:
             toks = numbers_re.split(line)
-            ret.send = int(toks[0])
+            ret.transmitted = int(toks[0])
             ret.received = int(toks[1])
         if line.startswith('rtt min/avg/max/mdev'):
             toks = numbers_re.split(line)
@@ -187,12 +187,7 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_
         (output, err) = process.communicate()
         result = parse_ping(output.decode())
 
-        if result.send == 0:
-            # Usually: "ping: connect: Network is unreachable"
-            # Let's count packet as send!
-            result.send = 1
-
-        result_packets_send += result.send
+        result_packets_send += ping_count
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
 
