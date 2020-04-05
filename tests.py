@@ -120,19 +120,20 @@ def parse_ping(output):
 
     return ret
 
-def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+    ping_deadline=1
+    ping_count=1
     processes = []
 
     startup_ms = millis()
 
     pairs_beg_ms = millis()
-    pairs = list(get_random_samples(nsnames, test_count))
+    pairs = list(get_random_samples(nsnames, path_count))
     pairs_end_ms = millis()
 
     ts_beg_beg_ms = millis()
     ts_beg = get_traffic_statistics(nsnames)
     ts_beg_end_ms = millis()
-
 
     if args.verbosity != 'quiet':
         print("interface: {}, test_duration_ms: {}, pairs generation time: {}, traffic measurement time: {}".format(
@@ -159,7 +160,7 @@ def run_test(nsnames, interface, test_count = 10, test_duration_ms = 1000, wait_
                 if args.verbosity == 'verbose':
                     print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, nssource, nstarget, nstarget_addr, interface))
 
-                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', '1', '-W', '1', '-D', nstarget_addr]
+                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', str(ping_count), '-w', str(ping_deadline), '-D', nstarget_addr]
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 processes.append(process)
                 started += 1
