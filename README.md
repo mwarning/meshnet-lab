@@ -101,3 +101,4 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, very simple)
 - [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, simple)
 - [Running Babel/OLSR/BMX7 inside kubernetes](https://media.freifunk.net/v/multipathtcp-with-un-meshed-networks-and-running-babel-olsr-bmx7-inside-kubernetes-and-containers)
+- Freifunk Berlin [firmware test](https://github.com/freifunk-berlin/firmware/wiki/Local-testing) (uses docker containers)
