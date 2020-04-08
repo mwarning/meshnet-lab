@@ -278,6 +278,17 @@ def setup_uplink(nsname, interface):
         interface
     ))
 
+def pkill(pname):
+    for _ in range(0, 10):
+        rc = os.system('pkill -9 {}'.format(pname))
+        if rc != 0:
+            # no process found to kill
+            return
+        time.sleep(1)
+
+    eprint('Failed to kill {}'.format(pname))
+    exit(1)
+
 def start_none_instances(nsnames):
     # nothing to do
     pass
@@ -306,7 +317,7 @@ def stop_yggdrasil_instances(nsnames):
        print("  stop yggdrasil in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill -9 yggdrasil')
+        pkill('yggdrasil')
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
@@ -338,8 +349,8 @@ def stop_babel_instances(nsnames):
         print("  stop babel in all namespaces")
 
     if len(nsnames) > 0:
+        pkill('babeld')
         exec('rm -f /tmp/babel-*.pid')
-        exec('pkill -9 babeld')
 
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
@@ -377,7 +388,7 @@ def stop_olsr2_instances(nsnames):
         print("  stop olsr2 in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill -9 olsrd2')
+        pkill('olsrd2')
         exec('rm -f /tmp/olsrd2-*.conf')
 
 def start_bmx7_instances(nsnames):
@@ -394,7 +405,7 @@ def stop_bmx7_instances(nsnames):
         print("  stop bmx7 in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill bmx7')
+        pkill('bmx7')
         exec('rm -rf /tmp/bmx7_*')
 
 def start_bmx6_instances(nsnames):
@@ -411,7 +422,7 @@ def stop_bmx6_instances(nsnames):
         print("  stop bmx6 in all namespaces")
 
     if len(nsnames) > 0:
-        exec('pkill bmx6')
+        pkill('bmx6')
         exec('rm -rf /tmp/bmx6_*')
 
 def start_routing_protocol(protocol, nsnames):
