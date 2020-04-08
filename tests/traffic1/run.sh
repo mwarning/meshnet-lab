@@ -51,6 +51,10 @@ fi
 # need to open more files (especially for traffic measurement processes)
 ulimit -Sn 4096
 
+sysctl -w net.ipv6.neigh.default.gc_thresh1=$((8 * 128))
+sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
+sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
+
 # artificial data sets
 for dataid in 'line' 'rtree' 'lattice4'; do
 	for protocol in 'none' 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
