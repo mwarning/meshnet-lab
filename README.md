@@ -92,7 +92,11 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - batman-adv:
   - needs batctl installed for tests
   - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
-- olsr needs the Linux kernel to be compiled with CONFIG_IPV6_MULTIPLE_TABLES (but it still seems to work without)
+- olsr2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
+  - but it still seems to work without
+- babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops.
+  - `default rxcost 16` in the configuration file should help
+- yggdrasil needs the most resources the routing protocol programs supported
 
 ## Related Projects
 
