@@ -14,7 +14,7 @@ run_test() {
 	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
-		local tsvfile="${prefix}traffic-$protocol-$name.tsv"
+		local csvfile="${prefix}traffic-$protocol-$name.csv"
 		local duration_sec=60
 		local sample_count=300
 
@@ -35,7 +35,7 @@ run_test() {
 			../../tests.py --verbosity 'verbose' "$protocol" start
 
 			# Run the ping test
-			../../tests.py --verbosity 'verbose' --cvs-out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
+			../../tests.py --verbosity 'verbose' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop

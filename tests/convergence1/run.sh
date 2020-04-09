@@ -14,15 +14,15 @@ run_test() {
 	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
-		local tsvfile="${prefix}convergence-$protocol-$name.tsv"
+		local csvfile="${prefix}convergence-$protocol-$name.csv"
 		local duration=5
 		local samples=100
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
 		# file empty or does not exists => write header name
-		if [ ! -s "$tsvfile" ]; then
-			echo 'offset' >> $tsvfile
+		if [ ! -s "$csvfile" ]; then
+			echo 'offset' >> $csvfile
 		fi
 
 		# clear (just in case)
@@ -42,8 +42,8 @@ run_test() {
 
 			sleep $offset
 
-			echo -n "$offset" >> $tsvfile
-			../../tests.py --verbosity 'verbose' --cvs-out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
+			echo -n "$offset " >> $csvfile
+			../../tests.py --verbosity 'verbose' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop
