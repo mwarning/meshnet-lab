@@ -1,6 +1,6 @@
 #!/bin/sh
 
-../tools/variance.py traffic-batman-adv-lattice4.tsv traffic-batman-adv-lattice4_sd.tsv --span 10 --column 'ingress_avg_node_kbs'
+../tools/csv_merge.py traffic-batman-adv-lattice4.tsv traffic-batman-adv-lattice4_sd.tsv --span 10 --column 'ingress_avg_node_kbs'
 
 gnuplot -e "
 	set title \"Traffic for batman-adv on lattice4\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings (10 times)\";	\
