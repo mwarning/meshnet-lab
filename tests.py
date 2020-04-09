@@ -226,7 +226,8 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
     result_rtt_avg = 0.0 if result_packets_received == 0 else (result_rtt_avg / result_packets_received)
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
-    result_traffic_kbs_per_node = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
+    result_ingress_avg_node_kbs = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
+    result_egress_avg_node_kbs = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.tx_bytes - ts_beg.tx_bytes) / (stop2_ms - start_ms) / len(nsnames))
     result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
     lavg = get_load_average()
 
@@ -238,6 +239,7 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
             'packets_received\t'
             'sample_duration_ms\t'
             'rtt_avg_ms\t'
+            'egress_avg_node_kbs\t'
             'ingress_avg_node_kbs\n'
         )
 
@@ -251,18 +253,20 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
             result_packets_received,
             int(result_duration_ms + result_filler_ms),
             int(result_rtt_avg),
-            result_traffic_kbs_per_node
+            result_egress_avg_node_kbs,
+            result_ingress_avg_node_kbs
         ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
-        print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, ingress: {}/s per node'.format(
+        print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, egress: {}/s/node, ingress: {}/s/node'.format(
             result_packets_send,
             result_packets_received,
             lavg[0], lavg[1], lavg[2],
             result_lost,
             result_duration_ms,
             result_filler_ms,
-            format_bytes(result_traffic_kbs_per_node)
+            format_bytes(result_egress_avg_node_kbs),
+            format_bytes(result_ingress_avg_node_kbs)
         ))
 
 class TrafficStatisticSummary:
