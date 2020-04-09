@@ -46,6 +46,14 @@ def exec(cmd, detach=False):
 def millis():
     return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
 
+# get system load from uptime command
+# average of the last 1, 5 and 15 minutes
+def get_load_average():
+    p = subprocess.Popen(['uptime'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    (out, err) = p.communicate()
+    t = out.decode().split('load average:')[1].split(',')
+    return (float(t[0]), float(t[1]), float(t[2]))
+
 # get random unique pairs
 def get_random_samples(items, npairs):
     samples = {}
@@ -119,6 +127,28 @@ def parse_ping(output):
             #ret.rtt_mdev = float(toks[4])
 
     return ret
+
+'''
+Add a CSV header if the target file is empty or
+extend existing header (for added data outside of this script)
+'''
+def add_csv_header(file, header):
+    pos = file.tell()
+
+    if pos == 0:
+        # empty file => add header
+        file.write(header)
+
+    if pos > 0 and pos < len(header):
+        # non-empty files but cannot be our header => assume existing header and extend it
+        file.seek(0)
+        content = file.read()
+        if content.count('\n') == 1:
+            file.seek(0)
+            file.truncate()
+            lines = content.split('\n')
+            file.write(lines[0] + args.csv_delimiter + header)
+            file.write(lines[1])
 
 def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
     ping_deadline=1
@@ -198,23 +228,37 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
     result_filler_ms = stop2_ms - stop1_ms
     result_traffic_kbs_per_node = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms) / len(nsnames))
     result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
+    lavg = get_load_average()
 
     if outfile is not None:
-        if not outfile.tell():
-            outfile.write('# packet send | packets received | duration ms | filler ms | rtt-avg ms | traffic KB/s/node\n')
+        header = (
+            'load_avg1\tload_avg5\tload_avg15\t'
+            'node_count\t'
+            'packets_send\t'
+            'packets_received\t'
+            'sample_duration_ms\t'
+            'rtt_avg_ms\t'
+            'ingress_avg_node_kbs\n'
+        )
 
-        outfile.write('{}\t\t{}\t\t{}\t\t{}\t\t{:0.2f}\n'.format(
+        # add csv header if not present
+        add_csv_header(outfile, header)
+
+        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {:0.2f}\n'.format(
+            lavg[0], lavg[1], lavg[2],
+            len(nsnames),
             result_packets_send,
             result_packets_received,
             int(result_duration_ms + result_filler_ms),
             int(result_rtt_avg),
             result_traffic_kbs_per_node
-        ))
+        ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
         print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, ingress: {}/s per node'.format(
             result_packets_send,
             result_packets_received,
+            lavg[0], lavg[1], lavg[2],
             result_lost,
             result_duration_ms,
             result_filler_ms,
@@ -475,9 +519,11 @@ parser.add_argument('--verbosity',
 parser.add_argument('--seed',
     type=int,
     help='Seed the random generator.')
-parser.add_argument('--out',
-    dest='out',
-    help='Write TSV formatted data to file.')
+parser.add_argument('--csv-out',
+    help='Write CSV formatted data to file.')
+parser.add_argument('--csv-delimiter',
+    default='\t'
+    help='Delimiter for CSV output columns. Default: tab character')
 
 subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
@@ -502,8 +548,8 @@ nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('
 uplink_interface = 'uplink'
 
 outfile = None
-if args.out is not None:
-    outfile = open(args.out, 'a+')
+if args.csv_out is not None:
+    outfile = open(args.csv_out, 'a+')
 
 # batman-adv uses its own interface as entry point to the mesh
 if args.protocol == 'batman-adv':
