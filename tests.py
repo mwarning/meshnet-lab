@@ -233,18 +233,18 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
 
     if outfile is not None:
         header = (
-            'load_avg1\tload_avg5\tload_avg15\t'
-            'node_count\t'
-            'packets_send\t'
-            'packets_received\t'
-            'sample_duration_ms\t'
-            'rtt_avg_ms\t'
-            'egress_avg_node_kbs\t'
+            'load_avg1 load_avg5 load_avg15 '
+            'node_count '
+            'packets_send '
+            'packets_received '
+            'sample_duration_ms '
+            'rtt_avg_ms '
+            'egress_avg_node_kbs '
             'ingress_avg_node_kbs\n'
         )
 
         # add csv header if not present
-        add_csv_header(outfile, header)
+        add_csv_header(outfile, header.replace(' ', args.csv_delimiter))
 
         outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {:0.2f}\n'.format(
             lavg[0], lavg[1], lavg[2],
