@@ -54,22 +54,23 @@ def get_load_average():
     t = out.decode().split('load average:')[1].split(',')
     return (float(t[0]), float(t[1]), float(t[2]))
 
-# get random unique pairs
-def get_random_samples(items, npairs):
-    samples = {}
-    i = 0
+# get random node pairs (not unique)
+def get_random_pairs(items, npairs):
+    pairs = []
 
-    while i < (npairs * 4) and len(samples) != npairs:
-        i += 1
+    if len(items) < 2 and npairs > 0:
+        eprint('Not enough nodes to get any pairs!')
+        exit(1)
+
+    while len(pairs) < npairs:
         e1 = random.choice(items)
         e2 = random.choice(items)
         if e1 == e2:
             continue
-        key = '{}-{}'.format(e1, e2)
-        if key not in samples:
-            samples[key] = (e1, e2)
 
-    return samples.values()
+        pairs.append((e1, e2))
+
+    return pairs
 
 # get IPv6 address, use fe80:: address as fallback
 # TODO: return IPv6 address of the broadest scope in general
@@ -158,7 +159,7 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
     startup_ms = millis()
 
     pairs_beg_ms = millis()
-    pairs = list(get_random_samples(nsnames, path_count))
+    pairs = list(get_random_pairs(nsnames, path_count))
     pairs_end_ms = millis()
 
     ts_beg_beg_ms = millis()
@@ -534,7 +535,7 @@ parser_start = subparsers.add_parser('start', help='Start protocol daemons in ev
 parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
 parser_test = subparsers.add_parser('test', help='Measure reachability and traffic.')
 parser_test.add_argument('--duration', type=int, default=1, help='Duration in seconds for this test.')
-parser_test.add_argument('--samples', type=int, default=10, help='Number of random paths to test.')
+parser_test.add_argument('--samples', type=int, default=10, help='Number of random paths to test (not unique, no destination to self).')
 parser_test.add_argument('--wait', type=int, default=0, help='Seconds to wait after the begin of the traffic measurement before pings are send.')
 
 args = parser.parse_args()
