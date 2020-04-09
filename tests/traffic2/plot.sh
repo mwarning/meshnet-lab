@@ -9,10 +9,15 @@ gnuplot -e "
 	set terminal png size 1280,960;														\
 	set output 'traffic-batman-adv-lattice4_sd.png';									\
 	set key spacing 3 font 'Helvetica, 18';												\
-	set ylabel 'kB/s per node (ingress)';												\
 	set xlabel '# number of nodes';														\
+	set ylabel 'ingress per node [KB/s]';												\
+	set y2label 'packet arrival [%]';													\
 	set termoption lw 3;																\
+	set xtics 0, 100;																	\
+	set y2tics 0, 10;																	\
+	set ytics nomirror;																	\
 	plot																				\
-	'traffic-batman-adv-lattice4_sd.tsv' using (column('node_count')):(column('ingress_avg_node_kbs')):(column('ingress_avg_node_kbs_sd') / 2.0) with errorbars title '',	\
-	'traffic-batman-adv-lattice4_sd.tsv' using (column('node_count')):(column('ingress_avg_node_kbs')) with linespoints title 'batman-adv';	\
+	'traffic-batman-adv-lattice4_sd.tsv' using (column('node_count')):(column('ingress_avg_node_kbs')):(column('ingress_avg_node_kbs_sd') / 2.0) with errorbars title '' axis x1y1,	\
+	'traffic-batman-adv-lattice4_sd.tsv' using (column('node_count')):(column('ingress_avg_node_kbs')) with linespoints title 'ingress per node [KB/s]' axis x1y1,					\
+	'traffic-batman-adv-lattice4_sd.tsv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'pings arrived [%]' axis x1y2;	\
 "
