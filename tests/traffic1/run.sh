@@ -46,7 +46,7 @@ run_test() {
 
 # Ask for sudo password
 if [ $(id -u) -ne 0 ]; then
-	echo "Need to 	be called as root or with sudo."
+	echo "Need to be called as root or with sudo."
 	exit 1
 fi
 
