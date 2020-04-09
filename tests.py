@@ -147,7 +147,7 @@ def add_csv_header(file, header):
             file.seek(0)
             file.truncate()
             lines = content.split('\n')
-            file.write(lines[0] + args.csv_delimiter + header)
+            file.write(lines[0] + header)
             file.write(lines[1])
 
 def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):

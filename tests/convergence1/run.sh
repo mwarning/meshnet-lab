@@ -22,7 +22,7 @@ run_test() {
 
 		# file empty or does not exists => write header name
 		if [ ! -s "$csvfile" ]; then
-			echo 'offset' >> $csvfile
+			echo 'offset_sec	' >> $csvfile
 		fi
 
 		# clear (just in case)
@@ -42,8 +42,8 @@ run_test() {
 
 			sleep $offset
 
-			echo -n "$offset " >> $csvfile
-			../../tests.py --verbosity 'verbose' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
+			echo -n "$offset	" >> $csvfile
+			../../tests.py --verbosity 'verbose' --csv-delimiter='	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop
