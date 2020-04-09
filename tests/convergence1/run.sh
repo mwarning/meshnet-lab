@@ -3,20 +3,27 @@
 # exit on any error
 set -ex
 
-# to distinguish multiple run
+# to distinguish multiple runs (if needed)
 prefix="$1"
 
 run_test() {
 	local protocol="$1"
-	local dataid="$2"
-	local tsvfile="${prefix}convergence-$protocol-$dataid.tsv"
+	local files="$2"
 	local seed=42
 
-	for graphfile in ${dataid}*.json; do
+	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
+		local tsvfile="${prefix}convergence-$protocol-$name.tsv"
 		local duration=5
 		local samples=100
+
+		echo "$(date): start $protocol on $(basename \"$graphfile\")"
+
+		# file empty or does not exists => write header name
+		if [ ! -s "$tsvfile" ]; then
+			echo 'offset' >> $tsvfile
+		fi
 
 		# clear (just in case)
 		../../network.py clear
@@ -35,8 +42,8 @@ run_test() {
 
 			sleep $offset
 
-			echo -n "$name		$nodes		$offset		$samples		$duration		" >> $tsvfile
-			../../tests.py --verbosity 'verbose' --out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
+			echo -n "$offset" >> $tsvfile
+			../../tests.py --verbosity 'verbose' --cvs-out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop
@@ -57,9 +64,14 @@ fi
 # need to open more files (especially for convergence measurement processes)
 ulimit -Sn 4096
 
+# just in case
+sysctl -w net.ipv6.neigh.default.gc_thresh1=$((8 * 128))
+sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
+sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
+
 # artificial data sets
-for dataid in 'line' 'rtree' 'lattice4'; do
-	for protocol in 'none' 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
-		run_test "$protocol" "$dataid"
+for files in './data/line' './data/rtree' './data/lattice4'; do
+	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+		run_test "$protocol" "$files"
 	done
 done

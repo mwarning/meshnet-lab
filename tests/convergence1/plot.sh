@@ -2,7 +2,7 @@
 
 for dataid in 'line' 'rtree' 'lattice4'; do
 	gnuplot -e "
-		set title \"Reachability on a $dataid of 100 nodes.\nNo packet loss, 100 random pings over 5-6 seconds\";	\
+		set title \"Reachability on a $dataid of 100 nodes.\nLinks without packet loss, 100 random pings over 5-6 seconds\";	\
 		set grid;												\
 		set term png;											\
 		set terminal png size 1280,960;							\
@@ -11,7 +11,7 @@ for dataid in 'line' 'rtree' 'lattice4'; do
 		set ylabel '% of packets arrived';						\
 		set xlabel 'seconds after start';						\
 		set termoption lw 3;									\
-		set yrange [-5:105];										\
+		set yrange [-5:105];									\
 		plot													\
 		'convergence-none-$dataid.tsv' using 3:(100*\$7/\$6) with linespoints title 'none',				\
 		'convergence-batman-adv-$dataid.tsv' using 3:(100*\$7/\$6) with linespoints title 'batman-adv',	\

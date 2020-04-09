@@ -3,20 +3,22 @@
 # exit on any error
 set -ex
 
-# to distinguish multiple run
+# to distinguish multiple runs (if needed)
 prefix="$1"
 
 run_test() {
 	local protocol="$1"
-	local dataid="$2"
-	local tsvfile="${prefix}traffic-$protocol-$dataid.tsv"
+	local files="$2"
 	local seed=42
 
-	for graphfile in data/${dataid}-*.json; do
+	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
-		local duration=60
-		local samples=300
+		local tsvfile="${prefix}traffic-$protocol-$name.tsv"
+		local duration_sec=60
+		local sample_count=300
+
+		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
 		# clear (just in case)
 		../../network.py clear
@@ -30,8 +32,8 @@ run_test() {
 		# Start mesh program in every namespace
 		../../tests.py --verbosity 'verbose' "$protocol" start
 
-		echo -n "$name		$nodes		$offset		$samples		$duration		" >> $tsvfile
-		../../tests.py --verbosity 'verbose' --out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration --wait 60 --samples $samples
+		# Run the ping test
+		../../tests.py --verbosity 'verbose' --cvs-out "$tsvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
 
 		# Stop batman-adv
 		../../tests.py --verbosity 'verbose' "$protocol" stop
@@ -51,18 +53,19 @@ fi
 # need to open more files (especially for traffic measurement processes)
 ulimit -Sn 4096
 
+# just in case
 sysctl -w net.ipv6.neigh.default.gc_thresh1=$((8 * 128))
 sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
 sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 # artificial data sets
-for dataid in 'line' 'rtree' 'lattice4'; do
-	for protocol in 'none' 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
-		run_test "$protocol" "$dataid"
+for files in './data/line' './data/rtree' './data/lattice4'; do
+	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+		run_test "$protocol" "$files"
 	done
 done
 
 # freifunk data set
-for protocol in 'none' 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
-	run_test "$protocol" "freifunk"
+for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+	run_test "$protocol" "../freifunk_data/freifunk"
 done
