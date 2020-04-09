@@ -526,7 +526,7 @@ parser.add_argument('--seed',
 parser.add_argument('--csv-out',
     help='Write CSV formatted data to file.')
 parser.add_argument('--csv-delimiter',
-    default='\t'
+    default='\t',
     help='Delimiter for CSV output columns. Default: tab character')
 
 subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
