@@ -3,7 +3,7 @@
 Create connected Linux network namespaces each with a single `uplink` interface.
 A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file.
 
-This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [babel](https://www.irif.fr/~jch/software/babel/), [batman-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [olsr](https://www.olsr.org), [bmx6](https://github.com/bmx-routing/bmx6)/[bmx7](https://github.com/bmx-routing/bmx7) and [yggdrasil](https://github.com/yggdrasil-network).
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7) and [Yggdrasil](https://github.com/yggdrasil-network).
 
 Please note that wireless interference patterns are not part of the simulation.
 
@@ -96,7 +96,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - but it still seems to work without
 - babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops.
   - `default rxcost 16` in the configuration file should help
-- yggdrasil needs the most resources the routing protocol programs supported
+- yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
+  - encrypts traffic
 
 ## Related Projects
 
