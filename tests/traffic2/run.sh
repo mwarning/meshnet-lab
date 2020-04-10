@@ -24,7 +24,7 @@ run_test() {
 		../../network.py clear
 
 		# Setup the network structure of namespaces
-		../../network.py 'change' none "$graphfile"
+		../../network.py --ignore-tc 'change' none "$graphfile"
 
 		# wait for network stacks etc. to set settle
 		sleep 10
