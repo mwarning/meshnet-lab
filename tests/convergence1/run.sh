@@ -11,7 +11,7 @@ run_test() {
 	local files="$2"
 	local seed=42
 
-	for graphfile in ${files}-*.json; do
+	for graphfile in ${files}*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
 		local csvfile="${prefix}convergence-$protocol-$name.csv"
@@ -70,7 +70,7 @@ sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
 sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 # artificial data sets
-for files in '../line_data/line' '../rtree_data/rtree' '../lattice4_data/lattice4'; do
+for files in '../line_data/line-0100' '../rtree_data/rtree-0100' '../lattice4_data/lattice4-0100'; do
 	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
 		run_test "$protocol" "$files"
 	done
