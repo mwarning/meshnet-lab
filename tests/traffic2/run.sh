@@ -62,4 +62,4 @@ sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
 sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 
-run_test 'batman-adv' '../data/lattice4'
+run_test 'batman-adv' '../lattice4_data/lattice4'
