@@ -54,7 +54,7 @@ def get_load_average():
     t = out.decode().split('load average:')[1].split(',')
     return (float(t[0]), float(t[1]), float(t[2]))
 
-# get random node pairs (not unique)
+# get random node pairs (not unique, not path to self)
 def get_random_pairs(items, npairs):
     pairs = []
 
@@ -332,7 +332,7 @@ def pkill(pname):
     for _ in range(0, 10):
         rc = os.system('pkill -9 {}'.format(pname))
         if rc != 0:
-            # no process found to kill
+            # assume that there is no process left to kill
             return
         time.sleep(1)
 
