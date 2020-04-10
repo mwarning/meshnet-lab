@@ -247,7 +247,7 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
         # add csv header if not present
         add_csv_header(outfile, header.replace(' ', args.csv_delimiter))
 
-        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {:0.2f}\n'.format(
+        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {:0.2f} {:0.2f}\n'.format(
             lavg[0], lavg[1], lavg[2],
             len(nsnames),
             result_packets_send,
