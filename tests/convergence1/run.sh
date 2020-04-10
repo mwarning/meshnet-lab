@@ -13,7 +13,7 @@ run_test() {
 
 	for graphfile in ${files}*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
-		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
+		local links=$(../tools/json-count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}convergence-$protocol-$name.csv"
 		local duration=5
 		local samples=100
@@ -43,7 +43,7 @@ run_test() {
 			sleep $offset
 
 			echo -n "$offset	" >> $csvfile
-			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
+			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $links
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop

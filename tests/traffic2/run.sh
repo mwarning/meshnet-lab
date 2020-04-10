@@ -13,10 +13,9 @@ run_test() {
 
 	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
-		local nodes=$(expr 0 + $(basename "$graphfile" | rev | cut -d'-' -f1 | rev | cut -d'.' -f 1))
+		local links=$(../tools/json-count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}traffic-$protocol-$name.csv"
 		local duration_sec=60
-		local sample_count=300
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
@@ -35,7 +34,7 @@ run_test() {
 			../../tests.py --verbosity 'verbose' "$protocol" start
 
 			# Run the ping test
-			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
+			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $links
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop
