@@ -35,7 +35,7 @@ run_test() {
 			../../tests.py --verbosity 'verbose' "$protocol" start
 
 			# Run the ping test
-			../../tests.py --verbosity 'verbose' --csv-delimiter='	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
+			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $sample_count
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop

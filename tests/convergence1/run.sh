@@ -43,7 +43,7 @@ run_test() {
 			sleep $offset
 
 			echo -n "$offset	" >> $csvfile
-			../../tests.py --verbosity 'verbose' --csv-delimiter='	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
+			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
 
 			# Stop batman-adv
 			../../tests.py --verbosity 'verbose' "$protocol" stop
