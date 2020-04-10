@@ -10,7 +10,7 @@ import csv
 
 
 parser = argparse.ArgumentParser(
-    description='Read a CSV file and combine <span> rows. For each selected column, an extra variance column is added. Other numerical columns are replaced by the mean.')
+    description='Read a CSV file and combine <span> rows. For each selected column, an extra column is calculated. Other columns containing numerical values are replaced by the mean or by the first value otherwise.')
 parser.add_argument('input', help='Input CSV file')
 parser.add_argument('output', help='Output CSV file')
 parser.add_argument('--span', type=int, required=True, help='Amount of consecutive rows to be combined into a mean value.')
