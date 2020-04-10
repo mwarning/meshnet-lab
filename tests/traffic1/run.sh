@@ -66,5 +66,5 @@ done
 
 # freifunk data set
 for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
-	run_test "$protocol" "../freifunk_data/freifunk"
+	run_test "$protocol" "../../data/freifunk/freifunk"
 done
