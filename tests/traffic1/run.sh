@@ -13,7 +13,7 @@ run_test() {
 
 	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
-		local links=$(../tools/json-count.py "$graphfile" 'count-links')
+		local links=$(../tools/json_count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}traffic-$protocol-$name.csv"
 		local duration_sec=60
 
