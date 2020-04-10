@@ -259,7 +259,7 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
         ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
-        print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, egress: {}/s/node, ingress: {}/s/node'.format(
+        print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
             result_packets_send,
             result_packets_received,
             lavg[0], lavg[1], lavg[2],
