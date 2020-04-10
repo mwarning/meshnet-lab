@@ -13,7 +13,6 @@ for id in 'line' 'rtree' 'lattice4'; do
 		set termoption lw 3;									\
 		set yrange [-5:105];									\
 		plot													\
-		'convergence-none-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'none',				\
 		'convergence-batman-adv-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv',	\
 		'convergence-babel-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel',			\
 		'convergence-yggdrasil-$id.csv' (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil',	\
