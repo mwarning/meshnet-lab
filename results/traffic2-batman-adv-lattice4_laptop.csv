@@ -1,4 +1,4 @@
-name	node_count 	sample_count	duration_sec	packets_send	packets_received	sample_duration_ms	rtt_avg_ms	rx_node_bs
+name	node_count 	sample_count	duration_sec	packets_send	packets_received	sample_duration_ms	rtt_avg_ms	rx_bytes_per_sec
 lattice4	4	300	60	6	6	60016	0	1237.39
 lattice4	4	300	60	6	6	60016	0	1220.39
 lattice4	4	300	60	6	6	60016	0	1227.31
