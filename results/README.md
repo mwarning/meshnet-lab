@@ -24,7 +24,62 @@ Routing Software:
 
 ## Results
 
+### Convergence1 Test
+
+Line:
+
+![image](convergence1-line_server.png)
+(server, [csv data](convergence1-line_server.csv))
+
+![image](convergence1-line_laptop.png)
+(laptop, [csv data](convergence1-line_laptop.csv))
+
+Lattice4:
+
+![image](convergence1-lattice4_server.png)
+(server, [csv data](convergence1-lattice4_server.csv))
+
+![image](convergence1-lattice4_laptop.png)
+(laptop, [csv data](convergence1-lattice4_laptop.csv))
+
+RTree:
+
+![image](convergence1-rtree_server.png)
+(laptop, [csv data](convergence1-rtree_server.csv))
+
+![image](convergence1-rtree_laptop.png)
+(laptop, [csv data](convergence1-rtree_laptop.csv))
+
+### Traffic1 Test
+
+Line:
+
+![image](traffic1-line_server.png)
+(server, [csv data](traffic1-line_server.csv))
+
+![image](traffic1-line_laptop.png)
+(laptop, [csv data](traffic1-line_laptop.csv))
+
+Lattice4:
+
+![image](traffic1-lattice4_server.png)
+(server, [csv data](traffic1-lattice4_server.csv))
+
+![image](traffic1-lattice4_laptop.png)
+(laptop, [csv data](traffic1-lattice4_laptop.csv))
+
+RTree:
+
+![image](traffic1-rtree_server.png)
+(laptop, [csv data](traffic1-rtree_server.csv))
+
+![image](traffic1-rtree_laptop.png)
+(laptop, [csv data](traffic1-rtree_laptop.csv))
+
+
 ### Traffic2 Test
+
+Only for batman-adv, but with error bars:
 
 Laptop:
 
