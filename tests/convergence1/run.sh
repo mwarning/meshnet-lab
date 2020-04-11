@@ -13,7 +13,7 @@ run_test() {
 
 	for graphfile in ${files}*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
-		local csvfile="${prefix}convergence-$protocol-$name.csv"
+		local csvfile="${prefix}convergence1-$protocol-$name.csv"
 		local duration=5
 		local samples=100
 

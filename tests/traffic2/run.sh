@@ -14,7 +14,7 @@ run_test() {
 	for graphfile in ${files}-*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local links=$(../tools/json_count.py "$graphfile" 'count-links')
-		local csvfile="${prefix}traffic-$protocol-$name.csv"
+		local csvfile="${prefix}traffic2-$protocol-$name.csv"
 		local duration_sec=60
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
