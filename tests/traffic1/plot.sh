@@ -9,7 +9,7 @@ for id in 'line' 'rtree' 'lattice4'; do
 		set output 'traffic1-$id.png';														\
 		set key spacing 1 font 'Helvetica, 12';												\
 		set xlabel '# number of nodes';														\
-		set ylabel 'ingress per node [KB/s]';												\
+		set ylabel 'rx per node [KB/s]';												\
 		set y2label 'packet arrival [%]';													\
 		set y2tics 0, 10;																	\
 		set ytics nomirror;																	\
