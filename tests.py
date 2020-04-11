@@ -224,58 +224,102 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
         result_packets_received += result.received
         result_rtt_avg += result.rtt_avg
 
-    result_rtt_avg = 0.0 if result_packets_received == 0 else (result_rtt_avg / result_packets_received)
+    result_rtt_avg_ms = 0.0 if result_packets_received == 0 else (result_rtt_avg / result_packets_received)
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
-    result_rx_bps = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.rx_bytes - ts_beg.rx_bytes) / (stop2_ms - start_ms))
-    result_tx_bps = 0.0 if (len(nsnames) == 0) else (1000.0 * (ts_end.tx_bytes - ts_beg.tx_bytes) / (stop2_ms - start_ms))
-    result_lost = 0 if (result_packets_send == 0) else (100.0 - 100.0 * (result_packets_received / result_packets_send))
+
+    result_rx_bytes = ts_end.rx_bytes - ts_beg.rx_bytes
+    result_rx_packets = ts_end.tx_packets - ts_beg.rx_packets
+    result_rx_errors = ts_end.rx_errors - ts_beg.rx_errors
+    result_rx_dropped = ts_end.rx_dropped - ts_beg.rx_dropped
+    result_rx_overrun = ts_end.rx_overrun - ts_beg.rx_overrun
+    result_rx_mcast = ts_end.rx_mcast - ts_beg.rx_mcast
+
+    result_tx_bytes = ts_end.tx_bytes - ts_beg.tx_bytes
+    result_tx_packets = ts_end.tx_packets - ts_beg.tx_packets
+    result_tx_errors = ts_end.tx_errors - ts_beg.tx_errors
+    result_tx_dropped = ts_end.tx_dropped - ts_beg.tx_dropped
+    result_tx_carrier = ts_end.tx_carrier - ts_beg.tx_carrier
+    result_tx_collsns = ts_end.tx_collsns - ts_beg.tx_collsns
+
     lavg = get_load_average()
 
     if outfile is not None:
         header = (
-            'load_avg1 load_avg5 load_avg15 '
+            'load_avg1 '
+            'load_avg5 '
+            'load_avg15 '
             'node_count '
             'packets_send '
             'packets_received '
-            'sample_duration_ms '
+            'duration_ms '
             'rtt_avg_ms '
-            'tx_bytes_per_sec '
-            'rx_bytes_per_sec\n'
+            'rx_bytes '
+            'rx_packets '
+            'rx_errors '
+            'rx_dropped '
+            'rx_overrun '
+            'rx_mcast '
+            'tx_bytes '
+            'tx_packets '
+            'tx_errors '
+            'tx_dropped '
+            'tx_carrier '
+            'tx_collsns\n'
         )
 
         # add csv header if not present
         add_csv_header(outfile, header.replace(' ', args.csv_delimiter))
 
-        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {} {}\n'.format(
-            lavg[0], lavg[1], lavg[2],
+        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {}\n'.format(
+            lavg[0],
+            lavg[1],
+            lavg[2],
             len(nsnames),
             result_packets_send,
             result_packets_received,
             int(result_duration_ms + result_filler_ms),
-            int(result_rtt_avg),
-            int(result_tx_bps),
-            int(result_rx_bps)
+            int(result_rtt_avg_ms),
+            result_rx_bytes,
+            result_rx_packets,
+            result_rx_errors,
+            result_rx_dropped,
+            result_rx_overrun,
+            result_rx_mcast,
+            result_tx_bytes,
+            result_tx_packets,
+            result_tx_errors,
+            result_tx_dropped,
+            result_tx_carrier,
+            result_tx_collsns
         ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
-        print('send: {}, received: {}, load: {}/{}/{}, lost: {:0.2f}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
+        print('send: {}, received: {}, load: {}/{}/{}, lost: {}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
             result_packets_send,
             result_packets_received,
             lavg[0], lavg[1], lavg[2],
-            result_lost,
+            '-' if (result_packets_send == 0) else '{:0.2f}'.format(100.0 - 100.0 * (result_packets_received / result_packets_send)),
             result_duration_ms,
             result_filler_ms,
-            format_bytes(result_tx_bps),
-            format_bytes(result_rx_bps)
+            '-' if (len(nsnames) == 0) else format_bytes(1000.0 * result_tx_bytes / result_duration_ms / len(nsnames)),
+            '-' if (len(nsnames) == 0) else format_bytes(1000.0 * result_tx_bytes / result_duration_ms / len(nsnames))
         ))
 
 class TrafficStatisticSummary:
     def __init__(self):
         self.rx_bytes = 0
         self.rx_packets = 0
+        self.rx_errors = 0
+        self.rx_dropped = 0
+        self.rx_overrun = 0
+        self.rx_mcast = 0
         self.tx_bytes = 0
         self.tx_packets = 0
+        self.tx_errors = 0
+        self.tx_dropped = 0
+        self.tx_carrier = 0
+        self.tx_collsns = 0
 
     def print(self):
         print('received {} ({} bytes, {} packets), send: {} ({} bytes, {} packets)'.format(
@@ -306,8 +350,16 @@ def get_traffic_statistics(nsnames):
         tx_toks = lines[5].split()
         ret.rx_bytes += int(rx_toks[0])
         ret.rx_packets += int(rx_toks[1])
+        ret.rx_errors += int(rx_toks[2])
+        ret.rx_dropped += int(rx_toks[3])
+        ret.rx_overrun += int(rx_toks[4])
+        ret.rx_mcast += int(rx_toks[5])
         ret.tx_bytes += int(tx_toks[0])
         ret.tx_packets += int(tx_toks[1])
+        ret.tx_errors += int(tx_toks[2])
+        ret.tx_dropped += int(tx_toks[3])
+        ret.tx_carrier += int(tx_toks[4])
+        ret.tx_collsns += int(tx_toks[5])
 
     return ret
 
