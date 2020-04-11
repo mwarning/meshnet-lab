@@ -1,7 +1,7 @@
 # Mesh Network Lab
 
 Create connected Linux network namespaces each with a single `uplink` interface.
-A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file.
+A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file. Examples of [test result](results/) are available.
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7) and [Yggdrasil](https://github.com/yggdrasil-network).
 
