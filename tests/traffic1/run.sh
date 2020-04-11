@@ -59,12 +59,12 @@ sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 # artificial data sets
 for files in '../line_data/line' '../rtree_data/rtree' '../lattice4_data/lattice4'; do
-	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7' 'cjdns'; do
 		run_test "$protocol" "$files"
 	done
 done
 
 # freifunk data set
-for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7' 'cjdns'; do
 	run_test "$protocol" "../../data/freifunk/freifunk"
 done

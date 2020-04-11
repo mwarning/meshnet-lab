@@ -70,7 +70,7 @@ sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 # artificial data sets
 for files in 'line/line-0100' 'rtree/rtree-0100' 'lattice4/lattice4-0100'; do
-	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7'; do
+	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7' 'cjdns'; do
 		run_test "$protocol" "../../data/$files"
 	done
 done

@@ -347,6 +347,22 @@ def stop_none_instances(nsnames):
     # nothing to do
     pass
 
+def start_cjdns_instances(nsnames):
+    for nsname in nsnames:
+        if args.verbosity == 'verbose':
+            print('start cjdns on {}'.format(nsname))
+
+        exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
+        exec('ip netns exec "{}" cjdroute < /tmp/cjdns-{}.conf'.format(nsname, nsname), True)
+
+def stop_cjdns_instances(nsnames):
+    if args.verbosity == 'verbose':
+       print('stop cjdns in all namespaces')
+
+    exec('rm -f /tmp/cjdns-*.conf')
+    if len(nsnames) > 0:
+        pkill('cjdroute')
+
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
@@ -488,6 +504,8 @@ def start_routing_protocol(protocol, nsnames):
         start_bmx6_instances(nsnames)
     elif protocol == 'bmx7':
         start_bmx7_instances(nsnames)
+    elif protocol == 'cjdns':
+        start_cjdns_instances(nsnames)
     elif protocol == 'none':
         start_none_instances(nsnames)
     else:
@@ -507,6 +525,8 @@ def stop_routing_protocol(protocol, nsnames):
         stop_bmx6_instances(nsnames)
     elif protocol == 'bmx7':
         stop_bmx7_instances(nsnames)
+    elif protocol == 'cjdns':
+        stop_cjdns_instances(nsnames)
     elif protocol == 'none':
         stop_none_instances(nsnames)
     else:
@@ -515,7 +535,7 @@ def stop_routing_protocol(protocol, nsnames):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
-    choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil'],
+    choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
     help='Routing protocol to set up.')
 parser.add_argument('--verbosity',
     choices=['verbose', 'normal', 'quiet'],
