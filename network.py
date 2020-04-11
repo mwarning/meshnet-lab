@@ -24,11 +24,14 @@ subparsers.add_parser('clear', help='Remove all Linux network namespaces. Proces
 
 args = parser.parse_args()
 
+def eprint(s):
+    sys.stderr.write(s + '\n')
+
 def exec(cmd):
     rc = os.system(cmd)
     if rc != 0:
-        print('Abort, command failed: {}'.format(cmd))
-        print('Network might be in an undefined state!')
+        eprint('Abort, command failed: {}'.format(cmd))
+        eprint('Network might be in an undefined state!')
         exit(1)
 
 def configure_interface(nsname, ifname):
@@ -189,11 +192,11 @@ def process_json(json_data):
         target_tc = link.get('target_tc')
 
         if len(source) > 6:
-            print('node name too long: {}'.format(source))
+            eprint('node name too long: {}'.format(source))
             exit(1)
 
         if len(target) > 6:
-            print('node name too long: {}'.format(target))
+            eprint('node name too long: {}'.format(target))
             exit(1)
 
         if source not in nodes:
@@ -252,7 +255,7 @@ def get_task(from_state, to_state):
 
 
 if os.popen('id -u').read().strip() != '0':
-    print('Need to run as root.')
+    eprint('Need to run as root.')
     exit(1)
 
 if args.action == 'clear':
@@ -294,5 +297,5 @@ elif args.action == 'change':
         exec('ip netns del "switch" || true')
 
 else:
-    print('Invalid command: {}'.format(args.action))
+    eprint('Invalid command: {}'.format(args.action))
     exit(1)

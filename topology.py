@@ -7,6 +7,10 @@ import sys
 import os
 import glob
 
+
+def eprint(s):
+    sys.stderr.write(s + '\n')
+
 def create_lattice(x_count, y_count, diag = False):
     links = []
     offset = 0
@@ -124,7 +128,7 @@ elif args.topology == 'tree':
 elif args.topology == 'rtree':
     links = create_random_tree(args.count, args.intra)
 else:
-    sys.stderr.write('Unknown topology: {}\n'.format(args.topology))
+    eprint('Unknown topology: {}\n'.format(args.topology))
     exit(1)
 
 for link in links:
