@@ -98,6 +98,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - `default rxcost 16` in the configuration file should help
 - yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
   - encrypts traffic
+- security for CJDNS can be disabled. Compile with `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
 
 ## Related Projects
 
