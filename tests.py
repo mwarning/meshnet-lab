@@ -442,7 +442,7 @@ def start_olsr2_instances(nsnames):
             'bindto  -0.0.0.0/0\n'
             'bindto  -::1/128\n'
             'bindto  default_accept\n'
-            )
+        )
         f.close()
 
         setup_uplink(nsname, 'uplink')
