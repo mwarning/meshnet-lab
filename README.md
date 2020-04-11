@@ -1,7 +1,7 @@
 # Mesh Network Lab
 
 Create connected Linux network namespaces each with a single `uplink` interface.
-A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file. Examples of [test result](results/) are available.
+A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file. Examples of [test results](results/) are available.
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns).
 
@@ -89,19 +89,20 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Routing Protocol Notes
 
-- batman-adv:
+- BATMAN-adv:
   - needs batctl installed for tests
   - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
-- olsr2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
+- OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
   - but it still seems to work without
-- babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops.
+- Babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops.
   - `default rxcost 16` in the configuration file should help
-- yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
+- Yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
   - encrypts traffic
-- security for CJDNS can be disabled. Compile with `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
+- CJDNS security can be disabled. Compile for speed using `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
 
 ## Related Projects
 
+- [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
 - [mlc](https://github.com/axn/mlc) (for bmx routing daemon, very complex)
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, very simple)
