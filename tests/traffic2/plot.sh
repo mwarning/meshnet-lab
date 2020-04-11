@@ -17,7 +17,7 @@ gnuplot -e "
 	set y2tics 0, 10;																	\
 	set ytics nomirror;																	\
 	plot																				\
-	'traffic-batman-adv-lattice4_new.csv' using (column('node_count')):(column('rx_node_bs') / 1000):(column('rx_node_bs_range') / 2.0) with errorbars title '' axis x1y1,	\
-	'traffic-batman-adv-lattice4_new.csv' using (column('node_count')):(column('rx_node_bs') / 1000) with linespoints title 'ingress per node [KB/s]' axis x1y1,					\
+	'traffic-batman-adv-lattice4_new.csv' using (column('node_count')):(column('rx_bs') / 1000 / column('node_count')):(column('rx_node_bs_range') / 2.0) with errorbars title '' axis x1y1,	\
+	'traffic-batman-adv-lattice4_new.csv' using (column('node_count')):(column('rx_bs') / 1000 / column('node_count')) with linespoints title 'ingress per node [KB/s]' axis x1y1,					\
 	'traffic-batman-adv-lattice4_new.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'pings arrived [%]' axis x1y2;	\
 "
