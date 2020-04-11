@@ -377,11 +377,10 @@ def start_yggdrasil_instances(nsnames):
         exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
-    exec('rm -f /tmp/yggdrasil-*.conf')
-
     if args.verbosity == 'verbose':
        print('stop yggdrasil in all namespaces')
 
+    exec('rm -f /tmp/yggdrasil-*.conf')
     if len(nsnames) > 0:
         pkill('yggdrasil')
 
