@@ -158,19 +158,16 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
 
     startup_ms = millis()
 
-    pairs_beg_ms = millis()
     pairs = list(get_random_pairs(nsnames, path_count))
-    pairs_end_ms = millis()
 
     ts_beg_beg_ms = millis()
     ts_beg = get_traffic_statistics(nsnames)
     ts_beg_end_ms = millis()
 
     if args.verbosity != 'quiet':
-        print('interface: {}, test duration: {}ms, pairs generation time: {}ms, traffic measurement time: {}ms'.format(
+        print('interface: {}, test duration: {}ms, traffic measurement time: {}ms'.format(
             interface,
             test_duration_ms,
-            (pairs_end_ms - pairs_beg_ms),
             (ts_beg_end_ms - ts_beg_beg_ms)
         ))
 
