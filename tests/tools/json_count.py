@@ -13,7 +13,11 @@ args = parser.parse_args()
 
 if args.action == 'count-nodes':
 	obj = json.load(open(args.input))
-	nodes = obj.get('nodes', [])
+	links = obj.get('links', [])
+	nodes = {}
+	for link in links:
+		nodes[link['source']] = 0;
+		nodes[link['target']] = 0;
 	print(len(nodes))
 elif args.action == 'count-links':
 	obj = json.load(open(args.input))
