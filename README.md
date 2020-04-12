@@ -5,10 +5,6 @@ A packet send on an interface will be received on all uplinks in all connected n
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns).
 
-Please note that wireless interference patterns are not part of the simulation.
-
-Topology and link quality changes are supported.
-
 Example JSON file:
 ```
 {
@@ -33,13 +29,6 @@ JSON keys:
 
 - `source`, `target`: Mandatory. Name of the network namespace. Maximum of 6 characters long.
 - `source_tc`, `target_tc`: Optional. It will be appended to the `tc qdisc add dev <veth-interface> root` command and affects outgoing traffic on interface pairs connecting the bridges. (TODO: verify that this actually works)
-
-Useful commands:
-
-- `./network.py list`: List all network namespaces.
-- `./network.py clear`: Remove all network namespaces.
-- `./network.py change <from-state> <to-state>`: Change the network from `<from-state>` to `<to-state>` via JSON files. `none` can be used as an alias for an empty network.
-- `ip netns exec "ns-a" batctl o`: Inspect the state of batman-adv in namespace `ns-a`.
 
 ## Usage
 
@@ -80,12 +69,6 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - Application can be started in ns1, ns2 and see only interface uplink
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
 - ve-* interfaces have property `isolated` set to `on`
-
-## TODO
-
-- Do not require the present state to be given.
-- Better topology generator (more features).
-- Mobility
 
 ## Routing Protocol Notes
 
