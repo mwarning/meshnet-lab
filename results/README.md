@@ -5,12 +5,12 @@
 Server:
 
 * Debian 10.3 (Linux Kernel 4.19.0-8-amd64)
-* Westmere Xeon (16 Cores) with 32GB RAM.
+* 2 x Intel Xeon X5687 (2 * 4 Cores, 3.86 GHz) with 32GB RAM.
 
 Laptop:
 
 * Void Linux (Linux 5.4.27_1 SMP PREEMPT x86_64)
-* i7-6500U (2 Cores, 2.50GHz) with 8GB RAM.
+* Intel i7-6500U (2 Cores, 2.50 GHz) with 8GB RAM.
 
 Routing Software:
 
