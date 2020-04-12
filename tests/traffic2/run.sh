@@ -11,7 +11,7 @@ run_test() {
 	local files="$2"
 	local seed=42
 
-	for graphfile in ${files}-*.json; do
+	for graphfile in ${files}*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
 		local links=$(../tools/json_count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}traffic2-$protocol-$name.csv"
@@ -61,4 +61,4 @@ sysctl -w net.ipv6.neigh.default.gc_thresh2=$((8 * 512))
 sysctl -w net.ipv6.neigh.default.gc_thresh3=$((8 * 1024))
 
 
-run_test 'batman-adv' '../../data/lattice4/lattice4'
+run_test 'batman-adv' '../../data/lattice4/'
