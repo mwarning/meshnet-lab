@@ -226,7 +226,7 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
     result_filler_ms = stop2_ms - stop1_ms
 
     result_rx_bytes = ts_end.rx_bytes - ts_beg.rx_bytes
-    result_rx_packets = ts_end.tx_packets - ts_beg.rx_packets
+    result_rx_packets = ts_end.rx_packets - ts_beg.rx_packets
     result_rx_errors = ts_end.rx_errors - ts_beg.rx_errors
     result_rx_dropped = ts_end.rx_dropped - ts_beg.rx_dropped
     result_rx_overrun = ts_end.rx_overrun - ts_beg.rx_overrun
