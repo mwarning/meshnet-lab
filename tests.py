@@ -276,7 +276,7 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
             len(nsnames),
             result_packets_send,
             result_packets_received,
-            wait_ms,
+            int(wait_ms),
             int(result_duration_ms + result_filler_ms),
             int(result_rtt_avg_ms),
             result_rx_bytes,
@@ -661,7 +661,7 @@ if args.action == 'start':
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
 elif args.action == 'test':
-    run_test(nsnames, args.protocol, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000.0, outfile)
+    run_test(nsnames, args.protocol, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)
 else:
     eprint('Unknown action: {}'.format(args.action))
     exit(1)
