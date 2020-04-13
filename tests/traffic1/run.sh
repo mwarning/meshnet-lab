@@ -28,14 +28,8 @@ run_test() {
 		# wait for network stacks etc. to set settle
 		sleep 10
 
-		# Start mesh program in every namespace
-		../../tests.py --verbosity 'verbose' "$protocol" start
-
-		# Run the ping test
+		# Start/Test/Stop the routing program
 		../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $links
-
-		# Stop batman-adv
-		../../tests.py --verbosity 'verbose' "$protocol" stop
 
 		# Remove all namespaces
 		../../network.py clear

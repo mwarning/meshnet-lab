@@ -151,30 +151,30 @@ def add_csv_header(file, header):
             file.write(lines[0] + header)
             file.write(lines[1])
 
-def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+'''
+1. traffic statistics
+2. start routing software (if not 'none')
+3. sleep wait_ms
+4. ping path_count times over test_duration_ms
+5. wait until test_duration_ms is over
+6. traffic statistics
+7. print/write data
+8. stop routing software (if not 'none')
+'''
+def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
     ping_deadline=1
     ping_count=1
     processes = []
 
-    startup_ms = millis()
-
     pairs = list(get_random_pairs(nsnames, path_count))
-
-    ts_beg_beg_ms = millis()
     ts_beg = get_traffic_statistics(nsnames)
-    ts_beg_end_ms = millis()
 
-    if args.verbosity != 'quiet':
-        print('interface: {}, test duration: {}ms, traffic measurement time: {}ms'.format(
-            interface,
-            test_duration_ms,
-            (ts_beg_end_ms - ts_beg_beg_ms)
-        ))
+    start_routing_protocol(protocol, nsnames)
 
-        if wait_ms > 0:
-            print('wait for {} seconds for pings to start.'.format(wait_ms / 1000.0))
-
-    time.sleep(wait_ms / 1000.0)
+    if wait_ms > 0:
+        time.sleep(wait_ms / 1000.0)
+        if args.verbosity != 'quiet':
+            print('wait for {} for pings to start.'.format(format_duration(wait_ms)))
 
     start_ms = millis()
     started = 0
@@ -303,6 +303,8 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
             '-' if (len(nsnames) == 0) else format_bytes(1000.0 * result_tx_bytes / result_duration_ms / len(nsnames))
         ))
 
+    stop_routing_protocol(protocol, nsnames)
+
 class TrafficStatisticSummary:
     def __init__(self):
         self.rx_bytes = 0
@@ -332,6 +334,24 @@ def format_bytes(size):
         size /= power
         n += 1
     return '{:.2f} {}B'.format(size, power_labels[n])
+
+def format_duration(time_ms):
+    d, remainder = divmod(time_ms, 24 * 60 * 60 * 1000)
+    h, remainder = divmod(remainder, 60 * 60 * 1000)
+    m, remainder = divmod(remainder, 60 * 1000)
+    s, remainder = divmod(remainder, 1000)
+    ms = remainder
+
+    if d > 0:
+        return "{}:{}d".format(int(d), int(h))
+    elif h > 0:
+        return "{}:{}h".format(int(h), int(m))
+    elif m > 0:
+        return "{}:{}m".format(int(m), int(s))
+    elif s > 0:
+        return "{}:{}s".format(int(s), int(ms))
+    else:
+        return "{}ms".format(int(ms))
 
 def get_traffic_statistics(nsnames):
     # fetch uplink statistics
@@ -636,7 +656,7 @@ if args.action == 'start':
 elif args.action == 'stop':
     stop_routing_protocol(args.protocol, nsnames)
 elif args.action == 'test':
-    run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000.0, outfile)
+    run_test(nsnames, args.protocol, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000.0, outfile)
 else:
     sys.stderr.write('Unknown action: {}\n'.format(args.action))
     exit(1)

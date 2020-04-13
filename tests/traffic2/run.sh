@@ -30,14 +30,8 @@ run_test() {
 
 		# 10 runs
 		for _ in 0 1 2 3 4 5 6 7 8 9; do
-			# Start mesh program in every namespace
-			../../tests.py --verbosity 'verbose' "$protocol" start
-
-			# Run the ping test
+			# Start/Test/Stop the routing program
 			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $links
-
-			# Stop batman-adv
-			../../tests.py --verbosity 'verbose' "$protocol" stop
 		done
 
 		# Remove all namespaces

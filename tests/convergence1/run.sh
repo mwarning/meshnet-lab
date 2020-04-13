@@ -36,16 +36,7 @@ run_test() {
 		offset=0
 		while [ $offset -le 60 ]; do
 			offset=$((offset + 2))
-			# Start mesh program in every namespace
-			../../tests.py --verbosity 'verbose' "$protocol" start
-
-			sleep $offset
-
-			echo -n "$offset	" >> $csvfile
-			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration --samples $samples
-
-			# Stop batman-adv
-			../../tests.py --verbosity 'verbose' "$protocol" stop
+			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" 'none' "test" --duration $duration --wait $offset --samples $samples
 		done
 
 		# Remove all namespaces
