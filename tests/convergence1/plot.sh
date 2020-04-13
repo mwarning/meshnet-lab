@@ -16,11 +16,11 @@ for id in 'line' 'rtree' 'lattice4'; do
 		set termoption lw 3;									\
 		set yrange [-5:105];									\
 		plot													\
-		'${prefix}convergence1-batman-adv-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv',	\
-		'${prefix}convergence1-babel-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel',			\
-		'${prefix}convergence1-yggdrasil-$id.csv' (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil',	\
-		'${prefix}convergence1-olsr2-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr2',			\
-		'${prefix}convergence1-bmx6-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx6',				\
-		'${prefix}convergence1-bmx7-$id.csv' using (column('offset_sec')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7';				\
+		'${prefix}convergence1-batman-adv-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv',	\
+		'${prefix}convergence1-babel-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel',			\
+		'${prefix}convergence1-yggdrasil-$id.csv' (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil',	\
+		'${prefix}convergence1-olsr2-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr2',			\
+		'${prefix}convergence1-bmx6-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx6',				\
+		'${prefix}convergence1-bmx7-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7';				\
 	"
 done

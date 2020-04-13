@@ -249,6 +249,7 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
             'node_count '
             'packets_send '
             'packets_received '
+            'wait_ms '
             'duration_ms '
             'rtt_avg_ms '
             'rx_bytes '
@@ -268,13 +269,14 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
         # add csv header if not present
         add_csv_header(outfile, header.replace(' ', args.csv_delimiter))
 
-        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {}\n'.format(
+        outfile.write('{:0.2f} {:0.2f} {:0.2f} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {}\n'.format(
             lavg[0],
             lavg[1],
             lavg[2],
             len(nsnames),
             result_packets_send,
             result_packets_received,
+            wait_ms,
             int(result_duration_ms + result_filler_ms),
             int(result_rtt_avg_ms),
             result_rx_bytes,
