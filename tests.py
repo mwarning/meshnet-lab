@@ -345,13 +345,21 @@ def format_duration(time_ms):
     ms = remainder
 
     if d > 0:
-        return "{}:{}d".format(int(d), int(h))
+        if h > 0:
+            return "{}.{}d".format(int(d), int(h))
+        return "{}d".format(int(d))
     elif h > 0:
-        return "{}:{}h".format(int(h), int(m))
+        if m > 0:
+            return "{}.{}h".format(int(h), int(m))
+        return "{}h".format(int(h))
     elif m > 0:
-        return "{}:{}m".format(int(m), int(s))
+        if s > 0:
+            return "{}.{}m".format(int(m), int(s))
+        return "{}m".format(int(m))
     elif s > 0:
-        return "{}:{}s".format(int(s), int(ms))
+        if ms > 0:
+            return "{}.{}s".format(int(s), int(ms))
+        return "{}s".format(int(s))
     else:
         return "{}ms".format(int(ms))
 
