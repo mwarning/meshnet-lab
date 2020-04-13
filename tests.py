@@ -629,11 +629,10 @@ parser_test = subparsers.add_parser('test', help='Measure reachability and traff
 parser_test.add_argument('--duration', type=int, default=1, help='Duration in seconds for this test.')
 parser_test.add_argument('--samples', type=int, default=10, help='Number of random paths to test (not unique, no destination to self).')
 parser_test.add_argument('--wait', type=int, default=0, help='Seconds to wait after the begin of the traffic measurement before pings are send.')
-
 args = parser.parse_args()
 
 if os.popen('id -u').read().strip() != '0':
-    sys.stderr.write('Need to run as root.\n')
+    eprint('Need to run as root.')
     exit(1)
 
 random.seed(args.seed)
@@ -662,5 +661,5 @@ elif args.action == 'stop':
 elif args.action == 'test':
     run_test(nsnames, args.protocol, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000.0, outfile)
 else:
-    sys.stderr.write('Unknown action: {}\n'.format(args.action))
+    eprint('Unknown action: {}'.format(args.action))
     exit(1)
