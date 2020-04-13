@@ -408,14 +408,6 @@ def pkill(pname):
     eprint('Failed to kill {}'.format(pname))
     exit(1)
 
-def start_none_instances(nsnames):
-    # nothing to do
-    pass
-
-def stop_none_instances(nsnames):
-    # nothing to do
-    pass
-
 def start_cjdns_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
@@ -560,6 +552,8 @@ def stop_bmx6_instances(nsnames):
         exec('rm -rf /tmp/bmx6_*')
 
 def start_routing_protocol(protocol, nsnames):
+    beg_ms = millis()
+
     if protocol == 'batman-adv':
         start_batmanadv_instances(nsnames)
     elif protocol == 'yggdrasil':
@@ -575,12 +569,18 @@ def start_routing_protocol(protocol, nsnames):
     elif protocol == 'cjdns':
         start_cjdns_instances(nsnames)
     elif protocol == 'none':
-        start_none_instances(nsnames)
+        return
     else:
         eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
 
+    end_ms = millis()
+    if args.verbosity == 'verbose':
+        print('Started {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
+
 def stop_routing_protocol(protocol, nsnames):
+    beg_ms = millis()
+
     if protocol == 'batman-adv':
         stop_batmanadv_instances(nsnames)
     elif protocol == 'yggdrasil':
@@ -596,10 +596,14 @@ def stop_routing_protocol(protocol, nsnames):
     elif protocol == 'cjdns':
         stop_cjdns_instances(nsnames)
     elif protocol == 'none':
-        stop_none_instances(nsnames)
+        return
     else:
         eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
+
+    end_ms = millis()
+    if args.verbosity == 'verbose':
+        print('Stopped {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
