@@ -1,0 +1,5 @@
+load_avg1	load_avg5	load_avg15	node_count	packets_send	packets_received	wait_ms	duration_ms	rtt_avg_ms	rx_bytes	rx_packets	rx_errors	rx_dropped	rx_overrun	rx_mcast	tx_bytes	tx_packets	tx_errors	tx_dropped	tx_carrier	tx_collsns
+0.34	0.68	0.82	50	25	13	60000	60002	0	2041460	17336	0	0	0	0	1041904	8848	0	0	0	0
+0.36	0.64	0.79	100	50	17	60000	60002	0	4453151	37851	0	0	0	0	2250929	19137	0	0	0	0
+0.47	0.73	0.81	150	75	28	60000	60001	0	7188747	61261	0	0	0	0	3620232	30855	0	0	0	0
+0.73	0.79	0.85	200	100	40	60000	60000	0	10200077	86909	0	0	0	0	5127239	43691	0	0	0	0
