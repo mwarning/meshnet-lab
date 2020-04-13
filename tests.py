@@ -294,11 +294,11 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
         ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
-        print('send: {}, received: {}, load: {}/{}/{}, lost: {}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
+        print('send: {}, received: {}, load: {}/{}/{}, arrived: {}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
             result_packets_send,
             result_packets_received,
             lavg[0], lavg[1], lavg[2],
-            '-' if (result_packets_send == 0) else '{:0.2f}'.format(100.0 - 100.0 * (result_packets_received / result_packets_send)),
+            '-' if (result_packets_send == 0) else '{:0.2f}'.format(100.0 * (result_packets_received / result_packets_send)),
             result_duration_ms,
             result_filler_ms,
             '-' if (len(nsnames) == 0) else format_bytes(1000.0 * result_tx_bytes / result_duration_ms / len(nsnames)),
