@@ -39,7 +39,13 @@ Note that the packet arrival rates are usually pretty bad. This is probably beca
 
 ![image](laptop/traffic1/2_traffic1-lattice4.png)
 
-bmx7 and cjdns show a very low arrival rate, so their graphs should be ignored. The worse performer seems to be batman-adv here. But those traffic usage is not backed by reality. But maybe it is because of the lattice structure. Further investigations are needed.
+bmx7 and cjdns show a very low arrival rate, so their graphs should be ignored. The worst performer seems to be batman-adv here. But the traffic usage is not what is seen in reality. Maybe it is because of the lattice structure, also with no packet loss. Further investigations are needed.
+
+Let's wait for 60 seconds until starting the test.
+
+![image](laptop/traffic1/3_traffic1-lattice4.png)
+
+No big change for batman-adv here.
 
 ### Traffic2 Test
 
