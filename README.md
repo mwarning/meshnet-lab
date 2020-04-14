@@ -38,27 +38,21 @@ Most commands need root. So we assume all commands are execute as root:
 # Create a 10x10 lattice and write it to a file called graph.json
 ./topology.py lattice4 10 10 > graph.json
 
-# Setup the network structure
+# Create Network
 ./network.py change none graph.json
 
-# Start batman-adv in every node/namespace
-./tests.py batman-adv start
-
-# Test convergence and traffic
+# Run Tests
 ./tests.py batman-adv test
 
-# Stop batman-adv
-./tests.py batman-adv stop
-
-# Remove namespaces
+# Remove Network
 ./network.py change graph.json none
 ```
 
-As an alternative, you can remove all namespace using `./network.py clear`.
+As an alternative, you can remove all namespaces using `./network.py clear`.
 
 ## Internal Working
 
-Every node is represented by its own network namespace and a bridge that resides in namespace `switch`. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`. Veth interface pairs connect the bridges in the `switch` namespace.
+Every node is represented by its own network namespace (`ns-*`) and a namespace called `switch` that contains all the cabling. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`.
 
 All interfaces in the bridges (except the `dl-<node>`) are set to `isolated`. This makes data flow only to and from the non-isolated `dl-<node>` interface, but not between them.
 
@@ -66,7 +60,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ![Visual Example](misc/network_mapping.png)
 
-- Application can be started in ns1, ns2, ns3 and see only their interface called uplink
+- Application can be started in ns1, ns2, ns3 and see only their interface called `uplink`
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
 - ve-* interfaces have property `isolated` set to `on`
 
