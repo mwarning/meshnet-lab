@@ -16,6 +16,7 @@ run_test() {
 		local links=$(../tools/json_count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}traffic1-$protocol-$name.csv"
 		local duration_sec=60
+		local wait_sec=0
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
@@ -29,7 +30,7 @@ run_test() {
 		sleep 10
 
 		# Start/Test/Stop the routing program
-		../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait 60 --samples $links
+		../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait $wait_sec --samples $links
 
 		# Remove all namespaces
 		../../network.py clear
