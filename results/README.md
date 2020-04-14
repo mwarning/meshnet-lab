@@ -1,16 +1,22 @@
 # Test Results
 
-## Environments
+The results might not yet reflect real performance yet. Possible pitfalls:
+
+* CPU usage can affect the results
+* not all aspects are compared yet (e.g. mobility, packet loss)
+* edge case topologies and traffic behavior (e.g. 0% packet loss)
+
+## Hardware
 
 Server:
 
 * Debian 10.3 (Linux Kernel 4.19.0-8-amd64)
-* 2 x Intel Xeon X5687 (2 * 4 Cores, 3.86 GHz) with 32GB RAM.
+* 2 x Intel Xeon X5687 (2 * 4 Cores, 3.86 GHz) with 32GB RAM
 
 Laptop:
 
 * Void Linux (Linux 5.4.27_1 SMP PREEMPT x86_64)
-* Intel i7-6500U (2 Cores, 2.50 GHz) with 8GB RAM.
+* Intel i7-6500U (2 Cores, 2.50 GHz) with 8GB RAM
 
 Routing Software:
 
@@ -22,11 +28,9 @@ Routing Software:
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
 
-## Results
+## Convergence1 Test
 
-### Convergence1 Test
-
-### Traffic1 Test
+## Traffic1 Test
 
 ![image](server/traffic1/1_traffic1-lattice4.png)
 ![image](server/traffic1/1_traffic1-line.png)
@@ -47,7 +51,7 @@ Let's wait for 60 seconds until starting the test.
 
 No big change for batman-adv here.
 
-### Traffic2 Test
+## Traffic2 Test
 
 Only for batman-adv, but with error bars:
 
@@ -56,4 +60,4 @@ Laptop:
 ![image](laptop/traffic2/1_traffic2-batman-adv-lattice4.png)
 
 The dropping packet arrival rate after 100 nodes might indicate that the system has come to its limits.
-Also "kworker/u32:1+bat_events" is at 100% for a long time.
+Also "kworker/u32:1+bat_events" is at 100% for a long time for many nodes.
