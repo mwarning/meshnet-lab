@@ -35,8 +35,8 @@ JSON keys:
 Most commands need root. So we assume all commands are execute as root:
 
 ```
-# Create a 10x10 lattice and write it to a file called graph.json
-./topology.py lattice4 10 10 > graph.json
+# Create a 10x10 grid and write it to a file called graph.json
+./topology.py grid4 10 10 > graph.json
 
 # Create Network
 ./network.py change none graph.json

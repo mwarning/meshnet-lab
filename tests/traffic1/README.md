@@ -2,7 +2,7 @@
 
 Test the about of traffic caused by different routing protocols on different topologies:
 
-- different sizes of line, lattice and random tree topologies
+- different sizes of line, grid and random tree topologies
 - different Freifunk network topologies
 
 ## Run

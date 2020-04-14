@@ -49,4 +49,4 @@ fi
 # need to open more files (especially for traffic measurement processes)
 ulimit -Sn 4096
 
-run_test 'batman-adv' '../../data/lattice4/'
+run_test 'batman-adv' '../../data/grid4/'

@@ -48,7 +48,7 @@ fi
 ulimit -Sn 4096
 
 # artificial data sets
-for files in '../../data/line/' '../../data/lattice4/' '../../data/rtree/'; do
+for files in '../../data/line/' '../../data/grid4/' '../../data/rtree/'; do
 	for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7' 'cjdns'; do
 		run_test "$protocol" "$files"
 	done

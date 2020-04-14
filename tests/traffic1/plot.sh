@@ -3,7 +3,7 @@
 # to distinguish multiple runs (if needed)
 prefix="$1"
 
-for id in 'line' 'rtree' 'lattice4'; do
+for id in 'line' 'rtree' 'grid4'; do
 	gnuplot -e "
 		set title \"Traffic by routing protocol on $id\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings\";	\
 		set grid;																			\

@@ -11,7 +11,7 @@ import glob
 def eprint(s):
     sys.stderr.write(s + '\n')
 
-def create_lattice(x_count, y_count, diag = False):
+def create_grid(x_count, y_count, diag = False):
     links = []
     offset = 0
 
@@ -94,12 +94,12 @@ parser.add_argument('--target-tc', help='Value for each links target_tc.')
 parser.add_argument('--formatted', action='store_true', help='Output formatted json.')
 
 subparsers = parser.add_subparsers(dest='topology', required=True)
-parser_lattice4 = subparsers.add_parser('lattice4', help='Create a lattice structure with horizontal and vertical connections.')
-parser_lattice4.add_argument('n', type=int, help='Node count in X direction.')
-parser_lattice4.add_argument('m', type=int, help='Node count in Y direction.')
-parser_lattice8 = subparsers.add_parser('lattice8', help='Create a lattice structure of horizontal, vertical and vertical connections.')
-parser_lattice8.add_argument('n', type=int, help='Node count in X direction.')
-parser_lattice8.add_argument('m', type=int, help='Node count in Y direction.')
+parser_grid4 = subparsers.add_parser('grid4', help='Create a grid structure with horizontal and vertical connections.')
+parser_grid4.add_argument('n', type=int, help='Node count in X direction.')
+parser_grid4.add_argument('m', type=int, help='Node count in Y direction.')
+parser_grid8 = subparsers.add_parser('grid8', help='Create a grid structure of horizontal, vertical and vertical connections.')
+parser_grid8.add_argument('n', type=int, help='Node count in X direction.')
+parser_grid8.add_argument('m', type=int, help='Node count in Y direction.')
 parser_circle = subparsers.add_parser('circle', help='Create nodes connected into a circle.')
 parser_circle.add_argument('n', type=int, help='Node count.')
 parser_line = subparsers.add_parser('line', help='Create nodes connected in a line.')
@@ -115,10 +115,10 @@ args = parser.parse_args()
 
 links = []
 
-if args.topology == 'lattice4':
-    links = create_lattice(args.n, args.m, diag = False)
-elif args.topology == 'lattice8':
-    links = create_lattice(args.n, args.m, diag = True)
+if args.topology == 'grid4':
+    links = create_grid(args.n, args.m, diag = False)
+elif args.topology == 'grid8':
+    links = create_grid(args.n, args.m, diag = True)
 elif args.topology == 'circle':
     links = create_line(args.n, loop = True)
 elif args.topology == 'line':

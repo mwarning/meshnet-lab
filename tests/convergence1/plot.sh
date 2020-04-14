@@ -3,7 +3,7 @@
 # to distinguish multiple runs (if needed)
 prefix="$1"
 
-for id in 'line' 'rtree' 'lattice4'; do
+for id in 'line' 'rtree' 'grid4'; do
 	gnuplot -e "
 		set title \"Reachability on a $id of 100 nodes.\nLinks without packet loss, 100 random pings over 5-6 seconds\";	\
 		set grid;												\

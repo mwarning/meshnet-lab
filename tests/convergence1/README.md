@@ -1,6 +1,6 @@
 # Convergence Test 1
 
-Test the convergence of different routing protocols on three topologies (line, lattice and a random tree) of 100 nodes each.
+Test the convergence of different routing protocols on three topologies (line, grid and a random tree) of 100 nodes each.
 
 ## Run
 
