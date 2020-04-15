@@ -22,5 +22,6 @@ for id in 'line' 'rtree' 'grid4'; do
 		'${prefix}convergence1-olsr2-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr2',			\
 		'${prefix}convergence1-bmx6-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx6',				\
 		'${prefix}convergence1-bmx7-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7';				\
+		'${prefix}convergence1-cjdns-$id.csv' using (column('wait_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'cjdns';				\
 	"
 done
