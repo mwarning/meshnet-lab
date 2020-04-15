@@ -177,6 +177,26 @@ def stop_babel_instances(nsnames):
         pkill('babeld')
         exec('rm -f /tmp/babel-*.pid')
 
+def start_olsr1_instances(nsnames):
+    for nsname in nsnames:
+        setup_uplink(nsname, 'uplink')
+
+    # olsr block and wait 5 seconds if no interface is ready
+    time.sleep(1)
+
+    for nsname in nsnames:
+        if args.verbosity == 'verbose':
+            print('start olsr1 on {}'.format(nsname))
+
+        exec('ip netns exec "{}" olsrd -d 0 -ipv6 -i "uplink" -f /dev/null'.format(nsname))
+
+def stop_olsr1_instances(nsnames):
+    if args.verbosity == 'verbose':
+        print('stop olsr1 in all namespaces')
+
+    if len(nsnames) > 0:
+        pkill('olsrd')
+
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
@@ -259,6 +279,8 @@ def start_routing_protocol(protocol, nsnames):
         start_yggdrasil_instances(nsnames)
     elif protocol == 'babel':
         start_babel_instances(nsnames)
+    elif protocol == 'olsr1':
+        start_olsr1_instances(nsnames)
     elif protocol == 'olsr2':
         start_olsr2_instances(nsnames)
     elif protocol == 'bmx6':
@@ -286,6 +308,8 @@ def stop_routing_protocol(protocol, nsnames):
         stop_yggdrasil_instances(nsnames)
     elif protocol == 'babel':
         stop_babel_instances(nsnames)
+    elif protocol == 'olsr1':
+        stop_olsr1_instances(nsnames)
     elif protocol == 'olsr2':
         stop_olsr2_instances(nsnames)
     elif protocol == 'bmx6':
@@ -329,12 +353,14 @@ def get_nsnames(from_state, to_state):
 
     from_nsnames = get_node_set(from_state)
     to_nsnames = get_node_set(to_state)
+    a = from_nsnames.intersection(to_nsnames)
+    b = to_nsnames.intersection(from_nsnames)
     # (old_nsnames, new_nsnames)
-    return (from_nsnames.intersection(to_nsnames), to_nsnames.intersection(from_nsnames))
+    return (a, b)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
-    choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
+    choices=['none', 'babel', 'batman-adv', 'olsr1', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
     help='Routing protocol to set up.')
 parser.add_argument('--verbosity',
     choices=['verbose', 'normal', 'quiet'],

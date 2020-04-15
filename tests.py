@@ -348,7 +348,7 @@ def get_traffic_statistics(nsnames):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
-    choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
+    choices=['none', 'babel', 'batman-adv', 'olsr1', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
     help='Routing protocol to set up.')
 parser.add_argument('--verbosity',
     choices=['verbose', 'normal', 'quiet'],
