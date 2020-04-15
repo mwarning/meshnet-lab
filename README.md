@@ -1,9 +1,10 @@
 # Mesh Network Lab
 
-Create connected Linux network namespaces each with a single `uplink` interface.
-A packet send on an interface will be received on all uplinks in all connected namespaces as defined in the JSON file. Examples of [test results](results/) are available.
+Simulate a mesh network of hundreds of nodes on a local computer. The network is realized by creating Linux network namespaces and connecting them via virtual Ethernet interfaces. The entire network is defined by a JSON file.
 
-This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns).
+Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on that interface will be received on the uplinks of all connected namespaces.
+
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR2](https://www.olsr.org), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/) are available.
 
 Example JSON file:
 ```
@@ -87,8 +88,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
-- [mlc](https://github.com/axn/mlc) (for bmx routing daemon, very complex)
-- [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, very simple)
-- [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, simple)
+- [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
+- [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, simple)
+- [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, very simple)
 - [Running Babel/OLSR/BMX7 inside kubernetes](https://media.freifunk.net/v/multipathtcp-with-un-meshed-networks-and-running-babel-olsr-bmx7-inside-kubernetes-and-containers)
 - Freifunk Berlin [firmware test](https://github.com/freifunk-berlin/firmware/wiki/Local-testing) (uses docker containers)
