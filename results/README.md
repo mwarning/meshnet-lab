@@ -32,10 +32,19 @@ Routing Software:
 
 ## Traffic1 Test
 
-![image](server/traffic1/1_traffic1-lattice4.png)
+### Server / Lattice4
+
+![image](server/traffic1/1_traffic1-grid4.png)
+
+### Server / Line
+
 ![image](server/traffic1/1_traffic1-line.png)
+
+### Server / RTree
+
 ![image](server/traffic1/1_traffic1-rtree.png)
 
+### Laptop / Lattice4
 
 ![image](laptop/traffic1/1_traffic1-grid4.png)
 
@@ -43,7 +52,7 @@ Note that the packet arrival rates are usually pretty bad. This is probably beca
 
 ![image](laptop/traffic1/2_traffic1-grid4.png)
 
-bmx7 and cjdns show a very low arrival rate (high packet loss), so their graphs should be ignored. The worst performer seems to be batman-adv here. But the traffic usage is not what is seen in reality. Maybe it is because of the lattice structure and lack of packet loss. Further investigations are needed.
+bmx7 and cjdns show a very low arrival rate (high packet loss), so their graphs should be ignored. The worst performer seems to be batman-adv here. But the traffic usage is not what is seen in reality. Maybe it is because of the grid structure and lack of packet loss. Further investigations are needed.
 
 Let's wait for 60 seconds until starting the test.
 
@@ -53,11 +62,9 @@ No big change for batman-adv here.
 
 ## Traffic2 Test
 
-Only for batman-adv, but with error bars:
-
-Laptop:
+### Laptop Lattice4
 
 ![image](laptop/traffic2/1_traffic2-batman-adv-grid4.png)
 
 The dropping packet arrival rate after 100 nodes might indicate that the system has come to its limits.
-Also "kworker/u32:1+bat_events" is at 100% for a long time for many nodes.
+For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
