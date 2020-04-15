@@ -16,7 +16,7 @@ run_test() {
 		local links=$(../tools/json_count.py "$graphfile" 'count-links')
 		local csvfile="${prefix}traffic1-$protocol-$name.csv"
 		local duration_sec=60
-		local wait_sec=0
+		local wait_sec=30
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
@@ -26,17 +26,22 @@ run_test() {
 		# Setup the network structure of namespaces
 		../../network.py --ignore-tc 'change' none "$graphfile"
 
-		# wait for network stacks etc. to set settle
+		# Wait for network stacks etc. to set settle
 		sleep 10
 
-		# Start/Test/Stop the routing program
-		../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" "$protocol" "test" --duration $duration_sec --wait $wait_sec --samples $links
+		# Start software
+		../../software.py --verbosity 'verbose' "$protocol" start
+
+		# Run test
+		../../tests.py --verbosity 'verbose' "$protocol" --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration_sec --wait $wait_sec --samples $links
+
+		# Stop software
+		../../software.py --verbosity 'verbose' "$protocol" stop
 
 		# Remove all namespaces
 		../../network.py clear
 	done
 }
-
 
 # Ask for sudo password
 if [ $(id -u) -ne 0 ]; then

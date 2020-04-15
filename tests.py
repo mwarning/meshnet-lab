@@ -14,34 +14,6 @@ import re
 def eprint(s):
     sys.stderr.write(s + '\n')
 
-def exec(cmd, detach=False):
-    rc = 0
-
-    if args.verbosity == 'verbose':
-        if detach:
-            rc = os.system('{} &'.format(cmd))
-        else:
-            rc = os.system('{}'.format(cmd))
-    elif args.verbosity == 'normal':
-        if detach:
-            rc = os.system('{} > /dev/null &'.format(cmd))
-        else:
-            rc = os.system('{} > /dev/null'.format(cmd))
-    elif args.verbosity == 'quiet':
-        if detach:
-            rc = os.system('{} > /dev/null 2>&1 &'.format(cmd))
-        else:
-            rc = os.system('{} > /dev/null 2>&1'.format(cmd))
-    else:
-        eprint('Abort, invalid verbosity: {}'.format(args.verbosity))
-        exit(1)
-
-    if rc != 0:
-        eprint('Abort, command failed: {}'.format(cmd))
-        #todo: kill routing programs!
-        #print('Cleanup done')
-        exit(1)
-
 # get time in milliseconds
 def millis():
     return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
@@ -87,15 +59,6 @@ def get_ipv6_address(nsname, interface):
                 return addr
 
     return lladdr
-
-def get_mac_address(nsname, interface):
-    # print only MAC address
-    output = os.popen('ip netns exec "{}" ip -0 addr list dev {}'.format(nsname, interface)).read()
-    for line in output.split('\n'):
-        if 'link/ether ' in line:
-            return line.split()[1]
-
-    return None
 
 class PingResult:
     transmitted = 0
@@ -153,15 +116,12 @@ def add_csv_header(file, header):
 
 '''
 1. traffic statistics
-2. start routing software (if not 'none')
-3. sleep wait_ms
-4. ping path_count times over test_duration_ms
-5. wait until test_duration_ms is over
-6. traffic statistics
-7. print/write data
-8. stop routing software (if not 'none')
+2. ping path_count times over test_duration_ms
+3. wait until test_duration_ms is over
+4. traffic statistics
+5. print/write data
 '''
-def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
     ping_deadline=1
     ping_count=1
     processes = []
@@ -169,12 +129,10 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
     pairs = list(get_random_pairs(nsnames, path_count))
     ts_beg = get_traffic_statistics(nsnames)
 
-    start_routing_protocol(protocol, nsnames)
-
     if wait_ms > 0:
         time.sleep(wait_ms / 1000.0)
         if args.verbosity != 'quiet':
-            print('wait for {} for pings to start.'.format(format_duration(wait_ms)))
+            print('Wait for {} for pings to start.'.format(format_duration(wait_ms)))
 
     start_ms = millis()
     started = 0
@@ -305,8 +263,6 @@ def run_test(nsnames, protocol, interface, path_count = 10, test_duration_ms = 1
             '-' if (len(nsnames) == 0) else format_bytes(1000.0 * result_tx_bytes / result_duration_ms / len(nsnames))
         ))
 
-    stop_routing_protocol(protocol, nsnames)
-
 class TrafficStatisticSummary:
     def __init__(self):
         self.rx_bytes = 0
@@ -390,231 +346,6 @@ def get_traffic_statistics(nsnames):
 
     return ret
 
-# Set some IPv6 address
-def setup_uplink(nsname, interface):
-    def eui64_suffix(nsname, interface):
-        mac = get_mac_address(nsname, interface)
-        return '{:02x}{}:{}ff:fe{}:{}{}'.format(
-            int(mac[0:2], 16) ^ 2, # byte with flipped bit
-            mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
-        )
-
-    exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, interface))
-    exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
-    exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev {}'.format(
-        nsname,
-        eui64_suffix(nsname, interface),
-        interface
-    ))
-
-def pkill(pname):
-    for _ in range(0, 10):
-        rc = os.system('pkill -9 {}'.format(pname))
-        if rc != 0:
-            # assume that there is no process left to kill
-            return
-        time.sleep(1)
-
-    eprint('Failed to kill {}'.format(pname))
-    exit(1)
-
-def start_cjdns_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start cjdns on {}'.format(nsname))
-
-        exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
-        exec('ip netns exec "{}" cjdroute < /tmp/cjdns-{}.conf'.format(nsname, nsname), True)
-
-def stop_cjdns_instances(nsnames):
-    if args.verbosity == 'verbose':
-       print('stop cjdns in all namespaces')
-
-    exec('rm -f /tmp/cjdns-*.conf')
-    if len(nsnames) > 0:
-        pkill('cjdroute')
-
-def start_yggdrasil_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start yggdrasil on {}'.format(nsname))
-
-        # Create a configuration file
-        configfile = '/tmp/yggdrasil-{}.conf'.format(nsname)
-        f = open(configfile, 'w')
-        f.write('AdminListen: none')
-        f.close()
-
-        exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
-
-def stop_yggdrasil_instances(nsnames):
-    if args.verbosity == 'verbose':
-       print('stop yggdrasil in all namespaces')
-
-    exec('rm -f /tmp/yggdrasil-*.conf')
-    if len(nsnames) > 0:
-        pkill('yggdrasil')
-
-def start_batmanadv_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start batman-adv on {}'.format(nsname))
-
-        exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, 'uplink'))
-        exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, 'uplink'))
-        exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
-        setup_uplink(nsname, 'bat0')
-
-def stop_batmanadv_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('stop batman-adv on {}'.format(nsname))
-
-        exec('ip netns exec "{}" batctl meshif "bat0" interface del "uplink"'.format(nsname))
-
-def start_babel_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start babel on {}'.format(nsname))
-
-        setup_uplink(nsname, 'uplink')
-        exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
-
-def stop_babel_instances(nsnames):
-    if args.verbosity == 'verbose':
-        print('stop babel in all namespaces')
-
-    if len(nsnames) > 0:
-        pkill('babeld')
-        exec('rm -f /tmp/babel-*.pid')
-
-def start_olsr2_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start olsr2 on {}'.format(nsname))
-
-        # Create a configuration file
-        # Print all settings: olsrd2_static --schema=all
-        configfile = '/tmp/olsrd2-{}.conf'.format(nsname)
-        f = open(configfile, 'w')
-        f.write(
-            '[global]\n'
-            'fork       yes\n'
-            'lockfile   -\n'
-            '\n'
-            # restrict to IPv6
-            '[olsrv2]\n'
-            'originator  -0.0.0.0/0\n'
-            'originator  -::1/128\n'
-            'originator  default_accept\n'
-            '\n'
-            # restrict to IPv6
-            '[interface]\n'
-            'bindto  -0.0.0.0/0\n'
-            'bindto  -::1/128\n'
-            'bindto  default_accept\n'
-        )
-        f.close()
-
-        setup_uplink(nsname, 'uplink')
-        exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
-
-def stop_olsr2_instances(nsnames):
-    if args.verbosity == 'verbose':
-        print('stop olsr2 in all namespaces')
-
-    if len(nsnames) > 0:
-        pkill('olsrd2')
-        exec('rm -f /tmp/olsrd2-*.conf')
-
-def start_bmx7_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start bmx7 on {}'.format(nsname))
-
-        exec('rm -rf /tmp/bmx7_*')
-        setup_uplink(nsname, 'uplink')
-        exec('ip netns exec "{}" bmx7 --runtimeDir /tmp/bmx7_{} dev=uplink'.format(nsname, nsname))
-
-def stop_bmx7_instances(nsnames):
-    if args.verbosity == 'verbose':
-        print('stop bmx7 in all namespaces')
-
-    if len(nsnames) > 0:
-        pkill('bmx7')
-        exec('rm -rf /tmp/bmx7_*')
-
-def start_bmx6_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('start bmx6 on {}'.format(nsname))
-
-        exec('rm -rf /tmp/bmx6_*')
-        setup_uplink(nsname, 'uplink')
-        exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
-
-def stop_bmx6_instances(nsnames):
-    if args.verbosity == 'verbose':
-        print('stop bmx6 in all namespaces')
-
-    if len(nsnames) > 0:
-        pkill('bmx6')
-        exec('rm -rf /tmp/bmx6_*')
-
-def start_routing_protocol(protocol, nsnames):
-    beg_ms = millis()
-
-    if protocol == 'batman-adv':
-        start_batmanadv_instances(nsnames)
-    elif protocol == 'yggdrasil':
-        start_yggdrasil_instances(nsnames)
-    elif protocol == 'babel':
-        start_babel_instances(nsnames)
-    elif protocol == 'olsr2':
-        start_olsr2_instances(nsnames)
-    elif protocol == 'bmx6':
-        start_bmx6_instances(nsnames)
-    elif protocol == 'bmx7':
-        start_bmx7_instances(nsnames)
-    elif protocol == 'cjdns':
-        start_cjdns_instances(nsnames)
-    elif protocol == 'none':
-        return
-    else:
-        eprint('Error: unknown routing protocol: {}'.format(protocol))
-        exit(1)
-
-    end_ms = millis()
-    if args.verbosity == 'verbose':
-        print('Started {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
-
-def stop_routing_protocol(protocol, nsnames):
-    beg_ms = millis()
-
-    if protocol == 'batman-adv':
-        stop_batmanadv_instances(nsnames)
-    elif protocol == 'yggdrasil':
-        stop_yggdrasil_instances(nsnames)
-    elif protocol == 'babel':
-        stop_babel_instances(nsnames)
-    elif protocol == 'olsr2':
-        stop_olsr2_instances(nsnames)
-    elif protocol == 'bmx6':
-        stop_bmx6_instances(nsnames)
-    elif protocol == 'bmx7':
-        stop_bmx7_instances(nsnames)
-    elif protocol == 'cjdns':
-        stop_cjdns_instances(nsnames)
-    elif protocol == 'none':
-        return
-    else:
-        eprint('Error: unknown routing protocol: {}'.format(protocol))
-        exit(1)
-
-    end_ms = millis()
-    if args.verbosity == 'verbose':
-        print('Stopped {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
-
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
     choices=['none', 'babel', 'batman-adv', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
@@ -631,14 +362,19 @@ parser.add_argument('--csv-out',
 parser.add_argument('--csv-delimiter',
     default='\t',
     help='Delimiter for CSV output columns. Default: tab character')
+parser.add_argument('--duration',
+    type=int,
+    default=1,
+    help='Duration in seconds for this test.')
+parser.add_argument('--samples',
+    type=int,
+    default=10,
+    help='Number of random paths to test (not unique, no destination to self).')
+parser.add_argument('--wait',
+    type=int,
+    default=0,
+    help='Seconds to wait after the begin of the traffic measurement before pings are send.')
 
-subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
-parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
-parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
-parser_test = subparsers.add_parser('test', help='Measure reachability and traffic.')
-parser_test.add_argument('--duration', type=int, default=1, help='Duration in seconds for this test.')
-parser_test.add_argument('--samples', type=int, default=10, help='Number of random paths to test (not unique, no destination to self).')
-parser_test.add_argument('--wait', type=int, default=0, help='Seconds to wait after the begin of the traffic measurement before pings are send.')
 args = parser.parse_args()
 
 if os.popen('id -u').read().strip() != '0':
@@ -646,9 +382,6 @@ if os.popen('id -u').read().strip() != '0':
     exit(1)
 
 random.seed(args.seed)
-
-# all ns-* network namespaces
-nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
 # network interface to send packets to/from
 uplink_interface = 'uplink'
@@ -663,13 +396,6 @@ if args.protocol == 'batman-adv':
 elif args.protocol == 'yggdrasil':
     uplink_interface = 'tun0'
 
-
-if args.action == 'start':
-    start_routing_protocol(args.protocol, nsnames)
-elif args.action == 'stop':
-    stop_routing_protocol(args.protocol, nsnames)
-elif args.action == 'test':
-    run_test(nsnames, args.protocol, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)
-else:
-    eprint('Unknown action: {}'.format(args.action))
-    exit(1)
+# all ns-* network namespaces
+nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
+run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)

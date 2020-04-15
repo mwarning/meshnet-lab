@@ -41,8 +41,14 @@ Most commands need root. So we assume all commands are execute as root:
 # Create Network
 ./network.py change none graph.json
 
+# Start Software
+./tests.py batman-adv start
+
 # Run Tests
-./tests.py batman-adv test
+./tests.py batman-adv
+
+# Stop Software
+./tests.py batman-adv stop
 
 # Remove Network
 ./network.py change graph.json none

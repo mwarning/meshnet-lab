@@ -19,11 +19,6 @@ run_test() {
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
-		# file empty or does not exists => write header name
-		if [ ! -s "$csvfile" ]; then
-			echo 'offset_sec	' >> $csvfile
-		fi
-
 		# clear (just in case)
 		../../network.py clear
 
@@ -36,7 +31,15 @@ run_test() {
 		offset=0
 		while [ $offset -le 60 ]; do
 			offset=$((offset + 2))
-			../../tests.py --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" 'none' "test" --duration $duration --wait $offset --samples $samples
+
+			# Start program
+			../../software.py "$protocol" start
+
+			# Run tests
+			../../tests.py "$protocol" --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration --wait $offset --samples $samples
+
+			# Stop program
+			../../software.py "$protocol" stop
 		done
 
 		# Remove all namespaces
