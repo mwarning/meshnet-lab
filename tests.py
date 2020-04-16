@@ -147,6 +147,8 @@ def run_test(protocol, nsnames, interface, path_count = 10, test_duration_ms = 1
         started_expected = math.ceil(((millis() - start_ms) / test_duration_ms) * len(pairs))
         if started_expected > started:
             for _ in range(0, started_expected - started):
+                if len(pairs) == 0:
+                    break;
                 (nssource, nstarget) = pairs.pop()
                 nstarget_addr = get_ip_address(nstarget, interface)
 
