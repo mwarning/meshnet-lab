@@ -43,19 +43,19 @@ Most commands need root. So we assume all commands are execute as root:
 ./network.py change none graph.json
 
 # Start Software
-./tests.py batman-adv start
+./tests.py start batman-adv
 
 # Run Tests
 ./tests.py batman-adv
 
 # Stop Software
-./tests.py batman-adv stop
+./tests.py stop batman-adv
 
 # Remove Network
 ./network.py change graph.json none
 ```
 
-As an alternative, you can remove all namespaces using `./network.py clear`.
+As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`.
 
 ## Internal Working
 

@@ -31,13 +31,13 @@ run_test() {
 		# 10 runs
 		for _ in 0 1 2 3 4 5 6 7 8 9; do
 			# Start software
-			../../software.py "$protocol" start
+			../../software.py start "$protocol"
 
 			# Run tests
 			../../tests.py "$protocol" --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration_sec --wait 60 --samples $links
 
 			# Stop software
-			../../software.py "$protocol" stop
+			../../software.py stop "$protocol"
 		done
 
 		# Remove all namespaces

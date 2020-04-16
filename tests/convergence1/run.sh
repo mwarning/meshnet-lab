@@ -33,13 +33,13 @@ run_test() {
 			offset=$((offset + 2))
 
 			# Start program
-			../../software.py "$protocol" start
+			../../software.py start "$protocol"
 
 			# Run tests
 			../../tests.py "$protocol" --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration --wait $offset --samples $samples
 
 			# Stop program
-			../../software.py "$protocol" stop
+			../../software.py stop "$protocol"
 		done
 
 		# Remove all namespaces

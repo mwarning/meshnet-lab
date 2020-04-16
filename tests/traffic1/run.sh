@@ -30,13 +30,13 @@ run_test() {
 		sleep 10
 
 		# Start software
-		../../software.py --verbosity 'verbose' "$protocol" start
+		../../software.py --verbosity 'verbose' start "$protocol"
 
 		# Run test
 		../../tests.py --verbosity 'verbose' "$protocol" --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration_sec --wait $wait_sec --samples $links
 
 		# Stop software
-		../../software.py --verbosity 'verbose' "$protocol" stop
+		../../software.py --verbosity 'verbose' stop "$protocol"
 
 		# Remove all namespaces
 		../../network.py clear
