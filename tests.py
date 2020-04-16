@@ -153,7 +153,7 @@ def run_test(protocol, nsnames, interface, path_count = 10, test_duration_ms = 1
                 if args.verbosity == 'verbose':
                     print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, nssource, nstarget, nstarget_addr, interface))
 
-                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', str(ping_count), '-w', str(ping_deadline), '-D', nstarget_addr]
+                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', str(ping_count), '-w', str(ping_deadline), '-D', nstarget_addr, '-I', interface]
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 processes.append(process)
                 started += 1
