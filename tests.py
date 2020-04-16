@@ -121,7 +121,7 @@ def add_csv_header(file, header):
 4. traffic statistics
 5. print/write data
 '''
-def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+def run_test(protocol, nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
     ping_deadline=1
     ping_count=1
     processes = []
@@ -252,7 +252,8 @@ def run_test(nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_
         ).replace(' ', args.csv_delimiter))
 
     if args.verbosity != 'quiet':
-        print('send: {}, received: {}, load: {}/{}/{}, arrived: {}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
+        print('{}: send: {}, received: {}, load: {}/{}/{}, arrived: {}%, measurement span: {}ms + {}ms, tx: {}/s/node, rx: {}/s/node'.format(
+            protocol,
             result_packets_send,
             result_packets_received,
             lavg[0], lavg[1], lavg[2],
@@ -398,4 +399,4 @@ elif args.protocol == 'yggdrasil':
 
 # all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
-run_test(nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)
+run_test(args.protocol, nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)
