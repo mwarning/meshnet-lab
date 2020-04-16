@@ -396,6 +396,8 @@ if args.protocol == 'batman-adv':
     uplink_interface = 'bat0'
 elif args.protocol == 'yggdrasil':
     uplink_interface = 'tun0'
+elif args.protocol == 'cjdns':
+    uplink_interface = 'tun0'
 
 # all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
