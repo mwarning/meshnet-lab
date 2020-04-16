@@ -79,8 +79,11 @@ def format_duration(time_ms):
     else:
         return "{}ms".format(int(ms))
 
-# Set some IPv6 address
-def setup_uplink(nsname, interface):
+def reset_interface(nsname, interface):
+    exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, interface))
+    exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
+
+def set_addr6(nsname, interface, prefix_len):
     def eui64_suffix(nsname, interface):
         mac = get_mac_address(nsname, interface)
         return '{:02x}{}:{}ff:fe{}:{}{}'.format(
@@ -88,11 +91,26 @@ def setup_uplink(nsname, interface):
             mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
         )
 
-    exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, interface))
-    exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
-    exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/64 dev {}'.format(
+    exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/{} dev {}'.format(
         nsname,
         eui64_suffix(nsname, interface),
+        prefix_len,
+        interface
+    ))
+
+def set_addr4(nsname, interface, prefix_len):
+    if not nsname.startswith('ns-'):
+        eprint('namespace expected to start with ns-: {}'.format(nsname))
+        exit(1)
+
+    n = int(nsname[3:])
+    a, b = divmod(n, 255)
+
+    exec('ip netns exec "{}" ip address add 10.0.{}.{}/{} dev {}'.format(
+        nsname,
+        a,
+        b,
+        prefix_len,
         interface
     ))
 
@@ -126,7 +144,7 @@ def stop_cjdns_instances(nsnames):
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start yggdrasil on {}'.format(nsname))
+            print('start yggdrasil in {}'.format(nsname))
 
         # Create a configuration file
         configfile = '/tmp/yggdrasil-{}.conf'.format(nsname)
@@ -134,11 +152,12 @@ def start_yggdrasil_instances(nsnames):
         f.write('AdminListen: none')
         f.close()
 
+        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
     if args.verbosity == 'verbose':
-       print('stop yggdrasil in all namespaces')
+       print('stop yggdrasil in {} namespaces'.format(len(nsnames)))
 
     exec('rm -f /tmp/yggdrasil-*.conf')
     if len(nsnames) > 0:
@@ -147,31 +166,31 @@ def stop_yggdrasil_instances(nsnames):
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start batman-adv on {}'.format(nsname))
+            print('start batman-adv in {}'.format(nsname))
 
-        exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, 'uplink'))
-        exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, 'uplink'))
+        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
-        setup_uplink(nsname, 'bat0')
+        reset_interface(nsname, 'bat0')
 
 def stop_batmanadv_instances(nsnames):
-    for nsname in nsnames:
-        if args.verbosity == 'verbose':
-            print('stop batman-adv on {}'.format(nsname))
+    if args.verbosity == 'verbose':
+        print('stop batman-adv in {} namespaces'.format(len(nsnames)))
 
+    for nsname in nsnames:
         exec('ip netns exec "{}" batctl meshif "bat0" interface del "uplink"'.format(nsname))
 
 def start_babel_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start babel on {}'.format(nsname))
+            print('start babel in {}'.format(nsname))
 
-        setup_uplink(nsname, 'uplink')
+        reset_interface(nsname, 'uplink')
+        set_addr6(nsname, 'uplink', 64)
         exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
     if args.verbosity == 'verbose':
-        print('stop babel in all namespaces')
+        print('stop babel in {} namespaces'.format(len(nsnames)))
 
     if len(nsnames) > 0:
         pkill('babeld')
@@ -179,20 +198,22 @@ def stop_babel_instances(nsnames):
 
 def start_olsr1_instances(nsnames):
     for nsname in nsnames:
-        setup_uplink(nsname, 'uplink')
+        reset_interface(nsname, 'uplink')
+        # OLSR1 IPv6 seems to be broken/buggy
+        set_addr4(nsname, 'uplink', 32)
 
     # olsr block and wait 5 seconds if no interface is ready
     time.sleep(1)
 
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start olsr1 on {}'.format(nsname))
+            print('start olsr1 in {}'.format(nsname))
 
-        exec('ip netns exec "{}" olsrd -d 0 -ipv6 -i "uplink" -f /dev/null'.format(nsname))
+        exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
 
 def stop_olsr1_instances(nsnames):
     if args.verbosity == 'verbose':
-        print('stop olsr1 in all namespaces')
+        print('stop olsr1 in {} namespaces'.format(len(nsnames)))
 
     if len(nsnames) > 0:
         pkill('olsrd')
@@ -200,7 +221,7 @@ def stop_olsr1_instances(nsnames):
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start olsr2 on {}'.format(nsname))
+            print('start olsr2 in {}'.format(nsname))
 
         # Create a configuration file
         # Print all settings: olsrd2_static --schema=all
@@ -225,12 +246,13 @@ def start_olsr2_instances(nsnames):
         )
         f.close()
 
-        setup_uplink(nsname, 'uplink')
+        reset_interface(nsname, 'uplink')
+        set_addr6(nsname, 'uplink', 128)
         exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
 
 def stop_olsr2_instances(nsnames):
     if args.verbosity == 'verbose':
-        print('stop olsr2 in all namespaces')
+        print('stop olsr2 in {} namespaces'.format(len(nsnames)))
 
     if len(nsnames) > 0:
         pkill('olsrd2')
@@ -239,15 +261,14 @@ def stop_olsr2_instances(nsnames):
 def start_bmx7_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start bmx7 on {}'.format(nsname))
+            print('start bmx7 in {}'.format(nsname))
 
-        exec('rm -rf /tmp/bmx7_*')
-        setup_uplink(nsname, 'uplink')
-        exec('ip netns exec "{}" bmx7 --runtimeDir /tmp/bmx7_{} dev=uplink'.format(nsname, nsname))
+        reset_interface(nsname, 'uplink')
+        exec('ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{0} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{0}/rsa.der --trustedNodesDir=/tmp/bmx7_{0}/trusted dev=uplink'.format(nsname))
 
 def stop_bmx7_instances(nsnames):
     if args.verbosity == 'verbose':
-        print('stop bmx7 in all namespaces')
+        print('stop bmx7 in {} namespaces'.format(len(nsnames)))
 
     if len(nsnames) > 0:
         pkill('bmx7')
@@ -256,15 +277,14 @@ def stop_bmx7_instances(nsnames):
 def start_bmx6_instances(nsnames):
     for nsname in nsnames:
         if args.verbosity == 'verbose':
-            print('start bmx6 on {}'.format(nsname))
+            print('start bmx6 in {}'.format(nsname))
 
-        exec('rm -rf /tmp/bmx6_*')
-        setup_uplink(nsname, 'uplink')
+        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
 
 def stop_bmx6_instances(nsnames):
     if args.verbosity == 'verbose':
-        print('stop bmx6 in all namespaces')
+        print('stop bmx6 in {} namespaces'.format(len(nsnames)))
 
     if len(nsnames) > 0:
         pkill('bmx6')
@@ -296,7 +316,7 @@ def start_routing_protocol(protocol, nsnames):
         exit(1)
 
     end_ms = millis()
-    if args.verbosity == 'verbose':
+    if args.verbosity != 'quiet':
         print('Started {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
 
 def stop_routing_protocol(protocol, nsnames):
@@ -325,7 +345,7 @@ def stop_routing_protocol(protocol, nsnames):
         exit(1)
 
     end_ms = millis()
-    if args.verbosity == 'verbose':
+    if args.verbosity != 'quiet':
         print('Stopped {} instances in {}'.format(len(nsnames), format_duration(end_ms - beg_ms)))
 
 def get_all_nsnames():
