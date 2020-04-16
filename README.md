@@ -1,10 +1,10 @@
 # Mesh Network Lab
 
-Simulate a mesh network of hundreds of nodes on a local computer. The network is realized by creating Linux network namespaces and connecting them via virtual Ethernet interfaces. The entire network is defined by a JSON file.
+Simulate a mesh network of hundreds of nodes on a local computer. The network is realized using Linux network namespaces and connecting them via virtual Ethernet interfaces. The network is defined in a JSON file.
 
 Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on that interface will be received on the uplinks of all connected namespaces.
 
-This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd)\*, [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/) are available. (\* possibly buggy)
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/) are available.
 
 Example JSON file:
 ```
@@ -76,9 +76,14 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - BATMAN-adv:
   - needs batctl installed for tests
   - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
+  - the current metric limits the maximum hop count to 32 ((source)[https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html])
+  - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
   - but it still seems to work without
-- Babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops.
+  - tested with olsr2 0.15.1
+- OLSR1 has buggy/broken IPv6 support, we use IPv4 instead
+  - tested with olsr1 0.9.8
+- Babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops. ([source](https://alioth-lists.debian.net/pipermail/babel-users/2020-April/003688.html))
   - `default rxcost 16` in the configuration file should help
 - Yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
   - encrypts traffic
