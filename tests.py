@@ -44,21 +44,27 @@ def get_random_pairs(items, npairs):
 
     return pairs
 
-# get IPv6 address, use fe80:: address as fallback
-# TODO: return IPv6 address of the broadest scope in general
-def get_ipv6_address(nsname, interface):
-    lladdr = None
-    # print only IPv6 addresses
+'''
+Return an IP address of the interface in this preference order:
+1. IPv4
+2. IPv6 not link local
+3. IPv6 link local
+'''
+def get_ip_address(nsname, interface):
+    lladdr6 = None
     output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
     for line in output.split('\n'):
+        if 'inet ' in line:
+            addr4 = line.split()[1].split('/')[0]
+            return addr4
         if 'inet6 ' in line:
-            addr = line.split()[1].split('/')[0]
-            if addr.startswith('fe80'):
-                lladdr = addr
+            addr6 = line.split()[1].split('/')[0]
+            if addr6.startswith('fe80'):
+                lladdr6 = addr6
             else:
-                return addr
+                return addr6
 
-    return lladdr
+    return lladdr6
 
 class PingResult:
     transmitted = 0
@@ -142,7 +148,7 @@ def run_test(protocol, nsnames, interface, path_count = 10, test_duration_ms = 1
         if started_expected > started:
             for _ in range(0, started_expected - started):
                 (nssource, nstarget) = pairs.pop()
-                nstarget_addr = get_ipv6_address(nstarget, interface)
+                nstarget_addr = get_ip_address(nstarget, interface)
 
                 if args.verbosity == 'verbose':
                     print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, nssource, nstarget, nstarget_addr, interface))
