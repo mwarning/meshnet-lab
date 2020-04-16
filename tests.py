@@ -287,12 +287,6 @@ class TrafficStatisticSummary:
         self.tx_carrier = 0
         self.tx_collsns = 0
 
-    def print(self):
-        print('received {} ({} bytes, {} packets), send: {} ({} bytes, {} packets)'.format(
-            format_bytes(self.rx_bytes), self.rx_bytes, self.rx_packets,
-            format_bytes(self.tx_bytes), self.tx_bytes, self.tx_packets
-        ))
-
 def format_bytes(size):
     power = 1000
     n = 0
