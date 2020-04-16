@@ -127,7 +127,8 @@ def add_csv_header(file, header):
 4. traffic statistics
 5. print/write data
 '''
-def run_test(protocol, nsnames, interface, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+def run_test(protocol, nsnames, path_count = 10, test_duration_ms = 1000, wait_ms = 0, outfile = None):
+    interface = get_uplink(protocol)
     ping_deadline=1
     ping_count=1
     processes = []
@@ -349,6 +350,17 @@ def get_traffic_statistics(nsnames):
 
     return ret
 
+def get_uplink(protocol):
+    # some protocols use their own interface as entry point to the mesh
+    if protocol == 'batman-adv':
+        return 'bat0'
+    elif protocol == 'yggdrasil':
+        return 'tun0'
+    elif protocol == 'cjdns':
+        return 'tun0'
+    else:
+        return 'uplink'
+
 parser = argparse.ArgumentParser()
 parser.add_argument('protocol',
     choices=['none', 'babel', 'batman-adv', 'olsr1', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns'],
@@ -386,21 +398,10 @@ if os.popen('id -u').read().strip() != '0':
 
 random.seed(args.seed)
 
-# network interface to send packets to/from
-uplink_interface = 'uplink'
-
 outfile = None
 if args.csv_out is not None:
     outfile = open(args.csv_out, 'a+')
 
-# batman-adv uses its own interface as entry point to the mesh
-if args.protocol == 'batman-adv':
-    uplink_interface = 'bat0'
-elif args.protocol == 'yggdrasil':
-    uplink_interface = 'tun0'
-elif args.protocol == 'cjdns':
-    uplink_interface = 'tun0'
-
 # all ns-* network namespaces
 nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
-run_test(args.protocol, nsnames, uplink_interface, args.samples, args.duration * 1000, args.wait * 1000, outfile)
+run_test(args.protocol, nsnames, args.samples, args.duration * 1000, args.wait * 1000, outfile)
