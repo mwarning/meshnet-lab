@@ -9,7 +9,6 @@ prefix="$1"
 run_test() {
 	local protocol="$1"
 	local files="$2"
-	local seed=42
 
 	for graphfile in ${files}*.json; do
 		local name=$(basename "$graphfile" | rev | cut -d'-' -f2- | rev)
@@ -34,7 +33,7 @@ run_test() {
 			../../software.py start "$protocol"
 
 			# Run tests
-			../../tests.py "$protocol" --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --seed "$seed" --duration $duration_sec --wait 60 --samples $links
+			../../tests.py "$protocol" --verbosity 'verbose' --csv-delimiter '	' --csv-out "$csvfile" --duration $duration_sec --wait 60 --samples $links
 
 			# Stop software
 			../../software.py stop "$protocol"
