@@ -62,9 +62,19 @@ No big change for batman-adv here.
 
 ## Traffic2 Test
 
-### Laptop Lattice4
+### Laptop Grid4
+
+With a single threaded `bat_events` events queue:
 
 ![image](laptop/traffic2/1_traffic2-batman-adv-grid4.png)
 
 The dropping packet arrival rate after 100 nodes might indicate that the system has come to its limits.
+For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
+
+### Server Grid4
+
+With a single threaded `bat_events` events queue:
+
+![image](server/traffic2/1_traffic2-batman-adv-grid4.png)
+
 For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
