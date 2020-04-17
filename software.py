@@ -116,10 +116,17 @@ def set_addr4(nsname, interface, prefix_len):
     ))
 
 def pkill(pname):
-    out = subprocess.Popen(['pkill', '-c', '-9', pname],stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-    matched = int(out.communicate()[0])
-    #killed = False if out.returncode == 0 else True
-    return matched
+    for i in range(0, 4):
+        signal = '-SIGTERM' if i < 2 else '-SIGKILL'
+        out = subprocess.Popen(['pkill', '-c', signal, pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+        matched = int(out.communicate()[0])
+        if out.returncode != 0:
+            return matched
+
+        time.sleep(1)
+
+    eprint('Failed to kill {}'.format(pname))
+    exit(1)
 
 def start_cjdns_instances(nsnames):
     for nsname in nsnames:
