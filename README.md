@@ -77,6 +77,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - needs batctl installed for tests
   - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
+  - with many batman-adv instances on a single computer, bat_events becomes quickly a single threaded bottleneck
+    - change the create_singlethread_workqueue() call to create_workqueue() in net/batman-adv/main.c ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
   - but it still seems to work without
