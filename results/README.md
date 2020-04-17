@@ -32,7 +32,7 @@ Routing Software:
 
 ## Traffic1 Test
 
-### Server / Lattice4
+### Server / Grid4
 
 ![image](server/traffic1/1_traffic1-grid4.png)
 
@@ -44,7 +44,7 @@ Routing Software:
 
 ![image](server/traffic1/1_traffic1-rtree.png)
 
-### Laptop / Lattice4
+### Laptop / Grid4
 
 ![image](laptop/traffic1/1_traffic1-grid4.png)
 
