@@ -1,6 +1,6 @@
 # Mesh Network Lab
 
-Emulate a mesh network of hundreds of nodes on a local computer. The network is realized using Linux network namespaces and connecting them via virtual Ethernet interfaces. The network is defined in a JSON file.
+Emulate a mesh network of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
 
 Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on that interface will be received on the uplinks of all connected namespaces.
 
@@ -67,7 +67,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ![Visual Example](misc/network_mapping.png)
 
-- Application can be started in ns1, ns2, ns3 and see only their interface called `uplink`
+- Applications can be started in ns1, ns2, ns3 and see only their interface called `uplink`
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
 - ve-* interfaces have property `isolated` set to `on`
 
@@ -75,10 +75,10 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 - BATMAN-adv:
   - needs batctl installed for tests
-  - OGM TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
-  - with many batman-adv instances on a single computer, bat_events becomes quickly a single threaded bottleneck
-    - change the create_singlethread_workqueue() call to create_workqueue() in net/batman-adv/main.c ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
+  - `kworker/u32:1+bat_events` becomes quickly a single threaded bottleneck
+    - change `create_singlethread_workqueue()` to `create_workqueue()` in `net/batman-adv/main.c` ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
+  - OGM paket TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
   - but it still seems to work without
