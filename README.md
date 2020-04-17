@@ -1,6 +1,6 @@
 # Mesh Network Lab
 
-Simulate a mesh network of hundreds of nodes on a local computer. The network is realized using Linux network namespaces and connecting them via virtual Ethernet interfaces. The network is defined in a JSON file.
+Emulate a mesh network of hundreds of nodes on a local computer. The network is realized using Linux network namespaces and connecting them via virtual Ethernet interfaces. The network is defined in a JSON file.
 
 Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on that interface will be received on the uplinks of all connected namespaces.
 
