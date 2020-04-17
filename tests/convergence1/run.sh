@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # exit on any error
-set -ex
+set -e
 
 # to distinguish multiple runs (if needed)
 prefix="$1"
