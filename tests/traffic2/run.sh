@@ -18,9 +18,6 @@ run_test() {
 
 		echo "$(date): start $protocol on $(basename \"$graphfile\")"
 
-		# clear (just in case)
-		../../network.py clear
-
 		# Setup the network structure of namespaces
 		../../network.py --ignore-tc 'change' none "$graphfile"
 
@@ -50,6 +47,9 @@ if [ $(id -u) -ne 0 ]; then
 	echo "Need to be called as root or with sudo."
 	exit 1
 fi
+
+../../software.py clear
+../../network.py clear
 
 # need to open more files (especially for traffic measurement processes)
 ulimit -Sn 4096
