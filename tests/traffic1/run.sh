@@ -58,8 +58,3 @@ for files in '../../data/line/' '../../data/grid4/' '../../data/rtree/'; do
 		run_test "$protocol" "$files"
 	done
 done
-
-# freifunk data set
-for protocol in 'olsr2' 'batman-adv' 'yggdrasil' 'babel' 'bmx6' 'bmx7' 'cjdns'; do
-	run_test "$protocol" "../../data/freifunk/freifunk"
-done
