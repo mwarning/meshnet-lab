@@ -16,8 +16,10 @@ gnuplot -e "
 	set ylabel 'tx per node [KB/s]';												\
 	set y2label 'ping arrival [%]';													\
 	set termoption lw 3;																\
-	set xtics 0, 100;																	\
+	set xtics 0, 50;																	\
+	set xrange [0:1050]; \
 	set y2tics 0, 10;																	\
+	set y2range [0:100]; \
 	set ytics nomirror;																	\
 	plot																				\
 	'${prefix}traffic2-batman-adv-grid4_new.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')):((((column('tx_bytes_range') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) / 2) with errorbars notitle axis x1y1,	\
