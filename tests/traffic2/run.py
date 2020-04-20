@@ -47,7 +47,7 @@ with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
 			# Wait until 60s are over, else error
 			tools.wait(wait_beg_ms, wait)
 
-			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000)
+			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000, verbosity='verbose')
 
 			sysload_result = tools.sysload()
 

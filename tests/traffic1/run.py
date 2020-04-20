@@ -50,7 +50,7 @@ def run(protocol, files, csvfile, tc = ''):
 		# Wait until wai seconds are over, else error
 		tools.wait(wait_beg_ms, wait)
 
-		ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000)
+		ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000, verbosity='verbose')
 
 		traffic_end = tools.traffic()
 
