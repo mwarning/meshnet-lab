@@ -146,7 +146,7 @@ def traffic(nsnames=None):
     return ts
 
 # add titles and values to a CSV file
-def csv_update(file, default_delimiter, *args):
+def csv_update(file, delimiter, *args):
     titles = list()
     values = list()
 
@@ -162,74 +162,10 @@ def csv_update(file, default_delimiter, *args):
     for i in range(0, len(values)):
         values[i] = str(values[i])
 
-    pos = file.tell()
-    if pos > 0:
-        file.seek(0)
+    if file.tell() == 0:
+        file.write(delimiter.join(titles) + '\n')
 
-    def includes(item, line, delimiter):
-        line = line.strip()
-        idx = line.find(item)
-        if idx < 0:
-            return False
-        else:
-            if idx > 0 and line[idx - 1] != delimiter:
-                return False
-
-            if (idx + len(item)) < len(line) and line[idx + len(item)] != delimiter:
-                return False
-
-            return True
-
-    def get_delimiter(header):
-        delimiter = None
-        delimiter_prio = -1
-        for c in header:
-            prio = " ,;\t".find(c)
-            if prio < 0:
-                continue
-            elif prio > delimiter_prio:
-                delimiter = c
-                delimiter_prio = prio
-
-        return delimiter
-
-    header = file.readline()
-    delimiter = get_delimiter(header)
-    header = header.strip()
-
-    if delimiter is None:
-        delimiter = default_delimiter
-
-    titles = delimiter.join(titles)
-    values = delimiter.join(values)
-
-    if includes(titles, header, delimiter):
-        file.seek(pos)
-    else:
-        # add titles to header
-        if len(header) == 0:
-            # add trailing delimiter to keep delimiter information
-            header += titles + delimiter
-        else:
-            header += delimiter + titles
-
-        content = file.read()
-        file.seek(0)
-        file.truncate()
-        file.write(header + '\n' + content)
-
-    def is_line_start(file):
-        pos = file.tell()
-        if pos == 0:
-            return True
-        else:
-            file.seek(pos - 1)
-            return (file.read() == '\n')
-
-    if is_line_start(file):
-        file.write(values)
-    else:
-        file.write(delimiter + values)
+    file.write(delimiter.join(values) + '\n')
 
 # get time in milliseconds
 def millis():
