@@ -324,7 +324,7 @@ def start_routing_protocol(protocol, nsnames):
 
     end_ms = millis()
     if verbosity != 'quiet':
-        print('Started {} of {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
+        print('Started {} {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
 def stop_routing_protocol(protocol, nsnames):
     count = 0
