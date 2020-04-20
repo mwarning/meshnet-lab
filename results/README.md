@@ -78,3 +78,7 @@ With a single threaded `bat_events` events queue:
 ![image](server/traffic2/1_traffic2-batman-adv-grid4.png)
 
 For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
+
+With a multithreaded `bat_events` events queue:
+
+![image](server/traffic2/2_traffic2-batman-adv-grid4.png)
