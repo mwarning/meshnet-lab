@@ -17,7 +17,11 @@ network.clear()
 # need to open more files (especially for traffic measurement processes)
 os.system('ulimit -Sn 4096')
 
-prefix = '' if len(sys.argv) <= 1 else sys.argv[1]
+prefix = os.environ.get('PREFIX', '')
+tc = os.environ.get('TC', '')
+wait = os.environ.get('WAIT', 60)
+
+print(f'prefix: "{prefix}", wait: "{wait}", tc: "{tc}"')
 
 def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
@@ -34,26 +38,29 @@ def run(protocol, files, csvfile):
 		tools.sleep(10)
 
 		for offset in range(0, 60, 2):
-			beg_ts = tools.traffic()
-			beg_ms = tools.millis()
+			wait_beg_ms = tools.millis()
 
+			tmp_ms = tools.millis()
+			traffic_beg = tools.traffic()
+			traffic_ms = tools.millis() - tmp_ms
+
+			tmp_ms = tools.millis()
 			software.start(protocol)
+			software_ms = tools.millis() - tmp_ms
 
-			tools.sleep(offset)
+			# Wait until wai seconds are over, else error
+			tools.wait(wait_beg_ms, wait)
 
 			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000)
 
-			end_ts = tools.traffic()
-			end_ms = tools.millis()
+			traffic_end = tools.traffic()
 
 			sysload_result = tools.sysload()
 
-			# add data to csv file
-			tools.csv_update(csvfile, '\t',
-				tools.Wrapper(['startup_ms', 'wait_ms'], [end_ms - beg_ms, offset * 1000]), (end_ts - beg_ts), ping_result, sysload_result)
-
-			exit(1)
 			software.stop(protocol)
+
+			# add data to csv file
+			tools.csv_update(csvfile, '\t', tools.Wrapper(['traffic_ms', 'software_ms'], [traffic_ms, software_ms]), (traffic_end - traffic_beg), ping_result, sysload_result)
 
 		network.clear()
 

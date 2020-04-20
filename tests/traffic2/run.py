@@ -17,7 +17,12 @@ network.clear()
 # need to open more files (especially for traffic measurement processes)
 os.system('ulimit -Sn 4096')
 
-prefix = '' if len(sys.argv) <= 1 else sys.argv[1]
+prefix = os.environ.get('PREFIX', '')
+tc = os.environ.get('TC', '')
+wait = os.environ.get('WAIT', 60)
+
+print(f'prefix: "{prefix}", wait: "{wait}", tc: "{tc}"')
+
 protocol = 'batman-adv'
 name = 'grid4'
 
@@ -31,28 +36,24 @@ with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc='')
+		network.change(from_state='none', to_state=path, force_tc=tc)
 		tools.sleep(10)
 
 		for i in range(0, 10):
-			beg_ms = tools.millis()
-			beg_ts = tools.traffic()
+			wait_beg_ms = tools.millis()
 
 			software.start(protocol)
 
 			# Wait until 60s are over, else error
-			tools.wait(beg_ms, 60)
+			tools.wait(wait_beg_ms, wait)
 
 			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000)
-
-			end_ts = tools.traffic()
-			end_ms = tools.millis()
 
 			sysload_result = tools.sysload()
 
 			software.stop(protocol)
 
 			# add data to csv file
-			tools.csv_update(csvfile, '\t', tools.Wrapper('startup_ms', end_ms - beg_ms), (end_ts - beg_ts), ping_result, sysload_result)
+			tools.csv_update(csvfile, '\t', ping_result, sysload_result)
 
 		network.clear()
