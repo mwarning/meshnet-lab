@@ -6,23 +6,9 @@ import json
 import sys
 import os
 
-parser = argparse.ArgumentParser(
-    formatter_class=argparse.RawDescriptionHelpFormatter,
-    description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
-parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
-parser.add_argument('--ignore-tc', action='store_true', help='Ignore source_tc/target_tc (traffic control) parameters from JSON.')
-parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
-parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
-
-subparsers = parser.add_subparsers(dest='action', required=True)
-
-parser_change = subparsers.add_parser('change', help='Create or change a virtual network.')
-parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
-parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
-subparsers.add_parser('list', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
-subparsers.add_parser('clear', help='Remove all Linux network namespaces. Processes still might need to be killed.')
-
-args = parser.parse_args()
+block_arp = False
+block_multicast = False
+verbose = False
 
 def eprint(s):
     sys.stderr.write(s + '\n')
@@ -41,15 +27,15 @@ def configure_interface(nsname, ifname):
     # disable arp / multicast
     # we do not want the OS to send packets on its own,
     # but many mesh protocols need arp/multicast on each link to work
-    if args.block_arp:
+    if block_arp:
         exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
 
-    if args.block_multicast:
+    if block_multicast:
         exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
 
 def remove_node(node):
     name = node.name
-    if args.verbose:
+    if verbose:
         print('  remove node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
@@ -67,7 +53,7 @@ def remove_node(node):
 
 def create_node(node):
     name = node.name
-    if args.verbose:
+    if verbose:
         print('  create node {}'.format(name))
 
     nsname = 'ns-{}'.format(name)
@@ -104,30 +90,31 @@ def create_node(node):
     configure_interface(nsname, upname)
 
 def remove_link(link):
-    if args.verbose:
+    if verbose:
         print('  remove link {} <-> {}'.format(link.source, link.target))
 
     ifname1 = 've-{}-{}'.format(link.source, link.target)
     ifname2 = 've-{}-{}'.format(link.target, link.source)
+
     exec('ip netns exec "switch" ip link del "{}" type veth peer name "{}"'.format(ifname1, ifname2))
 
 def update_link(link):
-    if args.verbose:
+    if verbose:
         print('  update link {} <-> {}'.format(link.source, link.target))
 
     ifname1 = 've-{}-{}'.format(link.source, link.target)
     ifname2 = 've-{}-{}'.format(link.target, link.source)
 
     # source -> target
-    if not args.ignore_tc and link.source_tc is not None:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.source_tc))
+    if link.source_tc:
+        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname1, link.source_tc))
 
     # target -> source
-    if not args.ignore_tc and link.target_tc is not None:
+    if link.target_tc:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 def create_link(link):
-    if args.verbose:
+    if verbose:
         print('  create link {} <-> {}'.format(link.source, link.target))
 
     nsname1 = 'ns-{}'.format(link.source)
@@ -153,11 +140,11 @@ def create_link(link):
     exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname2))
 
     # source -> target
-    if not args.ignore_tc and link.source_tc is not None:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.source_tc))
+    if link.source_tc:
+        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname1, link.source_tc))
 
     # target -> source
-    if not args.ignore_tc and link.target_tc is not None:
+    if link.target_tc:
         exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
 
 class Link:
@@ -182,7 +169,7 @@ class Task:
         self.nodes_create = []
         self.nodes_remove = []
 
-def process_json(json_data):
+def process_json(json_data, force_tc):
     links = {}
     nodes = {}
     for link in json_data['links']:
@@ -190,6 +177,10 @@ def process_json(json_data):
         target = str(link['target'])
         source_tc = link.get('source_tc')
         target_tc = link.get('target_tc')
+
+        if force_tc is not None:
+            source_tc = force_tc
+            target_tc = force_tc
 
         if len(source) > 6:
             eprint('node name too long: {}'.format(source))
@@ -212,7 +203,7 @@ def process_json(json_data):
 
     return (links, nodes)
 
-def get_task(from_state, to_state):
+def get_task(from_state, to_state, force_tc):
     # empty defaults
     old = json.loads('{"links":[]}')
     new = json.loads('{"links":[]}')
@@ -223,8 +214,8 @@ def get_task(from_state, to_state):
     if to_state != 'none':
         new = json.load(open(to_state))
 
-    (links_old, nodes_old) = process_json(old)
-    (links_new, nodes_new) = process_json(new)
+    (links_old, nodes_old) = process_json(old, force_tc)
+    (links_new, nodes_new) = process_json(new, force_tc)
 
     data = Task()
 
@@ -253,22 +244,18 @@ def get_task(from_state, to_state):
 
     return data
 
-
-if os.popen('id -u').read().strip() != '0':
-    eprint('Need to run as root.')
-    exit(1)
-
-if args.action == 'clear':
+def clear():
     os.system('ip -all netns delete')
-elif args.action == 'list':
-    os.system('ip netns list')
-elif args.action == 'change':
 
-    data = get_task(args.from_state, args.to_state)
+def list():
+    os.system('ip netns list')
+
+def change(from_state=None, to_state=None, force_tc=None):
+    data = get_task(from_state, to_state, force_tc)
 
     # add "switch" namespace
-    if args.from_state == 'none':
-        if args.verbose:
+    if from_state == 'none':
+        if verbose:
             print('  create "switch"')
         # add switch if it does not exist yet
         exec('ip netns add "switch" || true')
@@ -291,11 +278,46 @@ elif args.action == 'change':
         remove_node(node)
 
     # remove "switch" namespace
-    if args.to_state == 'none':
-        if args.verbose:
+    if to_state == 'none':
+        if verbose:
             print('  remove "switch"')
         exec('ip netns del "switch" || true')
 
-else:
-    eprint('Invalid command: {}'.format(args.action))
-    exit(1)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
+    parser.set_defaults(from_state=None, to_state=None)
+
+    parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
+    parser.add_argument('--force-tc', help='Overwrite source_tc/target_tc (traffic control) parameters from JSON.')
+    parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
+    parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
+
+    subparsers = parser.add_subparsers(dest='action', required=True)
+
+    parser_change = subparsers.add_parser('change', help='Create or change a virtual network.')
+    parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
+    parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
+    subparsers.add_parser('list', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
+    subparsers.add_parser('clear', help='Remove all Linux network namespaces. Processes still might need to be killed.')
+
+    args = parser.parse_args()
+
+    block_arp = args.block_arp
+    block_multicast = args.block_multicast
+    verbose = args.verbose
+
+    if os.geteuid() != 0:
+        eprint('Need to run as root.')
+        exit(1)
+
+    if args.action == 'clear':
+        clear()
+    elif args.action == 'list':
+        list()
+    elif args.action == 'change':
+        change(args.from_state, args.to_state, args.force_tc)
+    else:
+        eprint('Invalid command: {}'.format(args.action))
+        exit(1)

@@ -10,29 +10,31 @@ import sys
 import os
 
 
+verbosity = 'normal'
+
 def eprint(s):
     sys.stderr.write(s + '\n')
 
 def exec(cmd, detach=False):
     rc = 0
 
-    if args.verbosity == 'verbose':
+    if verbosity == 'verbose':
         if detach:
             rc = os.system('{} &'.format(cmd))
         else:
             rc = os.system('{}'.format(cmd))
-    elif args.verbosity == 'normal':
+    elif verbosity == 'normal':
         if detach:
             rc = os.system('{} > /dev/null &'.format(cmd))
         else:
             rc = os.system('{} > /dev/null'.format(cmd))
-    elif args.verbosity == 'quiet':
+    elif verbosity == 'quiet':
         if detach:
             rc = os.system('{} > /dev/null 2>&1 &'.format(cmd))
         else:
             rc = os.system('{} > /dev/null 2>&1'.format(cmd))
     else:
-        eprint('Abort, invalid verbosity: {}'.format(args.verbosity))
+        eprint('Abort, invalid verbosity: {}'.format(verbosity))
         exit(1)
 
     if rc != 0:
@@ -116,10 +118,12 @@ def set_addr4(nsname, interface, prefix_len):
     ))
 
 def pkill(pname):
+    matched = 0
     for i in range(0, 4):
         signal = '-SIGTERM' if i < 2 else '-SIGKILL'
-        out = subprocess.Popen(['pkill', '-c', signal, pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-        matched = int(out.communicate()[0])
+        out = subprocess.Popen(['pkill', '-c', signal, '-x', pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+        matched = matched if matched > 0 else int(out.communicate()[0])
+
         if out.returncode != 0:
             return matched
 
@@ -130,7 +134,7 @@ def pkill(pname):
 
 def start_cjdns_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start cjdns on {}'.format(nsname))
 
         exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
@@ -146,7 +150,7 @@ def stop_cjdns_instances(nsnames):
 
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start yggdrasil in {}'.format(nsname))
 
         # Create a configuration file
@@ -168,7 +172,7 @@ def stop_yggdrasil_instances(nsnames):
 
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start batman-adv in {}'.format(nsname))
 
         reset_interface(nsname, 'uplink')
@@ -187,7 +191,7 @@ def stop_batmanadv_instances(nsnames):
 
 def start_babel_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start babel in {}'.format(nsname))
 
         reset_interface(nsname, 'uplink')
@@ -212,7 +216,7 @@ def start_olsr1_instances(nsnames):
     time.sleep(1)
 
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start olsr1 in {}'.format(nsname))
 
         exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
@@ -223,7 +227,7 @@ def stop_olsr1_instances(nsnames):
 
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start olsr2 in {}'.format(nsname))
 
         # Create a configuration file
@@ -263,7 +267,7 @@ def stop_olsr2_instances(nsnames):
 
 def start_bmx7_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start bmx7 in {}'.format(nsname))
 
         reset_interface(nsname, 'uplink')
@@ -279,7 +283,7 @@ def stop_bmx7_instances(nsnames):
 
 def start_bmx6_instances(nsnames):
     for nsname in nsnames:
-        if args.verbosity == 'verbose':
+        if verbosity == 'verbose':
             print('start bmx6 in {}'.format(nsname))
 
         reset_interface(nsname, 'uplink')
@@ -319,7 +323,7 @@ def start_routing_protocol(protocol, nsnames):
         exit(1)
 
     end_ms = millis()
-    if args.verbosity != 'quiet':
+    if verbosity != 'quiet':
         print('Started {} of {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
 def stop_routing_protocol(protocol, nsnames):
@@ -349,7 +353,7 @@ def stop_routing_protocol(protocol, nsnames):
         exit(1)
 
     end_ms = millis()
-    if count > 0 and args.verbosity != 'quiet':
+    if count > 0 and verbosity != 'quiet':
         print('Stopped {} of {} {} instances in {}'.format(count, len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
 def get_all_nsnames():
@@ -382,48 +386,68 @@ def get_nsnames(from_state, to_state):
     # (old_nsnames, new_nsnames)
     return (a, b)
 
+
 protocol_choices = ['none', 'babel', 'batman-adv', 'olsr1', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns']
 
-parser = argparse.ArgumentParser()
-parser.set_defaults(from_state=None, to_state=None)
-parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
-subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
+def start(protocol, to_state = None):
+    start_routing_protocol(protocol, get_all_nsnames())
 
-parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
-parser_start.add_argument('protocol', choices=protocol_choices, help='Routing protocol to start.')
-parser_start.add_argument('from_state', nargs='?', help='From state')
-parser_start.add_argument('to_state', nargs='?', help='To state')
+def stop(protocol, to_state = None):
+    stop_routing_protocol(protocol, get_all_nsnames())
 
-parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
-parser_stop.add_argument('protocol', choices=protocol_choices, help='Routing protocol to stop.')
-parser_stop.add_argument('from_state', nargs='?', help='From state')
-parser_stop.add_argument('to_state', nargs='?', help='To state')
+def change(protocol, from_state = None, to_state = None):
+    (old_nsnames, new_nsnames) = get_nsnames(from_state, to_state)
+    stop_routing_protocol(protocol, old_nsnames)
+    start_routing_protocol(protocol, new_nsnames)
 
-parser_change = subparsers.add_parser('change', help='Stop/Start protocol daemons in every namespace.')
-parser_change.add_argument('protocol', choices=protocol_choices, help='Routing protocol to change.')
-parser_change.add_argument('from_state', nargs='?', help='From state')
-parser_change.add_argument('to_state', nargs='?', help='To state')
-
-parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols')
-
-args = parser.parse_args()
-
-if os.popen('id -u').read().strip() != '0':
-    eprint('Need to run as root.')
-    exit(1)
-
-(old_nsnames, new_nsnames) = get_nsnames(args.from_state, args.to_state)
-
-if args.action == 'start':
-    start_routing_protocol(args.protocol, new_nsnames)
-elif args.action == 'stop':
-    stop_routing_protocol(args.protocol, old_nsnames)
-elif args.action == 'change':
-    stop_routing_protocol(args.protocol, old_nsnames)
-    start_routing_protocol(args.protocol, new_nsnames)
-elif args.action == 'clear':
+def clear():
+    nsnames = get_all_nsnames()
     for protocol in protocol_choices:
-        stop_routing_protocol(protocol, old_nsnames)
-else:
-    eprint('Unknown action: {}'.format(args.action))
-    exit(1)
+        stop_routing_protocol(protocol, nsnames)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.set_defaults(protocol=None, from_state=None, to_state=None)
+    parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
+    subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
+
+    parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
+    parser_start.add_argument('protocol', choices=protocol_choices, help='Routing protocol to start.')
+    parser_start.add_argument('from_state', nargs='?', help='From state')
+    parser_start.add_argument('to_state', nargs='?', help='To state')
+
+    parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
+    parser_stop.add_argument('protocol', choices=protocol_choices, help='Routing protocol to stop.')
+    parser_stop.add_argument('from_state', nargs='?', help='From state')
+    parser_stop.add_argument('to_state', nargs='?', help='To state')
+
+    parser_change = subparsers.add_parser('change', help='Stop/Start protocol daemons in every namespace.')
+    parser_change.add_argument('protocol', choices=protocol_choices, help='Routing protocol to change.')
+    parser_change.add_argument('from_state', nargs='?', help='From state')
+    parser_change.add_argument('to_state', nargs='?', help='To state')
+
+    parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols')
+
+    args = parser.parse_args()
+
+    if os.geteuid() != 0:
+        eprint('Need to run as root.')
+        exit(1)
+
+    verbosity = args.verbosity
+
+    (old_nsnames, new_nsnames) = get_nsnames(args.from_state, args.to_state)
+
+    if args.action == 'start':
+        start_routing_protocol(args.protocol, new_nsnames)
+    elif args.action == 'stop':
+        stop_routing_protocol(args.protocol, old_nsnames)
+    elif args.action == 'change':
+        stop_routing_protocol(args.protocol, old_nsnames)
+        start_routing_protocol(args.protocol, new_nsnames)
+    elif args.action == 'clear':
+        for protocol in protocol_choices:
+            stop_routing_protocol(protocol, old_nsnames)
+    else:
+        eprint('Unknown action: {}'.format(args.action))
+        exit(1)

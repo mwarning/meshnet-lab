@@ -8,5 +8,5 @@ Test the about of traffic caused by different routing protocols on different top
 ## Run
 
 * remove remaining `*.csv` files in this directory
-* execute `sudo ./run.sh` to run the test (will take a long time).
+* execute `sudo ./run.py` to run the test (will take a long time).
 * `./plot.sh` will create graphs using gnuplot

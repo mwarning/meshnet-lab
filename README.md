@@ -45,8 +45,7 @@ Most commands need root. So we assume all commands are execute as root:
 # Start Software
 ./tests.py start batman-adv
 
-# Run Tests
-./tests.py batman-adv
+# Run Tests (see tests folder)
 
 # Stop Software
 ./tests.py stop batman-adv

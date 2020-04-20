@@ -3,7 +3,7 @@
 # to distinguish multiple runs (if needed)
 prefix="$1"
 
-../tools/csv_merge.py ${prefix}traffic2-batman-adv-grid4.csv ${prefix}traffic2-batman-adv-grid4_new.csv --span 10 --columns-range 'tx_bytes'
+./csv_merge.py ${prefix}traffic2-batman-adv-grid4.csv ${prefix}traffic2-batman-adv-grid4_new.csv --span 10 --columns-range 'tx_bytes'
 
 gnuplot -e "
 	set title \"Traffic for batman-adv on grid4\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings (10 times for mean value and value range)\";	\
