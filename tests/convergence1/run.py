@@ -33,13 +33,11 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc='')
+		network.change(from_state='none', to_state=path, force_tc=tc)
 
 		tools.sleep(10)
 
 		for offset in range(0, 60, 2):
-			wait_beg_ms = tools.millis()
-
 			tmp_ms = tools.millis()
 			traffic_beg = tools.traffic()
 			traffic_ms = tools.millis() - tmp_ms
@@ -48,10 +46,10 @@ def run(protocol, files, csvfile):
 			software.start(protocol)
 			software_ms = tools.millis() - tmp_ms
 
-			# Wait until wai seconds are over, else error
-			tools.wait(wait_beg_ms, wait)
+			# Wait until wait seconds are over, else error
+			tools.sleep(offset)
 
-			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000, verbosity='verbose')
+			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=1000, verbosity='verbose')
 
 			traffic_end = tools.traffic()
 
@@ -60,11 +58,13 @@ def run(protocol, files, csvfile):
 			software.stop(protocol)
 
 			# add data to csv file
-			tools.csv_update(csvfile, '\t', tools.Wrapper(['traffic_ms', 'software_ms'], [traffic_ms, software_ms]), (traffic_end - traffic_beg), ping_result, sysload_result)
+			timings = tools.Wrapper(['traffic_ms', 'software_ms', 'offset_ms'], [traffic_ms, software_ms, offset * 1000])
+			tools.csv_update(csvfile, '\t', timings, (traffic_end - traffic_beg), ping_result, sysload_result)
 
 		network.clear()
 
-for name in ['line', 'grid4', 'rtree']:
+for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0500.json']:
 	for protocol in ['olsr2', 'batman-adv', 'yggdrasil', 'babel', 'bmx6', 'bmx7', 'cjdns']:
+		name = file.split('/')[-2]
 		with open(f"{prefix}convergence1-{protocol}-{name}.csv", 'w+') as csvfile:
-			run(protocol, f"../../data/{name}/*.json", csvfile)
+			run(protocol, file, csvfile)
