@@ -63,6 +63,6 @@ def run(protocol, files, csvfile, tc = ''):
 		tools.csv_update(csvfile, '\t', tools.Wrapper(['traffic_ms', 'software_ms'], [traffic_ms, software_ms]), (traffic_end - traffic_beg), ping_result, sysload_result)
 
 for name in ['line', 'grid4', 'rtree']:
-	for protocol in ['olsr2', 'batman-adv', 'yggdrasil', 'babel', 'bmx6', 'bmx7', 'cjdns']:
+	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 		with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, f"../../data/{name}/*.json", csvfile)

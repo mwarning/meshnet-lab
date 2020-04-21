@@ -387,7 +387,7 @@ def get_nsnames(from_state, to_state):
     return (a, b)
 
 
-protocol_choices = ['none', 'babel', 'batman-adv', 'olsr1', 'olsr2', 'bmx6', 'bmx7', 'yggdrasil', 'cjdns']
+protocol_choices = ['none', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
 
 def start(protocol, to_state = None):
     start_routing_protocol(protocol, get_all_nsnames())
