@@ -27,10 +27,6 @@ def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
 		(node_count, link_count) = tools.json_count(path)
 
-		# Limit node count to 300
-		if node_count > 300:
-			continue
-
 		print(f'run {protocol} on {path}')
 
 		network.change(from_state='none', to_state=path, force_tc=tc)
@@ -49,7 +45,7 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.sleep(offset)
 
-			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=1000, verbosity='verbose')
+			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=5000, verbosity='verbose')
 
 			traffic_end = tools.traffic()
 
@@ -63,7 +59,7 @@ def run(protocol, files, csvfile):
 
 		network.clear()
 
-for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0500.json']:
+for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0050.json']:
 	for protocol in ['olsr2', 'batman-adv', 'yggdrasil', 'babel', 'bmx6', 'bmx7', 'cjdns']:
 		name = file.split('/')[-2]
 		with open(f"{prefix}convergence1-{protocol}-{name}.csv", 'w+') as csvfile:
