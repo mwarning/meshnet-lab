@@ -20,19 +20,19 @@ def exec(cmd, detach=False):
 
     if verbosity == 'verbose':
         if detach:
-            rc = os.system('{} &'.format(cmd))
+            rc = os.system('({}) &'.format(cmd))
         else:
-            rc = os.system('{}'.format(cmd))
+            rc = os.system('({})'.format(cmd))
     elif verbosity == 'normal':
         if detach:
-            rc = os.system('{} > /dev/null &'.format(cmd))
+            rc = os.system('({}) > /dev/null &'.format(cmd))
         else:
-            rc = os.system('{} > /dev/null'.format(cmd))
+            rc = os.system('({}) > /dev/null'.format(cmd))
     elif verbosity == 'quiet':
         if detach:
-            rc = os.system('{} > /dev/null 2>&1 &'.format(cmd))
+            rc = os.system('({}) > /dev/null 2>&1 &'.format(cmd))
         else:
-            rc = os.system('{} > /dev/null 2>&1'.format(cmd))
+            rc = os.system('({}) > /dev/null 2>&1'.format(cmd))
     else:
         eprint('Abort, invalid verbosity: {}'.format(verbosity))
         exit(1)
