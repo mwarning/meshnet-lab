@@ -80,7 +80,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - OGM paket TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
-  - but it still seems to work without
+  - all routes will land in the main table which can interfere with Internet access
+    - this is of no concern for the test setup
   - tested with olsr2 0.15.1
 - OLSR1 has buggy/broken IPv6 support, we use IPv4 instead
   - tested with olsr1 0.9.8
