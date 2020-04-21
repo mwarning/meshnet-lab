@@ -82,9 +82,11 @@ def format_duration(time_ms):
     else:
         return "{}ms".format(int(ms))
 
-def reset_interface(nsname, interface):
-    exec('ip netns exec "{}" ip link set "{}" down'.format(nsname, interface))
-    exec('ip netns exec "{}" ip link set "{}" up'.format(nsname, interface))
+def interface_up(nsname, interface):
+    exec(f'ip netns exec "{nsname}" ip link set "{interface}" up')
+
+def interface_down(nsname, interface):
+    exec(f'ip netns exec "{nsname}" ip link set "{interface}" down')
 
 def set_addr6(nsname, interface, prefix_len):
     def eui64_suffix(nsname, interface):
@@ -159,7 +161,6 @@ def start_yggdrasil_instances(nsnames):
         f.write('AdminListen: none')
         f.close()
 
-        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
@@ -175,9 +176,8 @@ def start_batmanadv_instances(nsnames):
         if verbosity == 'verbose':
             print('start batman-adv in {}'.format(nsname))
 
-        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
-        reset_interface(nsname, 'bat0')
+        interface_up(nsname, 'bat0')
 
 def stop_batmanadv_instances(nsnames):
     count = 0
@@ -194,7 +194,6 @@ def start_babel_instances(nsnames):
         if verbosity == 'verbose':
             print('start babel in {}'.format(nsname))
 
-        reset_interface(nsname, 'uplink')
         set_addr6(nsname, 'uplink', 64)
         exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
 
@@ -208,17 +207,11 @@ def stop_babel_instances(nsnames):
 
 def start_olsr1_instances(nsnames):
     for nsname in nsnames:
-        reset_interface(nsname, 'uplink')
-        # OLSR1 IPv6 seems to be broken/buggy
-        set_addr4(nsname, 'uplink', 32)
-
-    # olsr block and wait 5 seconds if no interface is ready
-    time.sleep(1)
-
-    for nsname in nsnames:
         if verbosity == 'verbose':
             print('start olsr1 in {}'.format(nsname))
 
+        # OLSR1 IPv6 seems to be broken/buggy
+        set_addr4(nsname, 'uplink', 32)
         exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
 
 def stop_olsr1_instances(nsnames):
@@ -253,7 +246,6 @@ def start_olsr2_instances(nsnames):
         )
         f.close()
 
-        reset_interface(nsname, 'uplink')
         set_addr6(nsname, 'uplink', 128)
         exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
 
@@ -270,7 +262,6 @@ def start_bmx7_instances(nsnames):
         if verbosity == 'verbose':
             print('start bmx7 in {}'.format(nsname))
 
-        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{0} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{0}/rsa.der --trustedNodesDir=/tmp/bmx7_{0}/trusted dev=uplink'.format(nsname))
 
 def stop_bmx7_instances(nsnames):
@@ -286,7 +277,6 @@ def start_bmx6_instances(nsnames):
         if verbosity == 'verbose':
             print('start bmx6 in {}'.format(nsname))
 
-        reset_interface(nsname, 'uplink')
         exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
 
 def stop_bmx6_instances(nsnames):
@@ -299,6 +289,9 @@ def stop_bmx6_instances(nsnames):
 
 def start_routing_protocol(protocol, nsnames):
     beg_ms = millis()
+
+    for nsname in nsnames:
+        interface_up(nsname, 'uplink')
 
     if protocol == 'batman-adv':
         start_batmanadv_instances(nsnames)
@@ -347,10 +340,13 @@ def stop_routing_protocol(protocol, nsnames):
     elif protocol == 'cjdns':
         count = stop_cjdns_instances(nsnames)
     elif protocol == 'none':
-        return
+        count = 0
     else:
         eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
+
+    for nsname in nsnames:
+        interface_down(nsname, 'uplink')
 
     end_ms = millis()
     if count > 0 and verbosity != 'quiet':
@@ -426,7 +422,7 @@ if __name__ == '__main__':
     parser_change.add_argument('from_state', nargs='?', help='From state')
     parser_change.add_argument('to_state', nargs='?', help='To state')
 
-    parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols')
+    parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
 
     args = parser.parse_args()
 
