@@ -385,10 +385,10 @@ def get_nsnames(from_state, to_state):
 
 protocol_choices = ['none', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
 
-def start(protocol, to_state = None):
+def start(protocol):
     start_routing_protocol(protocol, get_all_nsnames())
 
-def stop(protocol, to_state = None):
+def stop(protocol):
     stop_routing_protocol(protocol, get_all_nsnames())
 
 def change(protocol, from_state = None, to_state = None):
