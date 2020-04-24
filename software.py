@@ -15,7 +15,7 @@ verbosity = 'normal'
 def eprint(s):
     sys.stderr.write(s + '\n')
 
-def _exec(cmd, detach=False):
+def _exec(cmd, detach=False, ignore_error=False):
     rc = 0
 
     if verbosity == 'verbose':
@@ -37,7 +37,7 @@ def _exec(cmd, detach=False):
         eprint('Abort, invalid verbosity: {}'.format(verbosity))
         exit(1)
 
-    if rc != 0:
+    if rc != 0 and not ignore_error:
         eprint('Abort, command failed: {}'.format(cmd))
         #todo: kill routing programs!
         #print('Cleanup done')
@@ -82,11 +82,11 @@ def format_duration(time_ms):
     else:
         return "{}ms".format(int(ms))
 
-def interface_up(nsname, interface):
-    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" up')
+def interface_up(nsname, interface, ignore_error=False):
+    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" up', ignore_error=ignore_error)
 
-def interface_down(nsname, interface):
-    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" down')
+def interface_down(nsname, interface, ignore_error=False):
+    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" down', ignore_error=ignore_error)
 
 def set_addr6(nsname, interface, prefix_len):
     def eui64_suffix(nsname, interface):
@@ -161,7 +161,7 @@ def start_yggdrasil_instances(nsnames):
         f.write('AdminListen: none')
         f.close()
 
-        _exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
+        _exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), detach=True)
 
 def stop_yggdrasil_instances(nsnames):
     matched = pkill('yggdrasil')
@@ -287,11 +287,11 @@ def stop_bmx6_instances(nsnames):
 
     return matched
 
-def start_routing_protocol(protocol, nsnames):
+def start_routing_protocol(protocol, nsnames, ignore_error=False):
     beg_ms = millis()
 
     for nsname in nsnames:
-        interface_up(nsname, 'uplink')
+        interface_up(nsname, 'uplink', ignore_error)
 
     if protocol == 'batman-adv':
         start_batmanadv_instances(nsnames)
@@ -319,7 +319,7 @@ def start_routing_protocol(protocol, nsnames):
     if verbosity != 'quiet':
         print('Started {} {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
-def stop_routing_protocol(protocol, nsnames):
+def stop_routing_protocol(protocol, nsnames, ignore_error=False):
     count = 0
     beg_ms = millis()
 
@@ -346,10 +346,10 @@ def stop_routing_protocol(protocol, nsnames):
         exit(1)
 
     for nsname in nsnames:
-        interface_down(nsname, 'uplink')
+        interface_down(nsname, 'uplink', ignore_error=ignore_error)
 
     end_ms = millis()
-    if count > 0 and verbosity != 'quiet':
+    if not ignore_error and verbosity != 'quiet':
         print('Stopped {} {} instances in {}'.format(count, protocol, format_duration(end_ms - beg_ms)))
 
 def get_all_nsnames():
@@ -414,7 +414,7 @@ def change(protocol, from_state = {}, to_state = {}):
 def clear():
     nsnames = get_all_nsnames()
     for protocol in protocol_choices:
-        stop_routing_protocol(protocol, nsnames)
+        stop_routing_protocol(protocol, nsnames, True)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -458,7 +458,7 @@ if __name__ == '__main__':
         start_routing_protocol(args.protocol, new_nsnames)
     elif args.action == 'clear':
         for protocol in protocol_choices:
-            stop_routing_protocol(protocol, old_nsnames)
+            stop_routing_protocol(protocol, old_nsnames, True)
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
