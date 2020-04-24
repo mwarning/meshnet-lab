@@ -71,16 +71,14 @@ def connect_range(network, max_distance=None, max_links=None):
             if max_links is None:
                 links.append(link)
             else:
+                k = bisect.bisect_left(distances, d)
+                distances.insert(k, d)
+                links.insert(k, link)
+
                 if len(links) >= max_links:
-                    k = bisect.bisect_left(distances, d)
-                    distances.insert(k, d)
-                    links.insert(k, link)
                     # remove last item
                     del distances[-1]
                     del links[-1]
-                else:
-                    distances.append(d)
-                    links.append(link)
 
     network['links'] = links
 
