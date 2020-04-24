@@ -394,9 +394,10 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
 
     start_ms = millis()
     started = 0
-    while started < len(paths):
+    path_count = len(paths)
+    while started < path_count:
         # number of expected tests to have been run
-        started_expected = math.ceil(((millis() - start_ms) / duration_ms) * len(paths))
+        started_expected = math.ceil(path_count * ((millis() - start_ms) / duration_ms))
         if started_expected > started:
             for _ in range(0, started_expected - started):
                 if len(paths) == 0:
@@ -416,7 +417,7 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
                 started += 1
         else:
             # sleep a small amount
-            time.sleep(duration_ms / len(paths) / 1000.0 / 10.0)
+            time.sleep(duration_ms / path_count / 1000.0 / 10.0)
 
     stop1_ms = millis()
 
