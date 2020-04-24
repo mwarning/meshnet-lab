@@ -15,7 +15,7 @@ verbosity = 'normal'
 def eprint(s):
     sys.stderr.write(s + '\n')
 
-def exec(cmd, detach=False):
+def _exec(cmd, detach=False):
     rc = 0
 
     if verbosity == 'verbose':
@@ -83,10 +83,10 @@ def format_duration(time_ms):
         return "{}ms".format(int(ms))
 
 def interface_up(nsname, interface):
-    exec(f'ip netns exec "{nsname}" ip link set "{interface}" up')
+    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" up')
 
 def interface_down(nsname, interface):
-    exec(f'ip netns exec "{nsname}" ip link set "{interface}" down')
+    _exec(f'ip netns exec "{nsname}" ip link set "{interface}" down')
 
 def set_addr6(nsname, interface, prefix_len):
     def eui64_suffix(nsname, interface):
@@ -96,7 +96,7 @@ def set_addr6(nsname, interface, prefix_len):
             mac[3:5], mac[6:8], mac[9:11], mac[12:14], mac[15:17]
         )
 
-    exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/{} dev {}'.format(
+    _exec('ip netns exec "{}" ip address add fdef:17a0:ffb1:300:{}/{} dev {}'.format(
         nsname,
         eui64_suffix(nsname, interface),
         prefix_len,
@@ -111,7 +111,7 @@ def set_addr4(nsname, interface, prefix_len):
     n = int(nsname[3:])
     a, b = divmod(n, 255)
 
-    exec('ip netns exec "{}" ip address add 10.0.{}.{}/{} dev {}'.format(
+    _exec('ip netns exec "{}" ip address add 10.0.{}.{}/{} dev {}'.format(
         nsname,
         a,
         b,
@@ -139,14 +139,14 @@ def start_cjdns_instances(nsnames):
         if verbosity == 'verbose':
             print('start cjdns on {}'.format(nsname))
 
-        exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
-        exec('ip netns exec "{}" cjdroute < /tmp/cjdns-{}.conf'.format(nsname, nsname), True)
+        _exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
+        _exec('ip netns exec "{}" cjdroute < /tmp/cjdns-{}.conf'.format(nsname, nsname), True)
 
 def stop_cjdns_instances(nsnames):
     matched = pkill('cjdroute')
 
     if matched > 0:
-        exec('rm -f /tmp/cjdns-*.conf')
+        _exec('rm -f /tmp/cjdns-*.conf')
 
     return matched
 
@@ -161,13 +161,13 @@ def start_yggdrasil_instances(nsnames):
         f.write('AdminListen: none')
         f.close()
 
-        exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
+        _exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), True)
 
 def stop_yggdrasil_instances(nsnames):
     matched = pkill('yggdrasil')
 
     if matched > 0:
-        exec('rm -f /tmp/yggdrasil-*.conf')
+        _exec('rm -f /tmp/yggdrasil-*.conf')
 
     return matched
 
@@ -176,7 +176,7 @@ def start_batmanadv_instances(nsnames):
         if verbosity == 'verbose':
             print('start batman-adv in {}'.format(nsname))
 
-        exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
+        _exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
         interface_up(nsname, 'bat0')
 
 def stop_batmanadv_instances(nsnames):
@@ -195,13 +195,13 @@ def start_babel_instances(nsnames):
             print('start babel in {}'.format(nsname))
 
         set_addr6(nsname, 'uplink', 64)
-        exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
+        _exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
 
 def stop_babel_instances(nsnames):
     matched = pkill('babeld')
 
     if matched > 0:
-        exec('rm -f /tmp/babel-*.pid')
+        _exec('rm -f /tmp/babel-*.pid')
 
     return matched
 
@@ -212,7 +212,7 @@ def start_olsr1_instances(nsnames):
 
         # OLSR1 IPv6 seems to be broken/buggy
         set_addr4(nsname, 'uplink', 32)
-        exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
+        _exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
 
 def stop_olsr1_instances(nsnames):
     matched = pkill('olsrd')
@@ -247,13 +247,13 @@ def start_olsr2_instances(nsnames):
         f.close()
 
         set_addr6(nsname, 'uplink', 128)
-        exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
+        _exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
 
 def stop_olsr2_instances(nsnames):
     matched = pkill('olsrd2')
 
     if matched > 0:
-        exec('rm -f /tmp/olsrd2-*.conf')
+        _exec('rm -f /tmp/olsrd2-*.conf')
 
     return matched
 
@@ -262,13 +262,13 @@ def start_bmx7_instances(nsnames):
         if verbosity == 'verbose':
             print('start bmx7 in {}'.format(nsname))
 
-        exec('ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{0} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{0}/rsa.der --trustedNodesDir=/tmp/bmx7_{0}/trusted dev=uplink'.format(nsname))
+        _exec('ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{0} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{0}/rsa.der --trustedNodesDir=/tmp/bmx7_{0}/trusted dev=uplink'.format(nsname))
 
 def stop_bmx7_instances(nsnames):
     matched = pkill('bmx7')
 
     if matched > 0:
-        exec('rm -rf /tmp/bmx7_*')
+        _exec('rm -rf /tmp/bmx7_*')
 
     return matched
 
@@ -277,13 +277,13 @@ def start_bmx6_instances(nsnames):
         if verbosity == 'verbose':
             print('start bmx6 in {}'.format(nsname))
 
-        exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
+        _exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
 
 def stop_bmx6_instances(nsnames):
     matched = pkill('bmx6')
 
     if matched > 0:
-        exec('rm -rf /tmp/bmx6_*')
+        _exec('rm -rf /tmp/bmx6_*')
 
     return matched
 
@@ -350,35 +350,49 @@ def stop_routing_protocol(protocol, nsnames):
 
     end_ms = millis()
     if count > 0 and verbosity != 'quiet':
-        print('Stopped {} of {} {} instances in {}'.format(count, len(nsnames), protocol, format_duration(end_ms - beg_ms)))
+        print('Stopped {} {} instances in {}'.format(count, protocol, format_duration(end_ms - beg_ms)))
 
 def get_all_nsnames():
     # all ns-* network namespaces
     return [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
 
 def get_nsnames(from_state, to_state):
-    if from_state is None and to_state is None:
-        all = get_all_nsnames()
-        return (all, all)
-
-    def get_node_set(path):
-        data = None
-        if path == 'none' or path is None:
-            data = json.loads('{"links":[]}')
+    if isinstance(from_state, str):
+        if from_state == 'none':
+            from_state = {}
         else:
-            data = json.load(open(path))
+            with open(from_state) as file:
+                from_state = json.load(file)
 
+    if isinstance(to_state, str):
+        if to_state == 'none':
+            to_state = {}
+        else:
+            with open(to_state) as file:
+                to_state = json.load(file)
+
+    def get_nsname_set(state):
         nodes = set()
-        for link in data['links']:
-            nodes.add(str(link['source']))
-            nodes.add(str(link['target']))
+
+        for link in state.get('links', []):
+            nodes.add('ns-{}'.format(link['source']))
+            nodes.add('ns-{}'.format(link['target']))
+
+        for node in state.get('nodes', []):
+            nodes.add('ns-{}'.format(node['id']))
 
         return nodes
 
-    from_nsnames = get_node_set(from_state)
-    to_nsnames = get_node_set(to_state)
-    a = from_nsnames.intersection(to_nsnames)
-    b = to_nsnames.intersection(from_nsnames)
+    from_nsnames = get_nsname_set(from_state)
+    to_nsnames = get_nsname_set(to_state)
+
+    if len(from_nsnames) == 0 and len(to_nsnames) == 0:
+        all = get_all_nsnames()
+        return (all, all)
+
+    a = from_nsnames.difference(to_nsnames)
+    b = to_nsnames.difference(from_nsnames)
+
     # (old_nsnames, new_nsnames)
     return (a, b)
 
@@ -391,8 +405,9 @@ def start(protocol):
 def stop(protocol):
     stop_routing_protocol(protocol, get_all_nsnames())
 
-def change(protocol, from_state = None, to_state = None):
+def change(protocol, from_state = {}, to_state = {}):
     (old_nsnames, new_nsnames) = get_nsnames(from_state, to_state)
+
     stop_routing_protocol(protocol, old_nsnames)
     start_routing_protocol(protocol, new_nsnames)
 
@@ -403,7 +418,7 @@ def clear():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.set_defaults(protocol=None, from_state=None, to_state=None)
+    parser.set_defaults(protocol='none', from_state='none', to_state='none')
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 

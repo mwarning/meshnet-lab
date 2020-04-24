@@ -45,7 +45,7 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.sleep(offset)
 
-			ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=5000, verbosity='verbose')
+			ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=5000, verbosity='verbose')
 
 			traffic_end = tools.traffic()
 
@@ -54,8 +54,8 @@ def run(protocol, files, csvfile):
 			software.stop(protocol)
 
 			# add data to csv file
-			timings = tools.Wrapper(['traffic_ms', 'software_ms', 'offset_ms'], [traffic_ms, software_ms, offset * 1000])
-			tools.csv_update(csvfile, '\t', timings, (traffic_end - traffic_beg), ping_result, sysload_result)
+			extra = tools.Wrapper(['node_count', 'traffic_ms', 'software_ms', 'offset_ms'], [node_count, traffic_ms, software_ms, offset * 1000])
+			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg), ping_result, sysload_result)
 
 		network.clear()
 

@@ -50,7 +50,7 @@ def run(protocol, files, csvfile, tc = ''):
 		# Wait until wai seconds are over, else error
 		tools.wait(wait_beg_ms, wait)
 
-		ping_result = tools.ping(protocol=protocol, path_count=link_count, duration_ms=60000, verbosity='verbose')
+		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=60000, verbosity='verbose')
 
 		traffic_end = tools.traffic()
 
@@ -60,7 +60,8 @@ def run(protocol, files, csvfile, tc = ''):
 		network.clear()
 
 		# add data to csv file
-		tools.csv_update(csvfile, '\t', tools.Wrapper(['traffic_ms', 'software_ms'], [traffic_ms, software_ms]), (traffic_end - traffic_beg), ping_result, sysload_result)
+		extra = tools.Wrapper(['node_count', 'traffic_ms', 'software_ms'], [node_count, traffic_ms, software_ms])
+		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg), ping_result, sysload_result)
 
 for name in ['line', 'grid4', 'rtree']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:

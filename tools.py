@@ -12,6 +12,126 @@ import os
 import re
 
 
+def convert_network(network):
+    nodes = {}
+
+    # create a structure we can use efficiently
+    for node in network['nodes']:
+        nodes.setdefault(str(node['id']), [])
+
+    for link in network['links']:
+        source = str(link['source'])
+        target = str(link['target'])
+        nodes.setdefault(source, []).append(target)
+        nodes.setdefault(target, []).append(source)
+
+    return nodes
+
+class Dijkstra:
+    def __init__(self, network):
+        self.dists_cache = {}
+        self.prevs_cache = {}
+        self.nodes = convert_network(network)
+
+    def find_shortest_distance(self, source, target):
+        source = str(source)
+        target = str(target)
+
+        # try cache
+        dists = self.dists_cache.get(source)
+        if dists is not None:
+            return dists[target]
+
+        # calculate
+        self._calculate_shortest_paths(source)
+
+        # try again
+        dists = self.dists_cache.get(source)
+        if dists is not None:
+            return dists[target]
+
+        # should not happen...
+        return None
+
+    def get_shortest_path(self, source, target):
+        source = str(source)
+        target = str(target)
+
+        # calculate
+        self._calculate_shortest_paths(source)
+
+        prevs = self.prevs_cache.get(source)
+        if prevs is None:
+            return None
+
+        path = []
+        next = target
+
+        while True:
+            prev = prevs[next]
+            if prev is not None:
+                next = prev
+                path.append(next)
+            else:
+                break
+
+        return path
+
+    '''
+    Calculate shortest path from source to every other node
+    '''
+    def _calculate_shortest_paths(self, initial):
+        initial = str(initial)
+
+        dists = {}
+        prevs = {}
+        q = {}
+
+        for id in self.nodes:
+            dists[id] = math.inf
+            prevs[id] = None
+            q[id] = None
+
+        dists[initial] = 0
+
+        def get_smallest(q, dists):
+            dist = math.inf
+            idx = None
+
+            for k in q:
+                d = dists[k]
+                if d < dist:
+                    idx = k
+                    dist = d
+            return idx
+
+        for _ in range(len(self.nodes)):
+            u = get_smallest(q, dists)
+            if u is None:
+                break
+            del q[u]
+            for v in self.nodes[u]:
+                if v in q:
+                    # distance update
+                    alt = dists[u] + 1
+                    if alt < dists[v]:
+                        dists[v] = alt
+                        prevs[v] = u
+
+        self.dists_cache[initial] = dists
+        self.prevs_cache[initial] = prevs
+
+def get_valid_path_count(network, paths = []):
+    dijkstra = Dijkstra(network)
+    count = 0
+
+    for path in paths:
+        d = dijkstra.find_shortest_distance(path[0], path[1])
+        if d is not None:
+            count +=1
+
+    return count
+
 def eprint(s):
     sys.stderr.write(s + '\n')
 
@@ -19,6 +139,9 @@ def root():
     if os.geteuid() != 0:
         eprint('Need to run as root.')
         exit(1)
+
+def seed_random(seed):
+    random.seed(seed)
 
 def sleep(seconds):
     time.sleep(seconds)
@@ -30,7 +153,7 @@ def wait(beg_ms, until_sec):
     if (now_ms - beg_ms) < (until_sec * 1000):
         time.sleep(((until_sec * 1000) - (now_ms - beg_ms)) / 1000.0)
     else:
-        eprint('Wait timeout already over by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
+        eprint('Wait timeout already passed by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
         exit(1)
 
 def json_count(path):
@@ -172,16 +295,21 @@ def millis():
     return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
 
 # get random node pairs (not unique, not path to self)
-def _get_random_pairs(items, npairs):
-    pairs = []
+def get_random_paths(network=None, count=10):
+    if network is None:
+        # all ns-* network namespaces
+        nodes = [x[3:] for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
+    else:
+        nodes = list(convert_network(network).keys())
 
-    if len(items) < 2 and npairs > 0:
+    if len(nodes) < 2 and count > 0:
         eprint('Not enough nodes to get any pairs!')
         exit(1)
 
-    while len(pairs) < npairs:
-        e1 = random.choice(items)
-        e2 = random.choice(items)
+    pairs = []
+    while len(pairs) < count:
+        e1 = random.choice(nodes)
+        e2 = random.choice(nodes)
         if e1 == e2:
             continue
 
@@ -195,9 +323,9 @@ Return an IP address of the interface in this preference order:
 2. IPv6 not link local
 3. IPv6 link local
 '''
-def _get_ip_address(nsname, interface):
+def _get_ip_address(id, interface):
     lladdr6 = None
-    output = os.popen('ip netns exec "{}" ip -6 addr list dev {}'.format(nsname, interface)).read()
+    output = os.popen('ip netns exec "ns-{}" ip -6 addr list dev {}'.format(id, interface)).read()
     for line in output.split('\n'):
         if 'inet ' in line:
             addr4 = line.split()[1].split('/')[0]
@@ -243,52 +371,52 @@ def _parse_ping(output):
 
     return ret
 
-def _get_uplink(protocol):
-    # some protocols use their own interface as entry point to the mesh
-    if protocol == 'batman-adv':
-        return 'bat0'
-    elif protocol == 'yggdrasil':
-        return 'tun0'
-    elif protocol == 'cjdns':
-        return 'tun0'
-    else:
-        return 'uplink'
+def ping(protocol, count=10, duration_ms=1000, verbosity='normal'):
+    paths = get_random_paths(network=None, count=count)
+    return ping_paths(protocol, paths, duration_ms, verbosity)
 
-def ping(protocol, path_count=10, duration_ms=1000, verbosity='normal', seed=None):
-    # all ns-* network namespaces
-    nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
-    interface = _get_uplink(protocol)
+def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
+    def get_uplink(protocol):
+        # some protocols use their own interface as entry point to the mesh
+        if protocol == 'batman-adv':
+            return 'bat0'
+        elif protocol == 'yggdrasil':
+            return 'tun0'
+        elif protocol == 'cjdns':
+            return 'tun0'
+        else:
+            return 'uplink'
+
+    interface = get_uplink(protocol)
     ping_deadline=1
     ping_count=1
     processes = []
 
-    if seed is not None:
-        random.seed(args.seed)
-
-    pairs = list(_get_random_pairs(nsnames, path_count))
-
     start_ms = millis()
     started = 0
-    while started < len(pairs):
+    while started < len(paths):
         # number of expected tests to have been run
-        started_expected = math.ceil(((millis() - start_ms) / duration_ms) * len(pairs))
+        started_expected = math.ceil(((millis() - start_ms) / duration_ms) * len(paths))
         if started_expected > started:
             for _ in range(0, started_expected - started):
-                if len(pairs) == 0:
-                    break;
-                (nssource, nstarget) = pairs.pop()
-                nstarget_addr = _get_ip_address(nstarget, interface)
+                if len(paths) == 0:
+                    break
+                (source, target) = paths.pop()
+                target_addr = _get_ip_address(target, interface)
 
-                if verbosity == 'verbose':
-                    print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, nssource, nstarget, nstarget_addr, interface))
+                if target_addr is None:
+                    eprint('Cannot get address of {} in ns-{}'.format(interface, target))
+                else:
+                    if verbosity == 'verbose':
+                        print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface))
 
-                command = ['ip', 'netns', 'exec', nssource ,'ping', '-c', str(ping_count), '-w', str(ping_deadline), '-D', nstarget_addr, '-I', interface]
-                process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                processes.append(process)
+                    command = ['ip', 'netns', 'exec', f'ns-{source}' ,'ping', '-c', str(ping_count), '-w', str(ping_deadline), '-D', target_addr, '-I', interface]
+                    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    processes.append(process)
                 started += 1
         else:
             # sleep a small amount
-            time.sleep(duration_ms / len(pairs) / 1000.0 / 10.0)
+            time.sleep(duration_ms / len(paths) / 1000.0 / 10.0)
 
     stop1_ms = millis()
 
@@ -326,8 +454,8 @@ def ping(protocol, path_count=10, duration_ms=1000, verbosity='normal', seed=Non
             result_filler_ms
         ))
 
-    titles = ['node_count', 'packets_send', 'packets_received', 'duration_ms', 'rtt_avg_ms']
-    values = [len(nsnames), result_packets_send, result_packets_received,
+    titles = ['packets_send', 'packets_received', 'duration_ms', 'rtt_avg_ms']
+    values = [result_packets_send, result_packets_received,
         int(result_duration_ms + result_filler_ms), int(result_rtt_avg_ms)]
 
     return Wrapper(titles, values)

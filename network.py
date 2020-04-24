@@ -161,7 +161,7 @@ class Node:
     def __init__(self, name):
         self.name = name
 
-class Task:
+class _Task:
     def __init__(self):
         self.links_create = []
         self.links_update = []
@@ -169,10 +169,19 @@ class Task:
         self.nodes_create = []
         self.nodes_remove = []
 
-def process_json(json_data, force_tc):
+def _process_json(json_data, force_tc = None):
     links = {}
     nodes = {}
-    for link in json_data['links']:
+
+    for node in json_data.get('nodes', []):
+        name = str(node['id'])
+        if len(name) > 6:
+            eprint('Node name too long: {}'.format(name))
+            exit(1)
+
+        nodes[name] = Node(name)
+
+    for link in json_data.get('links', []):
         source = str(link['source'])
         target = str(link['target'])
         source_tc = link.get('source_tc')
@@ -183,11 +192,11 @@ def process_json(json_data, force_tc):
             target_tc = force_tc
 
         if len(source) > 6:
-            eprint('node name too long: {}'.format(source))
+            eprint('Node name too long: {}'.format(source))
             exit(1)
 
         if len(target) > 6:
-            eprint('node name too long: {}'.format(target))
+            eprint('Node name too long: {}'.format(target))
             exit(1)
 
         if source not in nodes:
@@ -203,58 +212,62 @@ def process_json(json_data, force_tc):
 
     return (links, nodes)
 
-def get_task(from_state, to_state, force_tc):
-    # empty defaults
-    old = json.loads('{"links":[]}')
-    new = json.loads('{"links":[]}')
+def _get_task(old_state, new_state, force_tc=None):
+    (links_old, nodes_old) = _process_json(old_state, force_tc)
+    (links_new, nodes_new) = _process_json(new_state, force_tc)
 
-    if from_state != 'none':
-        old = json.load(open(from_state))
+    def tc_equal(link1, link2):
+        return (link1.source_tc == link2.source_tc) and (link1.target_tc == link2.target_tc)
 
-    if to_state != 'none':
-        new = json.load(open(to_state))
-
-    (links_old, nodes_old) = process_json(old, force_tc)
-    (links_new, nodes_new) = process_json(new, force_tc)
-
-    data = Task()
+    task = _Task()
 
     for key in links_new:
         if not key in links_old:
-            data.links_create.append(links_new[key])
+            task.links_create.append(links_new[key])
 
     for key in links_old:
         if key not in links_new:
-            data.links_remove.append(links_old[key])
+            task.links_remove.append(links_old[key])
 
     for key in links_new:
         if key in links_old:
             new = links_new[key]
             old = links_old[key]
-            if not new.cmp_tc(old):
-                data.links_update.append(new)
+            if not tc_equal(new, old):
+                task.links_update.append(new)
 
     for key in nodes_old:
         if key not in nodes_new:
-            data.nodes_remove.append(nodes_old[key])
+            task.nodes_remove.append(nodes_old[key])
 
     for key in nodes_new:
         if key not in nodes_old:
-            data.nodes_create.append(nodes_new[key])
+            task.nodes_create.append(nodes_new[key])
 
-    return data
+    return task
 
 def clear():
     os.system('ip -all netns delete')
 
-def list():
-    os.system('ip netns list')
+def change(from_state={}, to_state={}, force_tc=None):
+    if isinstance(from_state, str):
+        if from_state == 'none':
+            from_state = {}
+        else:
+            with open(from_state) as file:
+                from_state = json.load(file)
 
-def change(from_state=None, to_state=None, force_tc=None):
-    data = get_task(from_state, to_state, force_tc)
+    if isinstance(to_state, str):
+        if to_state == 'none':
+            to_state = {}
+        else:
+            with open(to_state) as file:
+                to_state = json.load(file)
+
+    data = _get_task(from_state, to_state, force_tc)
 
     # add "switch" namespace
-    if from_state == 'none':
+    if len(from_state) == 0:
         if verbose:
             print('  create "switch"')
         # add switch if it does not exist yet
@@ -278,7 +291,7 @@ def change(from_state=None, to_state=None, force_tc=None):
         remove_node(node)
 
     # remove "switch" namespace
-    if to_state == 'none':
+    if len(to_state) == 0:
         if verbose:
             print('  remove "switch"')
         exec('ip netns del "switch" || true')
@@ -287,7 +300,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
-    parser.set_defaults(from_state=None, to_state=None)
+    parser.set_defaults(from_state='none', to_state='none')
 
     parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
     parser.add_argument('--force-tc', help='Overwrite source_tc/target_tc (traffic control) parameters from JSON.')
@@ -315,7 +328,7 @@ if __name__ == '__main__':
     if args.action == 'clear':
         clear()
     elif args.action == 'list':
-        list()
+        os.system('ip netns list')
     elif args.action == 'change':
         change(args.from_state, args.to_state, args.force_tc)
     else:
