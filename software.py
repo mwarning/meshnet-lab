@@ -105,7 +105,7 @@ def set_addr6(nsname, interface, prefix_len):
 
 def set_addr4(nsname, interface, prefix_len):
     if not nsname.startswith('ns-'):
-        eprint('namespace expected to start with ns-: {}'.format(nsname))
+        eprint(f'namespace expected to start with ns-: {nsname}')
         exit(1)
 
     n = int(nsname[3:])
@@ -131,16 +131,16 @@ def pkill(pname):
 
         time.sleep(1)
 
-    eprint('Failed to kill {}'.format(pname))
+    eprint(f'Failed to kill {nsname}')
     exit(1)
 
 def start_cjdns_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start cjdns on {}'.format(nsname))
+            print(f'start cjdns on {nsname}')
 
-        _exec('cjdroute --genconf > /tmp/cjdns-{}.conf'.format(nsname))
-        _exec('ip netns exec "{}" cjdroute < /tmp/cjdns-{}.conf'.format(nsname, nsname), True)
+        _exec(f'cjdroute --genconf > /tmp/cjdns-{nsname}.conf')
+        _exec(f'ip netns exec "{nsname}" cjdroute < /tmp/cjdns-{nsname}.conf', detach=True)
 
 def stop_cjdns_instances(nsnames):
     matched = pkill('cjdroute')
@@ -153,10 +153,10 @@ def stop_cjdns_instances(nsnames):
 def start_yggdrasil_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start yggdrasil in {}'.format(nsname))
+            print(f'start yggdrasil in {nsname}')
 
         # Create a configuration file
-        configfile = '/tmp/yggdrasil-{}.conf'.format(nsname)
+        configfile = f'/tmp/yggdrasil-{nsname}.conf'
         f = open(configfile, 'w')
         f.write('AdminListen: none')
         f.close()
@@ -174,16 +174,16 @@ def stop_yggdrasil_instances(nsnames):
 def start_batmanadv_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start batman-adv in {}'.format(nsname))
+            print(f'start batman-adv in {nsname}')
 
-        _exec('ip netns exec "{}" batctl meshif "bat0" interface add "uplink"'.format(nsname))
+        _exec(f'ip netns exec "{nsname}" batctl meshif "bat0" interface add "uplink"')
         interface_up(nsname, 'bat0')
 
 def stop_batmanadv_instances(nsnames):
     count = 0
 
     for nsname in nsnames:
-        rc = os.system('ip netns exec "{}" batctl meshif "bat0" interface del "uplink" > /dev/null 2>&1'.format(nsname))
+        rc = os.system(f'ip netns exec "{nsname}" batctl meshif "bat0" interface del "uplink" > /dev/null 2>&1')
         if rc == 0:
             count += 1
 
@@ -192,10 +192,10 @@ def stop_batmanadv_instances(nsnames):
 def start_babel_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start babel in {}'.format(nsname))
+            print(f'start babel in {nsname}')
 
         set_addr6(nsname, 'uplink', 64)
-        _exec('ip netns exec "{}" babeld -D -I /tmp/babel-{}.pid "uplink"'.format(nsname, nsname))
+        _exec(f'ip netns exec "{nsname}" babeld -D -I /tmp/babel-{nsname}.pid "uplink"')
 
 def stop_babel_instances(nsnames):
     matched = pkill('babeld')
@@ -208,11 +208,11 @@ def stop_babel_instances(nsnames):
 def start_olsr1_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start olsr1 in {}'.format(nsname))
+            print(f'start olsr1 in {nsname}')
 
         # OLSR1 IPv6 seems to be broken/buggy
         set_addr4(nsname, 'uplink', 32)
-        _exec('ip netns exec "{}" olsrd -d 0 -i "uplink" -f /dev/null'.format(nsname))
+        _exec(f'ip netns exec "{nsname}" olsrd -d 0 -i "uplink" -f /dev/null')
 
 def stop_olsr1_instances(nsnames):
     matched = pkill('olsrd')
@@ -221,11 +221,11 @@ def stop_olsr1_instances(nsnames):
 def start_olsr2_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start olsr2 in {}'.format(nsname))
+            print(f'start olsr2 in {nsname}')
 
         # Create a configuration file
         # Print all settings: olsrd2_static --schema=all
-        configfile = '/tmp/olsrd2-{}.conf'.format(nsname)
+        configfile = f'/tmp/olsrd2-{nsname}.conf'
         f = open(configfile, 'w')
         f.write(
             '[global]\n'
@@ -247,7 +247,7 @@ def start_olsr2_instances(nsnames):
         f.close()
 
         set_addr6(nsname, 'uplink', 128)
-        _exec('ip netns exec "{}" olsrd2 "uplink" --load {}'.format(nsname, configfile))
+        _exec(f'ip netns exec "{nsname}" olsrd2 "uplink" --load {configfile}')
 
 def stop_olsr2_instances(nsnames):
     matched = pkill('olsrd2')
@@ -260,9 +260,9 @@ def stop_olsr2_instances(nsnames):
 def start_bmx7_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start bmx7 in {}'.format(nsname))
+            print(f'start bmx7 in {nsname}')
 
-        _exec('ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{0} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{0}/rsa.der --trustedNodesDir=/tmp/bmx7_{0}/trusted dev=uplink'.format(nsname))
+        _exec(f'ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{nsname} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{nsname}/rsa.der --trustedNodesDir=/tmp/bmx7_{nsname}/trusted dev=uplink')
 
 def stop_bmx7_instances(nsnames):
     matched = pkill('bmx7')
@@ -275,9 +275,9 @@ def stop_bmx7_instances(nsnames):
 def start_bmx6_instances(nsnames):
     for nsname in nsnames:
         if verbosity == 'verbose':
-            print('start bmx6 in {}'.format(nsname))
+            print(f'start bmx6 in {nsname}')
 
-        _exec('ip netns exec "{}" bmx6 --runtimeDir /tmp/bmx6_{} dev=uplink'.format(nsname, nsname, nsname))
+        _exec(f'ip netns exec "{nsname}" bmx6 --runtimeDir /tmp/bmx6_{nsname} dev=uplink')
 
 def stop_bmx6_instances(nsnames):
     matched = pkill('bmx6')
@@ -312,7 +312,7 @@ def start_routing_protocol(protocol, nsnames, ignore_error=False):
     elif protocol == 'none':
         return
     else:
-        eprint('Error: unknown routing protocol: {}'.format(protocol))
+        eprint(f'Error: unknown routing protocol: {protocol}')
         exit(1)
 
     end_ms = millis()
