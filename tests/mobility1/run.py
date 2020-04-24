@@ -26,16 +26,15 @@ os.system('ulimit -Sn 4096')
 def run(protocol, csvfile, tc = ''):
 	tools.seed_random(42)
 
-	node_count = 20
-	state = topology.create_nodes(node_count)
-	mobility.randomize_positions(state, xy_range=100)
-	mobility.connect_range(state, max_distance=10, max_links=10)
+	state = topology.create_nodes(20)
+	mobility.randomize_positions(state, xy_range=1)
+	mobility.connect_range(state, max_distance=0.5, max_links=50)
 
 	# create network and start routing software
 	network.change(from_state={}, to_state=state, force_tc=tc)
 	software.start(protocol)
 
-	for n in range(0, 30):
+	for n in range(0, 20):
 		print(f'{protocol}: iteration {n}')
 
 		with open('graph.json', 'w+') as file:
@@ -46,8 +45,8 @@ def run(protocol, csvfile, tc = ''):
 
 		# update network representation
 		old_state = copy.copy(state)
-		mobility.move_random(state, distance=2)
-		mobility.connect_range(state, max_distance=10, max_links=10)
+		mobility.move_random(state, distance=0.03)
+		mobility.connect_range(state, max_distance=0.5, max_links=50)
 
 		# update network
 		tmp_ms = tools.millis()
@@ -56,14 +55,14 @@ def run(protocol, csvfile, tc = ''):
 		network_ms = tools.millis() - tmp_ms
 
 		# Wait until wait seconds are over, else error
-		tools.wait(wait_beg_ms, 10)
+		tools.wait(wait_beg_ms, 30)
 
-		paths = tools.get_random_paths(state, 10)
+		paths = tools.get_random_paths(state, 100)
 		valid_path_count = tools.get_valid_path_count(state, paths)
 		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=1000, verbosity='verbose')
 
 		# add data to csv file
-		extra = tools.Wrapper(['node_count', 'valid_path_count'], [node_count, valid_path_count])
+		extra = tools.Wrapper(['node_count', 'valid_path_count'], [len(state['nodes']), valid_path_count])
 		tools.csv_update(csvfile, '\t', extra, ping_result)
 
 	software.stop(protocol)
