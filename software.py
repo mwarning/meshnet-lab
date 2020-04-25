@@ -423,24 +423,23 @@ def clear():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.set_defaults(protocol='none', from_state='none', to_state='none')
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
     parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
     parser_start.add_argument('protocol', choices=protocol_choices, help='Routing protocol to start.')
-    parser_start.add_argument('from_state', nargs='?', help='From state')
-    parser_start.add_argument('to_state', nargs='?', help='To state')
+    parser_start.add_argument('from_state', nargs='?', default='none',help='From state')
+    parser_start.add_argument('to_state', nargs='?', default='none',help='To state')
 
     parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
     parser_stop.add_argument('protocol', choices=protocol_choices, help='Routing protocol to stop.')
-    parser_stop.add_argument('from_state', nargs='?', help='From state')
-    parser_stop.add_argument('to_state', nargs='?', help='To state')
+    parser_stop.add_argument('from_state', nargs='?', default='none',help='From state')
+    parser_stop.add_argument('to_state', nargs='?', default='none',help='To state')
 
     parser_change = subparsers.add_parser('change', help='Stop/Start protocol daemons in every namespace.')
     parser_change.add_argument('protocol', choices=protocol_choices, help='Routing protocol to change.')
-    parser_change.add_argument('from_state', nargs='?', help='From state')
-    parser_change.add_argument('to_state', nargs='?', help='To state')
+    parser_change.add_argument('from_state', nargs='?', default='none', help='From state')
+    parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
 
