@@ -262,7 +262,7 @@ def start_bmx7_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start bmx7 in {nsname}')
 
-        _exec(f'ip netns exec "{0}" bmx7 --runtimeDir /tmp/bmx7_{nsname} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{nsname}/rsa.der --trustedNodesDir=/tmp/bmx7_{nsname}/trusted dev=uplink')
+        _exec(f'ip netns exec "{nsname}" bmx7 --runtimeDir /tmp/bmx7_{nsname} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{nsname}/rsa.der --trustedNodesDir=/tmp/bmx7_{nsname}/trusted dev=uplink')
 
 def stop_bmx7_instances(nsnames):
     matched = pkill('bmx7')
