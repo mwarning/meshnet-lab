@@ -4,7 +4,7 @@
 prefix="$1"
 
 gnuplot -e "
-	set title \"Mobility1 test of 20 nodes.\nEach test ~10 seconds after nodes moved randomly.\"; \
+	set title \"Mobility1 test of 20 nodes.\nEach test is done ~10s after nodes moved randomly.\" noenhanced; \
 	set grid; \
 	set term png; \
 	set terminal png size 1280,960; \
