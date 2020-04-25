@@ -216,6 +216,11 @@ def start_olsr1_instances(nsnames):
 
 def stop_olsr1_instances(nsnames):
     matched = pkill('olsrd')
+
+    # IPv4 address is not flushed when the device goes down
+    for nsname in nsnames:
+        _exec(f'ip netns exec "{nsname}" ip addr flush dev "uplink"')
+
     return matched
 
 def start_olsr2_instances(nsnames):
