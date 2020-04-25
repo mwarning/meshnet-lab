@@ -65,5 +65,5 @@ def run(protocol, files, csvfile, tc = ''):
 
 for name in ['line', 'grid4', 'rtree']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
-		with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
+		with open(f"{prefix}scalability1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, f"../../data/{name}/*.json", csvfile)
