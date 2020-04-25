@@ -1,9 +1,7 @@
 # Mobility Test 1
 
-Test the about of traffic caused by different routing protocols on different topologies:
-
-- different sizes of line, grid and random tree topologies
-- different Freifunk network topologies
+Test reaction of different routing protocols on 20 nodes that move around and form new connection.
+Real live changes can be followed via the graph.json output.
 
 ## Run
 

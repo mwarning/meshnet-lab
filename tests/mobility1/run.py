@@ -34,6 +34,7 @@ def run(protocol, csvfile, tc = ''):
 	network.change(from_state={}, to_state=state, force_tc=tc)
 	software.start(protocol)
 
+	test_beg_ms = tools.millis()
 	for n in range(0, 20):
 		print(f'{protocol}: iteration {n}')
 
@@ -55,14 +56,14 @@ def run(protocol, csvfile, tc = ''):
 		network_ms = tools.millis() - tmp_ms
 
 		# Wait until wait seconds are over, else error
-		tools.wait(wait_beg_ms, 30)
+		tools.wait(wait_beg_ms, 10)
 
 		paths = tools.get_random_paths(state, 100)
 		valid_path_count = tools.get_valid_path_count(state, paths)
 		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=1000, verbosity='verbose')
 
 		# add data to csv file
-		extra = tools.Wrapper(['node_count', 'valid_path_count'], [len(state['nodes']), valid_path_count])
+		extra = tools.Wrapper(['time_ms', 'node_count', 'valid_path_count'], [tools.millis() - test_beg_ms, len(state['nodes']), valid_path_count])
 		tools.csv_update(csvfile, '\t', extra, ping_result)
 
 	software.stop(protocol)
