@@ -88,6 +88,11 @@ def interface_up(nsname, interface, ignore_error=False):
 def interface_down(nsname, interface, ignore_error=False):
     _exec(f'ip netns exec "{nsname}" ip link set "{interface}" down', ignore_error=ignore_error)
 
+def interface_flush(nsname, interface):
+    # we need to flush for IPv4 and IPv6
+    _exec(f'ip netns exec "{nsname}" ip -4 addr flush dev "{interface}"')
+    _exec(f'ip netns exec "{nsname}" ip -6 addr flush dev "{interface}"')
+
 def set_addr6(nsname, interface, prefix_len):
     def eui64_suffix(nsname, interface):
         mac = get_mac_address(nsname, interface)
@@ -139,6 +144,10 @@ def start_cjdns_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start cjdns on {nsname}')
 
+        # traffic goes through tun0, uplink only needs to be up
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
+        interface_flush(nsname, 'uplink')
         _exec(f'cjdroute --genconf > /tmp/cjdns-{nsname}.conf')
         _exec(f'ip netns exec "{nsname}" cjdroute < /tmp/cjdns-{nsname}.conf', detach=True)
 
@@ -157,10 +166,12 @@ def start_yggdrasil_instances(nsnames):
 
         # Create a configuration file
         configfile = f'/tmp/yggdrasil-{nsname}.conf'
-        f = open(configfile, 'w')
-        f.write('AdminListen: none')
-        f.close()
+        with open(configfile, 'w') as file:
+            file.write('AdminListen: none')
 
+        # yggdrasil uses a tun0 interface, uplink only needs an fe80:* address
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
         _exec('ip netns exec "{}" yggdrasil -useconffile {}'.format(nsname, configfile), detach=True)
 
 def stop_yggdrasil_instances(nsnames):
@@ -176,6 +187,10 @@ def start_batmanadv_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start batman-adv in {nsname}')
 
+        # traffic goes through bat0, uplink only needs to be up
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
+        interface_flush(nsname, 'uplink')
         _exec(f'ip netns exec "{nsname}" batctl meshif "bat0" interface add "uplink"')
         interface_up(nsname, 'bat0')
 
@@ -194,6 +209,9 @@ def start_babel_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start babel in {nsname}')
 
+        # babel needs the link local (fe80:*) and a regular IPv6 address
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
         set_addr6(nsname, 'uplink', 64)
         _exec(f'ip netns exec "{nsname}" babeld -D -I /tmp/babel-{nsname}.pid "uplink"')
 
@@ -211,15 +229,15 @@ def start_olsr1_instances(nsnames):
             print(f'start olsr1 in {nsname}')
 
         # OLSR1 IPv6 seems to be broken/buggy
+        # Let's use IPv4 instead
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
+        interface_flush(nsname, 'uplink')
         set_addr4(nsname, 'uplink', 32)
         _exec(f'ip netns exec "{nsname}" olsrd -d 0 -i "uplink" -f /dev/null')
 
 def stop_olsr1_instances(nsnames):
     matched = pkill('olsrd')
-
-    # IPv4 address is not flushed when the device goes down
-    for nsname in nsnames:
-        _exec(f'ip netns exec "{nsname}" ip addr flush dev "uplink"')
 
     return matched
 
@@ -229,28 +247,30 @@ def start_olsr2_instances(nsnames):
             print(f'start olsr2 in {nsname}')
 
         # Create a configuration file
-        # Print all settings: olsrd2_static --schema=all
+        # Print all settings: olsrd2 --schema=all
         configfile = f'/tmp/olsrd2-{nsname}.conf'
-        f = open(configfile, 'w')
-        f.write(
-            '[global]\n'
-            'fork       yes\n'
-            'lockfile   -\n'
-            '\n'
-            # restrict to IPv6
-            '[olsrv2]\n'
-            'originator  -0.0.0.0/0\n'
-            'originator  -::1/128\n'
-            'originator  default_accept\n'
-            '\n'
-            # restrict to IPv6
-            '[interface]\n'
-            'bindto  -0.0.0.0/0\n'
-            'bindto  -::1/128\n'
-            'bindto  default_accept\n'
-        )
-        f.close()
+        with open(configfile, 'w') as file:
+            file.write(
+                '[global]\n'
+                'fork       yes\n'
+                'lockfile   -\n'
+                '\n'
+                # restrict to IPv6
+                '[olsrv2]\n'
+                'originator  -0.0.0.0/0\n'
+                'originator  -::1/128\n'
+                'originator  default_accept\n'
+                '\n'
+                # restrict to IPv6
+                '[interface]\n'
+                'bindto  -0.0.0.0/0\n'
+                'bindto  -::1/128\n'
+                'bindto  default_accept\n'
+            )
 
+        # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
         set_addr6(nsname, 'uplink', 128)
         _exec(f'ip netns exec "{nsname}" olsrd2 "uplink" --load {configfile}')
 
@@ -267,6 +287,10 @@ def start_bmx7_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start bmx7 in {nsname}')
 
+        # not sure about the setup
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
+        set_addr6(nsname, 'uplink', 128)
         _exec(f'ip netns exec "{nsname}" bmx7 --runtimeDir /tmp/bmx7_{nsname} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{nsname}/rsa.der --trustedNodesDir=/tmp/bmx7_{nsname}/trusted dev=uplink')
 
 def stop_bmx7_instances(nsnames):
@@ -282,6 +306,9 @@ def start_bmx6_instances(nsnames):
         if verbosity == 'verbose':
             print(f'start bmx6 in {nsname}')
 
+        # bmx6 only needs the link local fe80:* address
+        interface_down(nsname, 'uplink')
+        interface_up(nsname, 'uplink')
         _exec(f'ip netns exec "{nsname}" bmx6 --runtimeDir /tmp/bmx6_{nsname} dev=uplink')
 
 def stop_bmx6_instances(nsnames):
