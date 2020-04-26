@@ -9,7 +9,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,960; \
 	set output '${prefix}mobility1.png'; \
-	set key spacing 2 font 'Helvetica, 12' center right; \
+	set key spacing 2 font 'Helvetica, 18' center right; \
 	set xlabel 'time [sec]'; \
 	set ylabel 'packet arrival [%]'; \
 	set yrange [-2:102]; \
