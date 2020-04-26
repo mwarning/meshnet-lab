@@ -48,11 +48,18 @@ Notes:
 - batman-adv can not reach 100% on a line, since the maximum hop count is 32
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
 - yggdrasil has the best start performance, but a more irratic routing behaviour (maybe tree reconfigurations?)
-- olsr1 and bmx7 are bad performers in this test
+- olsr1 and bmx7 are bad performers in these tests, for unknown reasons
 
 ## Mobility1 Test
 
 ![image](laptop/mobility1/1_mobility1.png)
+
+Notes:
+
+- the higher a line, the better
+- babel, batman-adv, bmx6 perform the best
+- olsr2 strugles
+- yggdrasil, olsr1 and bmx7 behave poorly (the last two have identical results!)
 
 ## Scalability1 Test
 
