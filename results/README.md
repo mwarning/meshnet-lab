@@ -5,6 +5,7 @@ The results might not yet reflect real performance yet. Possible pitfalls:
 * CPU usage can affect the results
 * not all aspects are compared yet (e.g. mobility, packet loss)
 * edge case topologies and traffic behavior (e.g. 0% packet loss)
+* wrong configuration
 
 ## Hardware
 
@@ -39,6 +40,15 @@ An overview of the tested topologies can be found [here](../data/README.md).
 ![image](laptop/convergence1/convergence1-rtree.png)
 ![image](laptop/convergence1/convergence1-grid4.png)
 
+Notes:
+
+- the line topology is the biggest challenge here
+- bmx6, olsr1 and babel show a very similar behaviour
+- batman-adv is a bit late, but this can be attributed to the timing interval
+- batman-adv can not reach 100% on a line, since the maximum hop count is 32
+- cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
+- yggdrasil has the best start performance, but a more irratic routing behaviour (maybe tree reconfigurations?)
+- olsr1 and bmx7 are bad performers in this test
 
 ## Mobility1 Test
 
