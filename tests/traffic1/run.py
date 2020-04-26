@@ -54,7 +54,7 @@ with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
 			software.stop(protocol)
 
 			# add data to csv file
-			extra = tools.Wrapper(['node_count'], [node_count])
+			extra = (['node_count'], [node_count])
 			tools.csv_update(csvfile, '\t', extra, ping_result, sysload_result)
 
 		network.clear()

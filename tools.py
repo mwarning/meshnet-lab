@@ -166,23 +166,6 @@ def json_count(path):
     links = obj.get('links', [])
     return (len(nodes), len(links))
 
-class Wrapper:
-    def __init__(self, titles, values):
-        if not isinstance(values, list):
-            values = [values]
-
-        if not isinstance(titles, list):
-            titles = [titles]
-
-        self.titles = titles
-        self.values = values
-
-    def getTitles(self):
-        return self.titles
-
-    def getValues(self):
-        return self.values
-
 def sysload():
     p = subprocess.Popen(['uptime'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (out, err) = p.communicate()
@@ -194,7 +177,7 @@ def sysload():
     titles = ['load1', 'load5', 'load15']
     values = [load1, load5, load15]
 
-    return Wrapper(titles, values)
+    return (titles, values)
 
 class _Traffic:
     def __init__(self):
@@ -211,17 +194,18 @@ class _Traffic:
         self.tx_carrier = 0
         self.tx_collsns = 0
 
-    def getValues(self):
-        return (self.rx_bytes, self.rx_packets, self.rx_errors, self.rx_dropped,
-            self.rx_overrun, self.rx_mcast, self.tx_bytes, self.tx_packets,
-            self.tx_errors, self.tx_dropped, self.tx_carrier, self.tx_collsns
-        )
-
-    def getTitles(self):
-        return ('rx_bytes', 'rx_packets', 'rx_errors', 'rx_dropped',
+    def getData(self):
+        titles = ['rx_bytes', 'rx_packets', 'rx_errors', 'rx_dropped',
             'rx_overrun', 'rx_mcast', 'tx_bytes', 'tx_packets',
             'tx_errors', 'tx_dropped', 'tx_carrier', 'tx_collsns'
-        )
+        ]
+
+        values = [self.rx_bytes, self.rx_packets, self.rx_errors, self.rx_dropped,
+            self.rx_overrun, self.rx_mcast, self.tx_bytes, self.tx_packets,
+            self.tx_errors, self.tx_dropped, self.tx_carrier, self.tx_collsns
+        ]
+
+        return (titles, values)
 
     def __sub__(self, other):
         ts = _Traffic()
@@ -274,8 +258,8 @@ def csv_update(file, delimiter, *args):
     values = list()
 
     for arg in args:
-        titles += arg.getTitles()
-        values += arg.getValues()
+        titles += arg[0]
+        values += arg[1]
 
     # convert elements to str
     for i in range(0, len(titles)):
@@ -461,4 +445,4 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
     values = [result_packets_send, result_packets_received,
         int(result_duration_ms + result_filler_ms), int(result_rtt_avg_ms)]
 
-    return Wrapper(titles, values)
+    return (titles, values)

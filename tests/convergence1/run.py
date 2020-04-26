@@ -54,8 +54,8 @@ def run(protocol, files, csvfile):
 			software.stop(protocol)
 
 			# add data to csv file
-			extra = tools.Wrapper(['node_count', 'traffic_ms', 'software_ms', 'offset_ms'], [node_count, traffic_ms, software_ms, offset * 1000])
-			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg), ping_result, sysload_result)
+			extra = (['node_count', 'traffic_ms', 'software_ms', 'offset_ms'], [node_count, traffic_ms, software_ms, offset * 1000])
+			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result, sysload_result)
 
 		network.clear()
 

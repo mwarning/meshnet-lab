@@ -60,8 +60,8 @@ def run(protocol, files, csvfile, tc = ''):
 		network.clear()
 
 		# add data to csv file
-		extra = tools.Wrapper(['node_count', 'traffic_ms', 'software_ms'], [node_count, traffic_ms, software_ms])
-		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg), ping_result, sysload_result)
+		extra = (['node_count', 'traffic_ms', 'software_ms'], [node_count, traffic_ms, software_ms])
+		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result, sysload_result)
 
 for name in ['line', 'grid4', 'rtree']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
