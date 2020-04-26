@@ -4,7 +4,7 @@ Emulate a mesh network of hundreds of nodes on a computer. The network is realiz
 
 Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on that interface will be received on the uplinks of all connected namespaces.
 
-This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/) are available.
+This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/README.md) are available.
 
 Example JSON file:
 ```
@@ -28,7 +28,7 @@ Example JSON file:
 
 JSON keys:
 
-- `source`, `target`: Mandatory. Name of the network namespace. Maximum of 6 characters long.
+- `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long.
 - `source_tc`, `target_tc`: Optional. It will be appended to the `tc qdisc add dev <veth-interface> root` command and affects outgoing traffic on interface pairs connecting the bridges. (TODO: verify that this actually works)
 
 ## Usage
@@ -69,6 +69,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - Applications can be started in ns1, ns2, ns3 and see only their interface called `uplink`
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
 - ve-* interfaces have property `isolated` set to `on`
+- only one simulation can be run at the same time
 
 ## Routing Protocol Notes
 
