@@ -121,15 +121,15 @@ def set_addr4(nsname, interface, prefix_len):
 
 def pkill(pname):
     matched = 0
-    for i in range(0, 4):
-        signal = '-SIGTERM' if i < 2 else '-SIGKILL'
+    for i in range(0, 6):
+        signal = '-SIGTERM' if i < 4 else '-SIGKILL'
         out = subprocess.Popen(['pkill', '-c', signal, '-x', pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         matched = matched if matched > 0 else int(out.communicate()[0])
 
         if out.returncode != 0:
             return matched
 
-        time.sleep(1)
+        time.sleep(i * i * 0.05)
 
     eprint(f'Failed to kill {nsname}')
     exit(1)
