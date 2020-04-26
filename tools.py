@@ -303,25 +303,33 @@ def get_random_paths(network=None, count=10):
 
 '''
 Return an IP address of the interface in this preference order:
-1. IPv4
+1. IPv4 not link local
 2. IPv6 not link local
 3. IPv6 link local
+4. IPv4 link local
 '''
 def _get_ip_address(id, interface):
     lladdr6 = None
-    output = os.popen('ip netns exec "ns-{}" ip -6 addr list dev {}'.format(id, interface)).read()
+    lladdr4 = None
+    output = os.popen('ip netns exec "ns-{}" ip addr list dev {}'.format(id, interface)).read()
     for line in output.split('\n'):
         if 'inet ' in line:
             addr4 = line.split()[1].split('/')[0]
-            return addr4
+            if addr4.startswith('169.254.'):
+                lladdr4 = addr4
+            else:
+                return addr4
         if 'inet6 ' in line:
             addr6 = line.split()[1].split('/')[0]
-            if addr6.startswith('fe80'):
+            if addr6.startswith('fe80:'):
                 lladdr6 = addr6
             else:
                 return addr6
 
-    return lladdr6
+    if lladdr6 is not None:
+        return lladdr6
+    else:
+        return lladdr4
 
 class _PingResult:
     transmitted = 0
