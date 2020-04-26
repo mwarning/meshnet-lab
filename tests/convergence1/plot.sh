@@ -10,7 +10,7 @@ for id in 'line' 'rtree' 'grid4'; do
 		set term png; \
 		set terminal png size 1280,960; \
 		set output '${prefix}convergence1-$id.png'; \
-		set key spacing 3 font 'Helvetica, 18'; \
+		set key spacing 2 font 'Helvetica, 18'center right; \
 		set ylabel 'packets arrived [%]'; \
 		set xlabel 'wait after start [sec]'; \
 		set termoption lw 3; \
@@ -19,10 +19,11 @@ for id in 'line' 'rtree' 'grid4'; do
 		'${prefix}convergence1-babel-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel', \
 		'${prefix}convergence1-batman-adv-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv', \
 		'${prefix}convergence1-bmx6-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx6', \
-		'${prefix}convergence1-bmx7-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7'; \
-		'${prefix}convergence1-cjdns-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'cjdns'; \
+		'${prefix}convergence1-bmx7-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7', \
+		'${prefix}convergence1-cjdns-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'cjdns', \
 		'${prefix}convergence1-olsr1-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr1', \
 		'${prefix}convergence1-olsr2-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr2', \
-		'${prefix}convergence1-yggdrasil-$id.csv' (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil', \
+		'${prefix}convergence1-yggdrasil-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil' \
+	; \
 	"
 done
