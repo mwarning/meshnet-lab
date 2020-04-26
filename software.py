@@ -442,6 +442,7 @@ if __name__ == '__main__':
     parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
+    parser_clear.set_defaults(from_state='none', to_state='none')
 
     args = parser.parse_args()
 
