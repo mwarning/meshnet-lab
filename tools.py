@@ -405,7 +405,7 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
                     if verbosity == 'verbose':
                         print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface))
 
-                    command = ['ip', 'netns', 'exec', f'ns-{source}' ,'ping', '-c', f'{ping_count}', '-w', f'{ping_deadline}', '-D', target_addr, '-I', interface]
+                    command = ['ip', 'netns', 'exec', f'ns-{source}' ,'ping', '-c', f'{ping_count}', '-w', f'{ping_deadline}', '-D', target_addr]
                     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                     processes.append(process)
                     started += 1
