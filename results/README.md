@@ -29,6 +29,10 @@ Routing Software:
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
 
+## Topologies
+
+An overview of the tested topologies can be found [here](../data/README.md).
+
 ## Convergence1 Test
 
 ![image](laptop/convergence1/convergence1-line.png)
