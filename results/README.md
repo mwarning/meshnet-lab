@@ -36,9 +36,9 @@ An overview of the tested topologies can be found [here](../data/README.md).
 
 ## Convergence1 Test
 
-![image](laptop/convergence1/convergence1-line.png)
-![image](laptop/convergence1/convergence1-rtree.png)
-![image](laptop/convergence1/convergence1-grid4.png)
+![image](laptop/convergence1/1_convergence1-line.png)
+![image](laptop/convergence1/1_convergence1-rtree.png)
+![image](laptop/convergence1/1_convergence1-grid4.png)
 
 Notes:
 
