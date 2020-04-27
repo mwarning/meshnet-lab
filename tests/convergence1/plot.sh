@@ -5,7 +5,7 @@ prefix="$1"
 
 for id in 'line' 'rtree' 'grid4'; do
 	gnuplot -e "
-		set title \"Reachability on a $id of 50 nodes.\nLinks without packet loss, <link-count> random pings over 5 seconds\"; \
+		set title \"Reachability on a $id of 50 nodes.\nLinks without packet loss, 200 random pings in 2 seconds\"; \
 		set grid; \
 		set term png; \
 		set terminal png size 1280,960; \
