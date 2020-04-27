@@ -16,10 +16,10 @@ def convert_network(network):
     nodes = {}
 
     # create a structure we can use efficiently
-    for node in network['nodes']:
+    for node in network.get('nodes', []):
         nodes.setdefault(str(node['id']), [])
 
-    for link in network['links']:
+    for link in network.get('links', []):
         source = str(link['source'])
         target = str(link['target'])
         nodes.setdefault(source, []).append(target)
