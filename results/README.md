@@ -43,12 +43,11 @@ An overview of the tested topologies can be found [here](../data/README.md).
 Notes:
 
 - the line topology is the biggest challenge here
-- bmx6, olsr1 and babel show a very similar behaviour
-- batman-adv is a bit late, but this can be attributed to the timing interval
+- the timing intervals are visible
 - batman-adv can not reach 100% on a line, since the maximum hop count is 32
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
-- yggdrasil has the best start performance, but a more irratic routing behaviour (maybe tree reconfigurations?)
-- olsr1 and bmx7 are bad performers in these tests, for unknown reasons
+- yggdrasil has the best start performance, but a more irratic routing behaviour on a line topology
+- bmx7 does not route any packets except it goes to a direct neighbor, the reasons is unknown
 
 ## Mobility1 Test
 
