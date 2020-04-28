@@ -56,7 +56,7 @@ def move_nodes(network, add_x, add_y, add_z, mul_x, mul_y, mul_z):
         if 'z' in node:
             node['z'] = add_z + multiply_z * float(node['z'])
 
-def connect_range(network, max_distance=None, max_links=None):
+def connect_range(network, max_distance=None, max_links=None, tq=None):
     nodes = network.get('nodes', [])
     distances = []
     links = []
@@ -68,6 +68,16 @@ def connect_range(network, max_distance=None, max_links=None):
                 continue
 
             link = {'source': i, 'target': j}
+            if tq is not None:
+                if isinstance(tq, str):
+                    # tq is a string
+                    link['source_tq'] = tq
+                    link['target_tq'] = tq
+                else:
+                    # tq is a lambda
+                    link['source_tq'] = tq(d, max_distance)
+                    link['target_tq'] = tq(d, max_distance)
+
             if max_links is None:
                 links.append(link)
             else:
