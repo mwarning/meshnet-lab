@@ -45,7 +45,7 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.sleep(offset)
 
-			ping_result = tools.ping(protocol=protocol, count=200, duration_ms=2000, verbosity='verbose')
+			ping_result = tools.ping(protocol=protocol, count=200, duration_ms=2000, verbosity='verbose', seed=1234)
 
 			traffic_end = tools.traffic()
 

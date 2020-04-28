@@ -140,9 +140,6 @@ def root():
         eprint('Need to run as root.')
         exit(1)
 
-def seed_random(seed):
-    random.seed(seed)
-
 def sleep(seconds):
     time.sleep(seconds)
 
@@ -279,7 +276,7 @@ def millis():
     return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
 
 # get random node pairs (not unique, not path to self)
-def get_random_paths(network=None, count=10):
+def get_random_paths(network=None, count=10, seed=None):
     if network is None:
         # all ns-* network namespaces
         nodes = [x[3:] for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
@@ -289,6 +286,9 @@ def get_random_paths(network=None, count=10):
     if len(nodes) < 2 and count > 0:
         eprint('Not enough nodes to get any pairs!')
         exit(1)
+
+    if seed is not None:
+        random.seed(seed)
 
     pairs = []
     while len(pairs) < count:
@@ -366,8 +366,8 @@ def _parse_ping(output):
 
     return ret
 
-def ping(protocol, count=10, duration_ms=1000, verbosity='normal'):
-    paths = get_random_paths(network=None, count=count)
+def ping(protocol, count=10, duration_ms=1000, verbosity='normal', seed=None):
+    paths = get_random_paths(network=None, count=count, seed=seed)
     return ping_paths(protocol, paths, duration_ms, verbosity)
 
 def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):

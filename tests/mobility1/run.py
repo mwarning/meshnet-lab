@@ -24,8 +24,6 @@ network.clear()
 os.system('ulimit -Sn 4096')
 
 def run(protocol, csvfile, tc = ''):
-	tools.seed_random(42)
-
 	state = topology.create_nodes(20)
 	mobility.randomize_positions(state, xy_range=1)
 	mobility.connect_range(state, max_distance=0.5, max_links=50)
@@ -58,7 +56,7 @@ def run(protocol, csvfile, tc = ''):
 		# Wait until wait seconds are over, else error
 		tools.wait(wait_beg_ms, 10)
 
-		paths = tools.get_random_paths(state, 100)
+		paths = tools.get_random_paths(state, 100, seed=n)
 		valid_path_count = tools.get_valid_path_count(state, paths)
 		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=1000, verbosity='verbose')
 
