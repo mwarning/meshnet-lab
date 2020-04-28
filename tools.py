@@ -275,7 +275,7 @@ def csv_update(file, delimiter, *args):
 def millis():
     return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
 
-# get random node pairs (not unique, not path to self)
+# get random node pairs (unique, no self, no reverses)
 def get_random_paths(network=None, count=10, seed=None):
     if network is None:
         # all ns-* network namespaces
@@ -290,16 +290,18 @@ def get_random_paths(network=None, count=10, seed=None):
     if seed is not None:
         random.seed(seed)
 
-    pairs = []
-    while len(pairs) < count:
-        e1 = random.choice(nodes)
-        e2 = random.choice(nodes)
-        if e1 == e2:
-            continue
+    def decode(items, i):
+        k = math.floor((1 + math.sqrt(1 + 8 * i)) / 2)
+        return (items[k], items[i - k * (k - 1) // 2])
 
-        pairs.append((e1, e2))
+    def rand_pair(n):
+        return decode(random.randrange(n * (n - 1) // 2))
 
-    return pairs
+    def rand_pairs(items, npairs):
+        n = len(items)
+        return [decode(items, i) for i in random.sample(range(n * (n - 1) // 2), npairs)]
+
+    return rand_pairs(nodes, count)
 
 '''
 Return an IP address of the interface in this preference order:
