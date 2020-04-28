@@ -127,7 +127,7 @@ def get_valid_path_count(network, paths = []):
 
     for path in paths:
         d = dijkstra.find_shortest_distance(path[0], path[1])
-        if d is not None:
+        if d is not math.inf:
             count +=1
 
     return count
