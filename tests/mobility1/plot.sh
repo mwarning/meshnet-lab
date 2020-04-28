@@ -20,6 +20,7 @@ gnuplot -e "
 	'${prefix}mobility1-bmx6.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'bmx6 [%]' axis x1y1, \
 	'${prefix}mobility1-bmx7.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'bmx7 [%]' axis x1y1, \
 	'${prefix}mobility1-cjdns.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'cjdns [%]' axis x1y1, \
+	'${prefix}mobility1-none.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'none [%]' axis x1y1, \
 	'${prefix}mobility1-olsr1.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'olsr1 [%]' axis x1y1, \
 	'${prefix}mobility1-olsr2.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'olsr2 [%]' axis x1y1, \
 	'${prefix}mobility1-yggdrasil.csv' using (column('time_ms') / 1000):(100 * (column('packets_received') / column('packets_send'))) with linespoints title 'yggdrasil [%]' axis x1y1 \

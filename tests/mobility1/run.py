@@ -33,7 +33,7 @@ def run(protocol, csvfile, tc = ''):
 	software.start(protocol)
 
 	test_beg_ms = tools.millis()
-	for n in range(0, 20):
+	for n in range(0, 30):
 		print(f'{protocol}: iteration {n}')
 
 		with open('graph.json', 'w+') as file:
@@ -44,7 +44,7 @@ def run(protocol, csvfile, tc = ''):
 
 		# update network representation
 		old_state = copy.copy(state)
-		mobility.move_random(state, distance=0.03)
+		mobility.move_random(state, distance=0.05)
 		mobility.connect_range(state, max_distance=0.5, max_links=50)
 
 		# update network
@@ -68,6 +68,6 @@ def run(protocol, csvfile, tc = ''):
 	network.clear()
 
 
-for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
+for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'none', 'olsr1', 'olsr2', 'yggdrasil']:
 	with open(f"{prefix}mobility1-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
