@@ -44,7 +44,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		# update network representation
 		old_state = copy.copy(state)
-		mobility.move_random(state, distance=step_distance)
+		mobility.move_random(state, distance=step_distance, seed=n)
 		mobility.connect_range(state, max_links=150)
 
 		# update network

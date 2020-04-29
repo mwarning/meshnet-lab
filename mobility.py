@@ -99,7 +99,10 @@ def randomize_positions(network, xy_range=1.0):
         node['x'] = xy_range * random.random()
         node['y'] = xy_range * random.random()
 
-def move_random(network, distance):
+def move_random(network, distance, seed=None):
+    if seed is not None:
+        random.seed(seed)
+
     for node in get_nodes(network):
         dx = (0.5 - random.random()) if 'x' in node else 0.0
         dy = (0.5 - random.random()) if 'y' in node else 0.0
@@ -146,10 +149,7 @@ if __name__ == '__main__':
     elif args.action == 'connect':
         connect_range(output, args.distance, args.max_links)
     elif args.action == 'random':
-        if args.seed is not None:
-            random.seed(args.seed)
-
-        move_random(output, args.distance)
+        move_random(output, args.distance, args.seed)
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
