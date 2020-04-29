@@ -48,17 +48,24 @@ Notes:
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
 - yggdrasil has the best start performance, but a more irratic routing behaviour on a line topology
 - bmx7 does not route any packets except it goes to a direct neighbor, the reasons is unknown
+- these three graphs take about 8 hours to generate
 
 ## Mobility1 Test
 
-![image](laptop/mobility1/1_mobility1.png)
+![image](laptop/mobility1/1_mobility1-10-0.01.png)
+![image](laptop/mobility1/1_mobility1-10-0.03.png)
+![image](laptop/mobility1/1_mobility1-10-0.06.png)
+
+![image](laptop/mobility1/1_mobility1-30-0.01.png)
+![image](laptop/mobility1/1_mobility1-30-0.03.png)
+![image](laptop/mobility1/1_mobility1-30-0.06.png)
 
 Notes:
 
+- some pings cannot reach the destination, so 100% is only based on the actual possible limit
 - the higher a line, the better
-- babel, batman-adv, bmx6 perform the best
-- olsr2 strugles
-- yggdrasil, olsr1 and bmx7 behave poorly (the last two have identical results!)
+- bmx7 is at the baseline, because in this test it does not do routing
+- yggdrasil uses a dedicated tun0 interface, as such, in can perform below the one hop baseline
 
 ## Scalability1 Test
 
