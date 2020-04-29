@@ -18,12 +18,8 @@ network.clear()
 os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
-tc = os.environ.get('TC', '')
-wait = os.environ.get('WAIT', 60)
 
-print(f'prefix: "{prefix}", wait: "{wait}", tc: "{tc}"')
-
-def run(protocol, files, csvfile, tc = ''):
+def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
 		(node_count, link_count) = tools.json_count(path)
 
@@ -33,7 +29,7 @@ def run(protocol, files, csvfile, tc = ''):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc=tc)
+		network.change(from_state='none', to_state=path, force_tc='')
 
 		tools.sleep(10)
 
@@ -48,7 +44,7 @@ def run(protocol, files, csvfile, tc = ''):
 		software_ms = tools.millis() - tmp_ms
 
 		# Wait until wai seconds are over, else error
-		tools.wait(wait_beg_ms, wait)
+		tools.wait(wait_beg_ms, 60)
 
 		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=60000, verbosity='verbose')
 
