@@ -18,15 +18,11 @@ network.clear()
 os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
-tc = os.environ.get('TC', '')
-wait = os.environ.get('WAIT', 60)
-
-print(f'prefix: "{prefix}", wait: "{wait}", tc: "{tc}"')
 
 protocol = 'batman-adv'
 name = 'grid4'
 
-with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
+with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
 	for path in sorted(glob.glob(f'../../data/{name}/*.json')):
 		(node_count, link_count) = tools.json_count(path)
 
@@ -36,7 +32,7 @@ with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc=tc)
+		network.change(from_state='none', to_state=path, force_tc='')
 		tools.sleep(10)
 
 		for i in range(0, 10):
@@ -45,7 +41,7 @@ with open(f"{prefix}traffic2-{protocol}-{name}.csv", 'w+') as csvfile:
 			software.start(protocol)
 
 			# Wait until 60s are over, else error
-			tools.wait(wait_beg_ms, wait)
+			tools.wait(wait_beg_ms, 60)
 
 			ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=60000, verbosity='verbose')
 
