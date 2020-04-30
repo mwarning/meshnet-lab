@@ -313,23 +313,25 @@ Return an IP address of the interface in this preference order:
 def _get_ip_address(id, interface):
     lladdr6 = None
     lladdr4 = None
-    lines = os.popen('ip netns exec "ns-{}" ip addr list dev {}'.format(id, interface)).read().split('\n')
 
-    for line in lines:
-        if 'inet ' in line:
-            addr4 = line.split()[1].split('/')[0]
-            if addr4.startswith('169.254.'):
-                lladdr4 = addr4
-            else:
-                return addr4
+    with os.popen('ip netns exec "ns-{}" ip addr list dev {}'.format(id, interface)) as file:
+        lines = file.read().split('\n')
 
-    for line in lines:
-        if 'inet6 ' in line:
-            addr6 = line.split()[1].split('/')[0]
-            if addr6.startswith('fe80:'):
-                lladdr6 = addr6
-            else:
-                return addr6
+        for line in lines:
+            if 'inet ' in line:
+                addr4 = line.split()[1].split('/')[0]
+                if addr4.startswith('169.254.'):
+                    lladdr4 = addr4
+                else:
+                    return addr4
+
+        for line in lines:
+            if 'inet6 ' in line:
+                addr6 = line.split()[1].split('/')[0]
+                if addr6.startswith('fe80:'):
+                    lladdr6 = addr6
+                else:
+                    return addr6
 
     if lladdr6 is not None:
         return lladdr6
