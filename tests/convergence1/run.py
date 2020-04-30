@@ -18,10 +18,6 @@ network.clear()
 os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
-tc = os.environ.get('TC', '')
-wait = os.environ.get('WAIT', 60)
-
-print(f'prefix: "{prefix}", wait: "{wait}", tc: "{tc}"')
 
 def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
@@ -29,7 +25,7 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc=tc)
+		network.change(from_state='none', to_state=path, force_tc='')
 
 		tools.sleep(10)
 
