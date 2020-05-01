@@ -29,7 +29,7 @@ Routing Software:
 * bmx6 (v1.0 / 12.05.2018 / d8869ec69797)
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
-* none runs no routing software and only works for one hop destinations. It serves as baseline.
+* `none` indicates no routing software and only works for one hop destinations. It serves as baseline.
 
 ## Topologies
 
@@ -48,7 +48,7 @@ Notes:
 - batman-adv can not reach 100% on a line, since the maximum hop count is 32
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
 - yggdrasil has the best start performance, but a more irratic routing behaviour on a line topology
-- bmx7 does not route any packets except it goes to a direct neighbor, the reasons is unknown
+- bmx7 does not route any packets except if it goes to a direct neighbor, the reasons are unknown
 - these three graphs take about 8 hours to generate
 
 ## Mobility1 Test
@@ -70,53 +70,13 @@ Notes:
 
 ## Scalability1 Test
 
-### Server / Grid4
-
 ![image](server/scalability1/1_scalability1-grid4.png)
-
-### Server / Line
-
 ![image](server/scalability1/1_scalability1-line.png)
-
-### Server / RTree
-
 ![image](server/scalability1/1_scalability1-rtree.png)
 
-### Laptop / Grid4
+Notes:
 
-![image](laptop/scalability1/1_scalability1-grid4.png)
-
-Note that the packet arrival rates are usually pretty bad. This is probably because the software is measured directly after start. Let's wait 30 seconds:
-
-![image](laptop/scalability1/2_scalability1-grid4.png)
-
-bmx7 and cjdns show a very low arrival rate (high packet loss), so their graphs should be ignored. The worst performer seems to be batman-adv here. But the traffic usage is not what is seen in reality. Maybe it is because of the grid structure and lack of packet loss. Further investigations are needed.
-
-Let's wait for 60 seconds until starting the test.
-
-![image](laptop/scalability1/3_scalability1-grid4.png)
-
-No big change for batman-adv here.
-
-## Traffic1 Test
-
-### Laptop Grid4
-
-With a single threaded `bat_events` events queue:
-
-![image](laptop/traffic1/1_traffic1-batman-adv-grid4.png)
-
-The dropping packet arrival rate after 100 nodes might indicate that the system has come to its limits.
-For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
-
-### Server Grid4
-
-With a single threaded `bat_events` events queue:
-
-![image](server/traffic1/1_traffic1-batman-adv-grid4.png)
-
-For many nodes, "kworker/u32:1+bat_events" is at 100% for a long time.
-
-With a multithreaded `bat_events` events queue:
-
-![image](server/traffic1/2_traffic1-batman-adv-grid4.png)
+- a low packet arrival rate makes the corresponding traffic result data meaningless
+- batman-adv has a low hop limit
+- grid4 and line topologies (even more so with no traffic/latency limitations) are pathological
+- these three graphs took 55 hours to generate
