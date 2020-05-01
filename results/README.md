@@ -7,17 +7,15 @@ The results might not yet reflect real performance yet. Possible pitfalls:
 * edge case topologies and traffic behavior (e.g. 0% packet loss)
 * wrong configuration
 
-## Hardware
-
-Server:
-
-* Debian 10.3 (Linux Kernel 4.19.0-8-amd64)
-* 2 x Intel Xeon X5687 (2 * 4 Cores, 3.86 GHz) with 32GB RAM
-
-Laptop:
+Laptop for convergence1 and mobility1 tests:
 
 * Void Linux (Linux 5.4.27_1 SMP PREEMPT x86_64)
 * Intel i7-6500U (2 Cores, 2.50 GHz) with 8GB RAM
+
+Server for scalability1 test:
+
+* Debian 10.3 (Linux Kernel 4.19.0-8-amd64)
+* 2 x Intel Xeon X5687 (2 * 4 Cores, 3.86 GHz) with 32GB RAM
 
 Routing Software:
 
