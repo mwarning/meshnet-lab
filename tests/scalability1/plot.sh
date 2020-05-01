@@ -14,34 +14,36 @@ for id in 'line' 'grid4' 'rtree'; do
 		set xlabel '# number of nodes'; \
 		set ylabel 'tx per node [KB/s]'; \
 		set y2label 'packet arrival [%]'; \
+		set key right top; \
 		set y2tics 0, 10; \
 		set yrange [0:100]; \
 		set ytics nomirror; \
+		set ytics 0,5; \
 		set termoption lw 3; \
 		plot \
-		'${prefix}scalability1-babel-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'babel [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-babel-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'babel [%]' axis x1y2, \
+		'${prefix}scalability1-babel-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-violet' title 'babel [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-babel-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-violet' title 'babel [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-batman-adv-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'batman-adv [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-batman-adv-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'batman-adv [%]' axis x1y2, \
+		'${prefix}scalability1-batman-adv-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'skyblue' title 'batman-adv [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-batman-adv-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'bmx6 [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'bmx6 [%]' axis x1y2, \
+		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'bmx7 [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'bmx7 [%]' axis x1y2,	\
+		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-green' title 'bmx7 [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y2,	\
 		\
-		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'cjdns [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'cjdns [%]' axis x1y2, \
+		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-red' title 'cjdns [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-red' title 'cjdns [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-olsr1-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'olsr1 [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-olsr1-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'olsr1 [%]' axis x1y2, \
+		'${prefix}scalability1-olsr1-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'coral' title 'olsr1 [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-olsr1-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'coral' title 'olsr1 [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-olsr2-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'olsr2 [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-olsr2-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'olsr2 [%]' axis x1y2, \
+		'${prefix}scalability1-olsr2-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'orange' title 'olsr2 [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-olsr2-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'orange' title 'olsr2 [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-yggdrasil-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints title 'yggdrasil [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-yggdrasil-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points title 'yggdrasil [%]' axis x1y2, \
+		'${prefix}scalability1-yggdrasil-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('duration_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-salmon' title 'yggdrasil [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-yggdrasil-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-salmon' title 'yggdrasil [%]' axis x1y2, \
 		;\
 	"
 done
