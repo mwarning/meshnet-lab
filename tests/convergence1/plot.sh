@@ -17,15 +17,15 @@ for id in 'line' 'rtree' 'grid4'; do
 		set yrange [-5:105]; \
 		set ytics 10; \
 		plot \
-		'${prefix}convergence1-babel-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel', \
-		'${prefix}convergence1-batman-adv-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv', \
-		'${prefix}convergence1-bmx6-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx6', \
-		'${prefix}convergence1-bmx7-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'bmx7', \
-		'${prefix}convergence1-cjdns-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'cjdns', \
-		'${prefix}convergence1-none-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'none', \
-		'${prefix}convergence1-olsr1-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr1', \
-		'${prefix}convergence1-olsr2-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'olsr2', \
-		'${prefix}convergence1-yggdrasil-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil' \
+		'${prefix}convergence1-babel-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'dark-violet' title 'babel', \
+		'${prefix}convergence1-batman-adv-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'skyblue' title 'batman-adv', \
+		'${prefix}convergence1-bmx6-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'dark-yellow' title 'bmx6', \
+		'${prefix}convergence1-bmx7-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'dark-green' title 'bmx7', \
+		'${prefix}convergence1-cjdns-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'dark-red' title 'cjdns', \
+		'${prefix}convergence1-none-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'black' title 'none', \
+		'${prefix}convergence1-olsr1-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'coral' title 'olsr1', \
+		'${prefix}convergence1-olsr2-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'green' title 'olsr2', \
+		'${prefix}convergence1-yggdrasil-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'purple' title 'yggdrasil' \
 	; \
 	"
 done
