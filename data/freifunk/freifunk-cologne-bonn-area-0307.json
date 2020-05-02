@@ -1,0 +1,7069 @@
+{
+  "links": [
+    {
+      "source": 0,
+      "source_tq": 0.6901961,
+      "target": 212,
+      "target_tq": 0.7058824,
+      "type": "wifi"
+    },
+    {
+      "source": 0,
+      "source_tq": 0.49411765,
+      "target": 82,
+      "target_tq": 0.6745098,
+      "type": "wifi"
+    },
+    {
+      "source": 0,
+      "source_tq": 0.4627451,
+      "target": 64,
+      "target_tq": 0.7019608,
+      "type": "wifi"
+    },
+    {
+      "source": 0,
+      "source_tq": 0.24705882,
+      "target": 235,
+      "target_tq": 0.5686275,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0,
+      "target": 0,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 0,
+      "target": 0,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 0,
+      "source_tq": 1,
+      "target": 174,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 1,
+      "source_tq": 1,
+      "target": 197,
+      "target_tq": 0.99607843,
+      "type": "other"
+    },
+    {
+      "source": 166,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 87,
+      "source_tq": 0.078431375,
+      "target": 1,
+      "target_tq": 0.039215688,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 109,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.9098039,
+      "target": 1,
+      "target_tq": 0.7529412,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 1,
+      "source_tq": 0.26666668,
+      "target": 17,
+      "target_tq": 0.4117647,
+      "type": "wifi"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.015686275,
+      "target": 1,
+      "target_tq": 0.047058824,
+      "type": "wifi"
+    },
+    {
+      "source": 1,
+      "source_tq": 1,
+      "target": 151,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 1,
+      "source_tq": 1,
+      "target": 73,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 163,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 160,
+      "source_tq": 1,
+      "target": 1,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 2,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 4,
+      "source_tq": 1,
+      "target": 172,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 4,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 4,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 7,
+      "source_tq": 0,
+      "target": 5,
+      "target_tq": 0.039215688,
+      "type": "wifi"
+    },
+    {
+      "source": 236,
+      "source_tq": 0.50980395,
+      "target": 5,
+      "target_tq": 0.8156863,
+      "type": "wifi"
+    },
+    {
+      "source": 23,
+      "source_tq": 0.84705883,
+      "target": 5,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 184,
+      "source_tq": 0.9098039,
+      "target": 5,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 5,
+      "source_tq": 0,
+      "target": 214,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 5,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 209,
+      "source_tq": 0.80784315,
+      "target": 6,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 6,
+      "source_tq": 0.9764706,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 7,
+      "source_tq": 0.84313726,
+      "target": 184,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 23,
+      "source_tq": 1,
+      "target": 7,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 7,
+      "source_tq": 0,
+      "target": 236,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 7,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 76,
+      "source_tq": 0.972549,
+      "target": 8,
+      "target_tq": 0.8784314,
+      "type": "wifi"
+    },
+    {
+      "source": 8,
+      "source_tq": 0.8392157,
+      "target": 231,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 9,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.043137256,
+      "target": 10,
+      "target_tq": 0.13333334,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.4627451,
+      "target": 151,
+      "target_tq": 0.36078432,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.16862746,
+      "target": 73,
+      "target_tq": 0.078431375,
+      "type": "wifi"
+    },
+    {
+      "source": 166,
+      "source_tq": 0,
+      "target": 10,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.5803922,
+      "target": 118,
+      "target_tq": 0.4392157,
+      "type": "wifi"
+    },
+    {
+      "source": 109,
+      "source_tq": 0.12156863,
+      "target": 10,
+      "target_tq": 0.26666668,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0.47843137,
+      "target": 10,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.6666667,
+      "target": 163,
+      "target_tq": 0.5019608,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.3764706,
+      "target": 17,
+      "target_tq": 0.22745098,
+      "type": "wifi"
+    },
+    {
+      "source": 10,
+      "source_tq": 0.23529412,
+      "target": 87,
+      "target_tq": 0.08235294,
+      "type": "wifi"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 12,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 13,
+      "source_tq": 1,
+      "target": 220,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 13,
+      "source_tq": 0.79607844,
+      "target": 201,
+      "target_tq": 0.6784314,
+      "type": "wifi"
+    },
+    {
+      "source": 13,
+      "source_tq": 0.78431374,
+      "target": 16,
+      "target_tq": 0.8509804,
+      "type": "wifi"
+    },
+    {
+      "source": 13,
+      "source_tq": 0.1254902,
+      "target": 18,
+      "target_tq": 0.07450981,
+      "type": "wifi"
+    },
+    {
+      "source": 13,
+      "source_tq": 0,
+      "target": 264,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 13,
+      "source_tq": 0.627451,
+      "target": 126,
+      "target_tq": 0.56078434,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 14,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 15,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 15,
+      "source_tq": 0.3647059,
+      "target": 63,
+      "target_tq": 0.6627451,
+      "type": "wifi"
+    },
+    {
+      "source": 15,
+      "source_tq": 0.5137255,
+      "target": 122,
+      "target_tq": 0.45882353,
+      "type": "wifi"
+    },
+    {
+      "source": 161,
+      "source_tq": 0.9490196,
+      "target": 15,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 15,
+      "source_tq": 1,
+      "target": 206,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 271,
+      "source_tq": 0.9843137,
+      "target": 15,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 15,
+      "source_tq": 1,
+      "target": 55,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 15,
+      "source_tq": 1,
+      "target": 203,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 15,
+      "source_tq": 1,
+      "target": 227,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 220,
+      "source_tq": 1,
+      "target": 16,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 201,
+      "source_tq": 0,
+      "target": 16,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 18,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 16,
+      "source_tq": 0.019607844,
+      "target": 264,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 126,
+      "source_tq": 1,
+      "target": 16,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 17,
+      "source_tq": 0.3882353,
+      "target": 151,
+      "target_tq": 0.76862746,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0,
+      "target": 17,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 197,
+      "source_tq": 0.14117648,
+      "target": 17,
+      "target_tq": 0.49411765,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 0,
+      "target": 17,
+      "target_tq": 0.039215688,
+      "type": "wifi"
+    },
+    {
+      "source": 109,
+      "source_tq": 0.41960785,
+      "target": 17,
+      "target_tq": 0.7137255,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0.7294118,
+      "target": 17,
+      "target_tq": 0.8,
+      "type": "wifi"
+    },
+    {
+      "source": 163,
+      "source_tq": 0.101960786,
+      "target": 17,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 126,
+      "source_tq": 0.9372549,
+      "target": 18,
+      "target_tq": 0.8235294,
+      "type": "wifi"
+    },
+    {
+      "source": 220,
+      "source_tq": 0.84313726,
+      "target": 18,
+      "target_tq": 0.70980394,
+      "type": "wifi"
+    },
+    {
+      "source": 201,
+      "source_tq": 0.3882353,
+      "target": 18,
+      "target_tq": 0.32156864,
+      "type": "wifi"
+    },
+    {
+      "source": 18,
+      "source_tq": 0,
+      "target": 264,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 18,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 0.84705883,
+      "type": "vpn"
+    },
+    {
+      "source": 19,
+      "source_tq": 1,
+      "target": 127,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 20,
+      "source_tq": 0.4,
+      "target": 129,
+      "target_tq": 0.4392157,
+      "type": "wifi"
+    },
+    {
+      "source": 20,
+      "source_tq": 0.94509804,
+      "target": 134,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 21,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 22,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 23,
+      "source_tq": 0.972549,
+      "target": 184,
+      "target_tq": 0.92156863,
+      "type": "wifi"
+    },
+    {
+      "source": 236,
+      "source_tq": 0,
+      "target": 23,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 23,
+      "source_tq": 0.99607843,
+      "target": 91,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 24,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 255,
+      "source_tq": 0.58431375,
+      "target": 25,
+      "target_tq": 0.7490196,
+      "type": "wifi"
+    },
+    {
+      "source": 25,
+      "source_tq": 0.7882353,
+      "target": 95,
+      "target_tq": 0.6039216,
+      "type": "wifi"
+    },
+    {
+      "source": 181,
+      "source_tq": 1,
+      "target": 25,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 26,
+      "source_tq": 1,
+      "target": 172,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 27,
+      "source_tq": 0.9607843,
+      "target": 143,
+      "target_tq": 0.88235295,
+      "type": "wifi"
+    },
+    {
+      "source": 48,
+      "source_tq": 0.9137255,
+      "target": 27,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 28,
+      "source_tq": 0.8156863,
+      "target": 275,
+      "target_tq": 0.99215686,
+      "type": "wifi"
+    },
+    {
+      "source": 28,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 29,
+      "target_tq": 0.9843137,
+      "type": "vpn"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 30,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 1,
+      "target": 185,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 0.83137256,
+      "target": 205,
+      "target_tq": 0.75686276,
+      "type": "wifi"
+    },
+    {
+      "source": 30,
+      "source_tq": 1,
+      "target": 174,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 1,
+      "target": 150,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 0.8156863,
+      "target": 67,
+      "target_tq": 0.5294118,
+      "type": "wifi"
+    },
+    {
+      "source": 30,
+      "source_tq": 0.5803922,
+      "target": 235,
+      "target_tq": 0.46666667,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.7647059,
+      "target": 30,
+      "target_tq": 0.49019608,
+      "type": "wifi"
+    },
+    {
+      "source": 30,
+      "source_tq": 0.043137256,
+      "target": 64,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 1,
+      "target": 82,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 30,
+      "source_tq": 0.043137256,
+      "target": 212,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 162,
+      "source_tq": 0.9529412,
+      "target": 31,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 276,
+      "source_tq": 0.89411765,
+      "target": 31,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 52,
+      "source_tq": 0.6509804,
+      "target": 31,
+      "target_tq": 0.654902,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.99607843,
+      "target": 31,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 32,
+      "source_tq": 0.61960787,
+      "target": 43,
+      "target_tq": 0.95686275,
+      "type": "wifi"
+    },
+    {
+      "source": 32,
+      "source_tq": 0.92941177,
+      "target": 74,
+      "target_tq": 0.94509804,
+      "type": "wifi"
+    },
+    {
+      "source": 33,
+      "source_tq": 1,
+      "target": 290,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 33,
+      "source_tq": 0.74509805,
+      "target": 198,
+      "target_tq": 0.7764706,
+      "type": "wifi"
+    },
+    {
+      "source": 33,
+      "source_tq": 0.9098039,
+      "target": 86,
+      "target_tq": 0.78039217,
+      "type": "wifi"
+    },
+    {
+      "source": 33,
+      "source_tq": 0.7764706,
+      "target": 68,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 0.6313726,
+      "target": 33,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 123,
+      "source_tq": 0.79607844,
+      "target": 34,
+      "target_tq": 0.5372549,
+      "type": "wifi"
+    },
+    {
+      "source": 302,
+      "source_tq": 0,
+      "target": 34,
+      "target_tq": 0.54901963,
+      "type": "wifi"
+    },
+    {
+      "source": 231,
+      "source_tq": 0.84705883,
+      "target": 34,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 170,
+      "source_tq": 0.64705884,
+      "target": 34,
+      "target_tq": 0.63529414,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.62352943,
+      "target": 34,
+      "target_tq": 0.6901961,
+      "type": "wifi"
+    },
+    {
+      "source": 76,
+      "source_tq": 1,
+      "target": 34,
+      "target_tq": 0.8784314,
+      "type": "wifi"
+    },
+    {
+      "source": 178,
+      "source_tq": 0.9490196,
+      "target": 35,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 35,
+      "source_tq": 0.9490196,
+      "target": 53,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 35,
+      "source_tq": 1,
+      "target": 229,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 37,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 38,
+      "source_tq": 0.92156863,
+      "target": 254,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 240,
+      "source_tq": 0.9647059,
+      "target": 38,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 27,
+      "source_tq": 0,
+      "target": 39,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 143,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 139,
+      "source_tq": 0.4,
+      "target": 39,
+      "target_tq": 0.5411765,
+      "type": "wifi"
+    },
+    {
+      "source": 39,
+      "source_tq": 0.99607843,
+      "target": 85,
+      "target_tq": 0.80784315,
+      "type": "wifi"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 299,
+      "source_tq": 0,
+      "target": 39,
+      "target_tq": 0.08627451,
+      "type": "wifi"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 39,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 39,
+      "source_tq": 1,
+      "target": 66,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 92,
+      "source_tq": 1,
+      "target": 39,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 39,
+      "source_tq": 1,
+      "target": 102,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 40,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 40,
+      "source_tq": 1,
+      "target": 246,
+      "target_tq": 0.9411765,
+      "type": "wifi"
+    },
+    {
+      "source": 41,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 42,
+      "source_tq": 1,
+      "target": 232,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 42,
+      "source_tq": 0.8862745,
+      "target": 88,
+      "target_tq": 0.972549,
+      "type": "wifi"
+    },
+    {
+      "source": 43,
+      "source_tq": 0.8509804,
+      "target": 300,
+      "target_tq": 0.6313726,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.9882353,
+      "target": 44,
+      "target_tq": 0.9843137,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 63,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 0.9843137,
+      "target": 216,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 153,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 286,
+      "source_tq": 0.99607843,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 60,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 96,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 0.98039216,
+      "target": 144,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 54,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 169,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 292,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 186,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 257,
+      "source_tq": 0.99607843,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 259,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 155,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 0.8745098,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 301,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 309,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 207,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 188,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 94,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 159,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 180,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 136,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 300,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 195,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 45,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 261,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 91,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 165,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 134,
+      "target_tq": 0.9529412,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 61,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 0.99215686,
+      "target": 242,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 275,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 158,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 285,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 237,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 51,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 238,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 258,
+      "target_tq": 0.9647059,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 56,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 0.99607843,
+      "target": 49,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 265,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 75,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 247,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 213,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "source_tq": 1,
+      "target": 92,
+      "target_tq": 0.99607843,
+      "type": "vpn"
+    },
+    {
+      "source": 46,
+      "source_tq": 0.9098039,
+      "target": 51,
+      "target_tq": 0.5764706,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 46,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 213,
+      "source_tq": 0.84313726,
+      "target": 47,
+      "target_tq": 0.99215686,
+      "type": "wifi"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 66,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 48,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 102,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 143,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 137,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 48,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 48,
+      "source_tq": 1,
+      "target": 92,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 49,
+      "source_tq": 0.92156863,
+      "target": 60,
+      "target_tq": 0.80784315,
+      "type": "wifi"
+    },
+    {
+      "source": 252,
+      "source_tq": 1,
+      "target": 50,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 132,
+      "source_tq": 1,
+      "target": 50,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 117,
+      "source_tq": 0.8352941,
+      "target": 50,
+      "target_tq": 0.9607843,
+      "type": "wifi"
+    },
+    {
+      "source": 114,
+      "source_tq": 1,
+      "target": 50,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 308,
+      "source_tq": 0.9098039,
+      "target": 50,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 52,
+      "source_tq": 0,
+      "target": 162,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 52,
+      "source_tq": 0.67058825,
+      "target": 276,
+      "target_tq": 0.76862746,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 52,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 178,
+      "source_tq": 1,
+      "target": 53,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 229,
+      "source_tq": 0.8117647,
+      "target": 53,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 0.039215688,
+      "target": 54,
+      "target_tq": 0.14117648,
+      "type": "wifi"
+    },
+    {
+      "source": 57,
+      "source_tq": 0.9607843,
+      "target": 181,
+      "target_tq": 0.9607843,
+      "type": "wifi"
+    },
+    {
+      "source": 58,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 58,
+      "source_tq": 0.6745098,
+      "target": 141,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 267,
+      "source_tq": 0.9254902,
+      "target": 59,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 59,
+      "source_tq": 0.56078434,
+      "target": 130,
+      "target_tq": 0.5176471,
+      "type": "wifi"
+    },
+    {
+      "source": 59,
+      "source_tq": 0,
+      "target": 147,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.6039216,
+      "target": 59,
+      "target_tq": 0.65882355,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.7647059,
+      "target": 59,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 78,
+      "source_tq": 0.7411765,
+      "target": 59,
+      "target_tq": 0.7607843,
+      "type": "wifi"
+    },
+    {
+      "source": 104,
+      "source_tq": 0.827451,
+      "target": 59,
+      "target_tq": 0.9764706,
+      "type": "wifi"
+    },
+    {
+      "source": 59,
+      "source_tq": 0.654902,
+      "target": 69,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 239,
+      "source_tq": 0.48235294,
+      "target": 61,
+      "target_tq": 0.30588236,
+      "type": "wifi"
+    },
+    {
+      "source": 203,
+      "source_tq": 0.7607843,
+      "target": 63,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 206,
+      "source_tq": 0.8745098,
+      "target": 63,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 0,
+      "target": 64,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 235,
+      "source_tq": 0,
+      "target": 64,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.30980393,
+      "target": 64,
+      "target_tq": 0.101960786,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 0,
+      "target": 64,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 212,
+      "source_tq": 0.65882355,
+      "target": 64,
+      "target_tq": 0.72156864,
+      "type": "wifi"
+    },
+    {
+      "source": 82,
+      "source_tq": 0.050980393,
+      "target": 64,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 65,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 253,
+      "source_tq": 0.6666667,
+      "target": 66,
+      "target_tq": 0.41960785,
+      "type": "wifi"
+    },
+    {
+      "source": 270,
+      "source_tq": 0.7607843,
+      "target": 66,
+      "target_tq": 0.69411767,
+      "type": "wifi"
+    },
+    {
+      "source": 92,
+      "source_tq": 1,
+      "target": 66,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 143,
+      "source_tq": 1,
+      "target": 66,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.88235295,
+      "target": 66,
+      "target_tq": 0.8901961,
+      "type": "wifi"
+    },
+    {
+      "source": 66,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 102,
+      "source_tq": 0.25882354,
+      "target": 66,
+      "target_tq": 0.39215687,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 67,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 174,
+      "source_tq": 0,
+      "target": 67,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.4627451,
+      "target": 67,
+      "target_tq": 0.6666667,
+      "type": "wifi"
+    },
+    {
+      "source": 235,
+      "source_tq": 0,
+      "target": 67,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.62352943,
+      "target": 67,
+      "target_tq": 0.56078434,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 0.13333334,
+      "target": 67,
+      "target_tq": 0.43137255,
+      "type": "wifi"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.9843137,
+      "target": 67,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 205,
+      "source_tq": 0.62352943,
+      "target": 67,
+      "target_tq": 0.5137255,
+      "type": "wifi"
+    },
+    {
+      "source": 86,
+      "source_tq": 1,
+      "target": 68,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 68,
+      "source_tq": 1,
+      "target": 198,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 290,
+      "source_tq": 0.99215686,
+      "target": 68,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 130,
+      "source_tq": 0.7607843,
+      "target": 69,
+      "target_tq": 0.9764706,
+      "type": "wifi"
+    },
+    {
+      "source": 69,
+      "source_tq": 0.8901961,
+      "target": 147,
+      "target_tq": 0.6666667,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.79607844,
+      "target": 69,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 1,
+      "target": 69,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 78,
+      "source_tq": 0.73333335,
+      "target": 69,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 104,
+      "source_tq": 0.42352942,
+      "target": 69,
+      "target_tq": 0.65882355,
+      "type": "wifi"
+    },
+    {
+      "source": 267,
+      "source_tq": 0.42745098,
+      "target": 69,
+      "target_tq": 0.69803923,
+      "type": "wifi"
+    },
+    {
+      "source": 69,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 0.8745098,
+      "type": "vpn"
+    },
+    {
+      "source": 216,
+      "source_tq": 0.7254902,
+      "target": 70,
+      "target_tq": 0.79607844,
+      "type": "wifi"
+    },
+    {
+      "source": 215,
+      "source_tq": 0.74509805,
+      "target": 70,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 274,
+      "source_tq": 0.50980395,
+      "target": 71,
+      "target_tq": 0.5882353,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.72156864,
+      "target": 71,
+      "target_tq": 0.6745098,
+      "type": "wifi"
+    },
+    {
+      "source": 142,
+      "source_tq": 0.18431373,
+      "target": 72,
+      "target_tq": 0.19215687,
+      "type": "wifi"
+    },
+    {
+      "source": 72,
+      "source_tq": 0,
+      "target": 112,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 72,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 0.9843137,
+      "type": "vpn"
+    },
+    {
+      "source": 166,
+      "source_tq": 0.9490196,
+      "target": 73,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 0.3254902,
+      "target": 151,
+      "target_tq": 0.4117647,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0,
+      "target": 73,
+      "target_tq": 0.105882354,
+      "type": "wifi"
+    },
+    {
+      "source": 163,
+      "source_tq": 0.5568628,
+      "target": 73,
+      "target_tq": 0.42352942,
+      "type": "wifi"
+    },
+    {
+      "source": 87,
+      "source_tq": 0.21960784,
+      "target": 73,
+      "target_tq": 0.5019608,
+      "type": "wifi"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.46666667,
+      "target": 73,
+      "target_tq": 0.7921569,
+      "type": "wifi"
+    },
+    {
+      "source": 109,
+      "source_tq": 0.43529412,
+      "target": 73,
+      "target_tq": 0.5294118,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0.03529412,
+      "target": 73,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 74,
+      "source_tq": 0,
+      "target": 43,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 74,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 76,
+      "source_tq": 0.6666667,
+      "target": 231,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 76,
+      "source_tq": 0.42352942,
+      "target": 170,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.16078432,
+      "target": 76,
+      "target_tq": 0.32156864,
+      "type": "wifi"
+    },
+    {
+      "source": 76,
+      "source_tq": 0.20784314,
+      "target": 123,
+      "target_tq": 0.36078432,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 77,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 78,
+      "source_tq": 0.7607843,
+      "target": 211,
+      "target_tq": 0.68235296,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.09411765,
+      "target": 78,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 78,
+      "source_tq": 0.07450981,
+      "target": 130,
+      "target_tq": 0.12941177,
+      "type": "wifi"
+    },
+    {
+      "source": 78,
+      "source_tq": 0.93333334,
+      "target": 147,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.76862746,
+      "target": 79,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 269,
+      "source_tq": 0.98039216,
+      "target": 79,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 119,
+      "source_tq": 0.38039216,
+      "target": 79,
+      "target_tq": 0.7176471,
+      "type": "wifi"
+    },
+    {
+      "source": 296,
+      "source_tq": 0.6117647,
+      "target": 79,
+      "target_tq": 0.88235295,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.98039216,
+      "target": 79,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 187,
+      "source_tq": 0,
+      "target": 79,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 190,
+      "source_tq": 0.87058824,
+      "target": 79,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 221,
+      "source_tq": 0,
+      "target": 79,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 79,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 246,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 112,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 291,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 0.9882353,
+      "target": 156,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 264,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 298,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 268,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 229,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 129,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 0.9843137,
+      "type": "vpn"
+    },
+    {
+      "source": 215,
+      "source_tq": 0.9529412,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 179,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 0.96862745,
+      "type": "vpn"
+    },
+    {
+      "source": 157,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 172,
+      "source_tq": 0,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 287,
+      "source_tq": 0.9843137,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 130,
+      "source_tq": 0.9764706,
+      "target": 80,
+      "target_tq": 0.9098039,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 80,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 0.9843137,
+      "target": 261,
+      "target_tq": 0.9843137,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "source_tq": 1,
+      "target": 91,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 205,
+      "source_tq": 0,
+      "target": 81,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 30,
+      "source_tq": 0,
+      "target": 81,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.92156863,
+      "target": 81,
+      "target_tq": 0.7058824,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 0,
+      "target": 67,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.3647059,
+      "target": 81,
+      "target_tq": 0.11764706,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 0.8862745,
+      "target": 81,
+      "target_tq": 0.83137256,
+      "type": "wifi"
+    },
+    {
+      "source": 212,
+      "source_tq": 0.23921569,
+      "target": 81,
+      "target_tq": 0.23921569,
+      "type": "wifi"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.039215688,
+      "target": 81,
+      "target_tq": 0.039215688,
+      "type": "wifi"
+    },
+    {
+      "source": 82,
+      "source_tq": 0,
+      "target": 235,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0,
+      "target": 82,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 82,
+      "source_tq": 1,
+      "target": 174,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 82,
+      "source_tq": 1,
+      "target": 150,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 82,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 82,
+      "source_tq": 0.043137256,
+      "target": 212,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 82,
+      "source_tq": 0.9843137,
+      "target": 185,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 83,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 295,
+      "source_tq": 1,
+      "target": 84,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 139,
+      "source_tq": 0.39215687,
+      "target": 85,
+      "target_tq": 0.28235295,
+      "type": "wifi"
+    },
+    {
+      "source": 86,
+      "source_tq": 1,
+      "target": 198,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 86,
+      "source_tq": 1,
+      "target": 290,
+      "target_tq": 0.9882353,
+      "type": "other"
+    },
+    {
+      "source": 166,
+      "source_tq": 0.06666667,
+      "target": 87,
+      "target_tq": 0.043137256,
+      "type": "wifi"
+    },
+    {
+      "source": 303,
+      "source_tq": 0.9490196,
+      "target": 87,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 87,
+      "source_tq": 0.7254902,
+      "target": 118,
+      "target_tq": 0.7764706,
+      "type": "wifi"
+    },
+    {
+      "source": 87,
+      "source_tq": 0.13333334,
+      "target": 163,
+      "target_tq": 0.27450982,
+      "type": "wifi"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.29803923,
+      "target": 87,
+      "target_tq": 0.76862746,
+      "type": "wifi"
+    },
+    {
+      "source": 87,
+      "source_tq": 0,
+      "target": 151,
+      "target_tq": 0.11764706,
+      "type": "wifi"
+    },
+    {
+      "source": 88,
+      "source_tq": 0.96862745,
+      "target": 232,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 250,
+      "source_tq": 0.8392157,
+      "target": 89,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 90,
+      "source_tq": 0.9372549,
+      "target": 279,
+      "target_tq": 0.7764706,
+      "type": "wifi"
+    },
+    {
+      "source": 97,
+      "source_tq": 0.5058824,
+      "target": 90,
+      "target_tq": 0.5372549,
+      "type": "wifi"
+    },
+    {
+      "source": 90,
+      "source_tq": 1,
+      "target": 293,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 90,
+      "source_tq": 0.9843137,
+      "target": 307,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 278,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.93333334,
+      "target": 139,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 91,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 261,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.9843137,
+      "target": 279,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 228,
+      "target_tq": 0.96862745,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 184,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 152,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.9843137,
+      "target": 200,
+      "target_tq": 0.98039216,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 120,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.3882353,
+      "target": 236,
+      "target_tq": 0.4627451,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 249,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "source_tq": 1,
+      "target": 295,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 92,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 92,
+      "source_tq": 1,
+      "target": 102,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 1,
+      "target": 92,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 92,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 92,
+      "source_tq": 1,
+      "target": 143,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 92,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 112,
+      "source_tq": 0.019607844,
+      "target": 95,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 262,
+      "source_tq": 0,
+      "target": 95,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 266,
+      "source_tq": 0.6745098,
+      "target": 95,
+      "target_tq": 0.8156863,
+      "type": "wifi"
+    },
+    {
+      "source": 255,
+      "source_tq": 0.96862745,
+      "target": 95,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 142,
+      "source_tq": 0.40784314,
+      "target": 95,
+      "target_tq": 0.4,
+      "type": "wifi"
+    },
+    {
+      "source": 97,
+      "source_tq": 1,
+      "target": 279,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 195,
+      "source_tq": 0.9843137,
+      "target": 98,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 234,
+      "source_tq": 0.9843137,
+      "target": 98,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 99,
+      "source_tq": 0.99607843,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 100,
+      "source_tq": 0.9843137,
+      "target": 173,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 100,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 270,
+      "source_tq": 0,
+      "target": 102,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 143,
+      "source_tq": 1,
+      "target": 102,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.827451,
+      "target": 102,
+      "target_tq": 0.8352941,
+      "type": "wifi"
+    },
+    {
+      "source": 102,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 102,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.8509804,
+      "target": 269,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.02745098,
+      "target": 187,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.8862745,
+      "target": 119,
+      "target_tq": 0.7490196,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.91764706,
+      "target": 296,
+      "target_tq": 0.74509805,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.6156863,
+      "target": 103,
+      "target_tq": 0.5921569,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.7058824,
+      "target": 190,
+      "target_tq": 0.70980394,
+      "type": "wifi"
+    },
+    {
+      "source": 103,
+      "source_tq": 0.5529412,
+      "target": 221,
+      "target_tq": 0.49803922,
+      "type": "wifi"
+    },
+    {
+      "source": 267,
+      "source_tq": 0.9137255,
+      "target": 104,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 104,
+      "source_tq": 0.7764706,
+      "target": 130,
+      "target_tq": 0.8235294,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.7882353,
+      "target": 104,
+      "target_tq": 0.54901963,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.8627451,
+      "target": 104,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0.80784315,
+      "target": 109,
+      "target_tq": 0.9019608,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 160,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 105,
+      "source_tq": 0,
+      "target": 197,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0,
+      "target": 163,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 137,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 143,
+      "source_tq": 1,
+      "target": 106,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 0.9843137,
+      "target": 106,
+      "target_tq": 0.99607843,
+      "type": "other"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.27058825,
+      "target": 163,
+      "target_tq": 0.50980395,
+      "type": "wifi"
+    },
+    {
+      "source": 166,
+      "source_tq": 1,
+      "target": 107,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 107,
+      "source_tq": 0.9843137,
+      "target": 303,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 108,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 109,
+      "source_tq": 1,
+      "target": 197,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 166,
+      "source_tq": 0.043137256,
+      "target": 109,
+      "target_tq": 0.043137256,
+      "type": "wifi"
+    },
+    {
+      "source": 109,
+      "source_tq": 0.019607844,
+      "target": 118,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 1,
+      "target": 109,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 110,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 111,
+      "source_tq": 0.6627451,
+      "target": 192,
+      "target_tq": 0.7019608,
+      "type": "wifi"
+    },
+    {
+      "source": 111,
+      "source_tq": 0.8117647,
+      "target": 168,
+      "target_tq": 0.8745098,
+      "type": "wifi"
+    },
+    {
+      "source": 111,
+      "source_tq": 0.03137255,
+      "target": 158,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 133,
+      "source_tq": 0,
+      "target": 111,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 112,
+      "source_tq": 0.12941177,
+      "target": 136,
+      "target_tq": 0.043137256,
+      "type": "wifi"
+    },
+    {
+      "source": 142,
+      "source_tq": 0.8627451,
+      "target": 112,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 113,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 114,
+      "source_tq": 0.98039216,
+      "target": 252,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 132,
+      "source_tq": 0.8745098,
+      "target": 114,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 114,
+      "source_tq": 0.92941177,
+      "target": 117,
+      "target_tq": 0.74509805,
+      "type": "wifi"
+    },
+    {
+      "source": 308,
+      "source_tq": 0,
+      "target": 114,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.9098039,
+      "target": 267,
+      "target_tq": 0.8039216,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 1,
+      "target": 130,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.3882353,
+      "target": 147,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.5411765,
+      "target": 211,
+      "target_tq": 0.69411767,
+      "type": "wifi"
+    },
+    {
+      "source": 252,
+      "source_tq": 0.9529412,
+      "target": 117,
+      "target_tq": 0.7137255,
+      "type": "wifi"
+    },
+    {
+      "source": 132,
+      "source_tq": 0.99607843,
+      "target": 117,
+      "target_tq": 0.827451,
+      "type": "wifi"
+    },
+    {
+      "source": 308,
+      "source_tq": 1,
+      "target": 117,
+      "target_tq": 0.85882354,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.9843137,
+      "target": 151,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.9843137,
+      "target": 163,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 166,
+      "source_tq": 1,
+      "target": 118,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 119,
+      "source_tq": 0.6392157,
+      "target": 296,
+      "target_tq": 0.6862745,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0,
+      "target": 119,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 119,
+      "source_tq": 0.79607844,
+      "target": 187,
+      "target_tq": 0.5882353,
+      "type": "wifi"
+    },
+    {
+      "source": 190,
+      "source_tq": 0.7607843,
+      "target": 119,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 221,
+      "source_tq": 0.6627451,
+      "target": 119,
+      "target_tq": 0.92156863,
+      "type": "wifi"
+    },
+    {
+      "source": 269,
+      "source_tq": 0.27450982,
+      "target": 119,
+      "target_tq": 0.44313726,
+      "type": "wifi"
+    },
+    {
+      "source": 177,
+      "source_tq": 0.8117647,
+      "target": 121,
+      "target_tq": 0.6745098,
+      "type": "wifi"
+    },
+    {
+      "source": 277,
+      "source_tq": 0.6627451,
+      "target": 121,
+      "target_tq": 0.6392157,
+      "type": "wifi"
+    },
+    {
+      "source": 164,
+      "source_tq": 0.5764706,
+      "target": 121,
+      "target_tq": 0.47058824,
+      "type": "wifi"
+    },
+    {
+      "source": 121,
+      "source_tq": 0.1882353,
+      "target": 200,
+      "target_tq": 0.09803922,
+      "type": "wifi"
+    },
+    {
+      "source": 122,
+      "source_tq": 0.98039216,
+      "target": 206,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 271,
+      "source_tq": 0.8509804,
+      "target": 122,
+      "target_tq": 0.92156863,
+      "type": "wifi"
+    },
+    {
+      "source": 122,
+      "source_tq": 0,
+      "target": 63,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 161,
+      "source_tq": 0.92941177,
+      "target": 122,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 289,
+      "source_tq": 0,
+      "target": 123,
+      "target_tq": 0.52156866,
+      "type": "wifi"
+    },
+    {
+      "source": 123,
+      "source_tq": 0.74509805,
+      "target": 170,
+      "target_tq": 0.8352941,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.7058824,
+      "target": 123,
+      "target_tq": 0.59607846,
+      "type": "wifi"
+    },
+    {
+      "source": 182,
+      "source_tq": 0.90588236,
+      "target": 123,
+      "target_tq": 0.9411765,
+      "type": "wifi"
+    },
+    {
+      "source": 302,
+      "source_tq": 0.84705883,
+      "target": 123,
+      "target_tq": 0.99215686,
+      "type": "wifi"
+    },
+    {
+      "source": 123,
+      "source_tq": 0.5176471,
+      "target": 231,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 124,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 201,
+      "source_tq": 0.9019608,
+      "target": 126,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 126,
+      "source_tq": 0.81960785,
+      "target": 220,
+      "target_tq": 0.94509804,
+      "type": "wifi"
+    },
+    {
+      "source": 126,
+      "source_tq": 0,
+      "target": 264,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.9843137,
+      "target": 127,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 128,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 130,
+      "source_tq": 0.5686275,
+      "target": 147,
+      "target_tq": 0.6156863,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.6039216,
+      "target": 130,
+      "target_tq": 0.5686275,
+      "type": "wifi"
+    },
+    {
+      "source": 267,
+      "source_tq": 0.7294118,
+      "target": 130,
+      "target_tq": 0.9019608,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 0.7882353,
+      "target": 262,
+      "target_tq": 0.9137255,
+      "type": "wifi"
+    },
+    {
+      "source": 132,
+      "source_tq": 0.8862745,
+      "target": 308,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 132,
+      "source_tq": 0.96862745,
+      "target": 252,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 133,
+      "source_tq": 0.53333336,
+      "target": 192,
+      "target_tq": 0.7254902,
+      "type": "wifi"
+    },
+    {
+      "source": 133,
+      "source_tq": 0.627451,
+      "target": 158,
+      "target_tq": 0.69411767,
+      "type": "wifi"
+    },
+    {
+      "source": 135,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 136,
+      "source_tq": 0,
+      "target": 95,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 142,
+      "source_tq": 0.4862745,
+      "target": 136,
+      "target_tq": 0.33333334,
+      "type": "wifi"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 137,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 137,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 1,
+      "target": 143,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 139,
+      "source_tq": 0.8235294,
+      "target": 143,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.6117647,
+      "target": 205,
+      "target_tq": 0.47843137,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 1,
+      "target": 174,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.44705883,
+      "target": 212,
+      "target_tq": 0.16862746,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.6745098,
+      "target": 241,
+      "target_tq": 0.2901961,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.8156863,
+      "target": 185,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 0.83137256,
+      "target": 150,
+      "target_tq": 0.5921569,
+      "type": "wifi"
+    },
+    {
+      "source": 140,
+      "source_tq": 1,
+      "target": 235,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 142,
+      "source_tq": 0.02745098,
+      "target": 255,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 0,
+      "target": 143,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 143,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 299,
+      "source_tq": 0.5294118,
+      "target": 143,
+      "target_tq": 0.5019608,
+      "type": "wifi"
+    },
+    {
+      "source": 257,
+      "source_tq": 1,
+      "target": 144,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 0.08235294,
+      "target": 218,
+      "target_tq": 0.05490196,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 0.9411765,
+      "target": 146,
+      "target_tq": 0.76862746,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.7254902,
+      "target": 147,
+      "target_tq": 0.7411765,
+      "type": "wifi"
+    },
+    {
+      "source": 148,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 150,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 185,
+      "source_tq": 1,
+      "target": 150,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.9254902,
+      "target": 205,
+      "target_tq": 0.8039216,
+      "type": "wifi"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.9843137,
+      "target": 174,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.61960787,
+      "target": 235,
+      "target_tq": 0.49803922,
+      "type": "wifi"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.043137256,
+      "target": 212,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 150,
+      "source_tq": 0.05490196,
+      "target": 64,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 163,
+      "source_tq": 0.9254902,
+      "target": 151,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 166,
+      "source_tq": 1,
+      "target": 151,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 153,
+      "source_tq": 0.9882353,
+      "target": 165,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 168,
+      "source_tq": 0.023529412,
+      "target": 158,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 192,
+      "source_tq": 0.7490196,
+      "target": 158,
+      "target_tq": 0.6156863,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 1,
+      "target": 197,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 160,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 271,
+      "source_tq": 0.96862745,
+      "target": 161,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 161,
+      "source_tq": 0.99607843,
+      "target": 206,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 276,
+      "source_tq": 1,
+      "target": 162,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 166,
+      "source_tq": 1,
+      "target": 163,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 164,
+      "source_tq": 0.9647059,
+      "target": 280,
+      "target_tq": 0.9254902,
+      "type": "other"
+    },
+    {
+      "source": 164,
+      "source_tq": 1,
+      "target": 177,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 164,
+      "source_tq": 1,
+      "target": 200,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 164,
+      "source_tq": 0.043137256,
+      "target": 277,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 259,
+      "source_tq": 1,
+      "target": 165,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 166,
+      "source_tq": 0.7294118,
+      "target": 303,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 0.972549,
+      "target": 167,
+      "target_tq": 0.99607843,
+      "type": "vpn"
+    },
+    {
+      "source": 168,
+      "source_tq": 0.42745098,
+      "target": 192,
+      "target_tq": 0.59607846,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 168,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.85490197,
+      "target": 170,
+      "target_tq": 0.8156863,
+      "type": "wifi"
+    },
+    {
+      "source": 302,
+      "source_tq": 0.6784314,
+      "target": 170,
+      "target_tq": 0.81960785,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.8156863,
+      "target": 269,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 1,
+      "target": 296,
+      "target_tq": 0.85490197,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.7058824,
+      "target": 187,
+      "target_tq": 0.43137255,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.9490196,
+      "target": 190,
+      "target_tq": 0.8901961,
+      "type": "wifi"
+    },
+    {
+      "source": 171,
+      "source_tq": 0.6431373,
+      "target": 221,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 174,
+      "source_tq": 0.64705884,
+      "target": 235,
+      "target_tq": 0.5921569,
+      "type": "wifi"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.5019608,
+      "target": 174,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 174,
+      "source_tq": 0.050980393,
+      "target": 64,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 174,
+      "source_tq": 0.043137256,
+      "target": 212,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 241,
+      "source_tq": 0.3372549,
+      "target": 174,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 245,
+      "source_tq": 0.40784314,
+      "target": 175,
+      "target_tq": 0.75686276,
+      "type": "wifi"
+    },
+    {
+      "source": 210,
+      "source_tq": 0.4745098,
+      "target": 175,
+      "target_tq": 0.52156866,
+      "type": "wifi"
+    },
+    {
+      "source": 175,
+      "source_tq": 0.7647059,
+      "target": 283,
+      "target_tq": 0.8745098,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0,
+      "target": 175,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0.10980392,
+      "target": 245,
+      "target_tq": 0.02745098,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0.7882353,
+      "target": 210,
+      "target_tq": 0.84313726,
+      "type": "wifi"
+    },
+    {
+      "source": 177,
+      "source_tq": 0,
+      "target": 280,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 177,
+      "source_tq": 0.6627451,
+      "target": 200,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 277,
+      "source_tq": 0.73333335,
+      "target": 177,
+      "target_tq": 0.78431374,
+      "type": "wifi"
+    },
+    {
+      "source": 178,
+      "source_tq": 0.9372549,
+      "target": 229,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 263,
+      "source_tq": 0.85490197,
+      "target": 179,
+      "target_tq": 0.5137255,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.6862745,
+      "target": 182,
+      "target_tq": 0.5058824,
+      "type": "wifi"
+    },
+    {
+      "source": 289,
+      "source_tq": 0.9137255,
+      "target": 182,
+      "target_tq": 0.9137255,
+      "type": "wifi"
+    },
+    {
+      "source": 183,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 236,
+      "source_tq": 0.38039216,
+      "target": 184,
+      "target_tq": 0.3764706,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.99215686,
+      "target": 185,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 185,
+      "source_tq": 0,
+      "target": 235,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.78431374,
+      "target": 205,
+      "target_tq": 0.65882355,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 185,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.043137256,
+      "target": 212,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 185,
+      "source_tq": 0.05490196,
+      "target": 64,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 269,
+      "source_tq": 0.9843137,
+      "target": 187,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 221,
+      "source_tq": 0.9529412,
+      "target": 187,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 187,
+      "source_tq": 0.91764706,
+      "target": 296,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 269,
+      "source_tq": 0.8235294,
+      "target": 190,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 190,
+      "source_tq": 0.69411767,
+      "target": 296,
+      "target_tq": 0.7176471,
+      "type": "wifi"
+    },
+    {
+      "source": 190,
+      "source_tq": 0,
+      "target": 187,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 221,
+      "source_tq": 0.5803922,
+      "target": 190,
+      "target_tq": 0.56078434,
+      "type": "wifi"
+    },
+    {
+      "source": 285,
+      "source_tq": 1,
+      "target": 192,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 165,
+      "source_tq": 0,
+      "target": 194,
+      "target_tq": 0.78431374,
+      "type": "wifi"
+    },
+    {
+      "source": 259,
+      "source_tq": 0.74509805,
+      "target": 194,
+      "target_tq": 0.73333335,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 194,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 234,
+      "source_tq": 1,
+      "target": 195,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 196,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 290,
+      "source_tq": 1,
+      "target": 198,
+      "target_tq": 0.96862745,
+      "type": "other"
+    },
+    {
+      "source": 199,
+      "source_tq": 0.827451,
+      "target": 202,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 199,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 200,
+      "source_tq": 1,
+      "target": 280,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 277,
+      "source_tq": 0,
+      "target": 200,
+      "target_tq": 0.047058824,
+      "type": "other"
+    },
+    {
+      "source": 201,
+      "source_tq": 0.06666667,
+      "target": 264,
+      "target_tq": 0.21176471,
+      "type": "wifi"
+    },
+    {
+      "source": 201,
+      "source_tq": 0.7647059,
+      "target": 220,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 227,
+      "source_tq": 1,
+      "target": 203,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 55,
+      "source_tq": 0,
+      "target": 203,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 241,
+      "source_tq": 0.5686275,
+      "target": 205,
+      "target_tq": 0.75686276,
+      "type": "wifi"
+    },
+    {
+      "source": 174,
+      "source_tq": 0,
+      "target": 205,
+      "target_tq": 0.69411767,
+      "type": "wifi"
+    },
+    {
+      "source": 205,
+      "source_tq": 0.6156863,
+      "target": 235,
+      "target_tq": 0.54901963,
+      "type": "wifi"
+    },
+    {
+      "source": 227,
+      "source_tq": 0.9137255,
+      "target": 206,
+      "target_tq": 0.8627451,
+      "type": "wifi"
+    },
+    {
+      "source": 271,
+      "source_tq": 0.9843137,
+      "target": 206,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 207,
+      "source_tq": 0.9843137,
+      "target": 309,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 210,
+      "source_tq": 0.827451,
+      "target": 283,
+      "target_tq": 0.69803923,
+      "type": "wifi"
+    },
+    {
+      "source": 210,
+      "source_tq": 0.10980392,
+      "target": 238,
+      "target_tq": 0.08627451,
+      "type": "wifi"
+    },
+    {
+      "source": 212,
+      "source_tq": 0,
+      "target": 235,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 236,
+      "source_tq": 0.6117647,
+      "target": 214,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 215,
+      "source_tq": 0.95686275,
+      "target": 216,
+      "target_tq": 0.74509805,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 218,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 220,
+      "source_tq": 0.65882355,
+      "target": 264,
+      "target_tq": 0.46666667,
+      "type": "wifi"
+    },
+    {
+      "source": 221,
+      "source_tq": 1,
+      "target": 296,
+      "target_tq": 0.8352941,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 223,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 225,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 226,
+      "source_tq": 0,
+      "target": 68,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 0,
+      "target": 198,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 227,
+      "source_tq": 1,
+      "target": 55,
+      "target_tq": 0,
+      "type": "other"
+    },
+    {
+      "source": 271,
+      "source_tq": 0.8352941,
+      "target": 227,
+      "target_tq": 0.64705884,
+      "type": "wifi"
+    },
+    {
+      "source": 289,
+      "source_tq": 0.2509804,
+      "target": 231,
+      "target_tq": 0.1764706,
+      "type": "wifi"
+    },
+    {
+      "source": 232,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 241,
+      "source_tq": 0.2627451,
+      "target": 235,
+      "target_tq": 0.42352942,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0,
+      "target": 238,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 239,
+      "source_tq": 0.015686275,
+      "target": 266,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 240,
+      "source_tq": 0.9411765,
+      "target": 254,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 274,
+      "source_tq": 0.03137255,
+      "target": 243,
+      "target_tq": 0.043137256,
+      "type": "wifi"
+    },
+    {
+      "source": 268,
+      "source_tq": 0.88235295,
+      "target": 246,
+      "target_tq": 0.99607843,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0,
+      "target": 289,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.6745098,
+      "target": 231,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0,
+      "target": 8,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 248,
+      "source_tq": 0.6862745,
+      "target": 302,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 248,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 286,
+      "source_tq": 0.972549,
+      "target": 250,
+      "target_tq": 0.8117647,
+      "type": "wifi"
+    },
+    {
+      "source": 250,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 308,
+      "source_tq": 0.9019608,
+      "target": 252,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 0.93333334,
+      "target": 270,
+      "target_tq": 0.91764706,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 0.69803923,
+      "target": 299,
+      "target_tq": 0.5176471,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.99607843,
+      "target": 254,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 131,
+      "source_tq": 0,
+      "target": 255,
+      "target_tq": 0.16078432,
+      "type": "wifi"
+    },
+    {
+      "source": 262,
+      "source_tq": 0.62352943,
+      "target": 255,
+      "target_tq": 0.7921569,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 260,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 261,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 283,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "source_tq": 0.99215686,
+      "target": 3,
+      "target_tq": 0,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "source_tq": 1,
+      "target": 261,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 305,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.99215686,
+      "target": 262,
+      "target_tq": 0.9882353,
+      "type": "vpn"
+    },
+    {
+      "source": 262,
+      "source_tq": 0,
+      "target": 25,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 269,
+      "source_tq": 0.7137255,
+      "target": 296,
+      "target_tq": 0.7294118,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 272,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 274,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 277,
+      "source_tq": 0,
+      "target": 280,
+      "target_tq": 0.03137255,
+      "type": "other"
+    },
+    {
+      "source": 176,
+      "source_tq": 0,
+      "target": 283,
+      "target_tq": 0.6,
+      "type": "wifi"
+    },
+    {
+      "source": 245,
+      "source_tq": 0,
+      "target": 283,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 0.99607843,
+      "target": 284,
+      "target_tq": 0.99215686,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 288,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 289,
+      "source_tq": 0.49411765,
+      "target": 302,
+      "target_tq": 0.77254903,
+      "type": "wifi"
+    },
+    {
+      "source": 293,
+      "source_tq": 1,
+      "target": 307,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 294,
+      "source_tq": 1,
+      "target": 306,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 302,
+      "source_tq": 0.44313726,
+      "target": 231,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 303,
+      "source_tq": 0.10980392,
+      "target": 118,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 303,
+      "source_tq": 0,
+      "target": 73,
+      "target_tq": 0,
+      "type": "wifi"
+    },
+    {
+      "source": 306,
+      "source_tq": 1,
+      "target": 308,
+      "target_tq": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 0,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 3,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 8,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 10,
+      "type": "vpn"
+    },
+    {
+      "source": 304,
+      "target": 11,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 13,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 16,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 17,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 19,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 20,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 25,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 27,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 30,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 32,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 33,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 34,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 35,
+      "type": "vpn"
+    },
+    {
+      "source": 251,
+      "target": 36,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 38,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 39,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 42,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 43,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 47,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 48,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 50,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 53,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 55,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 57,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 59,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 62,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 64,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 66,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 68,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 70,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 71,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 73,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 76,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 78,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 81,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 82,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 84,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 85,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 86,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 87,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 88,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 89,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 90,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 95,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 97,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 98,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 102,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 103,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 104,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 105,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 106,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 107,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 109,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 111,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 114,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 116,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 117,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 118,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 119,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 121,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 122,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 123,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 125,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 126,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 131,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 132,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 133,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 137,
+      "type": "vpn"
+    },
+    {
+      "source": 191,
+      "target": 138,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 140,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 141,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 142,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 143,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 145,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 147,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 150,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 151,
+      "type": "vpn"
+    },
+    {
+      "source": 101,
+      "target": 154,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 161,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 162,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 163,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 164,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 166,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 170,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 171,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 173,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 174,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 175,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 176,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 177,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 178,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 181,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 182,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 187,
+      "type": "vpn"
+    },
+    {
+      "source": 251,
+      "target": 189,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 190,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 192,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 193,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 197,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 198,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 201,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 202,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 203,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 204,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 205,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 206,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 209,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 210,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 211,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 212,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 214,
+      "type": "vpn"
+    },
+    {
+      "source": 101,
+      "target": 217,
+      "type": "vpn"
+    },
+    {
+      "source": 251,
+      "target": 219,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 220,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 221,
+      "type": "vpn"
+    },
+    {
+      "source": 191,
+      "target": 224,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 226,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 227,
+      "type": "vpn"
+    },
+    {
+      "source": 93,
+      "target": 230,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 231,
+      "type": "vpn"
+    },
+    {
+      "source": 101,
+      "target": 233,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 234,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 235,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 239,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 240,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 241,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 243,
+      "type": "vpn"
+    },
+    {
+      "source": 251,
+      "target": 244,
+      "type": "vpn"
+    },
+    {
+      "source": 261,
+      "target": 245,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 252,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 253,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 255,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 256,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 263,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 266,
+      "type": "vpn"
+    },
+    {
+      "source": 80,
+      "target": 267,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 269,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 270,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 271,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 273,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 276,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 277,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 280,
+      "type": "vpn"
+    },
+    {
+      "source": 222,
+      "target": 282,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 289,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 290,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 293,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 296,
+      "type": "vpn"
+    },
+    {
+      "source": 45,
+      "target": 299,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 302,
+      "type": "vpn"
+    },
+    {
+      "source": 306,
+      "target": 303,
+      "type": "vpn"
+    },
+    {
+      "source": 91,
+      "target": 307,
+      "type": "vpn"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "name": "BN-v2-1043Nv5-01",
+      "x": 50.72031046,
+      "y": 7.1057725
+    },
+    {
+      "id": 1,
+      "name": "BN-85",
+      "x": 50.67656251,
+      "y": 7.169137
+    },
+    {
+      "id": 2,
+      "name": "BN-25",
+      "x": 50.70845846,
+      "y": 7.08342057
+    },
+    {
+      "id": 3,
+      "name": "ffkbu-8416f9d34150",
+      "x": 50.7179195,
+      "y": 7.1100884
+    },
+    {
+      "id": 4,
+      "name": "Friedlandstr_70-4",
+      "x": 50.7620497,
+      "y": 7.05547839
+    },
+    {
+      "id": 5,
+      "name": "BN-v2-UnifiAcLite-14",
+      "x": 50.74824576,
+      "y": 7.14921371
+    },
+    {
+      "id": 6,
+      "name": "GHS-EG-Sec",
+      "x": 50.73721563,
+      "y": 7.05994695
+    },
+    {
+      "id": 7,
+      "name": "netgear-r6120_01",
+      "x": 50.74825494,
+      "y": 7.14937449
+    },
+    {
+      "id": 8,
+      "name": "slartibartfast04",
+      "x": 50.70208435,
+      "y": 7.13973731
+    },
+    {
+      "id": 9,
+      "name": "ffkbuu-buehil",
+      "x": 50.96489,
+      "y": 6.745
+    },
+    {
+      "id": 10,
+      "name": "BN-106",
+      "x": 50.676683,
+      "y": 7.168733
+    },
+    {
+      "id": 11,
+      "name": "BN-103",
+      "x": 50.67672143,
+      "y": 7.16893584
+    },
+    {
+      "id": 12,
+      "name": "ffkbu-802aa8941d37"
+    },
+    {
+      "id": 13,
+      "name": "BN-03",
+      "x": 50.714458,
+      "y": 7.067994
+    },
+    {
+      "id": 14,
+      "name": "N2-Garten",
+      "x": 50.75099315,
+      "y": 7.12260872
+    },
+    {
+      "id": 15,
+      "name": "BN-FWS-KG-Uplink",
+      "x": 50.75085824,
+      "y": 7.06856757
+    },
+    {
+      "id": 16,
+      "name": "BN-09",
+      "x": 50.714493,
+      "y": 7.067844
+    },
+    {
+      "id": 17,
+      "name": "BN-88",
+      "x": 50.67647753,
+      "y": 7.16931
+    },
+    {
+      "id": 18,
+      "name": "BN-08",
+      "x": 50.714539,
+      "y": 7.067852
+    },
+    {
+      "id": 19,
+      "name": "Castell",
+      "x": 50.93077,
+      "y": 6.98156
+    },
+    {
+      "id": 20,
+      "name": "BN_Muffendorf_GT8_Kueche",
+      "x": 50.674609,
+      "y": 7.16002
+    },
+    {
+      "id": 21,
+      "name": "ffkbu-50c7bf16b034"
+    },
+    {
+      "id": 22,
+      "name": "ffkbu-MSP-Hifistudio",
+      "x": 50.93562158,
+      "y": 6.94993409
+    },
+    {
+      "id": 23,
+      "name": "BN-v2-UnifiMesh-2",
+      "x": 50.748037,
+      "y": 7.149442
+    },
+    {
+      "id": 24,
+      "name": "American-Paranoia",
+      "x": 50.7294,
+      "y": 7.07051
+    },
+    {
+      "id": 25,
+      "name": "ffbn01-Bullet",
+      "x": 50.73921,
+      "y": 7.08515
+    },
+    {
+      "id": 26,
+      "name": "Friedlandstr_70-3",
+      "x": 50.7623,
+      "y": 7.05577
+    },
+    {
+      "id": 27,
+      "name": "Johnny-20",
+      "x": 50.68245928,
+      "y": 7.16292232
+    },
+    {
+      "id": 28,
+      "name": "ffkbu-koblenzer11-fd",
+      "x": 50.91417337,
+      "y": 6.9633311
+    },
+    {
+      "id": 29,
+      "name": "BN-v2-ZyXEL-NBG6617-01",
+      "x": 50.71482689,
+      "y": 7.11623848
+    },
+    {
+      "id": 30,
+      "name": "BN-v2-940Nv6-01",
+      "x": 50.72048876,
+      "y": 7.10633039
+    },
+    {
+      "id": 31,
+      "name": "Bonn.digital_FreifunkKBU_84",
+      "x": 50.72233118,
+      "y": 7.08603144
+    },
+    {
+      "id": 32,
+      "name": "Duenenfuechse_Pavillon",
+      "x": 50.743458,
+      "y": 7.060354
+    },
+    {
+      "id": 33,
+      "name": "Remigius-SW",
+      "x": 50.73603247,
+      "y": 7.10323711
+    },
+    {
+      "id": 34,
+      "name": "slartibartfast03",
+      "x": 50.70212851,
+      "y": 7.13949591
+    },
+    {
+      "id": 35,
+      "name": "BN-58",
+      "x": 50.72681297,
+      "y": 7.13793486
+    },
+    {
+      "id": 36,
+      "name": "ffkbu-v2-fritzbox-4040-02",
+      "x": 50.734517,
+      "y": 7.047461
+    },
+    {
+      "id": 37,
+      "name": "freifunk-bonn-tanne1",
+      "x": 50.7429807,
+      "y": 7.0584791
+    },
+    {
+      "id": 38,
+      "name": "ffkbu-90f652f86974"
+    },
+    {
+      "id": 39,
+      "name": "Johnny-13",
+      "x": 50.682416,
+      "y": 7.163622
+    },
+    {
+      "id": 40,
+      "name": "DDM A.Fechner - UG",
+      "x": 51.18252078,
+      "y": 7.16209889
+    },
+    {
+      "id": 41,
+      "name": "Hembach1",
+      "x": 51.05212699,
+      "y": 7.32013196
+    },
+    {
+      "id": 42,
+      "name": "ff-bouderath-3",
+      "x": 50.51519009,
+      "y": 6.72974825
+    },
+    {
+      "id": 43,
+      "name": "Duenenfuechse_ITA5",
+      "x": 50.743951,
+      "y": 7.059332
+    },
+    {
+      "id": 44,
+      "name": "ffkbu-am-trutzenberg-wg",
+      "x": 50.92828506,
+      "y": 6.94939434
+    },
+    {
+      "id": 45,
+      "name": "Bonn2"
+    },
+    {
+      "id": 46,
+      "name": "K-Weiss-1-North",
+      "x": 50.87383441,
+      "y": 7.02364996
+    },
+    {
+      "id": 47,
+      "name": "ffbam-egbam-02",
+      "x": 50.55666438,
+      "y": 6.76273942
+    },
+    {
+      "id": 48,
+      "name": "Johnny-12",
+      "x": 50.68253151,
+      "y": 7.16309398
+    },
+    {
+      "id": 49,
+      "name": "Duenenfuechse_Hochhaus_Loco",
+      "x": 50.743378,
+      "y": 7.061258
+    },
+    {
+      "id": 50,
+      "name": "THW Bonn 4"
+    },
+    {
+      "id": 51,
+      "name": "ffkbu-88ee-bn-v2-wireguard"
+    },
+    {
+      "id": 52,
+      "name": "Bonn.digital_FreifunkKBU_D4",
+      "x": 50.72237,
+      "y": 7.08602
+    },
+    {
+      "id": 53,
+      "name": "BN-57",
+      "x": 50.72686476,
+      "y": 7.13784367
+    },
+    {
+      "id": 54,
+      "name": "cryptopartykbn",
+      "x": 50.7356787,
+      "y": 7.1013356
+    },
+    {
+      "id": 55,
+      "name": "FWS-Master-Of-Connectivity",
+      "x": 50.75034234,
+      "y": 7.06800699
+    },
+    {
+      "id": 56,
+      "name": "ffkbu-c8d3a35826d8",
+      "x": 50.878075,
+      "y": 7.008912
+    },
+    {
+      "id": 57,
+      "name": "ffbn01-Markthallen",
+      "x": 50.739157,
+      "y": 7.085059
+    },
+    {
+      "id": 58,
+      "name": "Azade-1",
+      "x": 50.73907,
+      "y": 7.094393
+    },
+    {
+      "id": 59,
+      "name": "BN-OHS-Computerraum",
+      "x": 50.75376683,
+      "y": 7.05613554
+    },
+    {
+      "id": 60,
+      "name": "Duenenfuechse_Garten",
+      "x": 50.743695,
+      "y": 7.061826
+    },
+    {
+      "id": 61,
+      "name": "Palstek",
+      "x": 50.738888,
+      "y": 7.092368
+    },
+    {
+      "id": 62,
+      "name": "ffkbu-30b5c222dba6"
+    },
+    {
+      "id": 63,
+      "name": "FWS-EG-Sec",
+      "x": 50.75092781,
+      "y": 7.06841469
+    },
+    {
+      "id": 64,
+      "name": "BN-v2-Haus-Der-Jugend-mitte",
+      "x": 50.71994876,
+      "y": 7.10542381
+    },
+    {
+      "id": 65,
+      "name": "Baeckerei_Kamps",
+      "x": 50.73961,
+      "y": 7.08508
+    },
+    {
+      "id": 66,
+      "name": "Johnny-3",
+      "x": 50.68246438,
+      "y": 7.16316104
+    },
+    {
+      "id": 67,
+      "name": "mhunap-86",
+      "x": 50.72064794,
+      "y": 7.1062291
+    },
+    {
+      "id": 68,
+      "name": "Remigius-NO",
+      "x": 50.73612247,
+      "y": 7.10328711
+    },
+    {
+      "id": 69,
+      "name": "BN-OHS-76",
+      "x": 50.75403579,
+      "y": 7.05585122
+    },
+    {
+      "id": 70,
+      "name": "HW-EG-Balkon",
+      "x": 50.71708561,
+      "y": 7.04765171
+    },
+    {
+      "id": 71,
+      "name": "MBZ-Rheinland-S2",
+      "x": 50.71359589,
+      "y": 7.0409255
+    },
+    {
+      "id": 72,
+      "name": "Baeckerei-Klein--Altstadt",
+      "x": 50.73978,
+      "y": 7.09011
+    },
+    {
+      "id": 73,
+      "name": "BN-83",
+      "x": 50.67658886,
+      "y": 7.169137
+    },
+    {
+      "id": 74,
+      "name": "Duenenfuechse-ACT-nanowelle",
+      "x": 50.743453,
+      "y": 7.061027
+    },
+    {
+      "id": 75,
+      "name": "ffkbu-b0be76599151",
+      "x": 50.72206,
+      "y": 7.06351
+    },
+    {
+      "id": 76,
+      "name": "slartibartfast06",
+      "x": 50.7020147,
+      "y": 7.13971853
+    },
+    {
+      "id": 77,
+      "name": "ffkbu-f4ec38b315c5",
+      "x": 50.72693,
+      "y": 7.13925
+    },
+    {
+      "id": 78,
+      "name": "BN-OHS-172",
+      "x": 50.75385507,
+      "y": 7.0562911
+    },
+    {
+      "id": 79,
+      "name": "bn-90 (Master)",
+      "x": 50.68949127,
+      "y": 7.16714144
+    },
+    {
+      "id": 80,
+      "name": "Bonn4"
+    },
+    {
+      "id": 81,
+      "name": "BN-v2-841n-v9-01",
+      "x": 50.72032744,
+      "y": 7.10636526
+    },
+    {
+      "id": 82,
+      "name": "BN-v2-Haus-Der-Jugend-oben",
+      "x": 50.72005744,
+      "y": 7.10541308
+    },
+    {
+      "id": 83,
+      "name": "Freifunk"
+    },
+    {
+      "id": 84,
+      "name": "refugees_welcome",
+      "x": 50.719,
+      "y": 7.0437
+    },
+    {
+      "id": 85,
+      "name": "Johnny-9",
+      "x": 50.68256975,
+      "y": 7.16331124
+    },
+    {
+      "id": 86,
+      "name": "Remigius-NW",
+      "x": 50.73609247,
+      "y": 7.10319711
+    },
+    {
+      "id": 87,
+      "name": "Johnny-26",
+      "x": 50.67653277,
+      "y": 7.16950446
+    },
+    {
+      "id": 88,
+      "name": "ff-bouderath-2",
+      "x": 50.51567447,
+      "y": 6.73023105
+    },
+    {
+      "id": 89,
+      "name": "Babel_Bar",
+      "x": 50.73964,
+      "y": 7.09627
+    },
+    {
+      "id": 90,
+      "name": "FF-KBU-FB-001"
+    },
+    {
+      "id": 91,
+      "name": "Bonn3"
+    },
+    {
+      "id": 92,
+      "name": "ERX-Karl-Finkenburg",
+      "x": 50.68256295,
+      "y": 7.1632281
+    },
+    {
+      "id": 93,
+      "name": "Bonn5"
+    },
+    {
+      "id": 94,
+      "name": "ffkbu-hi-muf-001",
+      "x": 50.67761547,
+      "y": 7.16378868
+    },
+    {
+      "id": 95,
+      "name": "St-Marien-Nord",
+      "x": 50.73808,
+      "y": 7.08962
+    },
+    {
+      "id": 96,
+      "name": "Cafe_de_Art",
+      "x": 50.73983,
+      "y": 7.09308
+    },
+    {
+      "id": 97,
+      "name": "FF-KBU-FB-003"
+    },
+    {
+      "id": 98,
+      "name": "Ford",
+      "x": 50.729957,
+      "y": 7.083711
+    },
+    {
+      "id": 99,
+      "name": "Campanile",
+      "x": 50.74188,
+      "y": 7.09185
+    },
+    {
+      "id": 100,
+      "name": "USS Salcombe",
+      "x": 50.966015,
+      "y": 6.886707
+    },
+    {
+      "id": 101,
+      "name": "Bonn2"
+    },
+    {
+      "id": 102,
+      "name": "Johnny-23",
+      "x": 50.68261733,
+      "y": 7.16312885
+    },
+    {
+      "id": 103,
+      "name": "BN-70",
+      "x": 50.689634,
+      "y": 7.16712534
+    },
+    {
+      "id": 104,
+      "name": "BN-OHS-79",
+      "x": 50.75388392,
+      "y": 7.05614895
+    },
+    {
+      "id": 105,
+      "name": "Johnny-47",
+      "x": 50.67662455,
+      "y": 7.16929793
+    },
+    {
+      "id": 106,
+      "name": "Johnny-22",
+      "x": 50.68235901,
+      "y": 7.16339707
+    },
+    {
+      "id": 107,
+      "name": "BN-109",
+      "x": 50.676845,
+      "y": 7.169057
+    },
+    {
+      "id": 108,
+      "name": "BM-CommanderKnoten",
+      "x": 50.971047,
+      "y": 6.690173
+    },
+    {
+      "id": 109,
+      "name": "BN-89",
+      "x": 50.67653617,
+      "y": 7.16913298
+    },
+    {
+      "id": 110,
+      "name": "ffkbu-50c7bf16a3fe"
+    },
+    {
+      "id": 111,
+      "name": "Mehlemer-Stuebchen-2",
+      "x": 50.6620286,
+      "y": 7.19119817
+    },
+    {
+      "id": 112,
+      "name": "FF-die-Linken",
+      "x": 50.739641,
+      "y": 7.089466
+    },
+    {
+      "id": 113,
+      "name": "ffkbu-b0be7677d959-reichshof-eckenhagen-nachbarschaftstreff",
+      "x": 50.98796,
+      "y": 7.69328
+    },
+    {
+      "id": 114,
+      "name": "THW Bonn 3"
+    },
+    {
+      "id": 115,
+      "name": "Bonn4"
+    },
+    {
+      "id": 116,
+      "name": "BN-OHS-Erz-E2S",
+      "x": 50.7538958,
+      "y": 7.05571711
+    },
+    {
+      "id": 117,
+      "name": "THW Bonn 7"
+    },
+    {
+      "id": 118,
+      "name": "BN-87",
+      "x": 50.67644778,
+      "y": 7.1692349
+    },
+    {
+      "id": 119,
+      "name": "BN-65",
+      "x": 50.68960002,
+      "y": 7.16717497
+    },
+    {
+      "id": 120,
+      "name": "ffkbu-zahnarzt-beerwerth",
+      "x": 50.923751,
+      "y": 7.175532
+    },
+    {
+      "id": 121,
+      "name": "BN-v2-UnifiAcLite-12",
+      "x": 50.73822564,
+      "y": 7.09843934
+    },
+    {
+      "id": 122,
+      "name": "FWS-OG2-69",
+      "x": 50.75078,
+      "y": 7.0687741
+    },
+    {
+      "id": 123,
+      "name": "slartibartfast02",
+      "x": 50.70230009,
+      "y": 7.13930279
+    },
+    {
+      "id": 124,
+      "name": "ffkbu-waldbroel-dahl",
+      "x": 50.877134,
+      "y": 7.656684
+    },
+    {
+      "id": 125,
+      "name": "FFKBU-HB-0-30B5C2ED4548"
+    },
+    {
+      "id": 126,
+      "name": "BN-29",
+      "x": 50.71433438,
+      "y": 7.06790507
+    },
+    {
+      "id": 127,
+      "name": "CastellOffloader"
+    },
+    {
+      "id": 128,
+      "name": "BN-v2-UnifiAcLite-10",
+      "x": 50.749921,
+      "y": 7.122442
+    },
+    {
+      "id": 129,
+      "name": "BN_Muffendorf_GT8-UG",
+      "x": 50.67466475,
+      "y": 7.16008723
+    },
+    {
+      "id": 130,
+      "name": "BN-OHS-71",
+      "x": 50.75384659,
+      "y": 7.05591291
+    },
+    {
+      "id": 131,
+      "name": "Hochstaden",
+      "x": 50.738051,
+      "y": 7.087172
+    },
+    {
+      "id": 132,
+      "name": "THW Bonn 6"
+    },
+    {
+      "id": 133,
+      "name": "Johnny-6",
+      "x": 50.66228194,
+      "y": 7.19165683
+    },
+    {
+      "id": 134,
+      "name": "BN_Muffendorf_GT8_EG1",
+      "x": 50.674806,
+      "y": 7.159838
+    },
+    {
+      "id": 135,
+      "name": "Freifunk"
+    },
+    {
+      "id": 136,
+      "name": "BlackVeg",
+      "x": 50.73854,
+      "y": 7.08906
+    },
+    {
+      "id": 137,
+      "name": "Johnny-21",
+      "x": 50.6823998,
+      "y": 7.16346681
+    },
+    {
+      "id": 138,
+      "name": "OHS-GHSOG2N",
+      "x": 50.75399252,
+      "y": 7.05549449
+    },
+    {
+      "id": 139,
+      "name": "Johnny-5",
+      "x": 50.682369,
+      "y": 7.162957
+    },
+    {
+      "id": 140,
+      "name": "BN-v2-UnifiAcMesh-01",
+      "x": 50.7203665,
+      "y": 7.10569203
+    },
+    {
+      "id": 141,
+      "name": "azade-2",
+      "x": 50.739012,
+      "y": 7.094447
+    },
+    {
+      "id": 142,
+      "name": "VCD-Service",
+      "x": 50.738884,
+      "y": 7.089652
+    },
+    {
+      "id": 143,
+      "name": "Johnny-10",
+      "x": 50.682454,
+      "y": 7.163291
+    },
+    {
+      "id": 144,
+      "name": "JAP-3",
+      "x": 50.73127,
+      "y": 7.06448
+    },
+    {
+      "id": 145,
+      "name": "Johnny-15",
+      "x": 50.682638,
+      "y": 7.163292
+    },
+    {
+      "id": 146,
+      "name": "Markt-SO",
+      "x": 50.73523,
+      "y": 7.10275
+    },
+    {
+      "id": 147,
+      "name": "BN-OHS-92",
+      "x": 50.753715,
+      "y": 7.05613
+    },
+    {
+      "id": 148,
+      "name": "Baeckerei-Klein--Endenich",
+      "x": 50.72662,
+      "y": 7.07188
+    },
+    {
+      "id": 149,
+      "name": "swzrhd-001",
+      "x": 50.74882007,
+      "y": 7.11837083
+    },
+    {
+      "id": 150,
+      "name": "BN-v2-841n-v9-34",
+      "x": 50.72044121,
+      "y": 7.1063894
+    },
+    {
+      "id": 151,
+      "name": "Johnny-44",
+      "x": 50.67642059,
+      "y": 7.16923088
+    },
+    {
+      "id": 152,
+      "name": "Die_Sozialliberalen_003",
+      "x": 50.73504786,
+      "y": 7.10333705
+    },
+    {
+      "id": 153,
+      "name": "bwinf1",
+      "x": 50.7208148,
+      "y": 7.10831523
+    },
+    {
+      "id": 154,
+      "name": "ffkbu-bn111"
+    },
+    {
+      "id": 155,
+      "name": "freifunk-lv-426.space",
+      "x": 50.73584,
+      "y": 7.05057
+    },
+    {
+      "id": 156,
+      "name": "Freifunk-Bonn-Plittersdorf-2",
+      "x": 50.701134,
+      "y": 7.160684
+    },
+    {
+      "id": 157,
+      "name": "ffkbu-mk",
+      "x": 50.66637,
+      "y": 7.16728
+    },
+    {
+      "id": 158,
+      "name": "Fliegendes-Spaghettimonster",
+      "x": 50.66211191,
+      "y": 7.1919626
+    },
+    {
+      "id": 159,
+      "name": "KW-2.1",
+      "x": 50.74090248,
+      "y": 7.05323875
+    },
+    {
+      "id": 160,
+      "name": "ERX-CMA",
+      "x": 50.676356,
+      "y": 7.16942936
+    },
+    {
+      "id": 161,
+      "name": "FWS-OG1-41",
+      "x": 50.75075642,
+      "y": 7.06887066
+    },
+    {
+      "id": 162,
+      "name": "Bonn.digital_FreifunkKBU_EC",
+      "x": 50.72232948,
+      "y": 7.08609581
+    },
+    {
+      "id": 163,
+      "name": "Johnny-42",
+      "x": 50.67638829,
+      "y": 7.16903508
+    },
+    {
+      "id": 164,
+      "name": "BN-v2-UnifiAcLite-13",
+      "x": 50.73862794,
+      "y": 7.09825158
+    },
+    {
+      "id": 165,
+      "name": "bwinf0",
+      "x": 50.72082329,
+      "y": 7.10844666
+    },
+    {
+      "id": 166,
+      "name": "BN-107",
+      "x": 50.676503,
+      "y": 7.168966
+    },
+    {
+      "id": 167,
+      "name": "CryptopartyKBNmobil2",
+      "x": 52.448714,
+      "y": 13.867872
+    },
+    {
+      "id": 168,
+      "name": "Mehlemer-Stuebchen-1",
+      "x": 50.6620252,
+      "y": 7.19114453
+    },
+    {
+      "id": 169,
+      "name": "Freifunk",
+      "x": 50.73181,
+      "y": 7.10851
+    },
+    {
+      "id": 170,
+      "name": "slartibartfast01",
+      "x": 50.70225932,
+      "y": 7.13951468
+    },
+    {
+      "id": 171,
+      "name": "BN-66",
+      "x": 50.68958387,
+      "y": 7.1670422
+    },
+    {
+      "id": 172,
+      "name": "Friedlandstr_70-2",
+      "x": 50.7621,
+      "y": 7.05609
+    },
+    {
+      "id": 173,
+      "name": "USS Newton"
+    },
+    {
+      "id": 174,
+      "name": "BN-v2-ArcherC25v1-01",
+      "x": 50.72032234,
+      "y": 7.10593343
+    },
+    {
+      "id": 175,
+      "name": "BN-CWP-EG01",
+      "x": 50.74289685,
+      "y": 7.08881557
+    },
+    {
+      "id": 176,
+      "name": "FWS-EG-S85K"
+    },
+    {
+      "id": 177,
+      "name": "BN-v2-UnifiAcLite-15",
+      "x": 50.73834786,
+      "y": 7.09826499
+    },
+    {
+      "id": 178,
+      "name": "BN-51",
+      "x": 50.72685457,
+      "y": 7.13796034
+    },
+    {
+      "id": 179,
+      "name": "Baeckerei-Klein--Buschdorf",
+      "x": 50.76009,
+      "y": 7.05009
+    },
+    {
+      "id": 180,
+      "name": "Oscar_Romero_Haus",
+      "x": 50.735587,
+      "y": 7.087128
+    },
+    {
+      "id": 181,
+      "name": "ffbn01-Eifelstrasse",
+      "x": 50.739169,
+      "y": 7.085145
+    },
+    {
+      "id": 182,
+      "name": "slartibartfast08",
+      "x": 50.70244958,
+      "y": 7.13918477
+    },
+    {
+      "id": 183,
+      "name": "ffkbu-98ded091fd88"
+    },
+    {
+      "id": 184,
+      "name": "BN-v2-UnifiAcLite-11",
+      "x": 50.74813614,
+      "y": 7.14943886
+    },
+    {
+      "id": 185,
+      "name": "BN-v2-FRITZ-Box-4040-01",
+      "x": 50.72057706,
+      "y": 7.10633576
+    },
+    {
+      "id": 186,
+      "name": "Baeckerei-Klein--Tannenbusch",
+      "x": 50.74555,
+      "y": 7.06606
+    },
+    {
+      "id": 187,
+      "name": "BN-72",
+      "x": 50.68963825,
+      "y": 7.16700867
+    },
+    {
+      "id": 188,
+      "name": "katja-doerner.de",
+      "x": 50.739793,
+      "y": 7.091204
+    },
+    {
+      "id": 189,
+      "name": "ffkbu-v2-fritzbox-4020-01",
+      "x": 50.734519,
+      "y": 7.047463
+    },
+    {
+      "id": 190,
+      "name": "Johnny-15",
+      "x": 50.68950826,
+      "y": 7.1672219
+    },
+    {
+      "id": 191,
+      "name": "Bonn4"
+    },
+    {
+      "id": 192,
+      "name": "Johnny-1",
+      "x": 50.661898,
+      "y": 7.19147
+    },
+    {
+      "id": 193,
+      "name": "FFKBU-HB-1-30B5C2ED4D2C"
+    },
+    {
+      "id": 194,
+      "name": "bwinf2",
+      "x": 50.72073988,
+      "y": 7.10865393
+    },
+    {
+      "id": 195,
+      "name": "Marvin",
+      "x": 50.72990388,
+      "y": 7.08399296
+    },
+    {
+      "id": 196,
+      "name": "FF-KBU-Sued-001"
+    },
+    {
+      "id": 197,
+      "name": "BN-86",
+      "x": 50.67665515,
+      "y": 7.1691598
+    },
+    {
+      "id": 198,
+      "name": "Remigius-SO",
+      "x": 50.73606247,
+      "y": 7.10332711
+    },
+    {
+      "id": 199,
+      "name": "schaumburger-hof.de",
+      "x": 50.697906,
+      "y": 7.168104
+    },
+    {
+      "id": 200,
+      "name": "Bonn_Alte-VHS_Uplink",
+      "x": 50.73864152,
+      "y": 7.09833205
+    },
+    {
+      "id": 201,
+      "name": "BN-32",
+      "x": 50.71449232,
+      "y": 7.06794262
+    },
+    {
+      "id": 202,
+      "name": "schaumburger-hof.de",
+      "x": 50.697845,
+      "y": 7.168134
+    },
+    {
+      "id": 203,
+      "name": "FWS-EG-Lager2",
+      "x": 50.75066987,
+      "y": 7.06834093
+    },
+    {
+      "id": 204,
+      "name": "FWS-UG-S81S",
+      "x": 50.75051714,
+      "y": 7.06800699
+    },
+    {
+      "id": 205,
+      "name": "BN-v2-841n-v10-01",
+      "x": 50.72056348,
+      "y": 7.10618824
+    },
+    {
+      "id": 206,
+      "name": "FWS-OG1-Flurbox",
+      "x": 50.7507683,
+      "y": 7.06866145
+    },
+    {
+      "id": 207,
+      "name": "Freifunk "
+    },
+    {
+      "id": 208,
+      "name": "Bonn5"
+    },
+    {
+      "id": 209,
+      "name": "GHS-OG2-Ost",
+      "x": 50.73726486,
+      "y": 7.05993623
+    },
+    {
+      "id": 210,
+      "name": "BN-CWP-OG2",
+      "x": 50.74279332,
+      "y": 7.0888719
+    },
+    {
+      "id": 211,
+      "name": "BN-OHS-170",
+      "x": 50.75381265,
+      "y": 7.05573052
+    },
+    {
+      "id": 212,
+      "name": "BN-v2-Haus-Der-Jugend-unten",
+      "x": 50.71985706,
+      "y": 7.10545063
+    },
+    {
+      "id": 213,
+      "name": "ffbam-egbam-01",
+      "x": 50.556518,
+      "y": 6.762798
+    },
+    {
+      "id": 214,
+      "name": "FWS-OG3-13F"
+    },
+    {
+      "id": 215,
+      "name": "HW-EG-Buero",
+      "x": 50.71705844,
+      "y": 7.04780996
+    },
+    {
+      "id": 216,
+      "name": "HW-Aushang",
+      "x": 50.71710939,
+      "y": 7.04780191
+    },
+    {
+      "id": 217,
+      "name": "BN-v2-841n-v11-Ehrenamt",
+      "x": 50.72023324,
+      "y": 7.10599175
+    },
+    {
+      "id": 218,
+      "name": "guelistan-testbetrieb",
+      "x": 50.735664,
+      "y": 7.102449
+    },
+    {
+      "id": 219,
+      "name": "ffkbu-RAVITA-Pflegedienst",
+      "x": 50.64479696,
+      "y": 7.22848356
+    },
+    {
+      "id": 220,
+      "name": "BN-24",
+      "x": 50.714389,
+      "y": 7.0679
+    },
+    {
+      "id": 221,
+      "name": "BN-73",
+      "x": 50.68958727,
+      "y": 7.16681689
+    },
+    {
+      "id": 222,
+      "name": "Bonn1"
+    },
+    {
+      "id": 223,
+      "name": "yanosz-balkon",
+      "x": 50.73433,
+      "y": 7.06158
+    },
+    {
+      "id": 224,
+      "name": "Freifunk-Bonn-Plittersdorf",
+      "x": 50.70113302,
+      "y": 7.16068268
+    },
+    {
+      "id": 225,
+      "name": "Hohetanne38",
+      "x": 50.74432936,
+      "y": 7.05429822
+    },
+    {
+      "id": 226,
+      "name": "Markt-Hinterhof",
+      "x": 50.73538,
+      "y": 7.10319
+    },
+    {
+      "id": 227,
+      "name": "FWS-EG-Seminar",
+      "x": 50.75063253,
+      "y": 7.06809819
+    },
+    {
+      "id": 228,
+      "name": "hoze-unifi-offloader"
+    },
+    {
+      "id": 229,
+      "name": "BN-60",
+      "x": 50.72677901,
+      "y": 7.13798583
+    },
+    {
+      "id": 230,
+      "name": "Oscar_Romero_Haus4_1EG",
+      "x": 50.73556,
+      "y": 7.0871
+    },
+    {
+      "id": 231,
+      "name": "slartibartfast05",
+      "x": 50.70216928,
+      "y": 7.13961661
+    },
+    {
+      "id": 232,
+      "name": "ff-bouderath-1",
+      "x": 50.515611,
+      "y": 6.730094
+    },
+    {
+      "id": 233,
+      "name": "ffkbu-LEIHROUTER"
+    },
+    {
+      "id": 234,
+      "name": "Arthur",
+      "x": 50.72985634,
+      "y": 7.08401442
+    },
+    {
+      "id": 235,
+      "name": "BN-v2-UnifiAcLite-01",
+      "x": 50.72029348,
+      "y": 7.10568667
+    },
+    {
+      "id": 236,
+      "name": "netgear-r6120_02",
+      "x": 50.74833301,
+      "y": 7.14892387
+    },
+    {
+      "id": 237,
+      "name": "ffkbu-0c8063e5fda2",
+      "x": 50.6854435,
+      "y": 7.07079113
+    },
+    {
+      "id": 238,
+      "name": "ffkbu-kkr-41",
+      "x": 50.742323,
+      "y": 7.089363
+    },
+    {
+      "id": 239,
+      "name": "nobridge",
+      "x": 50.73872,
+      "y": 7.092361
+    },
+    {
+      "id": 240,
+      "name": "ffkbu-10feed2b1b36"
+    },
+    {
+      "id": 241,
+      "name": "BN-v2-841n-v11-02",
+      "x": 50.7203614,
+      "y": 7.10631162
+    },
+    {
+      "id": 242,
+      "name": "enjoy-freifunk-kbu-50321bruehl",
+      "x": 50.8263337,
+      "y": 6.9023256
+    },
+    {
+      "id": 243,
+      "name": "MBZ-Rheinland-S1",
+      "x": 50.71369378,
+      "y": 7.04086
+    },
+    {
+      "id": 244,
+      "name": "Konstantin",
+      "x": 50.67988278,
+      "y": 7.17193723
+    },
+    {
+      "id": 245,
+      "name": "FWS-EG-S84A",
+      "x": 50.74290241,
+      "y": 7.08865228
+    },
+    {
+      "id": 246,
+      "name": "DDM A.Fechner - WZ",
+      "x": 51.18244344,
+      "y": 7.16210961
+    },
+    {
+      "id": 247,
+      "name": "Bonner-Bogen-2",
+      "x": 50.71706523,
+      "y": 7.15301424
+    },
+    {
+      "id": 248,
+      "name": "mhunap-78",
+      "x": 50.70225592,
+      "y": 7.1395871
+    },
+    {
+      "id": 249,
+      "name": "Gallusstr. 8",
+      "x": 50.728501,
+      "y": 7.149385
+    },
+    {
+      "id": 250,
+      "name": "le-sabot",
+      "x": 50.73969,
+      "y": 7.096665
+    },
+    {
+      "id": 251,
+      "name": "Bonn3"
+    },
+    {
+      "id": 252,
+      "name": "THW Bonn 2"
+    },
+    {
+      "id": 253,
+      "name": "Johnny-7",
+      "x": 50.6824083,
+      "y": 7.1631825
+    },
+    {
+      "id": 254,
+      "name": "Am Westhover Berg 19_2",
+      "x": 50.902596,
+      "y": 7.026804
+    },
+    {
+      "id": 255,
+      "name": "St-Marien-West",
+      "x": 50.73802,
+      "y": 7.089533
+    },
+    {
+      "id": 256,
+      "name": "slartibartfast00",
+      "x": 50.70230519,
+      "y": 7.13952273
+    },
+    {
+      "id": 257,
+      "name": "JAP-2",
+      "x": 50.73115,
+      "y": 7.0645
+    },
+    {
+      "id": 258,
+      "name": "THW-TLTG_Heilsbach-GW",
+      "x": 50.71305891,
+      "y": 7.04161942
+    },
+    {
+      "id": 259,
+      "name": "bwinf3",
+      "x": 50.72080533,
+      "y": 7.10856326
+    },
+    {
+      "id": 260,
+      "name": "BNOK02",
+      "x": 50.71582889,
+      "y": 7.16765642
+    },
+    {
+      "id": 261,
+      "name": "Bonn5"
+    },
+    {
+      "id": 262,
+      "name": "CPE210_v3_nu",
+      "x": 50.738006,
+      "y": 7.087289
+    },
+    {
+      "id": 263,
+      "name": "Faehrpavillon_Graurheindorf",
+      "x": 50.76792983,
+      "y": 7.06819206
+    },
+    {
+      "id": 264,
+      "name": "THW-TLTG_Link",
+      "x": 50.714663,
+      "y": 7.068062
+    },
+    {
+      "id": 265,
+      "name": "ffkbu-wolf23",
+      "x": 50.739459,
+      "y": 7.094475
+    },
+    {
+      "id": 266,
+      "name": "St-Marien-Ost",
+      "x": 50.73804,
+      "y": 7.08969
+    },
+    {
+      "id": 267,
+      "name": "BN-OHS-171",
+      "x": 50.75377701,
+      "y": 7.05598533
+    },
+    {
+      "id": 268,
+      "name": "DDM A.Fechner - OG",
+      "x": 51.182484,
+      "y": 7.162276
+    },
+    {
+      "id": 269,
+      "name": "BN-67",
+      "x": 50.68955074,
+      "y": 7.16688663
+    },
+    {
+      "id": 270,
+      "name": "Johnny-24",
+      "x": 50.68262923,
+      "y": 7.16324955
+    },
+    {
+      "id": 271,
+      "name": "FWS_OG1-071",
+      "x": 50.750716,
+      "y": 7.068629
+    },
+    {
+      "id": 272,
+      "name": "USS Stargazer",
+      "x": 50.966015,
+      "y": 6.886707
+    },
+    {
+      "id": 273,
+      "name": "Konstantin-C7",
+      "x": 50.67949,
+      "y": 7.171988
+    },
+    {
+      "id": 274,
+      "name": "MBZ-Rheinland-A",
+      "x": 50.71362037,
+      "y": 7.04050288
+    },
+    {
+      "id": 275,
+      "name": "ffkbu-koblenzer11-wg",
+      "x": 50.91429006,
+      "y": 6.96301729
+    },
+    {
+      "id": 276,
+      "name": "Bonn.digital_FreifunkKBU_D8",
+      "x": 50.72235156,
+      "y": 7.08608508
+    },
+    {
+      "id": 277,
+      "name": "BN-v2-UnifiAcLite-19",
+      "x": 50.73862794,
+      "y": 7.0984152
+    },
+    {
+      "id": 278,
+      "name": "Baeckerei-Klein--Dransdorf",
+      "x": 50.73981,
+      "y": 7.0547
+    },
+    {
+      "id": 279,
+      "name": "FF-KBU-FB-002"
+    },
+    {
+      "id": 280,
+      "name": "BN-v2-UnifiAcLite-18",
+      "x": 50.73843134,
+      "y": 7.09832094
+    },
+    {
+      "id": 281,
+      "name": "Karmeliter-2",
+      "x": 50.74570581,
+      "y": 7.14995384
+    },
+    {
+      "id": 282,
+      "name": "CPE210v1.1_nntk"
+    },
+    {
+      "id": 283,
+      "name": "BN-CWP-HM",
+      "x": 50.74282387,
+      "y": 7.08899796
+    },
+    {
+      "id": 284,
+      "name": "BN-v2-1043NDv1-01"
+    },
+    {
+      "id": 285,
+      "name": "Johnny-1-Offloader"
+    },
+    {
+      "id": 286,
+      "name": "ADFC_Bonn-Rhein-Sieg",
+      "x": 50.73973,
+      "y": 7.09641
+    },
+    {
+      "id": 287,
+      "name": "Cafe_Cortado",
+      "x": 50.6829222,
+      "y": 7.1538508
+    },
+    {
+      "id": 288,
+      "name": "waldorf",
+      "x": 51.381867,
+      "y": 7.162501
+    },
+    {
+      "id": 289,
+      "name": "slartibartfast09",
+      "x": 50.70246487,
+      "y": 7.13927597
+    },
+    {
+      "id": 290,
+      "name": "Remiguis-GW",
+      "x": 50.73607489,
+      "y": 7.10326195
+    },
+    {
+      "id": 291,
+      "name": "ffkbu-b0be76e99f7fnn"
+    },
+    {
+      "id": 292,
+      "name": "Horizont Reisen",
+      "x": 50.97031915,
+      "y": 7.0467639
+    },
+    {
+      "id": 293,
+      "name": "FF-KBU-FB-005"
+    },
+    {
+      "id": 294,
+      "name": "Lannesdorf1",
+      "x": 50.66887,
+      "y": 7.16899
+    },
+    {
+      "id": 295,
+      "name": "refugees_welcome_neu",
+      "x": 50.7199,
+      "y": 7.04375
+    },
+    {
+      "id": 296,
+      "name": "BN-64",
+      "x": 50.68950231,
+      "y": 7.16700062
+    },
+    {
+      "id": 297,
+      "name": "Bonn3"
+    },
+    {
+      "id": 298,
+      "name": "freifunk-kbu-cheeseburger-str",
+      "x": 50.844826,
+      "y": 6.911277
+    },
+    {
+      "id": 299,
+      "name": "Johnny-8",
+      "x": 50.68242019,
+      "y": 7.16297597
+    },
+    {
+      "id": 300,
+      "name": "Duenenfuechse_Park",
+      "x": 50.743489,
+      "y": 7.05755
+    },
+    {
+      "id": 301,
+      "name": "JAP-1",
+      "x": 50.7311405,
+      "y": 7.0645243
+    },
+    {
+      "id": 302,
+      "name": "slartibartfast07",
+      "x": 50.70235105,
+      "y": 7.13938057
+    },
+    {
+      "id": 303,
+      "name": "BN-111",
+      "x": 50.676492,
+      "y": 7.169509
+    },
+    {
+      "id": 304,
+      "name": "Bonn4"
+    },
+    {
+      "id": 305,
+      "name": "ffkbu-42"
+    },
+    {
+      "id": 306,
+      "name": "Bonn1"
+    },
+    {
+      "id": 307,
+      "name": "FF-KBU-FB-004"
+    },
+    {
+      "id": 308,
+      "name": "THW Bonn 1"
+    },
+    {
+      "id": 309,
+      "name": "Freifunk "
+    }
+  ]
+}

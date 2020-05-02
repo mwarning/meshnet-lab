@@ -1,0 +1,4395 @@
+{
+  "links": [
+    {
+      "source": 224,
+      "source_tq": 0.9372549,
+      "target": 0,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 231,
+      "source_tq": 0.8980392,
+      "target": 0,
+      "target_tq": 0.90588236,
+      "type": "wifi"
+    },
+    {
+      "source": 0,
+      "source_tq": 0.9647059,
+      "target": 189,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 72,
+      "source_tq": 1,
+      "target": 2,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 2,
+      "source_tq": 0.827451,
+      "target": 220,
+      "target_tq": 0.7294118,
+      "type": "wifi"
+    },
+    {
+      "source": 207,
+      "source_tq": 0.70980394,
+      "target": 2,
+      "target_tq": 0.85882354,
+      "type": "wifi"
+    },
+    {
+      "source": 70,
+      "source_tq": 0.8,
+      "target": 3,
+      "target_tq": 0.4862745,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 0.75686276,
+      "target": 267,
+      "target_tq": 0.6862745,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 0.60784316,
+      "target": 48,
+      "target_tq": 0.8,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 3,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 3,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 4,
+      "source_tq": 1,
+      "target": 82,
+      "target_tq": 0.2,
+      "type": "other"
+    },
+    {
+      "source": 5,
+      "source_tq": 1,
+      "target": 104,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 5,
+      "source_tq": 1,
+      "target": 101,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 266,
+      "source_tq": 0.32941177,
+      "target": 5,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 5,
+      "source_tq": 1,
+      "target": 59,
+      "target_tq": 0.8,
+      "type": "wifi"
+    },
+    {
+      "source": 5,
+      "source_tq": 1,
+      "target": 256,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 165,
+      "source_tq": 0.7372549,
+      "target": 6,
+      "target_tq": 0.7372549,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 0.7019608,
+      "target": 6,
+      "target_tq": 0.7019608,
+      "type": "wifi"
+    },
+    {
+      "source": 14,
+      "source_tq": 0.96862745,
+      "target": 6,
+      "target_tq": 0.8627451,
+      "type": "wifi"
+    },
+    {
+      "source": 7,
+      "source_tq": 0.84313726,
+      "target": 201,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 256,
+      "source_tq": 0.8784314,
+      "target": 8,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 1,
+      "target": 8,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 12,
+      "source_tq": 0.61960787,
+      "target": 15,
+      "target_tq": 0.61960787,
+      "type": "wifi"
+    },
+    {
+      "source": 12,
+      "source_tq": 0.7137255,
+      "target": 114,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 12,
+      "source_tq": 0.56078434,
+      "target": 71,
+      "target_tq": 0.56078434,
+      "type": "wifi"
+    },
+    {
+      "source": 12,
+      "source_tq": 0.5568628,
+      "target": 134,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 0.72156864,
+      "target": 14,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 14,
+      "source_tq": 0.7019608,
+      "target": 165,
+      "target_tq": 0.7019608,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 0.8862745,
+      "target": 14,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 114,
+      "source_tq": 1,
+      "target": 15,
+      "target_tq": 0.88235295,
+      "type": "wifi"
+    },
+    {
+      "source": 134,
+      "source_tq": 0.99607843,
+      "target": 15,
+      "target_tq": 0.75686276,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 103,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 1,
+      "target": 16,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 16,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 0.6666667,
+      "target": 254,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 275,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 30,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 16,
+      "source_tq": 1,
+      "target": 86,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 42,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 17,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 48,
+      "source_tq": 0.40784314,
+      "target": 17,
+      "target_tq": 0.5764706,
+      "type": "wifi"
+    },
+    {
+      "source": 17,
+      "source_tq": 0.8666667,
+      "target": 267,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 18,
+      "source_tq": 1,
+      "target": 29,
+      "target_tq": 0.8980392,
+      "type": "wifi"
+    },
+    {
+      "source": 18,
+      "source_tq": 1,
+      "target": 54,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 170,
+      "source_tq": 0.81960785,
+      "target": 19,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 264,
+      "source_tq": 0.9254902,
+      "target": 19,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 106,
+      "source_tq": 0.8117647,
+      "target": 19,
+      "target_tq": 0.8117647,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.14901961,
+      "target": 19,
+      "target_tq": 0.14901961,
+      "type": "wifi"
+    },
+    {
+      "source": 20,
+      "source_tq": 1,
+      "target": 249,
+      "target_tq": 0.8901961,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 1,
+      "target": 20,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 224,
+      "source_tq": 1,
+      "target": 20,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.9843137,
+      "target": 20,
+      "target_tq": 0.99215686,
+      "type": "other"
+    },
+    {
+      "source": 20,
+      "source_tq": 1,
+      "target": 47,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 23,
+      "source_tq": 0.96862745,
+      "target": 171,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 24,
+      "source_tq": 0.22745098,
+      "target": 183,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 275,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 212,
+      "source_tq": 0.8392157,
+      "target": 26,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 26,
+      "source_tq": 1,
+      "target": 86,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 1,
+      "target": 26,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 30,
+      "source_tq": 1,
+      "target": 103,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 31,
+      "source_tq": 0.99607843,
+      "target": 268,
+      "target_tq": 0.92156863,
+      "type": "wifi"
+    },
+    {
+      "source": 266,
+      "source_tq": 0.25882354,
+      "target": 32,
+      "target_tq": 0.65882355,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 32,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 41,
+      "source_tq": 1,
+      "target": 33,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 193,
+      "source_tq": 1,
+      "target": 36,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 36,
+      "source_tq": 1,
+      "target": 220,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 36,
+      "source_tq": 1,
+      "target": 203,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 38,
+      "source_tq": 0.58431375,
+      "target": 71,
+      "target_tq": 0.6901961,
+      "type": "wifi"
+    },
+    {
+      "source": 39,
+      "source_tq": 0.9647059,
+      "target": 148,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 110,
+      "source_tq": 1,
+      "target": 40,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 40,
+      "source_tq": 1,
+      "target": 146,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 41,
+      "source_tq": 1,
+      "target": 54,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 41,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 274,
+      "source_tq": 0.2,
+      "target": 41,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 230,
+      "source_tq": 1,
+      "target": 41,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 104,
+      "source_tq": 1,
+      "target": 41,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 42,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 42,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 42,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 46,
+      "source_tq": 1,
+      "target": 199,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 46,
+      "source_tq": 0.9098039,
+      "target": 248,
+      "target_tq": 0.8980392,
+      "type": "wifi"
+    },
+    {
+      "source": 82,
+      "source_tq": 0.2,
+      "target": 46,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.7372549,
+      "target": 47,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 47,
+      "source_tq": 0.79607844,
+      "target": 69,
+      "target_tq": 0.7254902,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.7137255,
+      "target": 47,
+      "target_tq": 0.7137255,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 1,
+      "target": 47,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 224,
+      "source_tq": 1,
+      "target": 47,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.9843137,
+      "target": 47,
+      "target_tq": 0.94509804,
+      "type": "other"
+    },
+    {
+      "source": 131,
+      "source_tq": 0.60784316,
+      "target": 48,
+      "target_tq": 0.40784314,
+      "type": "wifi"
+    },
+    {
+      "source": 70,
+      "source_tq": 0.4862745,
+      "target": 48,
+      "target_tq": 0.3372549,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 0.5882353,
+      "target": 48,
+      "target_tq": 0.23921569,
+      "type": "wifi"
+    },
+    {
+      "source": 169,
+      "source_tq": 0.98039216,
+      "target": 53,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 159,
+      "source_tq": 1,
+      "target": 53,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 54,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.11764706,
+      "target": 55,
+      "target_tq": 0.14901961,
+      "type": "wifi"
+    },
+    {
+      "source": 260,
+      "source_tq": 0.5176471,
+      "target": 55,
+      "target_tq": 0.6666667,
+      "type": "wifi"
+    },
+    {
+      "source": 259,
+      "source_tq": 0.6,
+      "target": 55,
+      "target_tq": 0.31764707,
+      "type": "wifi"
+    },
+    {
+      "source": 55,
+      "source_tq": 0.84705883,
+      "target": 258,
+      "target_tq": 0.8784314,
+      "type": "wifi"
+    },
+    {
+      "source": 55,
+      "source_tq": 0.96862745,
+      "target": 236,
+      "target_tq": 0.91764706,
+      "type": "wifi"
+    },
+    {
+      "source": 55,
+      "source_tq": 0.10980392,
+      "target": 57,
+      "target_tq": 0.46666667,
+      "type": "wifi"
+    },
+    {
+      "source": 271,
+      "source_tq": 1,
+      "target": 56,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 198,
+      "source_tq": 0.8862745,
+      "target": 57,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 1,
+      "target": 57,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.70980394,
+      "target": 57,
+      "target_tq": 0.7294118,
+      "type": "wifi"
+    },
+    {
+      "source": 236,
+      "source_tq": 0.64705884,
+      "target": 57,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 1,
+      "target": 57,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 260,
+      "source_tq": 0.7176471,
+      "target": 57,
+      "target_tq": 0.8784314,
+      "type": "wifi"
+    },
+    {
+      "source": 57,
+      "source_tq": 1,
+      "target": 64,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 57,
+      "source_tq": 0.54901963,
+      "target": 227,
+      "target_tq": 0.22745098,
+      "type": "wifi"
+    },
+    {
+      "source": 57,
+      "source_tq": 0.92941177,
+      "target": 135,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 58,
+      "source_tq": 0.9647059,
+      "target": 202,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 172,
+      "source_tq": 0.95686275,
+      "target": 58,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 59,
+      "source_tq": 1,
+      "target": 104,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 59,
+      "source_tq": 0.6,
+      "target": 101,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 230,
+      "source_tq": 1,
+      "target": 60,
+      "target_tq": 0.65882355,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 61,
+      "target_tq": 0.70980394,
+      "type": "wifi"
+    },
+    {
+      "source": 61,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 1,
+      "target": 64,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 1,
+      "target": 64,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 208,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 65,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 70,
+      "source_tq": 0.81960785,
+      "target": 65,
+      "target_tq": 0.81960785,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 149,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 65,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 65,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 65,
+      "source_tq": 0.8980392,
+      "target": 267,
+      "target_tq": 0.5686275,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 1,
+      "target": 67,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 170,
+      "source_tq": 0.6666667,
+      "target": 69,
+      "target_tq": 0.6901961,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.9098039,
+      "target": 69,
+      "target_tq": 0.7058824,
+      "type": "wifi"
+    },
+    {
+      "source": 106,
+      "source_tq": 0.654902,
+      "target": 69,
+      "target_tq": 0.654902,
+      "type": "wifi"
+    },
+    {
+      "source": 91,
+      "source_tq": 0.7882353,
+      "target": 69,
+      "target_tq": 0.7882353,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 0.5372549,
+      "target": 70,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 70,
+      "source_tq": 0.84705883,
+      "target": 267,
+      "target_tq": 0.34901962,
+      "type": "wifi"
+    },
+    {
+      "source": 114,
+      "source_tq": 1,
+      "target": 71,
+      "target_tq": 0.8980392,
+      "type": "wifi"
+    },
+    {
+      "source": 134,
+      "source_tq": 1,
+      "target": 71,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 1,
+      "target": 82,
+      "target_tq": 0.2,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 1,
+      "target": 183,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 1,
+      "target": 90,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 73,
+      "source_tq": 0.34901962,
+      "target": 176,
+      "target_tq": 0.75686276,
+      "type": "wifi"
+    },
+    {
+      "source": 168,
+      "source_tq": 1,
+      "target": 74,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 253,
+      "source_tq": 0.85882354,
+      "target": 74,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 217,
+      "source_tq": 0.92941177,
+      "target": 81,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 1,
+      "target": 81,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 0.84705883,
+      "target": 203,
+      "target_tq": 0.6784314,
+      "type": "wifi"
+    },
+    {
+      "source": 81,
+      "source_tq": 1,
+      "target": 123,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 124,
+      "source_tq": 1,
+      "target": 82,
+      "target_tq": 0.2,
+      "type": "other"
+    },
+    {
+      "source": 82,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 180,
+      "source_tq": 0.61960787,
+      "target": 83,
+      "target_tq": 0.81960785,
+      "type": "wifi"
+    },
+    {
+      "source": 119,
+      "source_tq": 0.14901961,
+      "target": 83,
+      "target_tq": 0.827451,
+      "type": "wifi"
+    },
+    {
+      "source": 85,
+      "source_tq": 0.84705883,
+      "target": 104,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 85,
+      "source_tq": 1,
+      "target": 101,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 86,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 275,
+      "source_tq": 1,
+      "target": 86,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 1,
+      "target": 86,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 87,
+      "source_tq": 1,
+      "target": 181,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 88,
+      "source_tq": 1,
+      "target": 206,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 88,
+      "source_tq": 0.8980392,
+      "target": 174,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 90,
+      "source_tq": 1,
+      "target": 176,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 90,
+      "source_tq": 1,
+      "target": 183,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.8901961,
+      "target": 91,
+      "target_tq": 0.68235296,
+      "type": "wifi"
+    },
+    {
+      "source": 94,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 168,
+      "source_tq": 1,
+      "target": 97,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 98,
+      "source_tq": 0.9490196,
+      "target": 200,
+      "target_tq": 0.827451,
+      "type": "wifi"
+    },
+    {
+      "source": 104,
+      "source_tq": 1,
+      "target": 101,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 0.36862746,
+      "target": 253,
+      "target_tq": 0.7372549,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 1,
+      "target": 105,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 266,
+      "source_tq": 0.80784315,
+      "target": 105,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 105,
+      "source_tq": 1,
+      "target": 275,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 106,
+      "source_tq": 0.8117647,
+      "target": 170,
+      "target_tq": 0.9529412,
+      "type": "wifi"
+    },
+    {
+      "source": 264,
+      "source_tq": 0.5411765,
+      "target": 106,
+      "target_tq": 0.6,
+      "type": "wifi"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.7921569,
+      "target": 106,
+      "target_tq": 0.69803923,
+      "type": "wifi"
+    },
+    {
+      "source": 110,
+      "source_tq": 1,
+      "target": 146,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 161,
+      "source_tq": 0.65882355,
+      "target": 111,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 205,
+      "source_tq": 1,
+      "target": 111,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 112,
+      "source_tq": 1,
+      "target": 126,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 173,
+      "source_tq": 0.92941177,
+      "target": 113,
+      "target_tq": 0.94509804,
+      "type": "wifi"
+    },
+    {
+      "source": 114,
+      "source_tq": 0.58431375,
+      "target": 134,
+      "target_tq": 0.81960785,
+      "type": "wifi"
+    },
+    {
+      "source": 115,
+      "source_tq": 1,
+      "target": 249,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 116,
+      "source_tq": 0.6784314,
+      "target": 170,
+      "target_tq": 0.6509804,
+      "type": "wifi"
+    },
+    {
+      "source": 275,
+      "source_tq": 1,
+      "target": 117,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.45882353,
+      "target": 236,
+      "target_tq": 0.8,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.75686276,
+      "target": 260,
+      "target_tq": 0.7176471,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.22745098,
+      "target": 227,
+      "target_tq": 0.20784314,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.9098039,
+      "target": 135,
+      "target_tq": 0.85882354,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.8,
+      "target": 198,
+      "target_tq": 0.6862745,
+      "type": "wifi"
+    },
+    {
+      "source": 118,
+      "source_tq": 0.22745098,
+      "target": 211,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 0.31764707,
+      "target": 119,
+      "target_tq": 0.05882353,
+      "type": "wifi"
+    },
+    {
+      "source": 123,
+      "source_tq": 0.6,
+      "target": 135,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 153,
+      "source_tq": 1,
+      "target": 126,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 136,
+      "source_tq": 1,
+      "target": 126,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 131,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 0.70980394,
+      "target": 267,
+      "target_tq": 0.5372549,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 131,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 208,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 131,
+      "source_tq": 1,
+      "target": 149,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 274,
+      "source_tq": 0.1764706,
+      "target": 132,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 266,
+      "source_tq": 1,
+      "target": 133,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 227,
+      "source_tq": 0.45882353,
+      "target": 135,
+      "target_tq": 0.6862745,
+      "type": "wifi"
+    },
+    {
+      "source": 260,
+      "source_tq": 0.2784314,
+      "target": 135,
+      "target_tq": 0.44705883,
+      "type": "wifi"
+    },
+    {
+      "source": 153,
+      "source_tq": 1,
+      "target": 136,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 146,
+      "source_tq": 0.9843137,
+      "target": 137,
+      "target_tq": 0.9843137,
+      "type": "other"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.9529412,
+      "target": 224,
+      "target_tq": 0.9019608,
+      "type": "wifi"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.9647059,
+      "target": 189,
+      "target_tq": 0.9647059,
+      "type": "wifi"
+    },
+    {
+      "source": 137,
+      "source_tq": 0.9843137,
+      "target": 159,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 249,
+      "source_tq": 1,
+      "target": 140,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 144,
+      "source_tq": 1,
+      "target": 146,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 145,
+      "source_tq": 0.8980392,
+      "target": 202,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 172,
+      "source_tq": 0.92156863,
+      "target": 145,
+      "target_tq": 0.94509804,
+      "type": "wifi"
+    },
+    {
+      "source": 148,
+      "source_tq": 1,
+      "target": 189,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 231,
+      "source_tq": 1,
+      "target": 148,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 242,
+      "source_tq": 0.64705884,
+      "target": 148,
+      "target_tq": 0.972549,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 149,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 149,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 149,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 149,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 153,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 155,
+      "source_tq": 1,
+      "target": 261,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 155,
+      "source_tq": 0.98039216,
+      "target": 219,
+      "target_tq": 0.98039216,
+      "type": "wifi"
+    },
+    {
+      "source": 155,
+      "source_tq": 0.9843137,
+      "target": 186,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 224,
+      "source_tq": 0.9137255,
+      "target": 159,
+      "target_tq": 0.8627451,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 0.85882354,
+      "target": 174,
+      "target_tq": 0.45882353,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 0.9647059,
+      "target": 276,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 0.88235295,
+      "target": 226,
+      "target_tq": 0.88235295,
+      "type": "other"
+    },
+    {
+      "source": 161,
+      "source_tq": 0.8862745,
+      "target": 205,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 200,
+      "source_tq": 1,
+      "target": 162,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 162,
+      "source_tq": 0.8784314,
+      "target": 266,
+      "target_tq": 0.827451,
+      "type": "wifi"
+    },
+    {
+      "source": 160,
+      "source_tq": 0.9490196,
+      "target": 165,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 206,
+      "source_tq": 0.7882353,
+      "target": 165,
+      "target_tq": 0.89411765,
+      "type": "wifi"
+    },
+    {
+      "source": 226,
+      "source_tq": 1,
+      "target": 165,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 88,
+      "source_tq": 0.8235294,
+      "target": 165,
+      "target_tq": 0.8235294,
+      "type": "wifi"
+    },
+    {
+      "source": 276,
+      "source_tq": 0.8901961,
+      "target": 165,
+      "target_tq": 0.8901961,
+      "type": "wifi"
+    },
+    {
+      "source": 168,
+      "source_tq": 0.96862745,
+      "target": 253,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 264,
+      "source_tq": 1,
+      "target": 170,
+      "target_tq": 0.9019608,
+      "type": "wifi"
+    },
+    {
+      "source": 172,
+      "source_tq": 0.9843137,
+      "target": 202,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 276,
+      "source_tq": 0.83137256,
+      "target": 174,
+      "target_tq": 0.41568628,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0.1882353,
+      "target": 205,
+      "target_tq": 0.50980395,
+      "type": "wifi"
+    },
+    {
+      "source": 176,
+      "source_tq": 0.41960785,
+      "target": 251,
+      "target_tq": 0.7764706,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 0.47843137,
+      "target": 254,
+      "target_tq": 0.8862745,
+      "type": "wifi"
+    },
+    {
+      "source": 180,
+      "source_tq": 1,
+      "target": 275,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 181,
+      "source_tq": 0.8980392,
+      "target": 261,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 181,
+      "source_tq": 1,
+      "target": 219,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 181,
+      "source_tq": 1,
+      "target": 186,
+      "target_tq": 0.91764706,
+      "type": "wifi"
+    },
+    {
+      "source": 181,
+      "source_tq": 1,
+      "target": 263,
+      "target_tq": 0.8980392,
+      "type": "wifi"
+    },
+    {
+      "source": 215,
+      "source_tq": 1,
+      "target": 183,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 219,
+      "source_tq": 1,
+      "target": 186,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 186,
+      "source_tq": 0.8666667,
+      "target": 263,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 186,
+      "target_tq": 0.9098039,
+      "type": "wifi"
+    },
+    {
+      "source": 224,
+      "source_tq": 0.96862745,
+      "target": 189,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 231,
+      "source_tq": 1,
+      "target": 189,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 193,
+      "source_tq": 1,
+      "target": 220,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 193,
+      "source_tq": 1,
+      "target": 203,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 193,
+      "source_tq": 0.7372549,
+      "target": 241,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 198,
+      "source_tq": 0.5764706,
+      "target": 211,
+      "target_tq": 0.6862745,
+      "type": "wifi"
+    },
+    {
+      "source": 198,
+      "source_tq": 0.76862746,
+      "target": 260,
+      "target_tq": 0.81960785,
+      "type": "wifi"
+    },
+    {
+      "source": 198,
+      "source_tq": 0.9490196,
+      "target": 227,
+      "target_tq": 0.70980394,
+      "type": "wifi"
+    },
+    {
+      "source": 199,
+      "source_tq": 0.92941177,
+      "target": 248,
+      "target_tq": 0.827451,
+      "type": "wifi"
+    },
+    {
+      "source": 220,
+      "source_tq": 1,
+      "target": 203,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 206,
+      "source_tq": 0.92941177,
+      "target": 174,
+      "target_tq": 0.92941177,
+      "type": "wifi"
+    },
+    {
+      "source": 206,
+      "source_tq": 0.4392157,
+      "target": 276,
+      "target_tq": 0.79607844,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 208,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 208,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 208,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 272,
+      "source_tq": 0.8666667,
+      "target": 209,
+      "target_tq": 0.9764706,
+      "type": "wifi"
+    },
+    {
+      "source": 209,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 1,
+      "target": 260,
+      "target_tq": 0.96862745,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.5176471,
+      "target": 259,
+      "target_tq": 0.28627452,
+      "type": "wifi"
+    },
+    {
+      "source": 211,
+      "source_tq": 0.6,
+      "target": 236,
+      "target_tq": 0.5568628,
+      "type": "wifi"
+    },
+    {
+      "source": 215,
+      "source_tq": 0.5372549,
+      "target": 269,
+      "target_tq": 0.9372549,
+      "type": "wifi"
+    },
+    {
+      "source": 217,
+      "source_tq": 1,
+      "target": 236,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 219,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 219,
+      "source_tq": 1,
+      "target": 263,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 222,
+      "source_tq": 1,
+      "target": 227,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 222,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 224,
+      "source_tq": 0.9529412,
+      "target": 231,
+      "target_tq": 0.93333334,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 1,
+      "target": 224,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 226,
+      "source_tq": 0.9647059,
+      "target": 276,
+      "target_tq": 0.87058824,
+      "type": "wifi"
+    },
+    {
+      "source": 242,
+      "source_tq": 0.7647059,
+      "target": 231,
+      "target_tq": 0.9882353,
+      "type": "wifi"
+    },
+    {
+      "source": 252,
+      "source_tq": 1,
+      "target": 235,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 258,
+      "source_tq": 0.50980395,
+      "target": 236,
+      "target_tq": 0.8666667,
+      "type": "wifi"
+    },
+    {
+      "source": 260,
+      "source_tq": 0.54901963,
+      "target": 236,
+      "target_tq": 0.8392157,
+      "type": "wifi"
+    },
+    {
+      "source": 259,
+      "source_tq": 0.50980395,
+      "target": 236,
+      "target_tq": 0.5764706,
+      "type": "wifi"
+    },
+    {
+      "source": 237,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 255,
+      "source_tq": 0.09803922,
+      "target": 240,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 274,
+      "source_tq": 0.2,
+      "target": 240,
+      "target_tq": 1,
+      "type": "other"
+    },
+    {
+      "source": 270,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 240,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 241,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 241,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 246,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 243,
+      "source_tq": 0.49803922,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 246,
+      "source_tq": 1,
+      "target": 270,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 251,
+      "source_tq": 1,
+      "target": 269,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 258,
+      "source_tq": 1,
+      "target": 252,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 255,
+      "source_tq": 0.8980392,
+      "target": 266,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 259,
+      "source_tq": 1,
+      "target": 258,
+      "target_tq": 0.95686275,
+      "type": "wifi"
+    },
+    {
+      "source": 261,
+      "source_tq": 1,
+      "target": 263,
+      "target_tq": 0.84705883,
+      "type": "wifi"
+    },
+    {
+      "source": 275,
+      "source_tq": 0.5568628,
+      "target": 265,
+      "target_tq": 0.9490196,
+      "type": "wifi"
+    },
+    {
+      "source": 265,
+      "source_tq": 1,
+      "target": 272,
+      "target_tq": 1,
+      "type": "wifi"
+    },
+    {
+      "source": 146,
+      "source_tq": 0.9843137,
+      "target": 271,
+      "target_tq": 0.9843137,
+      "type": "wifi"
+    },
+    {
+      "source": 276,
+      "source_tq": 0.7372549,
+      "target": 6,
+      "target_tq": 0.7372549,
+      "type": "wifi"
+    },
+    {
+      "source": 279,
+      "target": 0,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 1,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 6,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 7,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 12,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 13,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 14,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 15,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 19,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 22,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 23,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 25,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 27,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 31,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 34,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 35,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 38,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 39,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 44,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 49,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 50,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 52,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 53,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 56,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 58,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 62,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 69,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 71,
+      "type": "vpn"
+    },
+    {
+      "source": 282,
+      "target": 75,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 76,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 77,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 78,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 79,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 80,
+      "type": "vpn"
+    },
+    {
+      "source": 282,
+      "target": 84,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 88,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 91,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 100,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 102,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 106,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 108,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 109,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 113,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 114,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 115,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 116,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 120,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 125,
+      "type": "vpn"
+    },
+    {
+      "source": 283,
+      "target": 127,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 129,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 130,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 134,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 138,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 139,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 140,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 141,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 142,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 143,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 145,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 147,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 148,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 150,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 151,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 155,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 156,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 159,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 163,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 164,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 165,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 169,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 170,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 171,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 172,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 173,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 174,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 177,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 179,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 187,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 188,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 189,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 192,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 195,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 196,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 201,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 202,
+      "type": "vpn"
+    },
+    {
+      "source": 283,
+      "target": 214,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 216,
+      "type": "vpn"
+    },
+    {
+      "source": 282,
+      "target": 218,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 226,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 228,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 231,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 232,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 234,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 238,
+      "type": "vpn"
+    },
+    {
+      "source": 283,
+      "target": 239,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 242,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 244,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 245,
+      "type": "vpn"
+    },
+    {
+      "source": 146,
+      "target": 249,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 250,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 257,
+      "type": "vpn"
+    },
+    {
+      "source": 281,
+      "target": 264,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 268,
+      "type": "vpn"
+    },
+    {
+      "source": 280,
+      "target": 273,
+      "type": "vpn"
+    },
+    {
+      "source": 279,
+      "target": 276,
+      "type": "vpn"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "name": "Wertheimer-8-CPE510-W",
+      "x": 51.31162297,
+      "y": 12.27626413
+    },
+    {
+      "id": 1,
+      "name": "kirschberg-850-27"
+    },
+    {
+      "id": 2,
+      "name": "78.31",
+      "x": 51.307891,
+      "y": 12.374388
+    },
+    {
+      "id": 3,
+      "name": "71-20-serverraum",
+      "x": 51.3022870891185,
+      "y": 12.374673038721
+    },
+    {
+      "id": 4,
+      "name": "250-11"
+    },
+    {
+      "id": 5,
+      "name": "113-31-nordost",
+      "x": 51.3006,
+      "y": 12.3122
+    },
+    {
+      "id": 6,
+      "name": "FFL-G-Schwarz-123_ETG_3-L",
+      "x": 51.34850773,
+      "y": 12.31221378
+    },
+    {
+      "id": 7,
+      "name": "SD-22-2",
+      "x": 51.34802609,
+      "y": 12.40456224
+    },
+    {
+      "id": 8,
+      "name": "143-28-ost",
+      "x": 51.3083,
+      "y": 12.2721
+    },
+    {
+      "id": 9,
+      "name": "hostel1",
+      "x": 51.306732,
+      "y": 12.380026
+    },
+    {
+      "id": 10,
+      "name": "74.0"
+    },
+    {
+      "id": 11,
+      "name": "mid1.ci-hall"
+    },
+    {
+      "id": 12,
+      "name": "E09-VH-1OG-Erker-Ost",
+      "x": 51.34614388,
+      "y": 12.39603415
+    },
+    {
+      "id": 13,
+      "name": "wurzelfunk",
+      "x": 51.33906,
+      "y": 12.32705
+    },
+    {
+      "id": 14,
+      "name": "FFL-G-Schwarz-123-ETG4-R2",
+      "x": 51.34844323,
+      "y": 12.31237203
+    },
+    {
+      "id": 15,
+      "name": "E09-VH-3OG-Erker",
+      "x": 51.34614974,
+      "y": 12.39600331
+    },
+    {
+      "id": 16,
+      "name": "ffl-125-gisagturm-7-so",
+      "x": 51.298329,
+      "y": 12.316679
+    },
+    {
+      "id": 17,
+      "name": "71-34",
+      "x": 51.3022,
+      "y": 12.3745
+    },
+    {
+      "id": 18,
+      "name": "10-61-159-12",
+      "x": 51.335975,
+      "y": 12.326531
+    },
+    {
+      "id": 19,
+      "name": "Liliesteinstr15-EG-11s",
+      "x": 51.30830065,
+      "y": 12.27192834
+    },
+    {
+      "id": 20,
+      "name": "Liliensteinstr15-CPE510-W",
+      "x": 51.30826963,
+      "y": 12.27195114
+    },
+    {
+      "id": 21,
+      "name": "72.253"
+    },
+    {
+      "id": 22,
+      "name": "gluon-lc46e1fe7d0b2"
+    },
+    {
+      "id": 23,
+      "name": "GlasUndBohne",
+      "x": 51.33511627,
+      "y": 12.33050108
+    },
+    {
+      "id": 24,
+      "name": "78.22",
+      "x": 51.309,
+      "y": 12.3741
+    },
+    {
+      "id": 25,
+      "name": "gluon-lf81a678ca1ca",
+      "x": 51.209211,
+      "y": 12.862509
+    },
+    {
+      "id": 26,
+      "name": "125.9",
+      "x": 51.298452,
+      "y": 12.316525
+    },
+    {
+      "id": 27,
+      "name": "p1ng0ut-ffleipzig-43DC",
+      "x": 51.319412,
+      "y": 12.326188
+    },
+    {
+      "id": 28,
+      "name": "hostel7",
+      "x": 51.306693,
+      "y": 12.380078
+    },
+    {
+      "id": 29,
+      "name": "159-14",
+      "x": 51.335985,
+      "y": 12.326518
+    },
+    {
+      "id": 30,
+      "name": "80.12",
+      "x": 51.306416,
+      "y": 12.406296
+    },
+    {
+      "id": 31,
+      "name": "thw-leipzig-bahnhofstr-og"
+    },
+    {
+      "id": 32,
+      "name": "106-14-merse-dach-so",
+      "x": 51.338681413031026,
+      "y": 12.32251311728632
+    },
+    {
+      "id": 33,
+      "name": "22-5",
+      "x": 51.3294518,
+      "y": 12.3702728
+    },
+    {
+      "id": 34,
+      "name": "freifunk-conserve-ap1",
+      "x": 51.33370192,
+      "y": 12.31976152
+    },
+    {
+      "id": 35,
+      "name": "taktikus",
+      "x": 51.353982,
+      "y": 12.411092
+    },
+    {
+      "id": 36,
+      "name": "84.13",
+      "x": 51.30812,
+      "y": 12.37306
+    },
+    {
+      "id": 37,
+      "name": "mid2.hostel5"
+    },
+    {
+      "id": 38,
+      "name": "OSZL-HH-EG",
+      "x": 51.34644628,
+      "y": 12.39615083
+    },
+    {
+      "id": 39,
+      "name": "wertheimer11-2",
+      "x": 51.31169003,
+      "y": 12.27558285
+    },
+    {
+      "id": 40,
+      "name": "143-13-test"
+    },
+    {
+      "id": 41,
+      "name": "228.1"
+    },
+    {
+      "id": 42,
+      "name": "71-43"
+    },
+    {
+      "id": 43,
+      "name": "93.22",
+      "x": 51.306607,
+      "y": 12.368675
+    },
+    {
+      "id": 44,
+      "name": "baeckerei",
+      "x": 51.3351833,
+      "y": 12.33318865
+    },
+    {
+      "id": 45,
+      "name": "75.29",
+      "x": 51.307944,
+      "y": 12.373422
+    },
+    {
+      "id": 46,
+      "name": "dezentrale",
+      "x": 51.3365,
+      "y": 12.33823
+    },
+    {
+      "id": 47,
+      "name": "liliensteinstr-dachboden",
+      "x": 51.308342,
+      "y": 12.27197
+    },
+    {
+      "id": 48,
+      "name": "ci-sk8",
+      "x": 51.30179029060567,
+      "y": 12.37483263015747
+    },
+    {
+      "id": 49,
+      "name": "Onkel-Toms-Huette",
+      "x": 51.31535,
+      "y": 12.37808
+    },
+    {
+      "id": 50,
+      "name": "Zeppelinstra\u00dfe 24",
+      "x": 51.47458054,
+      "y": 12.3636961
+    },
+    {
+      "id": 51,
+      "name": "75.129"
+    },
+    {
+      "id": 52,
+      "name": "Biesen-Eilenburger-Chaussee-10",
+      "x": 51.47296332,
+      "y": 12.3718071
+    },
+    {
+      "id": 53,
+      "name": "kirschberg-850-ac"
+    },
+    {
+      "id": 54,
+      "name": "vpnb"
+    },
+    {
+      "id": 55,
+      "name": "123.36",
+      "x": 51.306787569,
+      "y": 12.367671996
+    },
+    {
+      "id": 56,
+      "name": "windorf-koernerstein2",
+      "x": 51.29206286,
+      "y": 12.32149959
+    },
+    {
+      "id": 57,
+      "name": "73.14",
+      "x": 51.306578712,
+      "y": 12.368446361
+    },
+    {
+      "id": 58,
+      "name": "kbs-1"
+    },
+    {
+      "id": 59,
+      "name": "113-32",
+      "x": 51.3006,
+      "y": 12.312
+    },
+    {
+      "id": 60,
+      "name": "jebel2",
+      "x": 52.866444,
+      "y": 11.264529
+    },
+    {
+      "id": 61,
+      "name": "71-27-nord",
+      "x": 51.302301,
+      "y": 12.374592
+    },
+    {
+      "id": 62,
+      "name": "Miltitz-Mittelstr-6",
+      "x": 51.323374,
+      "y": 12.256204
+    },
+    {
+      "id": 63,
+      "name": "240.16"
+    },
+    {
+      "id": 64,
+      "name": "93.10",
+      "x": 51.3066,
+      "y": 12.3684
+    },
+    {
+      "id": 65,
+      "name": "104-30"
+    },
+    {
+      "id": 66,
+      "name": "239.224"
+    },
+    {
+      "id": 67,
+      "name": "106-41",
+      "x": 51.337665012,
+      "y": 12.321223319
+    },
+    {
+      "id": 68,
+      "name": "84-18-zumdach",
+      "x": 51.29004,
+      "y": 12.383234
+    },
+    {
+      "id": 69,
+      "name": "Liliesteinstr15-4OG-11s"
+    },
+    {
+      "id": 70,
+      "name": "ci-cafe",
+      "x": 51.302266546501805,
+      "y": 12.374575138092041
+    },
+    {
+      "id": 71,
+      "name": "E09-HH-2OG",
+      "x": 51.34637592,
+      "y": 12.39615083
+    },
+    {
+      "id": 72,
+      "name": "78.32",
+      "x": 51.307891,
+      "y": 12.374388
+    },
+    {
+      "id": 73,
+      "name": "bonanza1",
+      "x": 51.28977157849631,
+      "y": 12.390940636396408
+    },
+    {
+      "id": 74,
+      "name": "106-21-conserve",
+      "x": 51.333724,
+      "y": 12.319746
+    },
+    {
+      "id": 75,
+      "name": "test"
+    },
+    {
+      "id": 76,
+      "name": "jsTest"
+    },
+    {
+      "id": 77,
+      "name": "gluon-l647002cb91aa",
+      "x": 51.32631,
+      "y": 12.37621
+    },
+    {
+      "id": 78,
+      "name": "DZ-Eilenburger-69",
+      "x": 51.52470908,
+      "y": 12.34389603
+    },
+    {
+      "id": 79,
+      "name": "glu-lec086ba8fac0"
+    },
+    {
+      "id": 80,
+      "name": "Getr\u00e4nkeland Selben",
+      "x": 51.50180727,
+      "y": 12.36389458
+    },
+    {
+      "id": 81,
+      "name": "73.58",
+      "x": 51.3066,
+      "y": 12.36849999
+    },
+    {
+      "id": 82,
+      "name": "vpna"
+    },
+    {
+      "id": 83,
+      "name": "115-17",
+      "x": 51.302544723492396,
+      "y": 12.317692838614676
+    },
+    {
+      "id": 84,
+      "name": "Freifunk"
+    },
+    {
+      "id": 85,
+      "name": "113.68"
+    },
+    {
+      "id": 86,
+      "name": "125.23",
+      "x": 51.297959,
+      "y": 12.317326
+    },
+    {
+      "id": 87,
+      "name": "84-15",
+      "x": 51.29,
+      "y": 12.3831
+    },
+    {
+      "id": 88,
+      "name": "FFL-G-Schwarz-123_HOF",
+      "x": 51.34831591,
+      "y": 12.31211186
+    },
+    {
+      "id": 89,
+      "name": "239.224"
+    },
+    {
+      "id": 90,
+      "name": "84-6-bonanza",
+      "x": 51.28967009537237,
+      "y": 12.391053289175
+    },
+    {
+      "id": 91,
+      "name": "Liliesteinstr15-5OG-11s"
+    },
+    {
+      "id": 92,
+      "name": "83.41"
+    },
+    {
+      "id": 93,
+      "name": "120.31"
+    },
+    {
+      "id": 94,
+      "name": "81.42",
+      "x": 51.299164087,
+      "y": 12.381597161
+    },
+    {
+      "id": 95,
+      "name": "84-19-dach2",
+      "x": 51.290039,
+      "y": 12.38325
+    },
+    {
+      "id": 96,
+      "name": "120.12"
+    },
+    {
+      "id": 97,
+      "name": "106.12",
+      "x": 51.33384,
+      "y": 12.3161
+    },
+    {
+      "id": 98,
+      "name": "74.42",
+      "x": 51.30798,
+      "y": 12.3723
+    },
+    {
+      "id": 99,
+      "name": "104.62",
+      "x": 51.3307,
+      "y": 12.332
+    },
+    {
+      "id": 100,
+      "name": "gohlis-wiederitzscher5",
+      "x": 51.362541,
+      "y": 12.35791
+    },
+    {
+      "id": 101,
+      "name": "83.33"
+    },
+    {
+      "id": 102,
+      "name": "Kaikatur",
+      "x": 51.31836,
+      "y": 12.37043
+    },
+    {
+      "id": 103,
+      "name": "80.15",
+      "x": 51.307288081,
+      "y": 12.403303769
+    },
+    {
+      "id": 104,
+      "name": "113-45"
+    },
+    {
+      "id": 105,
+      "name": "125.6",
+      "x": 51.298324,
+      "y": 12.316448
+    },
+    {
+      "id": 106,
+      "name": "Liliesteinstr15-2OG-11s"
+    },
+    {
+      "id": 107,
+      "name": "1.21",
+      "x": 52.86632,
+      "y": 11.265443
+    },
+    {
+      "id": 108,
+      "name": "brau20a",
+      "x": 51.3267,
+      "y": 12.3716
+    },
+    {
+      "id": 109,
+      "name": "Semmelweisstr./Str.d.18.Okt."
+    },
+    {
+      "id": 110,
+      "name": "143-11-dachboden"
+    },
+    {
+      "id": 111,
+      "name": "84.43"
+    },
+    {
+      "id": 112,
+      "name": "Freifunk-240-19",
+      "x": 53.111425502636074,
+      "y": 12.606419920921326
+    },
+    {
+      "id": 113,
+      "name": "Brauereistr12-2",
+      "x": 51.30373721,
+      "y": 12.32964545
+    },
+    {
+      "id": 114,
+      "name": "E09-VH-1OG-Erker-West",
+      "x": 51.34615058,
+      "y": 12.39601806
+    },
+    {
+      "id": 115,
+      "name": "kulkilan-tauchbasis-e2-indoor",
+      "x": 51.30553816,
+      "y": 12.2520411
+    },
+    {
+      "id": 116,
+      "name": "Liliesteinstr15-3OG-11s"
+    },
+    {
+      "id": 117,
+      "name": "mid1.115-72",
+      "x": 51.2909,
+      "y": 12.3293
+    },
+    {
+      "id": 118,
+      "name": "234.57",
+      "x": 51.30664,
+      "y": 12.3684
+    },
+    {
+      "id": 119,
+      "name": "sued-113-8",
+      "x": 51.30862584995059,
+      "y": 12.317504391085095
+    },
+    {
+      "id": 120,
+      "name": "Zschortau-Schmiedestra\u00dfe19-EG",
+      "x": 51.47425643,
+      "y": 12.36089587
+    },
+    {
+      "id": 121,
+      "name": "hostel5",
+      "x": 51.306675,
+      "y": 12.380065
+    },
+    {
+      "id": 122,
+      "name": "234.59"
+    },
+    {
+      "id": 123,
+      "name": "83.36",
+      "x": 51.306605669,
+      "y": 12.368589842
+    },
+    {
+      "id": 124,
+      "name": "250.12"
+    },
+    {
+      "id": 125,
+      "name": "hefee-1",
+      "x": 51.33871,
+      "y": 12.32222
+    },
+    {
+      "id": 126,
+      "name": "104-61-240-65",
+      "x": 53.11,
+      "y": 12.61
+    },
+    {
+      "id": 127,
+      "name": "malina",
+      "x": 51.33955,
+      "y": 12.40719
+    },
+    {
+      "id": 128,
+      "name": "84.33",
+      "x": 51.306771662,
+      "y": 12.367726408
+    },
+    {
+      "id": 129,
+      "name": "gluon-le894f6a8f344",
+      "x": 51.411203,
+      "y": 12.419341
+    },
+    {
+      "id": 130,
+      "name": "KlackFunk",
+      "x": 51.3346236,
+      "y": 12.4046427
+    },
+    {
+      "id": 131,
+      "name": "ci-buero",
+      "x": 51.30224977701193,
+      "y": 12.374508082866669
+    },
+    {
+      "id": 132,
+      "name": "67-47",
+      "x": 51.32229551,
+      "y": 12.371736575
+    },
+    {
+      "id": 133,
+      "name": "104-36",
+      "x": 51.33031,
+      "y": 12.3307
+    },
+    {
+      "id": 134,
+      "name": "E09-VH-3OG-hinten",
+      "x": 51.34624691,
+      "y": 12.39605427
+    },
+    {
+      "id": 135,
+      "name": "93.23",
+      "x": 51.306529,
+      "y": 12.368674
+    },
+    {
+      "id": 136,
+      "name": "Freifunk-240-60",
+      "x": 53.11039469874014,
+      "y": 12.610297009359783
+    },
+    {
+      "id": 137,
+      "name": "Liliensteinstr15-CPE510-N",
+      "x": 51.30840042,
+      "y": 12.27206916
+    },
+    {
+      "id": 138,
+      "name": "Alex",
+      "x": 51.329702,
+      "y": 12.407997
+    },
+    {
+      "id": 139,
+      "name": "L-Lavendelweg4",
+      "x": 51.4036498,
+      "y": 12.369359
+    },
+    {
+      "id": 140,
+      "name": "tauchbasis-delphin-n",
+      "x": 51.30558343,
+      "y": 12.25218058
+    },
+    {
+      "id": 141,
+      "name": "Wertheimer-8-CPE510-W",
+      "x": 51.31162297,
+      "y": 12.27628827
+    },
+    {
+      "id": 142,
+      "name": "Morgenlandsprachen1",
+      "x": 51.34009,
+      "y": 12.39059
+    },
+    {
+      "id": 143,
+      "name": "Frankenheim-Falkenweg-5",
+      "x": 51.33553,
+      "y": 12.23946
+    },
+    {
+      "id": 144,
+      "name": "143-12-dachboden"
+    },
+    {
+      "id": 145,
+      "name": "KBS-4"
+    },
+    {
+      "id": 146,
+      "name": "143-123-alix",
+      "x": 51.308323,
+      "y": 12.271982
+    },
+    {
+      "id": 147,
+      "name": "BLACKMETAL",
+      "x": 51.31901,
+      "y": 12.382594
+    },
+    {
+      "id": 148,
+      "name": "wertheimer11-1",
+      "x": 51.31169254,
+      "y": 12.27561772
+    },
+    {
+      "id": 149,
+      "name": "ci-hall",
+      "x": 51.302088789597455,
+      "y": 12.374060153961182
+    },
+    {
+      "id": 150,
+      "name": "Dezentrale1",
+      "x": 51.33649372,
+      "y": 12.33826876
+    },
+    {
+      "id": 151,
+      "name": "A&V-1OG",
+      "x": 51.33573462,
+      "y": 12.33575285
+    },
+    {
+      "id": 152,
+      "name": "93.13"
+    },
+    {
+      "id": 153,
+      "name": "240-14"
+    },
+    {
+      "id": 154,
+      "name": "106.112"
+    },
+    {
+      "id": 155,
+      "name": "goethesteig-hz",
+      "x": 51.29008,
+      "y": 12.38329
+    },
+    {
+      "id": 156,
+      "name": "Logop\u00e4die-im-Ratzelbogen",
+      "x": 51.312216,
+      "y": 12.280135
+    },
+    {
+      "id": 157,
+      "name": "84-5-dach5",
+      "x": 51.29004,
+      "y": 12.383234
+    },
+    {
+      "id": 158,
+      "name": "112.40",
+      "x": 51.315177235,
+      "y": 12.317854464
+    },
+    {
+      "id": 159,
+      "name": "kirschberg-m5s",
+      "x": 51.31256186,
+      "y": 12.2723937
+    },
+    {
+      "id": 160,
+      "name": "FFL-G-Schwarz-123_ETG_1-R",
+      "x": 51.348449935000005,
+      "y": 12.312224507000002
+    },
+    {
+      "id": 161,
+      "name": "84.41"
+    },
+    {
+      "id": 162,
+      "name": "108.18",
+      "x": 51.32963959793281,
+      "y": 12.331510931253433
+    },
+    {
+      "id": 163,
+      "name": "mktronixx.de-perlpilzweg11-s\u00fcd-mr3420",
+      "x": 51.27522,
+      "y": 12.3049
+    },
+    {
+      "id": 164,
+      "name": "FreifunkMaRe"
+    },
+    {
+      "id": 165,
+      "name": "FFL-Georg-Schwarzs-123-EG-Fenster",
+      "x": 51.34852867,
+      "y": 12.31218964
+    },
+    {
+      "id": 166,
+      "name": "93.11",
+      "x": 51.3088,
+      "y": 12.3725
+    },
+    {
+      "id": 167,
+      "name": "111.224"
+    },
+    {
+      "id": 168,
+      "name": "106-3-saalfelder",
+      "x": 51.333848,
+      "y": 12.3161
+    },
+    {
+      "id": 169,
+      "name": "kirschberg4"
+    },
+    {
+      "id": 170,
+      "name": "Liliesteinstr15-1OG-11s"
+    },
+    {
+      "id": 171,
+      "name": "GlasUndBohne2",
+      "x": 51.33510286,
+      "y": 12.33059228
+    },
+    {
+      "id": 172,
+      "name": "gluon-lf4f26d3f76a0",
+      "x": 51.52023,
+      "y": 12.31895
+    },
+    {
+      "id": 173,
+      "name": "Brauereistr12-1",
+      "x": 51.30372882,
+      "y": 12.32955962
+    },
+    {
+      "id": 174,
+      "name": "FFL-G-Schwarz-123_ETG_1_2-L",
+      "x": 51.34842146,
+      "y": 12.31211186
+    },
+    {
+      "id": 175,
+      "name": "47.224"
+    },
+    {
+      "id": 176,
+      "name": "84-8-bonanza",
+      "x": 51.28977157849631,
+      "y": 12.390940636396408
+    },
+    {
+      "id": 177,
+      "name": "Fahrschule-Schmidt",
+      "x": 51.36168593,
+      "y": 12.36985177
+    },
+    {
+      "id": 178,
+      "name": "73.184"
+    },
+    {
+      "id": 179,
+      "name": "Ziehwerk",
+      "x": 51.51728895,
+      "y": 12.35665798
+    },
+    {
+      "id": 180,
+      "name": "ffl-115-gisagturm-4-omni",
+      "x": 51.2982851020167,
+      "y": 12.31669237465212
+    },
+    {
+      "id": 181,
+      "name": "84.11",
+      "x": 51.2899999,
+      "y": 12.3831
+    },
+    {
+      "id": 182,
+      "name": "120.7"
+    },
+    {
+      "id": 183,
+      "name": "73-4",
+      "x": 51.2896,
+      "y": 12.39103
+    },
+    {
+      "id": 184,
+      "name": "73.2",
+      "x": 51.308824999,
+      "y": 12.3725
+    },
+    {
+      "id": 185,
+      "name": "120.16"
+    },
+    {
+      "id": 186,
+      "name": "238.68"
+    },
+    {
+      "id": 187,
+      "name": "p1ng0ut-ffleipzig-dd88",
+      "x": 51.319412,
+      "y": 12.326188
+    },
+    {
+      "id": 188,
+      "name": "E09-VH-3OG-hinten",
+      "x": 51.34624021,
+      "y": 12.39607304
+    },
+    {
+      "id": 189,
+      "name": "Wertheimer11-CPE510-SW",
+      "x": 51.31171,
+      "y": 12.27563
+    },
+    {
+      "id": 190,
+      "name": "mid1.104-30"
+    },
+    {
+      "id": 191,
+      "name": "234.89"
+    },
+    {
+      "id": 192,
+      "name": "gluon-l10feed7a4074",
+      "x": 51.330101,
+      "y": 12.3705115
+    },
+    {
+      "id": 193,
+      "name": "72.47",
+      "x": 51.308125,
+      "y": 12.373068
+    },
+    {
+      "id": 194,
+      "name": "81.43",
+      "x": 51.299222784,
+      "y": 12.381441593
+    },
+    {
+      "id": 195,
+      "name": "NoMeKopia.NET",
+      "x": 51.320531,
+      "y": 12.328663
+    },
+    {
+      "id": 196,
+      "name": "gluon-la42bb0c2c732",
+      "x": 51.3279919,
+      "y": 12.3361009
+    },
+    {
+      "id": 197,
+      "name": "234.7",
+      "x": 51.3057,
+      "y": 12.3725
+    },
+    {
+      "id": 198,
+      "name": "83.32",
+      "x": 51.30662,
+      "y": 12.3684999
+    },
+    {
+      "id": 199,
+      "name": "18-5",
+      "x": 51.3366,
+      "y": 12.33824
+    },
+    {
+      "id": 200,
+      "name": "108.19",
+      "x": 51.32963959793281,
+      "y": 12.331510931253433
+    },
+    {
+      "id": 201,
+      "name": "SD-22-1",
+      "x": 51.34807467,
+      "y": 12.40451932
+    },
+    {
+      "id": 202,
+      "name": "kbs-3",
+      "x": 51.52023,
+      "y": 12.31895
+    },
+    {
+      "id": 203,
+      "name": "211.54",
+      "x": 51.30813,
+      "y": 12.37288
+    },
+    {
+      "id": 204,
+      "name": "74.63",
+      "x": 51.308060039,
+      "y": 12.372861207
+    },
+    {
+      "id": 205,
+      "name": "84.42"
+    },
+    {
+      "id": 206,
+      "name": "FFL-G-Schwarz-123_ETG_1_1-L",
+      "x": 51.348495166999996,
+      "y": 12.31222719
+    },
+    {
+      "id": 207,
+      "name": "75.58",
+      "x": 51.3068376809624,
+      "y": 12.379977107048
+    },
+    {
+      "id": 208,
+      "name": "ci-saaldach",
+      "x": 51.302163,
+      "y": 12.374107
+    },
+    {
+      "id": 209,
+      "name": "115.80",
+      "x": 51.290675691,
+      "y": 12.33215332
+    },
+    {
+      "id": 210,
+      "name": "125.22",
+      "x": 51.298023,
+      "y": 12.317876
+    },
+    {
+      "id": 211,
+      "name": "211.24",
+      "x": 51.30673,
+      "y": 12.36858
+    },
+    {
+      "id": 212,
+      "name": "113-77-west",
+      "x": 51.3006,
+      "y": 12.3116
+    },
+    {
+      "id": 213,
+      "name": "143.224"
+    },
+    {
+      "id": 214,
+      "name": "04279_CPE510_Eiche",
+      "x": 51.283625,
+      "y": 12.398205
+    },
+    {
+      "id": 215,
+      "name": "bonanza4",
+      "x": 51.2896700953,
+      "y": 12.39105328
+    },
+    {
+      "id": 216,
+      "name": "Stra\u00dfe der Jugend 13 c",
+      "x": 51.43344742,
+      "y": 12.38030434
+    },
+    {
+      "id": 217,
+      "name": "74.57",
+      "x": 51.3067,
+      "y": 12.3677
+    },
+    {
+      "id": 218,
+      "name": "gluon-Markkleeberg01",
+      "x": 51.2683,
+      "y": 12.356476
+    },
+    {
+      "id": 219,
+      "name": "84-17",
+      "x": 51.29009,
+      "y": 12.3833
+    },
+    {
+      "id": 220,
+      "name": "211.53",
+      "x": 51.30813,
+      "y": 12.37297
+    },
+    {
+      "id": 221,
+      "name": "73.0"
+    },
+    {
+      "id": 222,
+      "name": "93-20",
+      "x": 51.306502648,
+      "y": 12.368522086
+    },
+    {
+      "id": 223,
+      "name": "104.63",
+      "x": 51.33077,
+      "y": 12.332
+    },
+    {
+      "id": 224,
+      "name": "liliensteinstr-cpe510-no",
+      "x": 51.30832,
+      "y": 12.27202
+    },
+    {
+      "id": 225,
+      "name": "239.224"
+    },
+    {
+      "id": 226,
+      "name": "FFL-G-Schwarz-152_ETG_1-L",
+      "x": 51.34864594,
+      "y": 12.31230631
+    },
+    {
+      "id": 227,
+      "name": "93-21",
+      "x": 51.30652,
+      "y": 12.3685
+    },
+    {
+      "id": 228,
+      "name": "poegener",
+      "x": 51.35057077,
+      "y": 12.4106133
+    },
+    {
+      "id": 229,
+      "name": "74-24"
+    },
+    {
+      "id": 230,
+      "name": "altmark-21",
+      "x": 52.866296,
+      "y": 11.264541
+    },
+    {
+      "id": 231,
+      "name": "Wertheimer11-3-CPE510-NW",
+      "x": 51.31174033,
+      "y": 12.27553189
+    },
+    {
+      "id": 232,
+      "name": "Faradaystr-CPE510-NNO",
+      "x": 51.37069,
+      "y": 12.349
+    },
+    {
+      "id": 233,
+      "name": "120.14"
+    },
+    {
+      "id": 234,
+      "name": "gluon-osti",
+      "x": 51.33181,
+      "y": 12.40494
+    },
+    {
+      "id": 235,
+      "name": "73.10",
+      "x": 51.307223887,
+      "y": 12.368015792
+    },
+    {
+      "id": 236,
+      "name": "113.75",
+      "x": 51.306753976,
+      "y": 12.367680493
+    },
+    {
+      "id": 237,
+      "name": "67-43",
+      "x": 51.30966399,
+      "y": 12.37125499
+    },
+    {
+      "id": 238,
+      "name": "FreiBert",
+      "x": 51.32247268,
+      "y": 12.42115438
+    },
+    {
+      "id": 239,
+      "name": "gluon-ohli2"
+    },
+    {
+      "id": 240,
+      "name": "vpnf"
+    },
+    {
+      "id": 241,
+      "name": "99-3",
+      "x": 51.3023,
+      "y": 12.37459
+    },
+    {
+      "id": 242,
+      "name": "Wertheimer13",
+      "x": 51.31186,
+      "y": 12.275658
+    },
+    {
+      "id": 243,
+      "name": "71-42",
+      "x": 51.302340332184436,
+      "y": 12.374504059553146
+    },
+    {
+      "id": 244,
+      "name": "gluon-Markkleeberg00",
+      "x": 51.26838,
+      "y": 12.3564758
+    },
+    {
+      "id": 245,
+      "name": "gluon-l18a6f76e58b8"
+    },
+    {
+      "id": 246,
+      "name": "ci-vm41",
+      "x": 51.302293377672854,
+      "y": 12.374583184719086
+    },
+    {
+      "id": 247,
+      "name": "73.157"
+    },
+    {
+      "id": 248,
+      "name": "252.20",
+      "x": 51.336505,
+      "y": 12.338221
+    },
+    {
+      "id": 249,
+      "name": "Tauchbasis_Delphine",
+      "x": 51.30554822,
+      "y": 12.25218862
+    },
+    {
+      "id": 250,
+      "name": "Schillerhaus_01",
+      "x": 51.35885,
+      "y": 12.3632
+    },
+    {
+      "id": 251,
+      "name": "74-44-balkon",
+      "x": 51.29046,
+      "y": 12.392892
+    },
+    {
+      "id": 252,
+      "name": "73.9",
+      "x": 51.307203781,
+      "y": 12.368037272
+    },
+    {
+      "id": 253,
+      "name": "106-11",
+      "x": 51.338681413031026,
+      "y": 12.32251311728632
+    },
+    {
+      "id": 254,
+      "name": "ffl-125-gisaginnenhof-12-west",
+      "x": 51.298102,
+      "y": 12.317875
+    },
+    {
+      "id": 255,
+      "name": "104-3-server",
+      "x": 51.330336787164654,
+      "y": 12.330977055091857
+    },
+    {
+      "id": 256,
+      "name": "113-33-west",
+      "x": 51.3005,
+      "y": 12.3122
+    },
+    {
+      "id": 257,
+      "name": "PhL-GSS31-01",
+      "x": 51.35646033,
+      "y": 12.45779336
+    },
+    {
+      "id": 258,
+      "name": "83.46",
+      "x": 51.307209362,
+      "y": 12.367980721
+    },
+    {
+      "id": 259,
+      "name": "123.34",
+      "x": 51.3071,
+      "y": 12.368
+    },
+    {
+      "id": 260,
+      "name": "238.69",
+      "x": 51.306726175,
+      "y": 12.368546873
+    },
+    {
+      "id": 261,
+      "name": "84-10",
+      "x": 51.290172,
+      "y": 12.383248
+    },
+    {
+      "id": 262,
+      "name": "72.53",
+      "x": 51.3080684222011,
+      "y": 12.3731642961502
+    },
+    {
+      "id": 263,
+      "name": "84.14",
+      "x": 51.29,
+      "y": 12.3833
+    },
+    {
+      "id": 264,
+      "name": "Liliensteinstr15-1OG-Buero-11s",
+      "x": 51.3083082,
+      "y": 12.27192968
+    },
+    {
+      "id": 265,
+      "name": "211.41",
+      "x": 51.291073976,
+      "y": 12.332460317
+    },
+    {
+      "id": 266,
+      "name": "104.35",
+      "x": 51.33025,
+      "y": 12.33082
+    },
+    {
+      "id": 267,
+      "name": "71-35",
+      "x": 51.3023,
+      "y": 12.3746
+    },
+    {
+      "id": 268,
+      "name": "thw-leipzig-bahnhofstr-eg"
+    },
+    {
+      "id": 269,
+      "name": "211-50-m5",
+      "x": 51.2904,
+      "y": 12.39286
+    },
+    {
+      "id": 270,
+      "name": "71-52"
+    },
+    {
+      "id": 271,
+      "name": "windorf-koernerstein1",
+      "x": 51.29207124,
+      "y": 12.32157469
+    },
+    {
+      "id": 272,
+      "name": "211.125",
+      "x": 51.291077485,
+      "y": 12.332439478
+    },
+    {
+      "id": 273,
+      "name": "G-Schwarz-offloader",
+      "x": 51.34846339,
+      "y": 12.31233448
+    },
+    {
+      "id": 274,
+      "name": "vpn4"
+    },
+    {
+      "id": 275,
+      "name": "125.4",
+      "x": 51.298329,
+      "y": 12.316665
+    },
+    {
+      "id": 276,
+      "name": "FFL-G-Schwarz-123_ETG_1_L-B",
+      "x": 51.34846334,
+      "y": 12.3123345
+    },
+    {
+      "id": 277,
+      "name": "120.23"
+    },
+    {
+      "id": 278,
+      "name": "74.62",
+      "x": 51.308,
+      "y": 12.37202
+    },
+    {
+      "id": 279,
+      "name": "eea18b3e084c"
+    },
+    {
+      "id": 280,
+      "name": "36dc58dcec54"
+    },
+    {
+      "id": 281,
+      "name": "cab87bbe0673"
+    },
+    {
+      "id": 282,
+      "name": "3284b20d9d62"
+    },
+    {
+      "id": 283,
+      "name": "92936c953d62"
+    }
+  ]
+}
