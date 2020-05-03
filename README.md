@@ -53,7 +53,7 @@ Most commands need root. So we assume all commands are execute as root:
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`.
 
-## Add Traffic Control properties
+## Add Traffic Control
 
 The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to configure the kernel packet scheduler.
 
