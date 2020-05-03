@@ -63,8 +63,13 @@ with open(args.input, "r") as file:
 				'target': nodes[lnode['id']]['id']
 			}
 
+			if 'wifi' in lnode:
+				link['type'] = 'wifi'
+			else:
+				link['type'] = 'vpn'
+
 			if 'olsr_ipv4' in lnode:
-				link_quality = lnode['linkQuality']
+				link_quality = lnode['olsr_ipv4']['linkQuality']
 				link['source_tq'] = link_quality
 				link['target_tq'] = link_quality
 

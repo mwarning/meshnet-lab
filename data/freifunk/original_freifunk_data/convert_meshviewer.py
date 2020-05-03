@@ -54,14 +54,12 @@ with open(args.input, "r") as file:
 			'target_tq': link['target_tq']
 		}
 
-		if 'type' in link:
-			type = link['type']
-			if type == 'vpn':
-				e['type'] = 'vpn'
-			elif type == 'wifi':
-				e['type'] = 'wifi'
-			else:
-				e['type'] = 'other'
+		if link.get('type') == 'other':
+			e['type'] = 'other'
+		elif nodes[source].get('is_gateway', False) or nodes[target].get('is_gateway', False):
+			e['type'] = 'vpn'
+		else:
+			e['type'] = 'wifi'
 
 		links[link_id(e)] = e
 
