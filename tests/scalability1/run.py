@@ -44,9 +44,9 @@ def run(protocol, files, csvfile):
 		software_ms = tools.millis() - tmp_ms
 
 		# Wait until wai seconds are over, else error
-		tools.wait(wait_beg_ms, 60)
+		tools.wait(wait_beg_ms, 300)
 
-		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=60000, verbosity='verbose')
+		ping_result = tools.ping(protocol=protocol, count=node_count, duration_ms=60000, verbosity='verbose')
 
 		traffic_end = tools.traffic()
 
