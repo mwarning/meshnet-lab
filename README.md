@@ -6,7 +6,7 @@ Each namespace can run its own routing progam and sees a single `uplink` interfa
 
 This project is meant for testing Mobile Ad Hoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Preliminary [test results](results/README.md) are available.
 
-Minimal example:
+Small example:
 ```
 {
   "links": [
@@ -26,6 +26,7 @@ JSON keys:
 
 - `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long.
 - A list of nodes can be added (e.g. `"nodes": [{"id": "a"}, {"id": "b"}]` to define variables for use in combination with `--node-command`.
+- Other data fields are ignored.
 
 ## Usage
 
@@ -67,8 +68,9 @@ Given some link:
 
 The command can now make use of the following variables:
 ```
-./network.py change none graph.json \
-  --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192 latency {latency}ms'`
+./network.py \
+  --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192 latency {latency}ms' \
+  change none graph.json
 ```
 (Note: `source_` and `target_` prefixes are omitted, `ifname` is always provided)
 
