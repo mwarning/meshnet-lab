@@ -54,7 +54,7 @@ As an alternative, you can stop all protocols using `./software.py clear` and re
 
 ## Add Traffic Control properties
 
-The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to be able configure the kernel packet scheduler.
+The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to configure the kernel packet scheduler.
 
 ```
 ./network change none graph.json --link-command 'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
@@ -69,7 +69,7 @@ The extra parameters of a link in JSON can be accessed in the command:
 }
 ```
 
-This link can make use of the following variables:
+The command can now make use of the following variables:
 ```
 ./network.py change none graph.json --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192 latency {latency}ms'`
 ```
