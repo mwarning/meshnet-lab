@@ -43,7 +43,7 @@ def run(protocol, csvfile):
 
 		software.start(protocol)
 
-		# Wait until 60s are over, else error
+		# Wait until 300s are over, else error
 		tools.wait(wait_beg_ms, 300)
 
 		ping_result = tools.ping(protocol=protocol, count=node_count, duration_ms=60000, verbosity='verbose')
@@ -58,7 +58,6 @@ def run(protocol, csvfile):
 		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result, sysload_result)
 
 		network.clear()
-		break
 
 for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 	with open(f"{prefix}freifunk1-{protocol}.csv", 'w+') as csvfile:

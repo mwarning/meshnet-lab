@@ -8,7 +8,7 @@ gnuplot -e "
 	set grid; \
 	set term png; \
 	set terminal png size 1280,960; \
-	set output '${prefix}traffic1-batman-adv-grid4.png'; \
+	set output '${prefix}freifunk1.png'; \
 	set key spacing 3 font 'Helvetica, 18'; \
 	set style data histogram; \
 	set style histogram cluster gap 1; \
