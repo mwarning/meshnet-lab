@@ -29,7 +29,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 	mobility.connect_range(state, max_links=150)
 
 	# create network and start routing software
-	network.change(from_state={}, to_state=state, force_tc='')
+	network.change(from_state={}, to_state=state)
 	software.start(protocol)
 
 	test_beg_ms = tools.millis()
@@ -49,7 +49,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		# update network
 		tmp_ms = tools.millis()
-		network.change(from_state=old_state, to_state=state, force_tc='')
+		network.change(from_state=old_state, to_state=state)
 		#software.change(protocol=protocol, from_state=old_state, to_state=state) # we do not change the node count
 		network_ms = tools.millis() - tmp_ms
 

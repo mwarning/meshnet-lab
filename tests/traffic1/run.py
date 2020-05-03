@@ -32,7 +32,7 @@ with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, force_tc='')
+		network.change(from_state='none', to_state=path)
 		tools.sleep(10)
 
 		for i in range(0, 10):

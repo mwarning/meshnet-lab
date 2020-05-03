@@ -8,7 +8,7 @@ import os
 
 block_arp = False
 block_multicast = False
-verbose = False
+verbosity = 'normal'
 
 def eprint(s):
     sys.stderr.write(s + '\n')
@@ -16,150 +16,196 @@ def eprint(s):
 def exec(cmd):
     rc = os.system(cmd)
     if rc != 0:
-        eprint('Abort, command failed: {}'.format(cmd))
+        eprint(f'Abort, command failed: {cmd}')
         eprint('Network might be in an undefined state!')
         exit(1)
 
 def configure_interface(nsname, ifname):
     # up interface
-    exec('ip netns exec "{}" ip link set dev "{}" up'.format(nsname, ifname))
+    exec(f'ip netns exec "{nsname}" ip link set dev "{ifname}" up')
 
     # disable arp / multicast
     # we do not want the OS to send packets on its own,
     # but many mesh protocols need arp/multicast on each link to work
     if block_arp:
-        exec('ip netns exec "{}" ip link set dev "{}" arp off'.format(nsname, ifname))
+        exec(f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off')
 
     if block_multicast:
-        exec('ip netns exec "{}" ip link set dev "{}" multicast off'.format(nsname, ifname))
+        exec(f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off')
+
+def split_link(link, direction):
+    obj = {}
+    for key, value in link.items():
+        if key == 'source' or key == 'target':
+            continue
+
+        if direction == 'source':
+            if key.startswith('source_'):
+                obj[key[7:]] = value
+            elif key.startswith('target_'):
+                continue
+            else:
+                obj[key] = value
+
+        if direction == 'target':
+            if key.startswith('target_'):
+                obj[key[7:]] = value
+            elif key.startswith('source_'):
+                continue
+            else:
+                obj[key] = value
+    return obj
+
+def format_link_command(command, link, direction, ifname):
+    link = split_link(link, direction)
+
+    if not isinstance(command, str):
+        # threat as lambda
+        return command(link, ifname)
+    else:
+        command = command.replace('{{ifname}}', ifname)
+        for key, value in node.items():
+            command = command.replace('{{{}}}'.format(key), str(value))
+
+        return command
+
+def format_node_command(command, node):
+    if not isinstance(command, str):
+        # threat as lambda
+        return command(node, 'uplink')
+    else:
+        command = command.replace('{{ifname}}', 'uplink')
+        for key, value in node.items():
+            command = command.replace('{{{}}}'.format(key), str(value))
+
+        return command
 
 def remove_node(node):
-    name = node.name
-    if verbose:
-        print('  remove node {}'.format(name))
+    name = str(node['id'])
 
-    nsname = 'ns-{}'.format(name)
-    brname = 'br-{}'.format(name)
-    downname = 'dl-{}'.format(name)
+    if verbosity == 'verbose':
+        print(f'  remove node {name}')
 
     # remove veth pair upname/downname (removes both)
-    exec('ip netns exec "switch" ip link delete "{}"'.format(downname))
+    exec(f'ip netns exec "switch" ip link delete "dl-{name}"')
 
     # remove bridge (assume that it does not have an interfaces anymore)
-    exec('ip netns exec "switch" ip link delete "{}" type bridge'.format(brname))
+    exec(f'ip netns exec "switch" ip link delete "br-{name}" type bridge')
 
     # remove network namespace
-    exec('ip netns del "{}"'.format(nsname))
+    exec(f'ip netns del "ns-{name}"')
 
-def create_node(node):
-    name = node.name
-    if verbose:
+def create_node(node, node_command):
+    name = str(node['id'])
+
+    if verbosity == 'verbose':
         print('  create node {}'.format(name))
 
-    nsname = 'ns-{}'.format(name)
-    brname = 'br-{}'.format(name)
+    nsname = f'ns-{name}'
+    brname = f'br-{name}'
     upname = 'uplink'
-    downname = 'dl-{}'.format(name)
+    downname = f'dl-{name}'
 
-    exec('ip netns add "{}"'.format(nsname))
+    exec(f'ip netns add "{nsname}"')
 
     # up localhost
-    exec('ip netns exec "{}" ip link set dev "lo" up'.format(nsname))
+    exec(f'ip netns exec "{nsname}" ip link set dev "lo" up')
 
     # create bridge
-    exec('ip netns exec "switch" ip link add name "{}" type bridge'.format(brname))
+    exec(f'ip netns exec "switch" ip link add name "{brname}" type bridge')
     configure_interface("switch", brname)
 
     # Disable STP (should be off by default anyway)
-    exec('ip netns exec "switch" ip link set "{}" type bridge stp_state 0'.format(brname))
+    exec(f'ip netns exec "switch" ip link set "{brname}" type bridge stp_state 0')
 
     # Make the bridge to act as a hub
-    exec('ip netns exec "switch" ip link set "{}" type bridge ageing_time 0'.format(brname))
-    exec('ip netns exec "switch" ip link set "{}" type bridge forward_delay 0'.format(brname))
+    exec(f'ip netns exec "switch" ip link set "{brname}" type bridge ageing_time 0')
+    exec(f'ip netns exec "switch" ip link set "{brname}" type bridge forward_delay 0')
 
     # create interface pair in switch namespace
-    exec('ip netns exec "switch" ip link add name "{}" type veth peer name "{}"'.format(upname, downname))
+    exec(f'ip netns exec "switch" ip link add name "{upname}" type veth peer name "{downname}"')
 
     # move uplink from namespace 'switch' into the nodes namespace
-    exec('ip netns exec "switch" ip link set "{}" netns "{}"'.format(upname, nsname))
+    exec(f'ip netns exec "switch" ip link set "{upname}" netns "{nsname}"')
 
     # put uplinkport into bridge
-    exec('ip netns exec "switch" ip link set "{}" master "{}"'.format(downname, brname))
+    exec(f'ip netns exec "switch" ip link set "{downname}" master "{brname}"')
 
     configure_interface("switch", downname)
     configure_interface(nsname, upname)
 
+    if node_command is not None:
+        exec(f'ip netns exec "ns-{name}" ' + format_node_command(node_command, node))
+
+def update_node(node, node_command=None):
+    name = str(node['id'])
+
+    if verbosity == 'verbose':
+        print(f'  update node {name}')
+
+    if node_command is not None:
+        exec(f'ip netns exec "ns-{name}" ' + format_node_command(node_command, node))
+
 def remove_link(link):
-    if verbose:
-        print('  remove link {} <-> {}'.format(link.source, link.target))
+    source = str(link['source'])
+    target = str(link['target'])
 
-    ifname1 = 've-{}-{}'.format(link.source, link.target)
-    ifname2 = 've-{}-{}'.format(link.target, link.source)
+    if verbosity == 'verbose':
+        print(f'  remove link {source} <-> {target}')
 
-    exec('ip netns exec "switch" ip link del "{}" type veth peer name "{}"'.format(ifname1, ifname2))
+    ifname1 = f've-{source}-{target}'
+    ifname2 = f've-{target}-{source}'
 
-def update_link(link):
-    if verbose:
-        print('  update link {} <-> {}'.format(link.source, link.target))
+    exec(f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
 
-    ifname1 = 've-{}-{}'.format(link.source, link.target)
-    ifname2 = 've-{}-{}'.format(link.target, link.source)
+def update_link(link, link_command=None):
+    source = str(link['source'])
+    target = str(link['target'])
 
-    # source -> target
-    if link.source_tc:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname1, link.source_tc))
+    if verbosity == 'verbose':
+        print(f'  update link {source} <-> {target}')
 
-    # target -> source
-    if link.target_tc:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
+    ifname1 = f've-{source}-{target}'
+    ifname2 = f've-{target}-{source}'
 
-def create_link(link):
-    if verbose:
-        print('  create link {} <-> {}'.format(link.source, link.target))
+    if link_command is not None:
+        # source -> target
+        exec('ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        # target -> source
+        exec('ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
-    nsname1 = 'ns-{}'.format(link.source)
-    nsname2 = 'ns-{}'.format(link.target)
-    ifname1 = 've-{}-{}'.format(link.source, link.target)
-    ifname2 = 've-{}-{}'.format(link.target, link.source)
+def create_link(link, link_command=None):
+    source = str(link['source'])
+    target = str(link['target'])
 
-    br1name = 'br-{}'.format(link.source)
-    br2name = 'br-{}'.format(link.target)
+    if verbosity == 'verbose':
+        print(f'  create link {source} <-> {target}')
+
+    ifname1 = f've-{source}-{target}'
+    ifname2 = f've-{target}-{source}'
+    br1name = f'br-{source}'
+    br2name = f'br-{target}'
 
     # create pair of interfaces
-    exec('ip netns exec "switch" ip link add "{}" type veth peer name "{}"'.format(ifname1, ifname2))
+    exec(f'ip netns exec "switch" ip link add "{ifname1}" type veth peer name "{ifname2}"')
 
     configure_interface('switch', ifname1)
     configure_interface('switch', ifname2)
 
     # put into bridge
-    exec('ip netns exec "switch" ip link set "{}" master "{}"'.format(ifname2, br2name))
-    exec('ip netns exec "switch" ip link set "{}" master "{}"'.format(ifname1, br1name))
+    exec(f'ip netns exec "switch" ip link set "{ifname2}" master "{br2name}"')
+    exec(f'ip netns exec "switch" ip link set "{ifname1}" master "{br1name}"')
 
     # isolate interfaces (they can only speak to the downlink interface in the bridge they are)
-    exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname1))
-    exec('ip netns exec "switch" bridge link set dev "{}" isolated on'.format(ifname2))
+    exec(f'ip netns exec "switch" bridge link set dev "{ifname1}" isolated on')
+    exec(f'ip netns exec "switch" bridge link set dev "{ifname2}" isolated on')
 
-    # source -> target
-    if link.source_tc:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname1, link.source_tc))
-
-    # target -> source
-    if link.target_tc:
-        exec('ip netns exec "switch" tc qdisc replace dev "{}" root {}'.format(ifname2, link.target_tc))
-
-class Link:
-    def __init__(self, source, target, source_tc, target_tc):
-        self.source = source
-        self.target = target
-        self.source_tc = source_tc
-        self.target_tc = target_tc
-
-    def cmp_tc(link):
-        return self.source_tc == link.source_tc and self.target_tc == link.target_tc
-
-class Node:
-    def __init__(self, name):
-        self.name = name
+    #link_cmd = lambda (link, name, ifname): 'tc qdisc replace dev "{}" root {}'
+    if link_command is not None:
+        # source -> target
+        exec('ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        # target -> source
+        exec('ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
 class _Task:
     def __init__(self):
@@ -167,9 +213,10 @@ class _Task:
         self.links_update = []
         self.links_remove = []
         self.nodes_create = []
+        self.nodes_update = []
         self.nodes_remove = []
 
-def _process_json(json_data, force_tc = None):
+def _process_json(json_data):
     links = {}
     nodes = {}
 
@@ -179,45 +226,47 @@ def _process_json(json_data, force_tc = None):
             eprint('Node name too long: {}'.format(name))
             exit(1)
 
-        nodes[name] = Node(name)
+        nodes[name] = node
 
     for link in json_data.get('links', []):
         source = str(link['source'])
         target = str(link['target'])
-        source_tc = link.get('source_tc')
-        target_tc = link.get('target_tc')
-
-        if force_tc is not None:
-            source_tc = force_tc
-            target_tc = force_tc
 
         if len(source) > 6:
-            eprint('Node name too long: {}'.format(source))
+            eprint(f'Node name too long: {source}')
             exit(1)
 
         if len(target) > 6:
-            eprint('Node name too long: {}'.format(target))
+            eprint(f'Node name too long: {target}')
             exit(1)
 
         if source not in nodes:
-            nodes[source] = Node(source)
+            nodes[source] = {'id': source}
 
         if target not in nodes:
-            nodes[target] = Node(target)
+            nodes[target] = {'id': target}
 
         if source > target:
-            links[source + '_' + target] = Link(source, target, source_tc, target_tc)
+            links[source + '->' + target] = link
         else:
-            links[target + '_' + source] = Link(target, source, target_tc, source_tc)
+            links[target + '->' + source] = link
 
     return (links, nodes)
 
-def _get_task(old_state, new_state, force_tc=None):
-    (links_old, nodes_old) = _process_json(old_state, force_tc)
-    (links_new, nodes_new) = _process_json(new_state, force_tc)
+def _get_task(old_state, new_state):
+    (links_old, nodes_old) = _process_json(old_state)
+    (links_new, nodes_new) = _process_json(new_state)
 
-    def tc_equal(link1, link2):
-        return (link1.source_tc == link2.source_tc) and (link1.target_tc == link2.target_tc)
+    def obj_equal(link1, link2):
+        if len(link1) != len(link2):
+            return False
+
+        for key1, value1 in link1.items():
+            value2 = link2.get(key1)
+            if value1 != value2:
+                return False
+
+        return True
 
     task = _Task()
 
@@ -233,8 +282,15 @@ def _get_task(old_state, new_state, force_tc=None):
         if key in links_old:
             new = links_new[key]
             old = links_old[key]
-            if not tc_equal(new, old):
+            if not obj_equal(new, old):
                 task.links_update.append(new)
+
+    for key in nodes_new:
+        if key in nodes_old:
+            new = nodes_new[key]
+            old = nodes_old[key]
+            if not obj_equal(new, old):
+                task.nodes_update.append(new)
 
     for key in nodes_old:
         if key not in nodes_new:
@@ -249,7 +305,7 @@ def _get_task(old_state, new_state, force_tc=None):
 def clear():
     os.system('ip -all netns delete')
 
-def change(from_state={}, to_state={}, force_tc=None):
+def change(from_state={}, to_state={}, node_command=None, link_command=None):
     if isinstance(from_state, str):
         if from_state == 'none':
             from_state = {}
@@ -264,25 +320,28 @@ def change(from_state={}, to_state={}, force_tc=None):
             with open(to_state) as file:
                 to_state = json.load(file)
 
-    data = _get_task(from_state, to_state, force_tc)
+    data = _get_task(from_state, to_state)
 
     # add "switch" namespace
     if len(from_state) == 0:
-        if verbose:
+        if verbosity == 'verbose':
             print('  create "switch"')
         # add switch if it does not exist yet
         exec('ip netns add "switch" || true')
         # disable IPv6 in switch namespace (no need, less overhead)
         exec('ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
+    for node in data.nodes_update:
+        update_node(node, node_command)
+
     for link in data.links_update:
-        update_link(link)
+        update_link(link, link_command)
 
     for node in data.nodes_create:
-        create_node(node)
+        create_node(node, node_command)
 
     for link in data.links_create:
-        create_link(link)
+        create_link(link, link_command)
 
     for link in data.links_remove:
         remove_link(link)
@@ -292,7 +351,7 @@ def change(from_state={}, to_state={}, force_tc=None):
 
     # remove "switch" namespace
     if len(to_state) == 0:
-        if verbose:
+        if verbosity == 'verbose':
             print('  remove "switch"')
         exec('ip netns del "switch" || true')
 
@@ -302,8 +361,9 @@ if __name__ == '__main__':
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
     parser.set_defaults(from_state='none', to_state='none')
 
-    parser.add_argument('--verbose', action='store_true', help='Verbose execution.')
-    parser.add_argument('--force-tc', help='Overwrite source_tc/target_tc (traffic control) parameters from JSON.')
+    parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
+    parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
+    parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
     parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
     parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
 
@@ -319,7 +379,7 @@ if __name__ == '__main__':
 
     block_arp = args.block_arp
     block_multicast = args.block_multicast
-    verbose = args.verbose
+    verbosity = args.verbosity
 
     if os.geteuid() != 0:
         eprint('Need to run as root.')
@@ -330,7 +390,7 @@ if __name__ == '__main__':
     elif args.action == 'list':
         os.system('ip netns list')
     elif args.action == 'change':
-        change(args.from_state, args.to_state, args.force_tc)
+        change(args.from_state, args.to_state, args.node_command, args.link_command)
     else:
         eprint('Invalid command: {}'.format(args.action))
         exit(1)
