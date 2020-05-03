@@ -84,7 +84,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ![Visual Example](misc/network_mapping.png)
 
-- Applications can be started in ns1, ns2, ns3 and see only their interface called `uplink`
+- Applications can be started in namespaces `ns-a`, `ns-b`, `ns-c` etc. and see only their interface called `uplink`
 - bridges have properties `stp_state`, `ageing_time` and `forward_delay` set to 0
 - ve-* interfaces have property `isolated` set to `on`
 - only one simulation can be run at the same time
