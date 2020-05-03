@@ -5,21 +5,21 @@
       "source_tq": 0.996,
       "target": 221,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 53,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.992,
       "target": 65,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 207,
@@ -33,14 +33,14 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 25,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 232,
@@ -54,56 +54,56 @@
       "source_tq": 0.984,
       "target": 52,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 175,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 100,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 78,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 260,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 6,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.969,
       "target": 63,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 69,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 31,
@@ -117,91 +117,91 @@
       "source_tq": 0.996,
       "target": 64,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 16,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 58,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 34,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.988,
       "target": 83,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 22,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.984,
       "target": 131,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 7,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.996,
       "target": 35,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 1.0,
       "target": 164,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.918,
       "target": 92,
       "target_tq": 0.761,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 14,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.996,
       "target": 0,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 246,
@@ -215,7 +215,7 @@
       "source_tq": 1.0,
       "target": 80,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 100,
@@ -229,7 +229,7 @@
       "source_tq": 1.0,
       "target": 82,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 247,
@@ -243,49 +243,49 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 4,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.988,
       "target": 159,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.718,
       "target": 161,
       "target_tq": 0.388,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.973,
       "target": 90,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 220,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 228,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 179,
@@ -306,77 +306,77 @@
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 68,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 142,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 132,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 183,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 190,
       "source_tq": 0.22,
       "target": 131,
       "target_tq": 0.2,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 149,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 219,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 216,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 195,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 167,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 264,
@@ -390,21 +390,21 @@
       "source_tq": 0.992,
       "target": 1,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 12,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 1.0,
       "target": 205,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 97,
@@ -418,42 +418,42 @@
       "source_tq": 0.937,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 93,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 241,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.988,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 177,
       "source_tq": 0.796,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 192,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 122,
@@ -474,28 +474,28 @@
       "source_tq": 1.0,
       "target": 37,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 104,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 156,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 24,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 208,
@@ -509,14 +509,14 @@
       "source_tq": 0.996,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 59,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 231,
@@ -530,35 +530,35 @@
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 210,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.973,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 229,
       "source_tq": 0.969,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 96,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 11,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 188,
@@ -572,91 +572,91 @@
       "source_tq": 1.0,
       "target": 18,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 28,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 44,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 1.0,
       "target": 15,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 116,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 19,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 72,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 70,
       "source_tq": 0.984,
       "target": 234,
       "target_tq": 0.808,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 135,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 1.0,
       "target": 61,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.984,
       "target": 154,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 97,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 20,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 204,
@@ -670,35 +670,35 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.988,
       "target": 125,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.984,
       "target": 249,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 40,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 206,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 197,
@@ -712,70 +712,70 @@
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 108,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 240,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 2,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 245,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 239,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 50,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 171,
       "source_tq": 0.996,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.992,
       "target": 102,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 23,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 28,
@@ -789,7 +789,7 @@
       "source_tq": 1.0,
       "target": 250,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 124,
@@ -803,7 +803,7 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 264,
@@ -817,28 +817,28 @@
       "source_tq": 0.204,
       "target": 262,
       "target_tq": 0.098,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 26,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 122,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.98,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 150,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 204,
@@ -852,56 +852,56 @@
       "source_tq": 0.996,
       "target": 49,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.992,
       "target": 110,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 42,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 1.0,
       "target": 47,
       "target_tq": 0.969,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 60,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 48,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 266,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 57,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 157,
@@ -915,147 +915,147 @@
       "source_tq": 0.996,
       "target": 121,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 119,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 174,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 133,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.996,
       "target": 94,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 124,
       "source_tq": 0.42,
       "target": 269,
       "target_tq": 0.753,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 111,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.984,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 120,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 194,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 134,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 73,
       "source_tq": 0.996,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 141,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.996,
       "target": 269,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 191,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 107,
       "source_tq": 0.984,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 252,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 71,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 91,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 29,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 39,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 254,
@@ -1069,98 +1069,98 @@
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 103,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 139,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 200,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 1.0,
       "target": 211,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 268,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 142,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 114,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 217,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.992,
       "target": 136,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 155,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 98,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 233,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.969,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 180,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 169,
@@ -1174,35 +1174,35 @@
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 168,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.988,
       "target": 144,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 113,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 109,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 254,
@@ -1216,35 +1216,35 @@
       "source_tq": 0.973,
       "target": 32,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.98,
       "target": 189,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 79,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 10,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 45,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 235,
@@ -1258,35 +1258,35 @@
       "source_tq": 0.878,
       "target": 33,
       "target_tq": 0.592,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.984,
       "target": 163,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 75,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 256,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 106,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 198,
@@ -1300,35 +1300,35 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.988,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 143,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 203,
       "source_tq": 0.996,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 196,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 236,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 179,
@@ -1342,28 +1342,28 @@
       "source_tq": 0.992,
       "target": 152,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 66,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 76,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 112,
       "source_tq": 0.906,
       "target": 148,
       "target_tq": 0.773,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 202,
@@ -1377,7 +1377,7 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 166,
@@ -1391,119 +1391,119 @@
       "source_tq": 0.996,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.992,
       "target": 271,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 86,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 243,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.992,
       "target": 147,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 226,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.996,
       "target": 255,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 253,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 9,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.969,
       "target": 138,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 36,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 213,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 74,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 13,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 30,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.984,
       "target": 227,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 88,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 158,
@@ -1517,98 +1517,98 @@
       "source_tq": 0.969,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 56,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 209,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 199,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.992,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 0.882,
       "target": 242,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 87,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 234,
       "source_tq": 0.996,
       "target": 38,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 27,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.996,
       "target": 105,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 31,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 269,
       "source_tq": 0.996,
       "target": 187,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 137,
       "source_tq": 0.388,
       "target": 269,
       "target_tq": 0.718,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 95,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 115,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 151,
@@ -1622,49 +1622,49 @@
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 43,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 185,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 67,
       "source_tq": 1.0,
       "target": 234,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 118,
       "source_tq": 1.0,
       "target": 269,
       "target_tq": 0.996,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 54,
       "source_tq": 1.0,
       "target": 148,
       "target_tq": 0.984,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 148,
       "source_tq": 1.0,
       "target": 265,
       "target_tq": 1.0,
-      "type": "vpn"
+      "type": "wifi"
     },
     {
       "source": 273,
