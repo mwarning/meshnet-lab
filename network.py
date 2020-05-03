@@ -33,7 +33,7 @@ def configure_interface(nsname, ifname):
     if block_multicast:
         exec(f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off')
 
-def split_link(link, direction):
+def split_link_obj(link, direction):
     obj = {}
     for key, value in link.items():
         if key == 'source' or key == 'target':
@@ -57,7 +57,7 @@ def split_link(link, direction):
     return obj
 
 def format_link_command(command, link, direction, ifname):
-    link = split_link(link, direction)
+    link = split_link_obj(link, direction)
 
     if not isinstance(command, str):
         # threat as lambda
