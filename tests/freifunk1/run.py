@@ -19,6 +19,7 @@ os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
 
+# LAN cable and WiFi connection mix
 def get_tc_command(link, ifname):
 	if link.get('type') == 'wifi':
 		return f'tc qdisc replace dev "{ifname}" root tbf rate 20mbit burst 8192 latency 5ms'

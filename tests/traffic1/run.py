@@ -22,6 +22,10 @@ prefix = os.environ.get('PREFIX', '')
 protocol = 'batman-adv'
 name = 'grid4'
 
+# 100MBit LAN cable
+def get_tc_command(link, ifname):
+	return f'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
+
 with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
 	for path in sorted(glob.glob(f'../../data/{name}/*.json')):
 		(node_count, link_count) = tools.json_count(path)
@@ -32,7 +36,7 @@ with open(f"{prefix}traffic1-{protocol}-{name}.csv", 'w+') as csvfile:
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path)
+		network.change(from_state='none', to_state=path, link_command=get_tc_command)
 		tools.sleep(10)
 
 		for i in range(0, 10):
