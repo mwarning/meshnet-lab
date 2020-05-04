@@ -6,7 +6,7 @@ prefix="$1"
 ./csv_merge.py ${prefix}traffic1-batman-adv-grid4.csv ${prefix}traffic1-batman-adv-grid4_new.csv --span 10 --columns-range 'tx_bytes'
 
 gnuplot -e "
-	set title \"Traffic for batman-adv on grid4 with LAN cable links.\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings (10 times for mean value and value range)\";	\
+	set title \"Traffic for batman-adv on grid4 with 100MBit/s - 1ms latency links.\n1. Start daemons, 2. Wait 300s, 3. Measure for 60s with 300 pings (10 times for mean value and value range)\";	\
 	set grid;																			\
 	set term png;																		\
 	set terminal png size 1280,960;														\

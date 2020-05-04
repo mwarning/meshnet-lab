@@ -6,7 +6,7 @@ prefix="$1"
 for step_duration in 10 30; do
 	for step_distance in 0.01 0.03 0.06; do
 		gnuplot -e "
-			set title \"Mobility1 test of 50 nodes. Start inside 1x1 square.\nStep duration is ${step_duration} seconds. Step width is 0-${step_distance}. LAN cable connections. 200 pings were send.\" noenhanced; \
+			set title \"Mobility1 test of 50 nodes. Start inside 1x1 square.\nStep duration is ${step_duration} seconds. Step width is 0-${step_distance}. 100MBit/s - 1ms latency links. 200 pings were send.\" noenhanced; \
 			set grid; \
 			set term png; \
 			set terminal png size 1280,960; \
