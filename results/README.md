@@ -27,7 +27,7 @@ Routing Software:
 * bmx6 (v1.0 / 12.05.2018 / d8869ec69797)
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
-* `none` indicates no routing software and only works for one hop destinations. It serves as baseline.
+* `none` only works for one hop destinations. It serves as baseline.
 
 ## Topologies
 
@@ -74,7 +74,10 @@ Notes:
 
 Notes:
 
-- a low packet arrival rate makes the corresponding traffic result data meaningless
+- a low packet arrival rate makes the corresponding traffic result data meaningless (e.g. the complete line data :/)
+- some routing protocols cause a huge amount of traffic on certain topologies with no latency:
+  - yggdrasil on a line
+  - batman-adv on rtree and grid4
 - batman-adv has a low hop limit
 - grid4 and line topologies (even more so with no traffic/latency limitations) are pathological
 - these three graphs took 55 hours to generate

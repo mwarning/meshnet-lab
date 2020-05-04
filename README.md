@@ -55,7 +55,7 @@ As an alternative, you can stop all protocols using `./software.py clear` and re
 
 ## Add Traffic Control
 
-The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to configure the kernel packet scheduler.
+The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to be used to configure the kernel packet scheduler.
 
 Given some link:
 ```
@@ -92,7 +92,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 ## Routing Protocol Notes
 
 - BATMAN-adv:
-  - needs batctl installed for tests
+  - needs batctl installed to configure
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
   - `kworker/u32:1+bat_events` becomes quickly a single threaded bottleneck
     - change `create_singlethread_workqueue()` to `create_workqueue()` in `net/batman-adv/main.c` ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
