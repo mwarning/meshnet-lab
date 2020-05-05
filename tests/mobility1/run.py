@@ -42,8 +42,8 @@ def run(protocol, csvfile, step_duration, step_distance):
 	for n in range(0, 30):
 		print(f'{protocol}: iteration {n}')
 
-		with open('graph.json', 'w+') as file:
-			json.dump(state, file, indent='  ')
+		#with open(f'graph-{step_duration}-{step_distance}-{n:03d}.json', 'w+') as file:
+		#	json.dump(state, file, indent='  ')
 
 		# connect nodes range
 		wait_beg_ms = tools.millis()
