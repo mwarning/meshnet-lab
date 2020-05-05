@@ -12,21 +12,6 @@ import os
 def eprint(s):
     sys.stderr.write(s + '\n')
 
-def get_node_set(state):
-    nodes = set()
-
-    for link in state.get('links', []):
-        nodes.add('ns-{}'.format(link['source']))
-        nodes.add('ns-{}'.format(link['target']))
-
-    for node in state.get('nodes', []):
-        nodes.add('ns-{}'.format(node['id']))
-
-    return nodes
-
-def get_nodes(data):
-    return data.get('nodes', [])
-
 def get_distance(source, target):
     sx = source.get('x', math.nan)
     sy = source.get('y', math.nan)
@@ -94,7 +79,7 @@ def move_random(network, distance, seed=None):
     if seed is not None:
         random.seed(seed)
 
-    for node in get_nodes(network):
+    for node in network.get('nodes', []):
         dx = (0.5 - random.random()) if 'x' in node else 0.0
         dy = (0.5 - random.random()) if 'y' in node else 0.0
         dz = (0.5 - random.random()) if 'z' in node else 0.0
