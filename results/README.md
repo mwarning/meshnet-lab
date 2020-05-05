@@ -90,7 +90,7 @@ Notes:
 
 ## Connectivity Test
 
-This is a pure theoretical and numerical test of the perlocation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
+This is a pure theoretical and numerical test of the percolation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
 
 ![image](laptop/connectivity1/connectivity1.png)
 ![image](laptop/connectivity1/connectivity1_sd.png)
