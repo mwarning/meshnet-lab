@@ -171,11 +171,11 @@ def create_colmap(header):
 				mapping[col] = [{'call': method, 'suffix': suffix}]
 
 	mapping = {}
-	add_mappings(mapping, header, args.columns_se, calc_standard_error, '_se')
-	add_mappings(mapping, header, args.columns_sd, calc_standard_deviation, '_sd')
+	add_mappings(mapping, header, args.columns_se, calc_standard_error, 'se')
+	add_mappings(mapping, header, args.columns_sd, calc_standard_deviation, 'sd')
 	add_mappings(mapping, header, args.columns_range, calc_value_range, 'range')
-	add_mappings(mapping, header, args.columns_max, calc_value_max, '_max')
-	add_mappings(mapping, header, args.columns_min, calc_value_min, '_min')
+	add_mappings(mapping, header, args.columns_max, calc_value_max, 'max')
+	add_mappings(mapping, header, args.columns_min, calc_value_min, 'min')
 	return mapping
 
 
