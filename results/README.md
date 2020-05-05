@@ -87,3 +87,10 @@ Notes:
 - batman-adv has a low hop limit
 - grid4 and line topologies (even more so with no traffic/latency limitations) are pathological
 - these three graphs took 55 hours to generate
+
+## Connectivity Test
+
+This is a pure theoretical and numerical test of the perlocation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
+
+![image](laptop/connectivity1/connectivity1.png)
+![image](laptop/connectivity1/connectivity1_sd.png)
