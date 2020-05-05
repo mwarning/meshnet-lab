@@ -28,6 +28,8 @@ def get_tc_command(link, ifname):
 	return f'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
 
 def run(protocol, csvfile, step_duration, step_distance):
+	tools.seed_random(42)
+
 	state = topology.create_nodes(50)
 	mobility.randomize_positions(state, xy_range=1.0)
 	mobility.connect_range(state, max_links=150)
@@ -48,7 +50,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		# update network representation
 		old_state = copy.copy(state)
-		mobility.move_random(state, distance=step_distance, seed=n)
+		mobility.move_random(state, distance=step_distance)
 		mobility.connect_range(state, max_links=150)
 
 		# update network
@@ -60,7 +62,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 		# Wait until wait seconds are over, else error
 		tools.wait(wait_beg_ms, step_duration)
 
-		paths = tools.get_random_paths(state, 200, seed=n)
+		paths = tools.get_random_paths(state, 200)
 		valid_path_count = tools.get_valid_path_count(state, paths)
 		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=2000, verbosity='verbose')
 

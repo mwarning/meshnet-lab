@@ -140,6 +140,9 @@ def root():
         eprint('Need to run as root.')
         exit(1)
 
+def seed_random(value):
+    random.seed(value)
+
 def sleep(seconds):
     time.sleep(seconds)
 
