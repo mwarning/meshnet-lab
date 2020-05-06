@@ -23,7 +23,7 @@ prefix = os.environ.get('PREFIX', '')
 def get_tc_command(link, ifname):
 	return f'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
 
-def run(protocol, files, csvfile, tc_command):
+def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
 		(node_count, link_count) = tools.json_count(path)
 
@@ -33,7 +33,7 @@ def run(protocol, files, csvfile, tc_command):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, link_command=tc_command)
+		network.change(from_state='none', to_state=path, link_command=get_tc_command)
 
 		tools.sleep(10)
 
@@ -63,8 +63,7 @@ def run(protocol, files, csvfile, tc_command):
 		extra = (['node_count', 'traffic_ms', 'software_ms'], [node_count, traffic_ms, software_ms])
 		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result, sysload_result)
 
-for tc_command in [None, get_tc_command]:
-	for name in ['line', 'grid4', 'rtree']:
-		for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
-			with open(f"{prefix}scalability1-{protocol}-{name}.csv", 'w+') as csvfile:
-				run(protocol, f"../../data/{name}/*.json", csvfile)
+for name in ['line', 'grid4', 'rtree']:
+	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
+		with open(f"{prefix}scalability1-{protocol}-{name}.csv", 'w+') as csvfile:
+			run(protocol, f"../../data/{name}/*.json", csvfile)
