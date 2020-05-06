@@ -59,6 +59,8 @@ Notes:
 ![image](laptop/mobility1/1_mobility1-30-0.03.png)
 ![image](laptop/mobility1/1_mobility1-30-0.06.png)
 
+Videos for [0.01](laptop/mobility1/1_mobility1-0.0.1.mp4), [0.03](laptop/mobility1/1_mobility1-0.0.3.mp4) and [0.06](laptop/mobility1/1_mobility1-0.0.6.mp4) steps sizes (30 frames in 30 seconds).
+
 Notes:
 
 - Test setup:
