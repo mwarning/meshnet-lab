@@ -33,6 +33,16 @@ Routing Software:
 
 An overview of the tested topologies can be found [here](../data/README.md).
 
+
+## Benchmark1 Test
+
+Laptop
+![image](laptop/benchmark1/1_benchmark1.png)
+
+Notes:
+
+- max. 140 nodes to emulate make sense on the laptop
+
 ## Convergence1 Test
 
 ![image](laptop/convergence1/1_convergence1-line.png)
