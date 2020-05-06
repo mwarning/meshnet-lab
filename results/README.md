@@ -102,3 +102,5 @@ Notes:
 - this is called Gilbert's random disk model
 - the connectivity rises exponentionally
 - the standard deviation decreases very quickly near 100%
+- further reading: [Insights From Percolation Theory](https://inthemesh.com/archive/from-mocha-to-mesh-insi
+ghts-from-percolation-theory/)
