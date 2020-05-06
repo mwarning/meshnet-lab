@@ -9,19 +9,17 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 800,600; \
 	set output '${prefix}benchmark1.png'; \
-	set key spacing 2 font 'Helvetica, 18'; \
+	set key spacing 1 font 'Helvetica, 18'; \
 	set xlabel '# number of nodes'; \
-	set ylabel 'tx per node [KB/s]'; \
-	set y2label 'ping arrival [%]'; \
+	set ylabel 'ping arrival [%]'; \
 	set termoption lw 3; \
-	set xtics 0, 50; \
 	set xrange [0:500]; \
-	set y2tics 0, 10; \
-	set y2range [0:100]; \
-	set ytics nomirror; \
+	set xtics 0, 50; \
+	set yrange [0:100]; \
+	set ytics 0, 10; \
 	plot \
-	'${prefix}benchmark1-babel.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel' axis x1y2, \
-	'${prefix}benchmark1-batman-adv.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv' axis x1y2, \
-	'${prefix}benchmark1-yggdrasil.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil' axis x1y2 \
+	'${prefix}benchmark1-babel.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel', \
+	'${prefix}benchmark1-batman-adv.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv', \
+	'${prefix}benchmark1-yggdrasil.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil', \
 	;
 "
