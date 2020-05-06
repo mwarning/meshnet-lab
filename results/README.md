@@ -94,3 +94,9 @@ This is a pure theoretical and numerical test of the percolation theory. Nodes a
 
 ![image](laptop/connectivity1/connectivity1.png)
 ![image](laptop/connectivity1/connectivity1_sd.png)
+
+Notes:
+
+- this is called Gilbert's random disk model
+- at some node critical density, the connectivity rises exponentionally
+- the standard deviation decreases very quickly at 100%
