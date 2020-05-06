@@ -88,9 +88,9 @@ Notes:
 - grid4 and line topologies (even more so with no traffic/latency limitations) are pathological
 - these three graphs took 55 hours to generate
 
-## Connectivity Test
+## Connectivity1 Test
 
-This is a pure theoretical and numerical test of the percolation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
+This is a pure numerical test of the percolation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
 
 ![image](laptop/connectivity1/connectivity1.png)
 ![image](laptop/connectivity1/connectivity1_sd.png)
@@ -98,5 +98,5 @@ This is a pure theoretical and numerical test of the percolation theory. Nodes a
 Notes:
 
 - this is called Gilbert's random disk model
-- at some node critical density, the connectivity rises exponentionally
-- the standard deviation decreases very quickly at 100%
+- the connectivity rises exponentionally
+- the standard deviation decreases very quickly near 100%
