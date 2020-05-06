@@ -45,7 +45,7 @@ Notes:
 - the timing intervals are visible
 - batman-adv can not reach 100% on a line, since the maximum hop count is 32
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
-- yggdrasil has the best start performance, but a more irratic routing behaviour on a line topology
+- yggdrasil has the best start performance
 - bmx7 does not route any packets except if it goes to a direct neighbor, the reasons are unknown
 - these three graphs take about 8 hours to generate
 
