@@ -25,11 +25,11 @@ def get_tc_command(link, ifname):
 	# How to include packet loss:
 	loss = 100 * (1 - link.get('tq', 1))
 	(
-		'sh -c "'
-		f'tc qdisc del dev {ifname} root'
-		f'tc qdisc add dev {ifname} root handle 1: netem delay 10ms loss {loss}%'
-		f'tc qdisc add dev {ifname} parent 1: handle 2: tbf rate 1mbit burst 8192 latency 5ms'
-		'"'
+		'sh -c "('
+		f'tc qdisc del dev {ifname} root;'
+		f'tc qdisc add dev {ifname} root handle 1: netem delay 10ms loss {loss}%;'
+		f'tc qdisc add dev {ifname} parent 1: handle 2: tbf rate 1mbit burst 8192 latency 5ms;'
+		')"'
 	)
 	'''
 	if link.get('type') == 'wifi':
