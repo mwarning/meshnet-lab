@@ -93,12 +93,12 @@ Notes:
 Notes:
 
 - a low packet arrival rate makes the corresponding traffic result data meaningless (e.g. the complete line data :/)
-- some routing protocols cause a huge amount of traffic on certain topologies with no latency:
-  - yggdrasil on a line
-  - batman-adv on rtree and grid4
-- batman-adv has a low hop limit
-- grid4 and line topologies (even more so with no traffic/latency limitations) are pathological
-- these three graphs took 55 hours to generate
+- some routing protocols cause a huge amount of traffic that is not seen in reality:
+  - yggdrasil on a grid4 and line
+  - batman-adv on grid4 and rtree
+- batman-adv has a maximum hop limit of 32
+- grid4 and line topologies are pathological
+- the data for each graph takes 18 hours to generate
 
 ## Connectivity1 Test
 
