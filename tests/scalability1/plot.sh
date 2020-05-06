@@ -16,7 +16,7 @@ for id in 'line' 'grid4' 'rtree'; do
 		set y2label 'packet arrival [%]'; \
 		set key right top; \
 		set y2tics 0, 10; \
-		set yrange [0:100]; \
+		set yrange [0:60]; \
 		set ytics nomirror; \
 		set ytics 0,5; \
 		set termoption lw 3; \
