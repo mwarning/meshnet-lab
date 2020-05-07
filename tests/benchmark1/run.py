@@ -27,34 +27,32 @@ def run(protocol, csvfile):
 	for path in sorted(glob.glob(f'../../data/grid4/*.json')):
 		(node_count, link_count) = tools.json_count(path)
 
-		# Limit node count to 300
-		if node_count > 300:
-			continue
-
 		print(f'run {protocol} on {path}')
 
 		network.change(from_state='none', to_state=path, link_command=get_tc_command)
 		tools.sleep(10)
 
-		#for i in range(0, 10):
-		wait_beg_ms = tools.millis()
-
+		software_start_ms = tools.millis()
 		software.start(protocol)
+		software_startup_ms = tools.millis() - software_start_ms
 
-		# Wait until 60s are over, else error
-		tools.wait(wait_beg_ms, 60)
+		tools.sleep(30)
 
-		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=60000, verbosity='verbose')
+		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=30000, verbosity='verbose')
 
 		sysload_result = tools.sysload()
 
 		software.stop(protocol)
 
 		# add data to csv file
-		extra = (['node_count'], [node_count])
-		tools.csv_update(csvfile, '\t', extra, ping_result, sysload_result)
+		extra = (['node_count', 'software_startup_ms'], [node_count, software_startup_ms])
+		tools.csv_update(csvfile, '\t', extra, ping_result.getData(), sysload_result)
 
 		network.clear()
+
+		# abort benchmark when less then 40% of the pings arrive
+		if (ping_result.received / ping_result.transmitted) < 0.4:
+			break
 
 for protocol in ['babel', 'batman-adv', 'yggdrasil']:
 	with open(f"{prefix}benchmark1-{protocol}.csv", 'w+') as csvfile:
