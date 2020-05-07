@@ -342,18 +342,17 @@ def _get_ip_address(id, interface):
         return lladdr4
 
 class _PingResult:
+    send = 0
     transmitted = 0
     received = 0
     rtt_min = 0.0
     rtt_max = 0.0
     rtt_avg = 0.0
 
-    def __init__(self, transmitted = 0, received = 0, rtt_min = 0.0, rtt_max = 0.0, rtt_avg = 0.0):
-        self.transmitted = transmitted
-        self.received = received
-        self.rtt_min = rtt_min
-        self.rtt_max = rtt_max
-        self.rtt_avg = rtt_avg
+    def getData(self):
+        titles = ['packets_send', 'packets_received', 'rtt_avg_ms']
+        values = [self.send, self.received, self.rtt_avg]
+        return (titles, values)
 
 _numbers_re = re.compile('[^0-9.]+')
 
@@ -431,36 +430,32 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
 
     stop2_ms = millis()
 
-    result_packets_send = 0
-    result_packets_received = 0
-    result_rtt_avg = 0.0
+    ret = _PingResult()
 
     # wait/collect for results from pings (prolongs testing up to 1 second!)
     for process in processes:
         process.wait()
         (output, err) = process.communicate()
         result = _parse_ping(output.decode())
+        result.send = ping_count # TODO: nicer
 
-        result_packets_send += ping_count
-        result_packets_received += result.received
-        result_rtt_avg += result.rtt_avg
+        ret.send += result.send
+        ret.transmitted += result.transmitted
+        ret.received += result.received
+        ret.rtt_avg += result.rtt_avg
 
-    result_rtt_avg_ms = 0.0 if result_packets_received == 0 else (result_rtt_avg / result_packets_received)
+    ret.rtt_avg = 0 if ret.received == 0 else int(ret.rtt_avg / ret.received)
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
         print('{}: send: {}, received: {}, arrived: {}%, measurement span: {}ms + {}ms'.format(
             protocol,
-            result_packets_send,
-            result_packets_received,
-            '-' if (result_packets_send == 0) else '{:0.2f}'.format(100.0 * (result_packets_received / result_packets_send)),
+            ret.send,
+            ret.received,
+            '-' if (ret.send == 0) else '{:0.2f}'.format(100.0 * (ret.received / ret.send)),
             result_duration_ms,
             result_filler_ms
         ))
 
-    titles = ['packets_send', 'packets_received', 'duration_ms', 'rtt_avg_ms']
-    values = [result_packets_send, result_packets_received,
-        int(result_duration_ms + result_filler_ms), int(result_rtt_avg_ms)]
-
-    return (titles, values)
+    return ret

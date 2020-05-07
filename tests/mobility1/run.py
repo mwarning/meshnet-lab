@@ -68,7 +68,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		# add data to csv file
 		extra = (['time_ms', 'node_count', 'valid_path_count'], [tools.millis() - test_beg_ms, len(state['nodes']), valid_path_count])
-		tools.csv_update(csvfile, '\t', extra, ping_result)
+		tools.csv_update(csvfile, '\t', extra, ping_result.getData())
 
 	software.stop(protocol)
 	network.clear()
