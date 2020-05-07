@@ -36,12 +36,15 @@ An overview of the tested topologies can be found [here](../data/README.md).
 
 ## Benchmark1 Test
 
-Laptop
+A test to figure out how many nodes the host system can enumlate.
+
 ![image](laptop/benchmark1/1_benchmark1.png)
+![image](server/benchmark1/1_benchmark1.png)
 
 Notes:
 
-- max. 140 nodes to emulate make sense on the laptop
+- max. 140 nodes for the laptop
+- max. 220 nodes for the server
 
 ## Convergence1 Test
 
