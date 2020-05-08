@@ -15,7 +15,7 @@ gnuplot -e "
 	set terminal png size 1280,960; \
 	set output '${prefix}connectivity1.png'; \
 	set key spacing 2 font 'Helvetica, 18' center right; \
-	set xlabel 'Connection range [km]'; \
+	set xlabel 'Connection range [m]'; \
 	set ylabel 'connectivity [%]'; \
 	set xtics 50; \
 	set ytics 10; \
