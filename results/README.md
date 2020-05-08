@@ -72,7 +72,7 @@ Notes:
 ![image](laptop/mobility1/1_mobility1-30-0.03.png)
 ![image](laptop/mobility1/1_mobility1-30-0.06.png)
 
-![image](laptop/mobility1/1_mobility1-0.0.1.gif) ![image](laptop/mobility1/1_mobility1-0.0.3.gif) ![image](laptop/mobility1/1_mobility1-0.0.6.gif)
+![image](laptop/mobility1/1_mobility1-0.01.gif) ![image](laptop/mobility1/1_mobility1-0.03.gif) ![image](laptop/mobility1/1_mobility1-0.06.gif)
 
 Notes:
 
