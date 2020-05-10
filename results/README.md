@@ -36,7 +36,7 @@ An overview of the tested topologies can be found [here](../data/README.md).
 
 ## Benchmark1 Test
 
-A test to figure out how many nodes the host system can enumlate.
+A test to figure out how many nodes the host system can emulate.
 
 ![image](laptop/benchmark1/1_benchmark1.png)
 ![image](server/benchmark1/1_benchmark1.png)
