@@ -17,5 +17,5 @@ Real live changes can be followed via the graph.json output.
 
 ## Animate
 
-* use `./animate record` to record a series of screenshots of MeshGraphViewer
-* use `./animate process` to create a gif
+* use `./animate.sh record` to record a series of screenshots of MeshGraphViewer
+* use `./animate.sh process` to create a gif
