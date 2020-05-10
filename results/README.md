@@ -87,6 +87,20 @@ Notes:
 - bmx7 is at the baseline, because in this test it does not do routing
 - yggdrasil uses a dedicated tun0 interface, as such, in can perform below the one hop baseline
 
+## Mobility 2 Test
+
+![image](laptop/mobility2/1_mobility2.png)
+
+- Test setup:
+  1. 50 nodes are distributed on a 1km x 1km square
+  2. for distances of 50m to 400m in steps of 50m do six times:
+    1. move nodes in random directions of current distance
+    2. 150 nearest links are established
+    3. wait 10 seconds
+    4. 200 pings are send from a random source node to random destination node
+    5. the percentage of the arrived pings is added to the score value
+- the data takes 1.5 hours to generate
+
 ## Scalability1 Test
 
 ![image](server/scalability1/1_scalability1-grid4.png)
