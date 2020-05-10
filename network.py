@@ -131,7 +131,7 @@ def create_node(node, node_command):
     # put uplinkport into bridge
     exec(f'ip netns exec "switch" ip link set "{downname}" master "{brname}"')
 
-    configure_interface("switch", downname)
+    configure_interface('switch', downname)
     configure_interface(nsname, upname)
 
     if node_command is not None:
