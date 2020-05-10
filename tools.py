@@ -372,27 +372,22 @@ def _parse_ping(output):
 
     return ret
 
-def ping(protocol, count=10, duration_ms=1000, verbosity='normal', seed=None):
+def ping(count=10, duration_ms=1000, verbosity='normal', seed=None):
     paths = get_random_paths(network=None, count=count, seed=seed)
-    return ping_paths(protocol, paths, duration_ms, verbosity)
+    return ping_paths(paths, duration_ms, verbosity)
 
-def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
-    def get_uplink(protocol):
+def ping_paths(paths, duration_ms=1000, verbosity='normal'):
+    def get_interface(source):
         # some protocols use their own interface as entry point to the mesh
-        if protocol == 'batman-adv':
-            return 'bat0'
-        elif protocol == 'yggdrasil':
-            return 'tun0'
-        elif protocol == 'cjdns':
-            return 'tun0'
-        else:
-            return 'uplink'
+        for ifce in ['bat0', 'tun0']:
+            if os.system(f'ip netns exec ns-{source} ip addr list dev {ifce} > /dev/null 2>&1') == 0:
+                return ifce
+        return 'uplink'
 
-    interface = get_uplink(protocol)
     ping_deadline=1
     ping_count=1
     processes = []
-
+    interface = None
     start_ms = millis()
     started = 0
     path_count = len(paths)
@@ -404,6 +399,10 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
                 if len(paths) == 0:
                     break
                 (source, target) = paths.pop()
+
+                if interface is None:
+                    interface = get_interface(source)
+
                 target_addr = _get_ip_address(target, interface)
 
                 if target_addr is None:
@@ -449,8 +448,7 @@ def ping_paths(protocol, paths, duration_ms=1000, verbosity='normal'):
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
-        print('{}: send: {}, received: {}, arrived: {}%, measurement span: {}ms + {}ms'.format(
-            protocol,
+        print('send: {}, received: {}, arrived: {}%, measurement span: {}ms + {}ms'.format(
             ret.send,
             ret.received,
             '-' if (ret.send == 0) else '{:0.2f}'.format(100.0 * (ret.received / ret.send)),

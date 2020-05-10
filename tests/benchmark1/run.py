@@ -38,7 +38,7 @@ def run(protocol, csvfile):
 
 		tools.sleep(30)
 
-		ping_result = tools.ping(protocol=protocol, count=link_count, duration_ms=30000, verbosity='verbose')
+		ping_result = tools.ping(count=link_count, duration_ms=30000, verbosity='verbose')
 
 		sysload_result = tools.sysload()
 

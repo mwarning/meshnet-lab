@@ -58,7 +58,7 @@ def run(protocol, csvfile):
 		# Wait until 300s are over, else error
 		tools.wait(wait_beg_ms, 300)
 
-		ping_result = tools.ping(protocol=protocol, count=node_count, duration_ms=60000, verbosity='verbose')
+		ping_result = tools.ping(count=node_count, duration_ms=60000, verbosity='verbose')
 
 		sysload_result = tools.sysload()
 

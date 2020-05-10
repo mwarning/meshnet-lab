@@ -65,7 +65,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		paths = tools.get_random_paths(state, 200)
 		paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count)
-		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=2000, verbosity='verbose')
+		ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
 
 		# add data to csv file
 		extra = (['time_ms', 'node_count', 'path_count'], [tools.millis() - test_beg_ms, node_count, len(paths)])
