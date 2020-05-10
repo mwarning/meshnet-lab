@@ -121,16 +121,16 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
-def get_valid_path_count(network, paths = []):
+def filter_paths(network, paths, min_hops=1, max_hops=math.inf):
     dijkstra = Dijkstra(network)
-    count = 0
 
+    filtered = []
     for path in paths:
         d = dijkstra.find_shortest_distance(path[0], path[1])
-        if d is not math.inf:
-            count +=1
+        if d >= min_hops and d <= max_hops:
+            filtered.append(path)
 
-    return count
+    return filtered
 
 def eprint(s):
     sys.stderr.write(s + '\n')

@@ -30,8 +30,9 @@ def get_tc_command(link, ifname):
 def run(protocol, csvfile, step_duration, step_distance):
 	tools.seed_random(42)
 
-	state = topology.create_nodes(50)
-	mobility.randomize_positions(state, xy_range=1.0)
+	node_count = 50
+	state = topology.create_nodes(node_count)
+	mobility.randomize_positions(state, xy_range=1000)
 	mobility.connect_range(state, max_links=150)
 
 	# create network and start routing software
@@ -63,18 +64,18 @@ def run(protocol, csvfile, step_duration, step_distance):
 		tools.wait(wait_beg_ms, step_duration)
 
 		paths = tools.get_random_paths(state, 200)
-		valid_path_count = tools.get_valid_path_count(state, paths)
+		paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count)
 		ping_result = tools.ping_paths(protocol=protocol, paths=paths, duration_ms=2000, verbosity='verbose')
 
 		# add data to csv file
-		extra = (['time_ms', 'node_count', 'valid_path_count'], [tools.millis() - test_beg_ms, len(state['nodes']), valid_path_count])
+		extra = (['time_ms', 'node_count', 'path_count'], [tools.millis() - test_beg_ms, node_count, len(paths)])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData())
 
 	software.stop(protocol)
 	network.clear()
 
 for step_duration in [10, 30]:
-	for step_distance in [0.01, 0.03, 0.06]:
+	for step_distance in [10, 30, 60]:
 		for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'none', 'olsr1', 'olsr2', 'yggdrasil']:
 			with open(f"{prefix}mobility1-{step_duration}-{step_distance}-{protocol}.csv", 'w+') as csvfile:
 				run(protocol, csvfile, step_duration, step_distance)

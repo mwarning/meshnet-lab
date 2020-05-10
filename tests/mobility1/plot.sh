@@ -4,9 +4,9 @@
 prefix="$1"
 
 for step_duration in 10 30; do
-	for step_distance in 0.01 0.03 0.06; do
+	for step_distance in 10 30 60; do
 		gnuplot -e "
-			set title \"Mobility1 test of 50 nodes. Start inside 1x1 square.\nStep duration is ${step_duration} seconds. Step width is 0-${step_distance}. 100MBit/s - 1ms latency links. 200 pings were send.\" noenhanced; \
+			set title \"Mobility1 test of 50 nodes. Start inside 1x1km square.\nStep duration is ${step_duration} seconds. Step width is 0-${step_distance}m. 100MBit/s - 1ms latency links. 200 pings were send.\" noenhanced; \
 			set grid; \
 			set term png; \
 			set terminal png size 1280,960; \
@@ -17,15 +17,15 @@ for step_duration in 10 30; do
 			set yrange [-2:102]; \
 			set termoption lw 3; \
 			plot \
-			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-batman-adv.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx6.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-cjdns.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-none.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'black' title 'none [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-olsr1.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-olsr2.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil.csv' using 0:(100 * (column('packets_received') / column('valid_path_count'))) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
+			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-batman-adv.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-bmx6.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-cjdns.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-none.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'black' title 'none [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-olsr1.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-olsr2.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil.csv' using 0:(100 * (column('packets_received') / column('path_count'))) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 			;\
 		"
 	done

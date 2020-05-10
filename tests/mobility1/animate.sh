@@ -7,7 +7,7 @@ if [ "$1" = 'record' ]; then
 	echo 'start'
 	# all step durations should result in the same animation
 	for step_duration in 10 30; do
-		for step_distance in 0.01 0.03 0.06; do
+		for step_distance in 10 30 60; do
 			for file in graph-${step_duration}-${step_distance}-*.json; do
 				echo $file
 				cp $file graph.json
@@ -19,11 +19,12 @@ if [ "$1" = 'record' ]; then
 	done
 fi
 
-offset_left=1120
-offset_top=300
 if [ "$1" = 'process' ]; then
+	offset_left_px=1120
+	offset_top_px=300
+
 	for step_duration in 10 30; do
-		for step_distance in 0.01 0.03 0.06; do
+		for step_distance in 10 30 60; do
 			i=0
 			for file in graph-${step_duration}-${step_distance}-*.png; do
 				[ -e "$file" ] || ( echo "No files found: $file"; exit 1; )
@@ -31,9 +32,9 @@ if [ "$1" = 'process' ]; then
 
 				i=$((i + 1))
 				# crop (<width>x<height>+<left>+<top>)
-				convert "$file" -crop "550x550+${offset_left}+${offset_top}" +repage "processed_${file}"
+				convert "$file" -crop "550x550+${offset_left_px}+${offset_top_px}" +repage "processed_${file}"
 				# tag
-				convert -pointsize 20 -fill black -draw "text 385,530 \"$step_distance steps / $(printf '%.03d' $i)\"\"" "processed_${file}" "processed_${file}"
+				convert -pointsize 20 -fill black -draw "text 380,530 \"${step_distance}m steps / $(printf '%.03d' $i)\"\"" "processed_${file}" "processed_${file}"
 			done
 			echo "create mobility1-${step_distance}.gif"
 			# make gif
