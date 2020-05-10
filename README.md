@@ -40,12 +40,13 @@ Most commands need root. So we assume all commands are execute as root:
 ./network.py change none graph.json
 
 # Start Software
-./tests.py start batman-adv
+./software.py start batman-adv
 
 # Run Tests (see tests folder)
+./tools.py ping
 
 # Stop Software
-./tests.py stop batman-adv
+./software.py stop batman-adv
 
 # Remove Network
 ./network.py change graph.json none
