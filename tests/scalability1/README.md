@@ -1,9 +1,6 @@
 # Scalability Test 1
 
-Test the scalability of different routing protocols on different topologies:
-
-- different sizes of line, grid and random tree topologies
-- different Freifunk network topologies
+Test the scalability of different routing protocols on line, grid and random tree topologies.
 
 ## Run
 

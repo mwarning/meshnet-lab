@@ -37,21 +37,19 @@ def run(protocol, files, csvfile):
 
 		tools.sleep(10)
 
-		wait_beg_ms = tools.millis()
-
-		tmp_ms = tools.millis()
-		traffic_beg = tools.traffic()
-		traffic_ms = tools.millis() - tmp_ms
-
-		tmp_ms = tools.millis()
+		software_start_ms = tools.millis()
 		software.start(protocol)
-		software_ms = tools.millis() - tmp_ms
+		software_startup_ms = tools.millis() - software_start_ms
 
-		# Wait until wai seconds are over, else error
-		tools.wait(wait_beg_ms, 300)
+		tools.sleep(300)
 
-		ping_result = tools.ping(count=node_count, duration_ms=60000, verbosity='verbose')
+		start_ms = tools.millis()
+		traffic_beg = tools.traffic()
 
+		paths = tools.get_random_paths(count=200)
+		ping_result = tools.ping_paths(paths=paths, duration_ms=300000, verbosity='verbose')
+
+		traffic_ms = tools.millis() - start_ms
 		traffic_end = tools.traffic()
 
 		sysload_result = tools.sysload()
