@@ -65,7 +65,7 @@ gnuplot -e "
 	set nokey; \
 	set ylabel 'median packet arrival [%]'; \
 	set style fill solid; \
-  	set boxwidth 0.5; \
+	set boxwidth 0.5; \
 	set yrange [0:]; \
 	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'dark-green', 4 'dark-red', 5 'coral', 6 'green', 7 'purple'); \
 	set cbrange [0:7]; \
@@ -93,7 +93,7 @@ gnuplot -e "
 	set nokey; \
 	set ylabel 'median tx traffic per node [KB/s]'; \
 	set style fill solid; \
-  	set boxwidth 0.5; \
+	set boxwidth 0.5; \
 	set yrange [0:]; \
 	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'dark-green', 4 'dark-red', 5 'coral', 6 'green', 7 'purple'); \
 	set cbrange [0 : 7]; \
