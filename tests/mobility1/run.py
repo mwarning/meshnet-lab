@@ -68,7 +68,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 		ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
 
 		# add data to csv file
-		extra = (['time_ms', 'node_count', 'path_count'], [tools.millis() - test_beg_ms, node_count, len(paths)])
+		extra = (['node_count', 'time_ms'], [node_count, tools.millis() - test_beg_ms])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData())
 
 	software.stop(protocol)
