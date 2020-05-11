@@ -43,8 +43,8 @@ A test to figure out how many nodes the host system can emulate.
 
 Notes:
 
-- max. 140 nodes for the laptop
-- max. 220 nodes for the server
+- max. 120 nodes for the laptop
+- max. 250 nodes for the server
 
 ## Convergence1 Test
 
