@@ -24,6 +24,8 @@ def get_tc_command(link, ifname):
 	return f'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
 
 def run(protocol, files, csvfile):
+	tools.seed_random(1234)
+
 	for path in sorted(glob.glob(files)):
 		(node_count, link_count) = tools.json_count(path)
 
@@ -45,7 +47,9 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.sleep(offset)
 
-			ping_result = tools.ping(count=200, duration_ms=2000, verbosity='verbose', seed=1234)
+			paths = tools.get_random_paths(state, 200)
+			paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count)
+			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
 
 			traffic_end = tools.traffic()
 
@@ -60,7 +64,7 @@ def run(protocol, files, csvfile):
 		network.clear()
 
 for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0050.json']:
-	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'none', 'olsr1', 'olsr2', 'yggdrasil']:
+	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 		name = file.split('/')[-2]
 		with open(f"{prefix}convergence1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, file, csvfile)
