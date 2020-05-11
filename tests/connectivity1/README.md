@@ -3,8 +3,7 @@
 This is a test that tests theoretical connectivity and does not run an network on connection.
 It tests how dense nodes to be placed geographical to achive a speicifc percentage of connectivity.
 
-Related articles: [On the Connectivity of Mesh Networks](https://inthemesh.com/archive/whitepaper-connectivity-of-mesh-networks/) / [Percolation Theory](https://inthemesh.com/archive/from-mocha-to-mesh-insi
-ghts-from-percolation-theory/)
+Related articles: [On the Connectivity of Mesh Networks](https://inthemesh.com/archive/whitepaper-connectivity-of-mesh-networks/) / [Percolation Theory](https://inthemesh.com/archive/from-mocha-to-mesh-insights-from-percolation-theory/)
 
 ## Run
 
