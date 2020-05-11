@@ -460,11 +460,10 @@ def ping_paths(paths, duration_ms=1000, verbosity='normal'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('input', help='JSON file of the network.')
     subparsers = parser.add_subparsers(dest='action', required=True)
 
     parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
-    parser_ping.add_argument('--input', help='JSON state of the network.')
+    parser_ping.add_argument('--input', default=None, help='JSON state of the network.')
     parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping.')
     parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping.')
     parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings.')
@@ -474,14 +473,14 @@ if __name__ == '__main__':
 
     if args.action == 'ping':
         paths = []
-        if parser.input is None:
-            paths = get_random_paths(None, parser_ping.pings)
+        if args.input is None:
+            paths = get_random_paths(None, args.pings)
         else:
-            state = json.load(parser.input)
-            paths = get_random_paths(state, parser_ping.pings)
-            paths = filter_paths(state, paths, min_hops=parser_ping.min_hops, max_hops=parser_ping.max_hops)
+            state = json.load(args.input)
+            paths = get_random_paths(state, args.pings)
+            paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
 
-        ping_paths(paths=paths, duration_ms=parser_ping.duration, verbosity='verbose')
+        ping_paths(paths=paths, duration_ms=args.duration, verbosity='verbose')
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
