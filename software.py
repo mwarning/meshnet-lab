@@ -378,8 +378,9 @@ def stop_routing_protocol(protocol, nsnames, ignore_error=False):
         eprint('Error: unknown routing protocol: {}'.format(protocol))
         exit(1)
 
-    for nsname in nsnames:
-        interface_down(nsname, 'uplink', ignore_error=ignore_error)
+    if count > 0:
+        for nsname in nsnames:
+            interface_down(nsname, 'uplink', ignore_error=ignore_error)
 
     end_ms = millis()
     if not ignore_error and verbosity != 'quiet':
