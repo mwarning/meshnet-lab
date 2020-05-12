@@ -130,7 +130,9 @@ def pkill(pname):
         signal = '-SIGTERM' if i < 4 else '-SIGKILL'
         out = subprocess.Popen(['pkill', '-c', signal, '-x', pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         count = int(out.communicate()[0])
-        matched = matched if matched > 0 else count
+
+        if count > matched:
+            matched = count
 
         if out.returncode != 0:
             return matched
