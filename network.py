@@ -355,6 +355,8 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None):
             print('  remove "switch"')
         exec('ip netns del "switch" || true')
 
+    return to_state
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,

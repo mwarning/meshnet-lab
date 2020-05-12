@@ -121,6 +121,41 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
+def get_biggest_cluster(network):
+    neighbors = {}
+    visited = {}
+
+    neighbors = convert_network(network)
+    for node in neighbors:
+        visited[node] = False
+
+    def dfs(node, cluster):
+        visited[node] = True
+        cluster.add(node)
+        for neighbor in neighbors[node]:
+            if not visited[neighbor]:
+                dfs(neighbor, cluster)
+
+    cluster = set()
+    for node in visited:
+        if not visited[node]:
+            c = set()
+            dfs(node, c)
+            if len(c) > len(cluster):
+                cluster = c
+
+    links = []
+    for link in network.get('links', []):
+        if str(link['source']) in cluster or str(link['target']) in cluster:
+            links.append(link)
+
+    nodes = []
+    for node in network.get('nodes', []):
+        if str(node['id']) in cluster:
+            nodes.append(node)
+
+    return {'nodes': nodes, 'links': links}
+
 def filter_paths(network, paths, min_hops=1, max_hops=math.inf, path_count=None):
     dijkstra = Dijkstra(network)
 
@@ -148,6 +183,11 @@ def root():
         eprint('Need to run as root.')
         exit(1)
 
+def load_json(path):
+    with open(path) as file:
+        return json.load(file)
+    return None
+
 def seed_random(value):
     random.seed(value)
 
@@ -165,7 +205,11 @@ def wait(beg_ms, until_sec):
         exit(1)
 
 def json_count(path):
-    obj = json.load(open(path))
+    obj = path
+
+    if isinstance(path, str):
+        obj = json.load(open(path))
+
     links = obj.get('links', [])
     nodes = {}
     for link in links:
