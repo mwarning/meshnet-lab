@@ -45,6 +45,7 @@ Notes:
 
 - max. 120 nodes for the laptop
 - max. 250 nodes for the server
+- the host can probably support more nodes if the topology has less links
 
 ## Convergence1 Test
 
@@ -79,13 +80,11 @@ Notes:
 - Test setup:
   1. 50 nodes are distributed on a 1km x 1km square
   2. 150 nearest links are established
-  3. after 10/30 seconds, 200 pings are send from a random source node to random destination node
+  3. after 10/30 seconds, 200 pings are send from a random source node to random destination node (over 2s)
   4. all nodes now move 0-10/30/60m in a random direction
   5. continue at step 2
-- some pings cannot reach the destination, so 100% is only based on the actual possible limit (no duplicates or reverse paths are choosen)
 - the higher a line, the better
-- bmx7 is at the baseline, because in this test it does not do routing
-- yggdrasil uses a dedicated tun0 interface, as such, in can perform below the one hop baseline
+- bmx7 is at the baseline, because in this test, it does no routing
 - the data for each graph takes 1 hour to generate
 
 ## Mobility 2 Test
@@ -98,8 +97,7 @@ Notes:
       1. move nodes in random directions of current distance
       2. 150 nearest links are established
       3. wait 10 seconds
-      4. 200 pings are send from a random source node to random destination node
-      5. the percentage of the arrived pings is added to the score value
+      4. 200 pings are send from a random source node to random destination node (over 2s)
 - the data takes 1.5 hours to generate
 
 ## Scalability1 Test
