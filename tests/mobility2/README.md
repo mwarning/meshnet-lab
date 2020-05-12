@@ -8,7 +8,6 @@ Test nodes move around randomly and form new connections.
     2. 150 nearest links are established
     3. wait 10 seconds
     4. 200 pings are send from a random source node to random destination node
-    5. the percentage of the arrived pings is added to the score value
 
 The graphs contain the arrival rate and traffic rate progress as well as statistic.
 
