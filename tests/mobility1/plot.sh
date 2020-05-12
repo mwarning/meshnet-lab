@@ -12,9 +12,9 @@ for step_duration in 10 30; do
 			set terminal png size 1280,960; \
 			set output '${prefix}mobility1-${step_duration}-${step_distance}_arrival_progress.png'; \
 			set key spacing 2 font 'Helvetica, 18' center right; \
-			set xlabel 'Time [s]'; \
+			set xlabel '${step_duration}s steps [-]'; \
 			set ylabel 'packet arrival [%]'; \
-			set yrange [-2:102]; \
+			set yrange [0:100]; \
 			set termoption lw 3; \
 			plot \
 			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
