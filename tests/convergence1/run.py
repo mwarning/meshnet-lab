@@ -47,8 +47,8 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.sleep(offset)
 
-			paths = tools.get_random_paths(state, 200)
-			paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count)
+			paths = tools.get_random_paths(state, 2 * 200)
+			paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count, path_count=200)
 			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
 
 			traffic_end = tools.traffic()

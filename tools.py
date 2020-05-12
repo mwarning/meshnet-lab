@@ -121,7 +121,7 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
-def filter_paths(network, paths, min_hops=1, max_hops=math.inf):
+def filter_paths(network, paths, min_hops=1, max_hops=math.inf, path_count=None):
     dijkstra = Dijkstra(network)
 
     filtered = []
@@ -129,6 +129,14 @@ def filter_paths(network, paths, min_hops=1, max_hops=math.inf):
         d = dijkstra.find_shortest_distance(path[0], path[1])
         if d >= min_hops and d <= max_hops:
             filtered.append(path)
+
+    if path_count is not None:
+        if len(filtered) < path_count:
+            eprint('Only {len(filtered)} paths left after filtering. Required were at least {path_count}.')
+            exit(1)
+
+        if len(filtered) > path_count:
+            filtered = filtered[:path_count]
 
     return filtered
 
