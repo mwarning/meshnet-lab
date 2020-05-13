@@ -5306,6 +5306,51 @@
       "source": 91,
       "target": 307,
       "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "306",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "304",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "251",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "230",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "101",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "115",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "191",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "208",
+      "type": "vpn"
+    },
+    {
+      "source": "interconnect-0",
+      "target": "297",
+      "type": "vpn"
     }
   ],
   "nodes": [
