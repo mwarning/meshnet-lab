@@ -126,8 +126,8 @@ def set_addr4(nsname, interface, prefix_len):
 
 def pkill(pname):
     matched = 0
-    for i in range(0, 6):
-        signal = '-SIGTERM' if i < 4 else '-SIGKILL'
+    for w in [0, 50, 250, 1000, 2000, 4000]:
+        signal = '-SIGTERM' if w < 2000 else '-SIGKILL'
         out = subprocess.Popen(['pkill', '-c', signal, '-x', pname], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         count = int(out.communicate()[0])
 
@@ -137,9 +137,9 @@ def pkill(pname):
         if out.returncode != 0:
             return matched
 
-        time.sleep(i * i * 0.05)
+        time.sleep(w / 1000)
 
-    eprint(f'Failed to kill {nsname}')
+    eprint(f'Failed to kill {pname}')
     exit(1)
 
 def start_cjdns_instances(nsnames):
