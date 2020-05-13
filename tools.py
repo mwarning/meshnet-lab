@@ -12,26 +12,26 @@ import os
 import re
 
 
-def convert_network(network):
-    nodes = {}
+def _convert_to_neighbors(network):
+    neighbors = {}
 
     # create a structure we can use efficiently
     for node in network.get('nodes', []):
-        nodes.setdefault(str(node['id']), [])
+        neighbors.setdefault(str(node['id']), [])
 
     for link in network.get('links', []):
         source = str(link['source'])
         target = str(link['target'])
-        nodes.setdefault(source, []).append(target)
-        nodes.setdefault(target, []).append(source)
+        neighbors.setdefault(source, []).append(target)
+        neighbors.setdefault(target, []).append(source)
 
-    return nodes
+    return neighbors
 
 class Dijkstra:
     def __init__(self, network):
         self.dists_cache = {}
         self.prevs_cache = {}
-        self.nodes = convert_network(network)
+        self.nodes = _convert_to_neighbors(network)
 
     def find_shortest_distance(self, source, target):
         source = str(source)
@@ -121,11 +121,36 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
-def get_biggest_cluster(network):
-    neighbors = {}
+def make_connected(network):
+    neighbors = _convert_to_neighbors(network)
+    clusters = _get_clusters_sets(neighbors)
+
+    def get_unique_id(neighbors, i = 0):
+        if f'interconnect-{i}' not in neighbors:
+             return f'interconnect-{i}'
+        else:
+            return get_unique_id(neighbors, i + 1)
+
+    def get_center_node(neighbors, cluster):
+        max_neighbors = 0
+        center_node = None
+        for sid, neighs in neighbors.items():
+            if sid in cluster and len(neighs) >= max_neighbors:
+                max_neighbors = len(neighs)
+                center_node = sid
+        return center_node
+
+    if len(clusters) > 1:
+        central = get_unique_id(neighbors)
+
+        # connect all clusters via central node
+        for cluster in clusters:
+            center = get_center_node(neighbors, cluster)
+            network['links'].append({'source': central, 'target': center, 'type': 'vpn'})
+
+def _get_clusters_sets(neighbors):
     visited = {}
 
-    neighbors = convert_network(network)
     for node in neighbors:
         visited[node] = False
 
@@ -136,25 +161,15 @@ def get_biggest_cluster(network):
             if not visited[neighbor]:
                 dfs(neighbor, cluster)
 
-    cluster = set()
+    clusters = []
     for node in visited:
         if not visited[node]:
-            c = set()
-            dfs(node, c)
-            if len(c) > len(cluster):
-                cluster = c
+            cluster = set()
+            dfs(node, cluster)
+            clusters.append(cluster)
 
-    links = []
-    for link in network.get('links', []):
-        if str(link['source']) in cluster or str(link['target']) in cluster:
-            links.append(link)
-
-    nodes = []
-    for node in network.get('nodes', []):
-        if str(node['id']) in cluster:
-            nodes.append(node)
-
-    return {'nodes': nodes, 'links': links}
+    sorted(clusters, key=lambda cluster: len(cluster))
+    return clusters
 
 def filter_paths(network, paths, min_hops=1, max_hops=math.inf, path_count=None):
     dijkstra = Dijkstra(network)
@@ -336,7 +351,7 @@ def get_random_paths(network=None, count=10, seed=None):
         # all ns-* network namespaces
         nodes = [x[3:] for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
     else:
-        nodes = list(convert_network(network).keys())
+        nodes = list(_convert_to_neighbors(network).keys())
 
     if len(nodes) < 2 and count > 0:
         eprint('Not enough nodes to get any pairs!')
