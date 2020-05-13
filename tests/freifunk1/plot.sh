@@ -11,9 +11,8 @@ gnuplot -e "
 	set output '${prefix}freifunk1_traffic_stats.png'; \
 	set key spacing 3 font 'Helvetica, 18'; \
 	set style data histogram; \
-	set style histogram cluster gap 1; \
+	set style histogram cluster gap 3; \
 	set style fill solid border -1; \
-	set xlabel ''; \
 	set ylabel 'tx per node [KB/s]'; \
 	set termoption lw 3; \
 	plot \
@@ -35,9 +34,8 @@ gnuplot -e "
 	set output '${prefix}freifunk1_arrival_stats.png'; \
 	set key spacing 3 font 'Helvetica, 18'; \
 	set style data histogram; \
-	set style histogram cluster gap 1; \
+	set style histogram cluster gap 3; \
 	set style fill solid border -1; \
-	set xlabel ''; \
 	set ylabel 'packet arrival [%]'; \
 	set termoption lw 3; \
 	plot \
