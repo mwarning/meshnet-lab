@@ -43,11 +43,8 @@ def run(protocol, csvfile):
 	for path in sorted(glob.glob(f'../../data/freifunk/*.json')):
 		state = tools.load_json(path)
 
-		# Freifunk data contains a lot of unconnected nodes (due to missing link data)
-		state = tools.get_biggest_cluster(state)
-
 		(node_count, link_count) = tools.json_count(state)
-		dataset_name = os.path.basename(path)[9:-5]
+		dataset_name = '{}-{:04d}'.format(os.path.basename(path)[9:-5], node_count)
 
 		# limit to what the host can handle
 		if node_count > 310:
