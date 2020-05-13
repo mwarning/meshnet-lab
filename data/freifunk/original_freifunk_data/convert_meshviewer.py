@@ -6,10 +6,14 @@ import json
 import sys
 import os
 
+sys.path.append('../../../')
+import tools
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input", help="Input meshviewer file.")
 parser.add_argument('--formatted', action="store_true", help="Formatted JSON output data.")
+parser.add_argument('--connected', action="store_true", help="Create a connected network.")
 args = parser.parse_args()
 
 # map to give each node a short number
@@ -83,7 +87,12 @@ with open(args.input, "r") as file:
 			if link_id(link) not in links:
 				links[link_id(link)] = link
 
+network = {'nodes': list(nodes.values()), 'links': list(links.values())}
+
+if args.connected:
+	tools.make_connected(network)
+
 if args.formatted:
-	json.dump({'nodes': list(nodes.values()), 'links': list(links.values())}, sys.stdout, indent="  ", sort_keys = True)
+	json.dump(network, file, indent="  ", sort_keys = True)
 else:
-	json.dump({'nodes': list(nodes.values()), 'links': list(links.values())}, sys.stdout, sort_keys = True)
+	json.dump(network, sys.stdout, sort_keys = True)
