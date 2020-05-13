@@ -93,6 +93,6 @@ if args.connected:
 	tools.make_connected(network)
 
 if args.formatted:
-	json.dump(network, file, indent="  ", sort_keys = True)
+	json.dump(network, sys.stdout, indent="  ", sort_keys = True)
 else:
 	json.dump(network, sys.stdout, sort_keys = True)
