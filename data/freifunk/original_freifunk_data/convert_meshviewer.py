@@ -33,6 +33,10 @@ with open(args.input, "r") as file:
 	obj = json.load(file)
 
 	for node in obj['nodes']:
+		if 'is_online' in node:
+			if not node['is_online']:
+				continue
+
 		e = {'id': len(nodes)}
 
 		if 'location' in node:
@@ -42,6 +46,7 @@ with open(args.input, "r") as file:
 				e['x'] = float(x)
 				e['y'] = float(y)
 
+
 		if 'hostname' in node:
 			e['name'] = node['hostname']
 
@@ -50,6 +55,12 @@ with open(args.input, "r") as file:
 	for link in obj['links']:
 		source = link['source']
 		target = link['target']
+
+		if source not in nodes:
+			continue
+
+		if target not in nodes:
+			continue
 
 		e = {
 			'source': nodes[source]['id'],
@@ -69,17 +80,23 @@ with open(args.input, "r") as file:
 
 	# add gateway nodes/links
 	for node in obj['nodes']:
+		if 'is_online' in node:
+			if not node['is_online']:
+				continue
+
 		gateway = node.get('gateway')
 		nexthop = node.get('gateway_nexthop')
 		if gateway is not None and nexthop is not None:
 			gw_node_id = gateway.replace(':', '')
+			node_id = node['node_id']
+
 			# add gateway
 			if gw_node_id not in nodes:
 				nodes[gw_node_id] = {'id': len(nodes), 'name': gw_node_id}
 
 			link = {
 				'source': nodes[gw_node_id]['id'],
-				'target': nodes[node['node_id']]['id'],
+				'target': nodes[node_id]['id'],
 				'type': 'vpn'
 			}
 
