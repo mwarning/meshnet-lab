@@ -25,7 +25,8 @@ def get_tc_command(link, ifname):
 
 def run(protocol, files, csvfile):
 	for path in sorted(glob.glob(files)):
-		(node_count, link_count) = tools.json_count(path)
+		state = tools.load_json(path)
+		(node_count, link_count) = tools.json_count(state)
 
 		# Limit node count to 300
 		if node_count > 300:
@@ -33,7 +34,7 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, link_command=get_tc_command)
+		network.change(from_state='none', to_state=state, link_command=get_tc_command)
 
 		tools.sleep(10)
 
@@ -46,7 +47,8 @@ def run(protocol, files, csvfile):
 		start_ms = tools.millis()
 		traffic_beg = tools.traffic()
 
-		paths = tools.get_random_paths(count=200)
+		paths = tools.get_random_paths(state, 2 * 200)
+		paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
 		ping_result = tools.ping_paths(paths=paths, duration_ms=300000, verbosity='verbose')
 
 		traffic_ms = tools.millis() - start_ms

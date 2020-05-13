@@ -63,7 +63,7 @@ def run(protocol, csvfile):
 		traffic_beg = tools.traffic()
 
 		paths = tools.get_random_paths(state, 2 * node_count)
-		paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count, path_count=node_count)
+		paths = tools.filter_paths(state, paths, min_hops=2, path_count=node_count)
 		ping_result = tools.ping_paths(paths=paths, duration_ms=300000, verbosity='verbose')
 
 		sysload_result = tools.sysload()

@@ -64,7 +64,7 @@ def run(protocol, csvfile):
 			tools.wait(wait_beg_ms, 10)
 
 			paths = tools.get_random_paths(state, 2 * 200)
-			paths = tools.filter_paths(state, paths, min_hops=2, max_hops=node_count, path_count=200)
+			paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
 			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
 
 			packets_arrived_pc = 100 * (ping_result.received / ping_result.send)

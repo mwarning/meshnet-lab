@@ -25,11 +25,12 @@ def get_tc_command(link, ifname):
 
 def run(protocol, csvfile):
 	for path in sorted(glob.glob(f'../../data/grid4/*.json')):
-		(node_count, link_count) = tools.json_count(path)
+		state = tools.load_json(path)
+		(node_count, link_count) = tools.json_count(state)
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=path, link_command=get_tc_command)
+		network.change(from_state='none', to_state=state, link_command=get_tc_command)
 		tools.sleep(10)
 
 		software_start_ms = tools.millis()
@@ -38,7 +39,9 @@ def run(protocol, csvfile):
 
 		tools.sleep(30)
 
-		ping_result = tools.ping(count=link_count, duration_ms=30000, verbosity='verbose')
+		paths = tools.get_random_paths(state, 2 * link_count)
+		paths = tools.filter_paths(state, paths, min_hops=2, path_count=link_count)
+		ping_result = tools.ping_paths(paths=paths, duration_ms=30000, verbosity='verbose')
 
 		sysload_result = tools.sysload()
 
