@@ -29,7 +29,6 @@ Routing Software:
 * bmx6 (v1.0 / 12.05.2018 / d8869ec69797)
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
-* `none` only works for one hop destinations. It serves as baseline.
 
 ## Topologies
 
