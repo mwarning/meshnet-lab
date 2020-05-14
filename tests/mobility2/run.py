@@ -72,7 +72,7 @@ def run(protocol, csvfile):
 
 			# add data to csv file
 			extra = (['node_count', 'time_ms', 'step_distance_m', 'n', 'packets_arrived_pc'], [node_count, tools.millis() - wait_beg_ms, step_distance, n, packets_arrived_pc])
-			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData())
+			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result.getData())
 
 			traffic_beg = traffic_end
 
