@@ -54,6 +54,13 @@ Most commands need root. So we assume all commands are execute as root:
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`.
 
+## Software Components
+
+`network.py` creates a network topology from a description in JSON.
+`software.py` starts routing protocol software in all namespaces.
+`topology.py` creates JSON files with descriptions of common topologies.
+`tools.py` contains tools to create ping statistics and to measure traffic.
+
 ## Add Traffic Control
 
 The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to be used to configure the kernel packet scheduler.
@@ -113,6 +120,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Related Projects
 
+- [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/)
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
 - [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
