@@ -30,6 +30,8 @@ Routing Software:
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
 
+Note: I was not able to get bmx7 working in the test setup. As such, please ignore any bmx7 results for now!
+
 ## Topologies
 
 An overview of the tested topologies can be found [here](../data/README.md).
@@ -61,7 +63,6 @@ Notes:
 - batman-adv can not reach 100% on a line, since the maximum hop count is 32
 - cjdns struggles a bit, at about 30 seconds there seem to be a reconfiguration
 - yggdrasil has the best start performance
-- bmx7 does not route any packets except if it goes to a direct neighbor, the reasons are unknown
 - these three graphs take about 8 hours to generate
 
 ## Mobility1 Test
