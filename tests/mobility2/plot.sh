@@ -58,7 +58,7 @@ gnuplot -e "
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
-		file = 'mobility2-'.protocols[i].'.csv'; \
+		file = '${prefix}mobility2-'.protocols[i].'.csv'; \
 		stats file using (column('packets_arrived_pc')) nooutput; \
 		SUM[i] = STATS_sum / STATS_records; \
 	}; \
@@ -83,7 +83,7 @@ gnuplot -e "
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
 		node_count = 50; \
-		file = 'mobility2-'.protocols[i].'.csv'; \
+		file = '${prefix}mobility2-'.protocols[i].'.csv'; \
 		stats file using (column('tx_bytes')) nooutput; \
 		tx_bytes_sum = STATS_sum; \
 		stats file using (column('time_ms')) nooutput; \
