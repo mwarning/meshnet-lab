@@ -65,7 +65,7 @@ def format_link_command(command, link, direction, ifname):
     else:
         command = command.replace('{{ifname}}', ifname)
         for key, value in node.items():
-            command = command.replace('{{{}}}'.format(key), str(value))
+            command = command.replace(f'{{key}}', str(value))
 
         return command
 
@@ -76,7 +76,7 @@ def format_node_command(command, node):
     else:
         command = command.replace('{{ifname}}', 'uplink')
         for key, value in node.items():
-            command = command.replace('{{{}}}'.format(key), str(value))
+            command = command.replace(f'{{key}}', str(value))
 
         return command
 
@@ -99,7 +99,7 @@ def create_node(node, node_command):
     name = str(node['id'])
 
     if verbosity == 'verbose':
-        print('  create node {}'.format(name))
+        print(f'  create node {name}')
 
     nsname = f'ns-{name}'
     brname = f'br-{name}'
@@ -223,7 +223,7 @@ def _process_json(json_data):
     for node in json_data.get('nodes', []):
         name = str(node['id'])
         if len(name) > 6:
-            eprint('Node name too long: {}'.format(name))
+            eprint(f'Node name too long: {name}')
             exit(1)
 
         nodes[name] = node
@@ -394,5 +394,5 @@ if __name__ == '__main__':
     elif args.action == 'change':
         change(args.from_state, args.to_state, args.node_command, args.link_command)
     else:
-        eprint('Invalid command: {}'.format(args.action))
+        eprint(f'Invalid command: {args.action}')
         exit(1)

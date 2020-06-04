@@ -20,25 +20,25 @@ def _exec(cmd, detach=False, ignore_error=False):
 
     if verbosity == 'verbose':
         if detach:
-            rc = os.system('({}) &'.format(cmd))
+            rc = os.system(f'({cmd}) &')
         else:
-            rc = os.system('({})'.format(cmd))
+            rc = os.system(f'({cmd})')
     elif verbosity == 'normal':
         if detach:
-            rc = os.system('({}) > /dev/null &'.format(cmd))
+            rc = os.system(f'({cmd}) > /dev/null &')
         else:
-            rc = os.system('({}) > /dev/null'.format(cmd))
+            rc = os.system(f'({cmd}) > /dev/null')
     elif verbosity == 'quiet':
         if detach:
-            rc = os.system('({}) > /dev/null 2>&1 &'.format(cmd))
+            rc = os.system(f'({cmd}) > /dev/null 2>&1 &')
         else:
-            rc = os.system('({}) > /dev/null 2>&1'.format(cmd))
+            rc = os.system(f'({cmd}) > /dev/null 2>&1')
     else:
-        eprint('Abort, invalid verbosity: {}'.format(verbosity))
+        eprint(f'Abort, invalid verbosity: {verbosity}')
         exit(1)
 
     if rc != 0 and not ignore_error:
-        eprint('Abort, command failed: {}'.format(cmd))
+        eprint(f'Abort, command failed: {cmd}')
         #todo: kill routing programs!
         #print('Cleanup done')
         exit(1)
