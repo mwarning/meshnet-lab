@@ -532,7 +532,7 @@ if __name__ == '__main__':
     parser_ping.add_argument('--input', default=None, help='JSON state of the network.')
     parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping.')
     parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping.')
-    parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings.')
+    parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser_ping.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
 
     args = parser.parse_args()
