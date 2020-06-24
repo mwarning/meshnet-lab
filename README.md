@@ -1,6 +1,6 @@
 # Mesh Network Lab
 
-Emulate a mesh network of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
+Emulate mobile ad-hoc mesh networks of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
 
 Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on this interface will be received on the uplinks of all connected namespaces. Different network characteristics like bandwidth, packet loss, latency and others can be set using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)).
 
@@ -88,10 +88,34 @@ Notes:
 - `source_` and `target_` prefixes are omitted
 - `ifname` is always provided
 
+## Distributed Execution
+
+Emulating a lot of nodes can bring a single computer to its limits. Use `network.py --remotes <json-file> ...` to distribute the mesh network on several remotes. The SSH login as root to these computers must be passwordless.
+
+Example remotes.json:
+```
+[
+    {"address": "192.168.44.133"},
+    {"address": "192.168.44.135"}
+]
+```
+(Note: You can also specifiy a SSH `identity_file`)
+
+### SSH Connection Sharing
+
+To speed up SSH connections a lot, add this to your `~/.ssh/config`:
+
+```
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h-%p
+    ControlPersist 600
+```
+(Note: make sure directory `~/.ssh/sockets/` exists)
+
 ## Limitations
 
 - no support for multiple connections between two nodes (multigraphs)
-- emulation is limited to one computer
 - only one mesh interface per node/namespace
 - no discrete event simulation that can run faster than real time
 - computer performance might influence results
@@ -134,6 +158,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Related Projects
 
+- [CORE](https://github.com/coreemu/core): Common Open Research Emulator
 - [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/)
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)

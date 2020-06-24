@@ -3,7 +3,6 @@
 import random
 import datetime
 import argparse
-import subprocess
 import json
 import math
 import time
@@ -11,27 +10,20 @@ import sys
 import os
 import re
 
+from shared import (
+    eprint, create_process, exec, get_remote_mapping, millis,
+    default_remotes, convert_to_neighbors, stop_all_terminals
+)
 
-def _convert_to_neighbors(network):
-    neighbors = {}
 
-    # create a structure we can use efficiently
-    for node in network.get('nodes', []):
-        neighbors.setdefault(str(node['id']), [])
-
-    for link in network.get('links', []):
-        source = str(link['source'])
-        target = str(link['target'])
-        neighbors.setdefault(source, []).append(target)
-        neighbors.setdefault(target, []).append(source)
-
-    return neighbors
-
+'''
+Dijkstra shortest path algorithm
+'''
 class Dijkstra:
     def __init__(self, network):
         self.dists_cache = {}
         self.prevs_cache = {}
-        self.nodes = _convert_to_neighbors(network)
+        self.nodes = convert_to_neighbors(network)
 
     def find_shortest_distance(self, source, target):
         source = str(source)
@@ -122,7 +114,7 @@ class Dijkstra:
         self.prevs_cache[initial] = prevs
 
 def make_connected(network):
-    neighbors = _convert_to_neighbors(network)
+    neighbors = convert_to_neighbors(network)
     clusters = _get_clusters_sets(neighbors)
 
     def get_unique_id(neighbors, i = 0):
@@ -190,9 +182,6 @@ def filter_paths(network, paths, min_hops=1, max_hops=math.inf, path_count=None)
 
     return filtered
 
-def eprint(s):
-    sys.stderr.write(s + '\n')
-
 def root():
     if os.geteuid() != 0:
         eprint('Need to run as root.')
@@ -231,18 +220,23 @@ def json_count(path):
         nodes[link['source']] = 0;
         nodes[link['target']] = 0;
     links = obj.get('links', [])
+
     return (len(nodes), len(links))
 
-def sysload():
-    p = subprocess.Popen(['uptime'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    (out, err) = p.communicate()
-    t = out.decode().split('load average:')[1].split(',')
-    load1 = t[0].strip()
-    load5 = t[1].strip()
-    load15 = t[2].strip()
+def sysload(remotes=default_remotes):
+    load1 = 0
+    load5 = 0
+    load15 = 0
+
+    for remote in remotes:
+        stdout = exec(remote, 'uptime', get_output=True)[0]
+        t = stdout.split('load average:')[1].split(',')
+        load1 += float(t[0])
+        load5 += float(t[1])
+        load15 += float(t[2])
 
     titles = ['load1', 'load5', 'load15']
-    values = [load1, load5, load15]
+    values = [load1 / len(remotes), load5 / len(remotes), load15 / len(remotes)]
 
     return (titles, values)
 
@@ -290,17 +284,18 @@ class _Traffic:
         ts.tx_collsns = self.tx_collsns - other.tx_collsns
         return ts
 
-def traffic(nsnames=None):
+def traffic(remotes=default_remotes, nsnames=None):
+    rmap = get_remote_mapping(remotes)
+
     if nsnames is None:
-        nsnames = [x for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
+        nsnames = list(rmap.keys())
 
     ts = _Traffic()
 
     for nsname in nsnames:
-        command = ['ip', 'netns', 'exec', nsname , 'ip', '-statistics', 'link', 'show', 'dev', 'uplink']
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        (output, err) = process.communicate()
-        lines = output.decode().split('\n')
+        remote = rmap[nsname]
+        stdout = exec(remote, f'ip netns exec {nsname} ip -statistics link show dev uplink', get_output=True)[0]
+        lines = stdout.split('\n')
         link_toks = lines[1].split()
         rx_toks = lines[3].split()
         tx_toks = lines[5].split()
@@ -341,17 +336,13 @@ def csv_update(file, delimiter, *args):
 
     file.write(delimiter.join(values) + '\n')
 
-# get time in milliseconds
-def millis():
-    return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
-
 # get random node pairs (unique, no self, no reverses)
 def get_random_paths(network=None, count=10, seed=None):
     if network is None:
         # all ns-* network namespaces
         nodes = [x[3:] for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
     else:
-        nodes = list(_convert_to_neighbors(network).keys())
+        nodes = list(convert_to_neighbors(network).keys())
 
     if len(nodes) < 2 and count > 0:
         eprint('Not enough nodes to get any pairs!')
@@ -380,28 +371,28 @@ Return an IP address of the interface in this preference order:
 3. IPv6 link local
 4. IPv4 link local
 '''
-def _get_ip_address(id, interface):
+def _get_ip_address(remote, node_id, interface):
     lladdr6 = None
     lladdr4 = None
 
-    with os.popen('ip netns exec "ns-{}" ip addr list dev {}'.format(id, interface)) as file:
-        lines = file.read().split('\n')
+    stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{node_id}" ip addr list dev {interface}', get_output=True)
+    lines = stdout.split('\n')
 
-        for line in lines:
-            if 'inet ' in line:
-                addr4 = line.split()[1].split('/')[0]
-                if addr4.startswith('169.254.'):
-                    lladdr4 = addr4
-                else:
-                    return addr4
+    for line in lines:
+        if 'inet ' in line:
+            addr4 = line.split()[1].split('/')[0]
+            if addr4.startswith('169.254.'):
+                lladdr4 = addr4
+            else:
+                return addr4
 
-        for line in lines:
-            if 'inet6 ' in line:
-                addr6 = line.split()[1].split('/')[0]
-                if addr6.startswith('fe80:'):
-                    lladdr6 = addr6
-                else:
-                    return addr6
+    for line in lines:
+        if 'inet6 ' in line:
+            addr6 = line.split()[1].split('/')[0]
+            if addr6.startswith('fe80:'):
+                lladdr6 = addr6
+            else:
+                return addr6
 
     if lladdr6 is not None:
         return lladdr6
@@ -439,17 +430,19 @@ def _parse_ping(output):
 
     return ret
 
-def ping(count=10, duration_ms=1000, verbosity='normal', seed=None):
+def _get_interface(remote, source):
+    # some protocols use their own interface as entry point to the mesh
+    for interface in ['bat0', 'tun0']:
+        rcode = exec(remote, f'ip netns exec ns-{source} ip addr list dev {interface}', get_output=True, ignore_error=True)[2]
+        if rcode == 0:
+            return interface
+    return 'uplink'
+
+def ping(count=10, duration_ms=1000, remotes=default_remotes, verbosity='normal', seed=None):
     paths = get_random_paths(network=None, count=count, seed=seed)
     return ping_paths(paths, duration_ms, verbosity)
 
-def ping_paths(paths, duration_ms=1000, verbosity='normal'):
-    def get_interface(source):
-        # some protocols use their own interface as entry point to the mesh
-        for ifce in ['bat0', 'tun0']:
-            if os.system(f'ip netns exec ns-{source} ip addr list dev {ifce} > /dev/null 2>&1') == 0:
-                return ifce
-        return 'uplink'
+def ping_paths(paths, duration_ms=1000, remotes=default_remotes, verbosity='normal'):
 
     ping_deadline=1
     ping_count=1
@@ -457,6 +450,7 @@ def ping_paths(paths, duration_ms=1000, verbosity='normal'):
     interface = None
     start_ms = millis()
     started = 0
+    rmap = get_remote_mapping(remotes)
     path_count = len(paths)
     while started < path_count:
         # number of expected tests to have been run
@@ -467,21 +461,23 @@ def ping_paths(paths, duration_ms=1000, verbosity='normal'):
                     break
                 (source, target) = paths.pop()
 
-                if interface is None:
-                    interface = get_interface(source)
+                source_remote = rmap[f'ns-{source}']
+                target_remote = rmap[f'ns-{target}']
 
-                target_addr = _get_ip_address(target, interface)
+                if interface is None:
+                    interface = _get_interface(source_remote, source)
+
+                target_addr = _get_ip_address(target_remote, target, interface)
 
                 if target_addr is None:
-                    eprint('Cannot get address of {} in ns-{}'.format(interface, target))
+                    eprint(f'Cannot get address of {interface} in ns-{target}')
                     # count as started
                     started += 1
                 else:
                     if verbosity == 'verbose':
                         print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface))
 
-                    command = ['ip', 'netns', 'exec', f'ns-{source}' ,'ping', '-c', f'{ping_count}', '-w', f'{ping_deadline}', '-D', target_addr]
-                    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D {target_addr}')
                     processes.append(process)
                     started += 1
         else:
