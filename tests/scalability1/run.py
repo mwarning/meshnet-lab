@@ -10,12 +10,10 @@ import network
 import tools
 
 
-tools.root()
-software.clear()
-network.clear()
+remotes= [{}] #[{'address': '192.168.44.133'}, {'address': '192.168.44.137'}]
 
-# need to open more files (especially for traffic measurement processes)
-os.system('ulimit -Sn 4096')
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -34,12 +32,12 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=state, link_command=get_tc_command)
+		network.change(from_state='none', to_state=state, link_command=get_tc_command, remotes=remotes)
 
 		tools.sleep(10)
 
 		software_start_ms = tools.millis()
-		software.start(protocol)
+		software.start(protocol, remotes)
 		software_startup_ms = tools.millis() - software_start_ms
 
 		tools.sleep(300)
@@ -49,15 +47,15 @@ def run(protocol, files, csvfile):
 
 		paths = tools.get_random_paths(state, 2 * 200)
 		paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
-		ping_result = tools.ping_paths(paths=paths, duration_ms=300000, verbosity='verbose')
+		ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
 		traffic_ms = tools.millis() - start_ms
 		traffic_end = tools.traffic()
 
-		sysload_result = tools.sysload()
+		sysload_result = tools.sysload(remotes)
 
-		software.stop(protocol)
-		network.clear()
+		software.clear(remotes)
+		network.clear(remotes)
 
 		# add data to csv file
 		extra = (['node_count', 'traffic_ms', 'software_startup_ms'], [node_count, traffic_ms, software_startup_ms])
@@ -67,3 +65,5 @@ for name in ['line', 'grid4', 'rtree']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 		with open(f"{prefix}scalability1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, f"../../data/{name}/*.json", csvfile)
+
+tools.stop_all_terminals()
