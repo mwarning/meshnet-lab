@@ -118,14 +118,14 @@ Notes:
 
 ## Connectivity1 Test
 
-This is a pure numerical test of the percolation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
+This is a pure numerical test related to the percolation theory. Nodes are distributed randomly in an area and given increasing range. The connectivity (% of possible connections) is measured.
 
 ![image](laptop/connectivity1/connectivity1.png)
 ![image](laptop/connectivity1/connectivity1_sd.png)
 
 Notes:
 
-- this is called Gilbert's random disk model
+- based on Gilbert's random disk model
 - the connectivity rises exponentionally
 - the standard deviation decreases very quickly near 100%
 - further reading: [Insights From Percolation Theory](https://inthemesh.com/archive/from-mocha-to-mesh-insights-from-percolation-theory/)
