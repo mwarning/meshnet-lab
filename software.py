@@ -368,11 +368,11 @@ def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         exit(1)
 
 def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
-    could = 0
+    count = 0
     beg_ms = millis()
 
     if protocol == 'batman-adv':
-        could = stop_batmanadv_instances(nsnames, rmap)
+        count = stop_batmanadv_instances(nsnames, rmap)
     elif protocol == 'yggdrasil':
         count = stop_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'babel':
