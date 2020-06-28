@@ -72,6 +72,7 @@ cd OONF-*
 cmake .
 make
 make install
+ln -s /usr/local/sbin/olsrd2_static /usr/local/sbin/olsrd2
 
 # install cjdns
 cd $WD
