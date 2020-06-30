@@ -67,13 +67,22 @@ def set_addr4(remote, nsname, interface, prefix_len):
         interface
     ))
 
-def count_instances(rmap, program):
+def count_instances(protocol, rmap):
     remotes = {value.get('address', 'local'): value for key, value in rmap.items()}.values()
+    program = {'batman-adv': None, 'yggdrasil': 'yggdrasil', 'babel': 'babeld',
+        'olsr1': 'olsrd', 'olsr2': 'olsrd2', 'cjdns': 'cjdroute'}[protocol]
+
+    # workaround for batman-adv
+    if program is None:
+        return len(rmap)
+
+    # Hack, otherwise pgrep will not count all process on the next try.
+    # To sleep for a few seconds does not help, there is probably a bug.
+    for remote in remotes:
+        exec(remote, f'pgrep -c {program} || true')
+
+    # TODO: count in namespaces!
     count = 0
-
-    #for nsname, remote in rmap.items():
-    #    count += int(exec(remote, f'pgrep -c --nslist {nsname} {program} || true', get_output=True)[0].strip())
-
     for remote in remotes:
         count += int(exec(remote, f'pgrep -c {program} || true', get_output=True)[0].strip())
 
@@ -93,8 +102,6 @@ def start_cjdns_instances(nsnames, rmap):
         exec(remote, f'cjdroute --genconf > /tmp/cjdns-{nsname}.conf')
         exec(remote, f'ip netns exec "{nsname}" nohup cjdroute > /dev/null 2> /dev/null < /tmp/cjdns-{nsname}.conf &')
 
-    return count_instances(rmap, 'cjdroute')
-
 def stop_cjdns_instances_all(remotes):
     for remote in remotes:
         exec(remote, f'pkill -SIGKILL -x cjdroute || true')
@@ -106,11 +113,8 @@ def stop_cjdns_instances(nsnames, rmap):
         exec(remote, f'pkill -SIGKILL -x cjdroute --nslist {nsname} || true')
         exec(remote, f'rm -f /tmp/cjdns-{nsname}.conf')
 
-    return count_instances(rmap, 'cjdroute')
-
 def start_yggdrasil_instances(nsnames, rmap):
     config = 'AdminListen: none'
-
     for nsname in nsnames:
         remote = rmap[nsname]
 
@@ -118,14 +122,12 @@ def start_yggdrasil_instances(nsnames, rmap):
             print(f'start yggdrasil in {nsname}')
 
         # Create a configuration file
-        exec(remote, f'echo -e "{config}" > /tmp/yggdrasil-{nsname}.conf')
+        exec(remote, f'echo "{config}" > /tmp/yggdrasil-{nsname}.conf')
 
         # yggdrasil uses a tun0 interface, uplink only needs an fe80:* address
         interface_down(remote, nsname, 'uplink')
         interface_up(remote, nsname, 'uplink')
         exec(remote, f'ip netns exec "{nsname}" nohup yggdrasil -useconffile /tmp/yggdrasil-{nsname}.conf > /dev/null 2> /dev/null < /dev/null &')
-
-    return count_instances(rmap, 'yggdrasil')
 
 def stop_yggdrasil_instances_all(remotes):
     for remote in remotes:
@@ -137,8 +139,6 @@ def stop_yggdrasil_instances(nsnames, rmap):
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x yggdrasil --nslist {nsname} || true')
         exec(remote, f'rm -f /tmp/yggdrasil-{nsname}.conf')
-
-    return count_instances(rmap, 'yggdrasil')
 
 def start_batmanadv_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -154,14 +154,10 @@ def start_batmanadv_instances(nsnames, rmap):
         exec(remote, f'ip netns exec "{nsname}" batctl meshif "bat0" interface add "uplink"')
         interface_up(remote, nsname, 'bat0')
 
-    return len(nsnames) # we cheat a bit here
-
 def stop_batmanadv_instances(nsnames, rmap):
     for nsname in nsnames:
         remote = rmap[nsname]
         exec(remote, f'ip netns exec "{nsname}" batctl meshif "bat0" interface del "uplink" || true')
-
-    return len(nsnames) # we cheat a bit here
 
 def start_babel_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -177,8 +173,6 @@ def start_babel_instances(nsnames, rmap):
         set_addr6(remote, nsname, 'uplink', 64)
         exec(remote, f'ip netns exec "{nsname}" babeld -D -I /tmp/babel-{nsname}.pid "uplink"')
 
-    return count_instances(rmap, 'babeld')
-
 def stop_babel_instances_all(remotes):
     for remote in remotes:
         exec(remote, f'pkill -SIGKILL -x babeld || true')
@@ -189,8 +183,6 @@ def stop_babel_instances(nsnames, rmap):
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x babeld --nslist {nsname} || true')
         exec(remote, f'rm -f /tmp/babel-{nsname}.pid')
-
-    return count_instances(rmap, 'babeld')
 
 def start_olsr1_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -208,8 +200,6 @@ def start_olsr1_instances(nsnames, rmap):
         set_addr4(remote, nsname, 'uplink', 32)
         exec(remote, f'ip netns exec "{nsname}" olsrd -d 0 -i "uplink" -f /dev/null')
 
-    return count_instances(rmap, 'olsrd')
-
 def stop_olsr1_instances_all(remotes):
     for remote in remotes:
         exec(remote, f'pkill -SIGKILL -x olsrd || true')
@@ -218,8 +208,6 @@ def stop_olsr1_instances(nsnames, rmap):
     for nsname in nsnames:
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x olsrd --nslist {nsname} || true')
-
-    return count_instances(rmap, 'olsrd')
 
 def start_olsr2_instances(nsnames, rmap):
     config = (
@@ -247,15 +235,13 @@ def start_olsr2_instances(nsnames, rmap):
             print(f'start olsr2 in {address}/{nsname}')
 
         # Create a configuration file
-        exec(remote, f'echo -e "{config}" > /tmp/olsrd2-{nsname}.conf')
+        exec(remote, f'echo "{config}" > /tmp/olsrd2-{nsname}.conf')
 
         # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
         interface_down(remote, nsname, 'uplink')
         interface_up(remote, nsname, 'uplink')
         set_addr6(remote, nsname, 'uplink', 128)
         exec(remote, f'ip netns exec "{nsname}" olsrd2 "uplink" --load /tmp/olsrd2-{nsname}.conf')
-
-    return count_instances(rmap, 'olsrd2')
 
 def stop_olsr2_instances_all(remotes):
     for remote in remotes:
@@ -267,8 +253,6 @@ def stop_olsr2_instances(nsnames, rmap):
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x olsrd2 --nslist {nsname} || true')
         exec(remote, f'rm -f /tmp/olsrd2-{nsname}.conf')
-
-    return count_instances(rmap, 'olsrd2')
 
 def start_bmx7_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -283,8 +267,6 @@ def start_bmx7_instances(nsnames, rmap):
         set_addr6(remote, nsname, 'uplink', 128)
         exec(remote, f'ip netns exec "{nsname}" bmx7 --runtimeDir /tmp/bmx7_{nsname} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{nsname}/rsa.der --trustedNodesDir=/tmp/bmx7_{nsname}/trusted dev=uplink')
 
-    return count_instances(rmap, 'bmx7')
-
 def stop_bmx7_instances_all(remotes):
     for remote in remotes:
         exec(remote, f'pkill -SIGKILL -x bmx7 || true')
@@ -295,8 +277,6 @@ def stop_bmx7_instances(nsnames, rmap):
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x bmx7 --nslist {nsname} || true')
         exec(remote, f'rm -rf /tmp/bmx7_{nsname}')
-
-    return count_instances(rmap, 'bmx7')
 
 def start_bmx6_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -310,8 +290,6 @@ def start_bmx6_instances(nsnames, rmap):
         interface_up(remote, nsname, 'uplink')
         exec(remote, f'ip netns exec "{nsname}" bmx6 --runtimeDir /tmp/bmx6_{nsname} dev=uplink')
 
-    return count_instances(rmap, 'bmx6')
-
 def stop_bmx6_instances_all(remotes):
     for remote in remotes:
         exec(remote, f'pkill -SIGKILL -x bmx6 || true')
@@ -323,10 +301,8 @@ def stop_bmx6_instances(nsnames, rmap):
         exec(remote, f'pkill -SIGKILL -x bmx6 --nslist {nsname} || true')
         exec(remote, f'rm -rf /tmp/bmx6_{nsname}')
 
-    return count_instances(rmap, 'bmx6')
-
 def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
-    count = 0
+    beg_count = count_instances(protocol, rmap)
     beg_ms = millis()
 
     for nsname in nsnames:
@@ -334,59 +310,61 @@ def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         interface_up(remote, nsname, 'uplink', ignore_error)
 
     if protocol == 'batman-adv':
-        count = start_batmanadv_instances(nsnames, rmap)
+        start_batmanadv_instances(nsnames, rmap)
     elif protocol == 'yggdrasil':
-        count = start_yggdrasil_instances(nsnames, rmap)
+        start_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'babel':
-        count = start_babel_instances(nsnames, rmap)
+        start_babel_instances(nsnames, rmap)
     elif protocol == 'olsr1':
-        count = start_olsr1_instances(nsnames, rmap)
+        start_olsr1_instances(nsnames, rmap)
     elif protocol == 'olsr2':
-        count = start_olsr2_instances(nsnames, rmap)
+        start_olsr2_instances(nsnames, rmap)
     elif protocol == 'bmx6':
-        count = start_bmx6_instances(nsnames, rmap)
+        start_bmx6_instances(nsnames, rmap)
     elif protocol == 'bmx7':
-        count = start_bmx7_instances(nsnames, rmap)
+        start_bmx7_instances(nsnames, rmap)
     elif protocol == 'cjdns':
-        count = start_cjdns_instances(nsnames, rmap)
+        start_cjdns_instances(nsnames, rmap)
     elif protocol == 'none':
         return
     else:
         eprint(f'Error: unknown routing protocol: {protocol}')
         exit(1)
 
-    # wait for tasks to complete
     wait_for_completion()
 
     end_ms = millis()
-    if verbosity != 'quiet':
-        print('Started {} {} instances in {}'.format(count, protocol, format_duration(end_ms - beg_ms)))
+    end_count = count_instances(protocol, rmap)
 
+    count = end_count - beg_count
     if count != len(nsnames):
         eprint(f'Error: Failed to start {protocol} instances: {count}/{len(nsnames)} started')
         stop_all_terminals()
         exit(1)
 
+    if verbosity != 'quiet':
+        print('Started {} {} instances in {}'.format(count, protocol, format_duration(end_ms - beg_ms)))
+
 def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
-    count = 0
+    beg_count = count_instances(protocol, rmap)
     beg_ms = millis()
 
     if protocol == 'batman-adv':
-        count = stop_batmanadv_instances(nsnames, rmap)
+        stop_batmanadv_instances(nsnames, rmap)
     elif protocol == 'yggdrasil':
-        count = stop_yggdrasil_instances(nsnames, rmap)
+        stop_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'babel':
-        count = stop_babel_instances(nsnames, rmap)
+        stop_babel_instances(nsnames, rmap)
     elif protocol == 'olsr1':
-        count = stop_olsr1_instances(nsnames, rmap)
+        stop_olsr1_instances(nsnames, rmap)
     elif protocol == 'olsr2':
-        count = stop_olsr2_instances(nsnames, rmap)
+        stop_olsr2_instances(nsnames, rmap)
     elif protocol == 'bmx6':
-        count = stop_bmx6_instances(nsnames, rmap)
+        stop_bmx6_instances(nsnames, rmap)
     elif protocol == 'bmx7':
-        count = stop_bmx7_instances(nsnames, rmap)
+        stop_bmx7_instances(nsnames, rmap)
     elif protocol == 'cjdns':
-        count = stop_cjdns_instances(nsnames, rmap)
+        stop_cjdns_instances(nsnames, rmap)
     elif protocol == 'none':
         pass
     else:
@@ -400,12 +378,15 @@ def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
     wait_for_completion()
 
     end_ms = millis()
-    if not ignore_error and verbosity != 'quiet':
-        print('Stopped {} {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
+    end_count = count_instances(protocol, rmap)
 
+    count = beg_count - end_count
     if count != len(nsnames):
         eprint(f'Error: Failed to stop {protocol} instances: {count}/{len(nsnames)} left')
         exit(1)
+
+    if not ignore_error and verbosity != 'quiet':
+        print('Stopped {} {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
 def _get_nsnames(rmap, from_state, to_state):
     if isinstance(from_state, str):
@@ -538,8 +519,6 @@ if __name__ == '__main__':
         start_routing_protocol(args.protocol, rmap, new_nsnames)
     elif args.action == 'clear':
         clear(args.remotes)
-        #for protocol in protocol_choices:
-        #    stop_routing_protocol(protocol, rmap, old_nsnames, True)
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)

@@ -12,8 +12,8 @@ default_remotes = [{}] # local
 terminals = {} # terminals (SSH/local)
 
 
-def eprint(s):
-    sys.stderr.write(s + '\n')
+def eprint(message):
+    sys.stderr.write(f'{message}\n')
 
 # get time in milliseconds
 def millis():
@@ -48,17 +48,15 @@ class TerminalThread(threading.Thread):
         self.remote = remote
         self.finish = False
         self.queue = queue.Queue()
-        self.output_event = threading.Event()
-        self.output = None
+        self.output_lock = threading.Lock()
+        self.output = {}
         self.start()
 
     def run(self):
         while True:
             try:
-                self.output_event.clear()
-
                 # might raise Empty
-                (ignore_error, command) = self.queue.get(True, 1)
+                (ignore_error, get_output, command) = self.queue.get(block=True, timeout=1)
 
                 p = create_process(self.remote, command)
 
@@ -66,48 +64,46 @@ class TerminalThread(threading.Thread):
                 stdout = std.decode()
                 errout = err.decode()
 
-                #print('{} ({}, {}): {}'.format(self.remote.get("address"), self.queue.qsize(), ignore_error, command))
-
                 if p.returncode != 0 and not ignore_error:
                     address = self.remote.get('address', 'local')
                     eprint(errout)
                     eprint(stdout)
                     eprint(f'Abort, command failed on {address}: {command}')
                     eprint('Network might be in an undefined state!')
-
-                    # make sure the main thread can exit, too
-                    self.output_event.set()
                     exit(1)
 
-                if self.queue.empty():
-                    self.output = (stdout, errout, p.returncode)
-                    self.output_event.set()
+                if get_output and self.queue.empty():
+                    self.output_lock.acquire()
+                    self.output[command] = (stdout, errout, p.returncode)
+                    self.output_lock.release()
             except queue.Empty:
                 # try again or finish loop
                 if self.finish:
                     break
             except Exception as e:
                 eprint(e)
-                # make sure the main thread can exit, too
-                self.output_event.set()
                 exit(1)
 
 def exec(remote, command, get_output=False, ignore_error=False):
     i = id(remote)
 
+    if not type(remote) is dict:
+        print("Remote not a dict! {}".format(remote))
+        exit(1)
+
     if i not in terminals:
         terminals[i] = TerminalThread(remote)
 
-    terminals[i].queue.put((ignore_error, command))
+    t = terminals[i]
+    t.queue.put((ignore_error, get_output, command))
 
-    if get_output:
-        t = terminals[i]
-        t.output_event.wait()
-        if t.output is None:
-            exit(1)
-        return t.output
-    else:
-        return None
+    while get_output:
+        t.output_lock.acquire()
+        result = t.output.pop(command, None)
+        t.output_lock.release()
+        if result:
+            return result
+        time.sleep(0.05)
 
 '''
 The open terminal threads block our
