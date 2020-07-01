@@ -10,12 +10,8 @@ import network
 import tools
 
 
-tools.root()
 software.clear()
 network.clear()
-
-# need to open more files (especially for traffic measurement processes)
-os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -45,7 +41,7 @@ def run(protocol, csvfile):
 
 		sysload_result = tools.sysload()
 
-		software.stop(protocol)
+		software.clear()
 
 		# add data to csv file
 		extra = (['node_count', 'software_startup_ms'], [node_count, software_startup_ms])
@@ -60,3 +56,5 @@ def run(protocol, csvfile):
 for protocol in ['babel', 'batman-adv', 'yggdrasil']:
 	with open(f"{prefix}benchmark1-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
+
+tools.stop_all_terminals()

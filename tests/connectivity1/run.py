@@ -15,8 +15,6 @@ import tools
 
 prefix = os.environ.get('PREFIX', '')
 
-os.system('ulimit -Sn 4096')
-
 def get_all_paths(node_count):
 	paths = []
 	for i in range(0, node_count):
@@ -85,3 +83,5 @@ def run(node_count, csvfile):
 for node_count in [10, 20, 30, 40, 50]:
 	with open(f'{prefix}connectivity1-{node_count}.csv', 'w+') as csvfile:
 		run(node_count, csvfile)
+
+tools.stop_all_terminals()

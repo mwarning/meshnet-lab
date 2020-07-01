@@ -10,12 +10,8 @@ import network
 import tools
 
 
-tools.root()
 software.clear()
 network.clear()
-
-# need to open more files (especially for traffic measurement processes)
-os.system('ulimit -Sn 4096')
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -56,7 +52,7 @@ def run(protocol, files, csvfile):
 
 			sysload_result = tools.sysload()
 
-			software.stop(protocol)
+			software.clear()
 
 			# add data to csv file
 			extra = (['node_count', 'traffic_ms', 'software_ms', 'offset_ms'], [node_count, traffic_ms, software_ms, offset * 1000])
@@ -69,3 +65,5 @@ for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json
 		name = file.split('/')[-2]
 		with open(f"{prefix}convergence1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, file, csvfile)
+
+tools.stop_all_terminals()

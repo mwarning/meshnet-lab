@@ -17,12 +17,8 @@ import tools
 
 prefix = os.environ.get('PREFIX', '')
 
-tools.root()
 software.clear()
 network.clear()
-
-os.system('ulimit -Sn 4096')
-
 
 # 100MBit LAN cable
 def get_tc_command(link, ifname):
@@ -76,10 +72,12 @@ def run(protocol, csvfile):
 
 			traffic_beg = traffic_end
 
-	software.stop(protocol)
+	software.clear()
 	network.clear()
 
 # remove none, after it has been verified to be 0% (also for mobility1)
 for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 	with open(f"{prefix}mobility2-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
+
+tools.stop_all_terminals()

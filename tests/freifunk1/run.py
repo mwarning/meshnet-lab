@@ -10,12 +10,10 @@ import network
 import tools
 
 
-tools.root()
-software.clear()
-network.clear()
+remotes = [{}] #[{'address': '192.168.44.133'}, {'address': '192.168.44.137'}]
 
-# need to open more files (especially for traffic measurement processes)
-os.system('ulimit -Sn 4096')
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -52,10 +50,10 @@ def run(protocol, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		state = network.change(from_state='none', to_state=state, link_command=get_tc_command)
+		state = network.change(remotes=remotes, from_state='none', to_state=state, link_command=get_tc_command)
 		tools.sleep(10)
 
-		software.start(protocol)
+		software.start(protocol, remotes)
 
 		tools.sleep(300)
 
@@ -64,20 +62,22 @@ def run(protocol, csvfile):
 
 		paths = tools.get_random_paths(state, 2 * node_count)
 		paths = tools.filter_paths(state, paths, min_hops=2, path_count=node_count)
-		ping_result = tools.ping_paths(paths=paths, duration_ms=300000, verbosity='verbose')
+		ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
 		sysload_result = tools.sysload()
 
 		traffic_ms = tools.millis() - start_ms
 		traffic_end = tools.traffic()
-		software.stop(protocol)
+		software.clear(remotes)
 
 		# add data to csv file
 		extra = (['dataset_name', 'node_count', 'traffic_ms'], [dataset_name, node_count, traffic_ms])
 		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result.getData(), sysload_result)
 
-		network.clear()
+		network.clear(remotes)
 
 for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 	with open(f"{prefix}freifunk1-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
+
+tools.stop_all_terminals()

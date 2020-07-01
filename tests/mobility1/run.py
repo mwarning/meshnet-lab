@@ -17,11 +17,8 @@ import tools
 
 prefix = os.environ.get('PREFIX', '')
 
-tools.root()
 software.clear()
 network.clear()
-
-os.system('ulimit -Sn 4096')
 
 # 100MBit LAN cable
 def get_tc_command(link, ifname):
@@ -71,7 +68,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 		extra = (['node_count', 'time_ms'], [node_count, tools.millis() - test_beg_ms])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData())
 
-	software.stop(protocol)
+	software.clear()
 	network.clear()
 
 for step_duration in [10, 30]:
@@ -79,3 +76,5 @@ for step_duration in [10, 30]:
 		for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 			with open(f"{prefix}mobility1-{step_duration}-{step_distance}-{protocol}.csv", 'w+') as csvfile:
 				run(protocol, csvfile, step_duration, step_distance)
+
+tools.stop_all_terminals()
