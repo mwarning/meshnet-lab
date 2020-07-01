@@ -30,7 +30,9 @@ JSON keys:
 
 ## Usage
 
-Most commands need root. So we assume all commands are execute as root:
+First you need to have at least one routing protocol available. Batman-adv is already in the Linux kernel, so you only need to install the batctl package. There is a [script](misc/setup.sh) to install all routing protocols.
+
+This is a minimal test:
 
 ```
 # Create a 10x10 grid and write it to a file called graph.json
@@ -52,7 +54,9 @@ Most commands need root. So we assume all commands are execute as root:
 ./network.py change graph.json none
 ```
 
-As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`.
+As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
+
+A collections of automated tests with data plot image generation is available in the tests subfolder.
 
 ## Software Components
 
@@ -103,6 +107,7 @@ Example remotes.json:
 
 ### SSH Connection Sharing
 
+Distributed emulation uses SSH to execute commands on remote hosts.
 To speed up SSH connections a lot, add this to your `~/.ssh/config`:
 
 ```
@@ -158,8 +163,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Related Projects
 
-- [CORE](https://github.com/coreemu/core): Common Open Research Emulator
-- [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/)
+- [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
+- [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandened)
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
 - [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
