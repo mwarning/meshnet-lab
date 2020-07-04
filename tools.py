@@ -336,14 +336,7 @@ def csv_update(file, delimiter, *args):
 
     file.write(delimiter.join(values) + '\n')
 
-# get random node pairs (unique, no self, no reverses)
-def get_random_paths(network=None, count=10, seed=None):
-    if network is None:
-        # all ns-* network namespaces
-        nodes = [x[3:] for x in os.popen('ip netns list').read().split() if x.startswith('ns-')]
-    else:
-        nodes = list(convert_to_neighbors(network).keys())
-
+def _get_random_paths(nodes, count=10, seed=None):
     if len(nodes) < 2 and count > 0:
         eprint('Not enough nodes to get any pairs!')
         exit(1)
@@ -363,6 +356,11 @@ def get_random_paths(network=None, count=10, seed=None):
         return [decode(items, i) for i in random.sample(range(n * (n - 1) // 2), npairs)]
 
     return rand_pairs(nodes, count)
+
+# get random node pairs (unique, no self, no reverses)
+def get_random_paths(network=None, count=10, seed=None):
+    nodes = list(convert_to_neighbors(network).keys())
+    return _get_random_paths(nodes=nodes, count=count, seed=seed)
 
 '''
 Return an IP address of the interface in this preference order:
@@ -438,12 +436,7 @@ def _get_interface(remote, source):
             return interface
     return 'uplink'
 
-def ping(count=10, duration_ms=1000, remotes=default_remotes, verbosity='normal', seed=None):
-    paths = get_random_paths(network=None, count=count, seed=seed)
-    return ping_paths(paths, duration_ms, verbosity)
-
 def ping_paths(paths, duration_ms=1000, remotes=default_remotes, verbosity='normal'):
-
     ping_deadline=1
     ping_count=1
     processes = []
@@ -522,27 +515,46 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, verbosity='norm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     subparsers = parser.add_subparsers(dest='action', required=True)
 
     parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
-    parser_ping.add_argument('--input', default=None, help='JSON state of the network.')
-    parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping.')
-    parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping.')
+    parser_ping.add_argument('--input', help='JSON state of the network.')
+    parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping. Needs --input.')
+    parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping. Needs --input.')
     parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser_ping.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
 
     args = parser.parse_args()
 
-    if args.action == 'ping':
-        paths = []
-        if args.input is None:
-            paths = get_random_paths(None, args.pings)
-        else:
-            state = json.load(args.input)
-            paths = get_random_paths(state, args.pings)
-            paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
+    if args.remotes:
+        with open(args.remotes) as file:
+            args.remotes = json.load(file)
+    else:
+        args.remotes = default_remotes
 
-        ping_paths(paths=paths, duration_ms=args.duration, verbosity='verbose')
+    # need root for local setup
+    for remote in args.remotes:
+        if remote.get('address') is None:
+            if os.geteuid() != 0:
+                eprint('Need to run as root.')
+                exit(1)
+
+    if args.action == 'ping':
+        paths = None
+
+        if args.input:
+            state = json.load(args.input)
+            paths = get_random_paths(network=state, count=args.pings)
+            paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
+        else:
+            rmap = get_remote_mapping(args.remotes)
+            nodes = [key[3:] for key in rmap.keys()]
+            paths = _get_random_paths(nodes=nodes, count=args.pings)
+
+        ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, verbosity='verbose')
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
+
+    stop_all_terminals()
