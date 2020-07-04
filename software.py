@@ -68,25 +68,28 @@ def set_addr4(remote, nsname, interface, prefix_len):
     ))
 
 def count_instances(protocol, rmap):
-    remotes = {value.get('address', 'local'): value for key, value in rmap.items()}.values()
-    program = {'batman-adv': None, 'yggdrasil': 'yggdrasil', 'babel': 'babeld',
-        'olsr1': 'olsrd', 'olsr2': 'olsrd2', 'cjdns': 'cjdroute'}[protocol]
+    if protocol == 'batman-adv':
+        count = 0
+        for (nsname, remote) in rmap.items():
+            rcode = exec(remote, f'ip netns exec {nsname} ip a l dev bat0', get_output=True, ignore_error=True)[2]
+            if rcode == 0:
+                count += 1
+        return count
+    else:
+        remotes = {value.get('address', 'local'): value for key, value in rmap.items()}.values()
+        program = {'yggdrasil': 'yggdrasil', 'babel': 'babeld', 'olsr1': 'olsrd', 'olsr2': 'olsrd2', 'bmx6': 'bmx6', 'bmx7': 'bmx7', 'cjdns': 'cjdroute'}[protocol]
 
-    # workaround for batman-adv
-    if program is None:
-        return len(rmap)
+        # Hack, otherwise pgrep will not count all process on the next try.
+        # To sleep for a few seconds does not help, there is probably a bug.
+        for remote in remotes:
+            exec(remote, f'pgrep -c {program} || true')
 
-    # Hack, otherwise pgrep will not count all process on the next try.
-    # To sleep for a few seconds does not help, there is probably a bug.
-    for remote in remotes:
-        exec(remote, f'pgrep -c {program} || true')
+        # TODO: count in namespaces!
+        count = 0
+        for remote in remotes:
+            count += int(exec(remote, f'pgrep -c {program}', get_output=True, ignore_error=True)[0].strip())
 
-    # TODO: count in namespaces!
-    count = 0
-    for remote in remotes:
-        count += int(exec(remote, f'pgrep -c {program} || true', get_output=True)[0].strip())
-
-    return count
+        return count
 
 def start_cjdns_instances(nsnames, rmap):
     for nsname in nsnames:
