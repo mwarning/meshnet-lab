@@ -53,7 +53,7 @@ gnuplot -e "
 gnuplot -e "
 	set grid; \
 	set term png; \
-	set terminal png size 1280,960; \
+	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_arrival_stats.png'; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
@@ -77,7 +77,7 @@ gnuplot -e "
 gnuplot -e "
 	set grid; \
 	set term png; \
-	set terminal png size 1280,960; \
+	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_traffic_stats.png'; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
