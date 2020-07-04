@@ -56,7 +56,7 @@ This is a minimal test:
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
 
-A collections of automated tests with data plot image generation is available in the tests subfolder.
+A collections of automated tests with data plot image generation is available in the [tests](tests/) subfolder.
 
 ## Software Components
 
