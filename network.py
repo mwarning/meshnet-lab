@@ -514,9 +514,6 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None, rem
 
     # add "switch" namespace
     if len(from_state) == 0:
-        #if verbosity == 'normal':
-        #    print('  create "switch"')
-
         for remote in remotes:
             # add switch if it does not exist yet
             exec(remote, 'ip netns add "switch" || true')
@@ -554,7 +551,7 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None, rem
     end_ms = millis()
 
     if verbosity != 'quiet':
-        print('Done in {}:'.format(format_duration(end_ms - beg_ms)))
+        print('Network setup in {}:'.format(format_duration(end_ms - beg_ms)))
         print(f'  nodes: {len(data.nodes_create)} created, {len(data.nodes_remove)} removed, {len(data.nodes_update)} updated')
         print(f'  links: {len(data.links_create)} created, {len(data.links_remove)} removed, {len(data.links_update)} updated')
 
