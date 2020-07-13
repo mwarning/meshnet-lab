@@ -466,10 +466,25 @@ def clear(remotes=default_remotes):
     #for protocol in protocol_choices:
     #    stop_routing_protocol(protocol, rmap, nsnames, True)
 
+def run(command, rmap, quiet=False):
+    for (nsname, remote) in rmap.items():
+        if quiet:
+            exec(remote, f'ip netns exec "{nsname}" {command}', get_output=False, ignore_error=True)
+        else:
+            stdout, stderr, rcode = exec(remote, f'ip netns exec "{nsname}" {command}', get_output=True, ignore_error=True)
+
+            if stdout or stderr:
+                print(f'{nsname}')
+                if stdout:
+                    print(stdout)
+                if stderr:
+                    eprint(stderr)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser.set_defaults(from_state='none', to_state='none')
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
     parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
@@ -487,8 +502,13 @@ if __name__ == '__main__':
     parser_change.add_argument('from_state', nargs='?', default='none', help='From state')
     parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
+    parser_run = subparsers.add_parser('exec', help='Execute any command in every namespace.')
+    parser_run.add_argument('command', help='Shell command that is run.')
+    parser_run.add_argument('--quiet', action='store_true', help='Do not output stdout and stderr.')
+    parser_run.add_argument('from_state', nargs='?', default='none', help='From state')
+    parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
+
     parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
-    parser_clear.set_defaults(from_state='none', to_state='none')
 
     args = parser.parse_args()
 
@@ -522,6 +542,8 @@ if __name__ == '__main__':
         start_routing_protocol(args.protocol, rmap, new_nsnames)
     elif args.action == 'clear':
         clear(args.remotes)
+    elif args.action == 'run':
+        run(args.command, rmap, args.quiet)
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
