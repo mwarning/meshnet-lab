@@ -88,7 +88,7 @@ def exec(remote, command, get_output=False, ignore_error=False):
     i = id(remote)
 
     if not type(remote) is dict:
-        print("Remote not a dict! {}".format(remote))
+        print(f'Remote not a dict! {remote}')
         exit(1)
 
     if i not in terminals:

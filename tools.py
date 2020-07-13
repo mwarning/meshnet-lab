@@ -570,7 +570,7 @@ if __name__ == '__main__':
 
         ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, verbosity='verbose')
     else:
-        eprint('Unknown action: {}'.format(args.action))
+        eprint(f'Unknown action: {args.action}')
         exit(1)
 
     stop_all_terminals()
