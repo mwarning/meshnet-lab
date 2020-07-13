@@ -518,6 +518,9 @@ if __name__ == '__main__':
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     subparsers = parser.add_subparsers(dest='action', required=True)
 
+    parser_traffic = subparsers.add_parser('traffic', help='Measure mean traffic.')
+    parser_traffic.add_argument('--duration', type=int, help='Measurement duration in seconds.')
+
     parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
     parser_ping.add_argument('--input', help='JSON state of the network.')
     parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping. Needs --input.')
@@ -540,7 +543,20 @@ if __name__ == '__main__':
                 eprint('Need to run as root.')
                 exit(1)
 
-    if args.action == 'ping':
+    if args.action == 'traffic':
+        if args.duration:
+            ds = args.duration
+            ts_beg = traffic(args.remotes)
+            time.sleep(ds)
+            ts_end = traffic(args.remotes)
+            ts = ts_end - ts_beg
+            print(f'rx: {ts.rx_bytes / ds:.2f} Bytes/s, {ts.rx_packets / ds:.2f} packets/s, {ts.rx_dropped / ds:.2f} dropped')
+            print(f'tx: {ts.tx_bytes / ds:.2f} Bytes/s, {ts.tx_packets / ds:.2f} packets/s, {ts.tx_dropped / ds:.2f} dropped')
+        else:
+            ts = traffic(args.remotes)
+            print(f'rx: {ts.rx_bytes} Bytes / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
+            print(f'tx: {ts.tx_bytes} Bytes / {ts.tx_packets} packets / {ts.tx_dropped} dropped')
+    elif args.action == 'ping':
         paths = None
 
         if args.input:
