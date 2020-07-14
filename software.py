@@ -468,10 +468,12 @@ def clear(remotes=default_remotes):
 
 def run(command, rmap, quiet=False):
     for (nsname, remote) in rmap.items():
+        cmd = command.replace('{name}', nsname[3:])
+
         if quiet:
-            exec(remote, f'ip netns exec "{nsname}" {command}', get_output=False, ignore_error=True)
+            exec(remote, f'ip netns exec "{nsname}" {cmd}', get_output=False, ignore_error=True)
         else:
-            stdout, stderr, rcode = exec(remote, f'ip netns exec "{nsname}" {command}', get_output=True, ignore_error=True)
+            stdout, stderr, rcode = exec(remote, f'ip netns exec "{nsname}" {cmd}', get_output=True, ignore_error=True)
 
             if stdout or stderr:
                 print(f'{nsname}')
@@ -502,8 +504,8 @@ if __name__ == '__main__':
     parser_change.add_argument('from_state', nargs='?', default='none', help='From state')
     parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
-    parser_run = subparsers.add_parser('exec', help='Execute any command in every namespace.')
-    parser_run.add_argument('command', help='Shell command that is run.')
+    parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
+    parser_run.add_argument('command', help='Shell command that is run. {name} is replaced by the nodes name.')
     parser_run.add_argument('--quiet', action='store_true', help='Do not output stdout and stderr.')
     parser_run.add_argument('from_state', nargs='?', default='none', help='From state')
     parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
