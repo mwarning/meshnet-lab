@@ -38,19 +38,21 @@ This is a minimal test:
 # Create a 10x10 grid and write it to a file called graph.json
 ./topology.py grid4 10 10 > graph.json
 
-# Create Network
+# Create network
 ./network.py change none graph.json
 
-# Start Software
+# Start software
 ./software.py start batman-adv
 
-# Run Tests (see tests folder)
+# Run some test commands
 ./tools.py ping
+./tools.py traffic --duration 3
+./software.py run 'ip a && echo "Hello from inside node {name}"'
 
-# Stop Software
+# Stop software
 ./software.py stop batman-adv
 
-# Remove Network
+# Remove network
 ./network.py change graph.json none
 ```
 
@@ -65,7 +67,7 @@ A collections of automated tests with data plot image generation is available in
 * `topology.py` creates JSON files with descriptions of common topologies (grids, lines, loop, trees).
 * `tools.py` contains tools to create ping statistics and to measure traffic.
 
-The code is written for Python 3 and uses the `ip`,  `ping` and `pkill` commands.
+The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands.
 
 ## Add Traffic Control
 
