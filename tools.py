@@ -15,7 +15,6 @@ from shared import (
     default_remotes, convert_to_neighbors, stop_all_terminals
 )
 
-
 '''
 Dijkstra shortest path algorithm
 '''
@@ -284,17 +283,20 @@ class _Traffic:
         ts.tx_collsns = self.tx_collsns - other.tx_collsns
         return ts
 
-def traffic(remotes=default_remotes, nsnames=None):
+def traffic(remotes=default_remotes, nsnames=None, interface=None):
     rmap = get_remote_mapping(remotes)
 
     if nsnames is None:
         nsnames = list(rmap.keys())
 
+    if interface is None:
+        interface = 'uplink'
+
     ts = _Traffic()
 
     for nsname in nsnames:
         remote = rmap[nsname]
-        stdout = exec(remote, f'ip netns exec {nsname} ip -statistics link show dev uplink', get_output=True)[0]
+        stdout = exec(remote, f'ip netns exec {nsname} ip -statistics link show dev {interface}', get_output=True)[0]
         lines = stdout.split('\n')
         link_toks = lines[1].split()
         rx_toks = lines[3].split()
@@ -430,17 +432,16 @@ def _parse_ping(output):
 
 def _get_interface(remote, source):
     # some protocols use their own interface as entry point to the mesh
-    for interface in ['bat0', 'tun0']:
+    for interface in ['tun0', 'bat0']:
         rcode = exec(remote, f'ip netns exec ns-{source} ip addr list dev {interface}', get_output=True, ignore_error=True)[2]
         if rcode == 0:
             return interface
     return 'uplink'
 
-def ping_paths(paths, duration_ms=1000, remotes=default_remotes, verbosity='normal'):
+def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal'):
     ping_deadline=1
     ping_count=1
     processes = []
-    interface = None
     start_ms = millis()
     started = 0
     rmap = get_remote_mapping(remotes)
@@ -519,10 +520,12 @@ if __name__ == '__main__':
     subparsers = parser.add_subparsers(dest='action', required=True)
 
     parser_traffic = subparsers.add_parser('traffic', help='Measure mean traffic.')
+    parser_traffic.add_argument('--interface', help='Interface to measure traffic on.')
     parser_traffic.add_argument('--duration', type=int, help='Measurement duration in seconds.')
 
     parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
     parser_ping.add_argument('--input', help='JSON state of the network.')
+    parser_ping.add_argument('--interface', help='Interface to send data over (autodetected).')
     parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping. Needs --input.')
     parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping. Needs --input.')
     parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
@@ -546,14 +549,14 @@ if __name__ == '__main__':
     if args.action == 'traffic':
         if args.duration:
             ds = args.duration
-            ts_beg = traffic(args.remotes)
+            ts_beg = traffic(args.remotes, interface=args.interface)
             time.sleep(ds)
-            ts_end = traffic(args.remotes)
+            ts_end = traffic(args.remotes, interface=args.interface)
             ts = ts_end - ts_beg
             print(f'rx: {ts.rx_bytes / ds:.2f} Bytes/s, {ts.rx_packets / ds:.2f} packets/s, {ts.rx_dropped / ds:.2f} dropped')
             print(f'tx: {ts.tx_bytes / ds:.2f} Bytes/s, {ts.tx_packets / ds:.2f} packets/s, {ts.tx_dropped / ds:.2f} dropped')
         else:
-            ts = traffic(args.remotes)
+            ts = traffic(args.remotes, interface=args.interface)
             print(f'rx: {ts.rx_bytes} Bytes / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
             print(f'tx: {ts.tx_bytes} Bytes / {ts.tx_packets} packets / {ts.tx_dropped} dropped')
     elif args.action == 'ping':
@@ -568,7 +571,7 @@ if __name__ == '__main__':
             nodes = [key[3:] for key in rmap.keys()]
             paths = _get_random_paths(nodes=nodes, count=args.pings)
 
-        ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, verbosity='verbose')
+        ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose')
     else:
         eprint(f'Unknown action: {args.action}')
         exit(1)
