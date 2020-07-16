@@ -2,9 +2,9 @@
 
 Emulate mobile ad-hoc mesh networks of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
 
-Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on this interface will be received on the uplinks of all connected namespaces. Different network characteristics like bandwidth, packet loss, latency and others can be set using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)).
+Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on this interface will be received on the uplinks of all connected namespaces. Different network characteristics like bandwidth, packet loss, latency and others can be set using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)). Node mobility can is supported as well.
 
-This project is meant to test Mobile AdHoc Mesh routing protocols. Supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Check out the [test results](results/README.md).
+This project is meant to test Mobile AdHoc Mesh routing protocols. Out of the box supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Check out the [test results](results/README.md).
 
 Small example:
 ```
@@ -149,6 +149,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
   - `kworker/u32:1+bat_events` quickly becomes a single threaded bottleneck
     - change `create_singlethread_workqueue()` to `create_workqueue()` in `net/batman-adv/main.c` ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
+    - this seems to have a very little effect only
   - OGM paket TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
