@@ -172,3 +172,13 @@ def format_duration(time_ms):
         return '{}s'.format(int(s))
     else:
         return '{}ms'.format(int(ms))
+
+def format_size(bytes):
+    if bytes < 1000:
+        return f'{bytes:.2f} B'
+    elif bytes < 1000_000:
+        return f'{bytes / 1000:.2f} K'
+    elif bytes < 1000_000_000:
+        return f'{bytes / 1000_000:.2f} M'
+    else:
+        return f'{bytes / 1000_000_000:.2f} G'

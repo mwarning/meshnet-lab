@@ -553,8 +553,8 @@ if __name__ == '__main__':
             time.sleep(ds)
             ts_end = traffic(args.remotes, interface=args.interface)
             ts = ts_end - ts_beg
-            print(f'rx: {ts.rx_bytes / ds:.2f} Bytes/s, {ts.rx_packets / ds:.2f} packets/s, {ts.rx_dropped / ds:.2f} dropped')
-            print(f'tx: {ts.tx_bytes / ds:.2f} Bytes/s, {ts.tx_packets / ds:.2f} packets/s, {ts.tx_dropped / ds:.2f} dropped')
+            print(f'rx: {shared.format_size(ts.rx_bytes / ds)}/s, {ts.rx_packets / ds:.2f} packets/s, {ts.rx_dropped / ds:.2f} dropped')
+            print(f'tx: {shared.format_size(ts.tx_bytes / ds)}/s, {ts.tx_packets / ds:.2f} packets/s, {ts.tx_dropped / ds:.2f} dropped')
         else:
             ts = traffic(args.remotes, interface=args.interface)
             print(f'rx: {ts.rx_bytes} Bytes / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
