@@ -12,7 +12,8 @@ import re
 
 from shared import (
     eprint, create_process, exec, get_remote_mapping, millis,
-    default_remotes, convert_to_neighbors, stop_all_terminals
+    default_remotes, convert_to_neighbors, stop_all_terminals,
+    format_size
 )
 
 '''
@@ -283,8 +284,9 @@ class _Traffic:
         ts.tx_collsns = self.tx_collsns - other.tx_collsns
         return ts
 
-def traffic(remotes=default_remotes, nsnames=None, interface=None):
-    rmap = get_remote_mapping(remotes)
+def traffic(remotes=default_remotes, nsnames=None, interface=None, rmap=None):
+    if rmap is None:
+        rmap = get_remote_mapping(remotes)
 
     if nsnames is None:
         nsnames = list(rmap.keys())
@@ -547,18 +549,20 @@ if __name__ == '__main__':
                 exit(1)
 
     if args.action == 'traffic':
+        rmap = get_remote_mapping(args.remotes)
         if args.duration:
             ds = args.duration
-            ts_beg = traffic(args.remotes, interface=args.interface)
+            ts_beg = traffic(args.remotes, interface=args.interface, rmap=rmap)
             time.sleep(ds)
-            ts_end = traffic(args.remotes, interface=args.interface)
+            ts_end = traffic(args.remotes, interface=args.interface, rmap=rmap)
             ts = ts_end - ts_beg
-            print(f'rx: {shared.format_size(ts.rx_bytes / ds)}/s, {ts.rx_packets / ds:.2f} packets/s, {ts.rx_dropped / ds:.2f} dropped')
-            print(f'tx: {shared.format_size(ts.tx_bytes / ds)}/s, {ts.tx_packets / ds:.2f} packets/s, {ts.tx_dropped / ds:.2f} dropped')
+            n = ds * len(rmap)
+            print(f'rx: {format_size(ts.rx_bytes / n)}/s, {ts.rx_packets / n:.2f} packets/s, {ts.rx_dropped / n:.2f} dropped/s (avg. per node)')
+            print(f'tx: {format_size(ts.tx_bytes / n)}/s, {ts.tx_packets / n:.2f} packets/s, {ts.tx_dropped / n:.2f} dropped/s (avg. per node)')
         else:
-            ts = traffic(args.remotes, interface=args.interface)
-            print(f'rx: {ts.rx_bytes} Bytes / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
-            print(f'tx: {ts.tx_bytes} Bytes / {ts.tx_packets} packets / {ts.tx_dropped} dropped')
+            ts = traffic(args.remotes, interface=args.interface, rmap=rmap)
+            print(f'rx: {format_size(ts.rx_bytes)} / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
+            print(f'tx: {format_size(ts.tx_bytes)} / {ts.tx_packets} packets / {ts.tx_dropped} dropped')
     elif args.action == 'ping':
         paths = None
 
