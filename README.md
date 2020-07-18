@@ -40,17 +40,22 @@ This is a minimal test:
 
 # Create network
 ./network.py change none graph.json
+Network setup in 10.834s:
+  nodes: 100 created, 0 removed, 0 updated
+  links: 180 created, 0 removed, 0 updated
 
 # Start software
 ./software.py start batman-adv
+Started 100 batman-adv instances in 3.16s
 
-# Run some test commands
+# Run some test commands (output omitted)
 ./tools.py ping
 ./tools.py traffic --duration 3
 ./software.py run 'ip a && echo "Hello from inside node {name}"'
 
 # Stop software
 ./software.py stop batman-adv
+Stopped 100 batman-adv instances in 3.109s
 
 # Remove network
 ./network.py change graph.json none
