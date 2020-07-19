@@ -2,7 +2,7 @@
 
 Emulate mobile ad-hoc mesh networks of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
 
-Each namespace can run its own routing progam and sees a single `uplink` interface. A packet send on this interface will be received on the uplinks of all connected namespaces. Different network characteristics like bandwidth, packet loss, latency and others can be set using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)). Node mobility is supported as well.
+Supported is the emulation of different network characteristics like bandwidth, packet loss, latency and others using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)). Node mobility is supported as well. The emulation can run distributed on multiple computers and is lightweight enough to support >200 of nodes on a single desktop computer alone.
 
 This project is meant to test Mobile AdHoc Mesh routing protocols. Out of the box supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns). Check out the [test results](results/README.md).
 
@@ -32,7 +32,7 @@ JSON keys:
 
 First you need to have at least one routing protocol available. Batman-adv is already in the Linux kernel, so you only need to install the batctl package. There is a [script](misc/setup.sh) to install all routing protocols.
 
-This is a minimal test:
+Example run:
 
 ```
 # Create a 10x10 grid and write it to a file called graph.json
@@ -150,11 +150,11 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 ## Routing Protocol Notes
 
 - BATMAN-adv:
-  - needs batctl installed to configure
+  - needs batctl installed
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
   - `kworker/u32:1+bat_events` quickly becomes a single threaded bottleneck
     - change `create_singlethread_workqueue()` to `create_workqueue()` in `net/batman-adv/main.c` ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
-    - this seems to have a very little effect only
+    - this seems to have a very little effect
   - OGM paket TTL is 50 ([source](https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/net/batman-adv/main.h#l26))
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
