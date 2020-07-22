@@ -348,7 +348,7 @@ def _get_task(old_state, new_state):
     return task
 
 def show(remotes=default_remotes):
-    _check_root(remotes)
+    _check_root_needed(remotes)
 
     for remote_id, remote in enumerate(remotes):
         nodes = exec(remote, 'ip netns list', get_output=True)[0].count('ns-')
@@ -358,7 +358,7 @@ def show(remotes=default_remotes):
         print(f'{address}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
 
 def clear(remotes=default_remotes):
-    _check_root(remotes)
+    _check_root_needed(remotes)
 
     for remote in remotes:
         exec(remote, 'ip -all netns delete || true')
@@ -479,7 +479,7 @@ def _get_remote_mapping(from_state, to_state, remotes):
     # node_id => remote
     return partition_to_map(best_partition, remotes)
 
-def _check_root(remotes):
+def _check_root_needed(remotes):
     # need root for local setup
     for remote in remotes:
         if remote.get('address') is None:
@@ -489,7 +489,7 @@ def _check_root(remotes):
                 exit(1)
 
 def change(from_state={}, to_state={}, node_command=None, link_command=None, remotes=default_remotes):
-    _check_root(remotes)
+    _check_root_needed(remotes)
 
     if isinstance(from_state, str):
         if from_state == 'none':
