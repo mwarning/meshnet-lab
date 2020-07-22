@@ -132,18 +132,19 @@ def get_remote_mapping(remotes):
     return rmap
 
 # create a neighbor dict from a json network description
-def convert_to_neighbors(network):
+def convert_to_neighbors(*networks):
     neighbors = {}
 
-    # create a structure we can use efficiently
-    for node in network.get('nodes', []):
-        neighbors.setdefault(str(node['id']), [])
+    for network in networks:
+        # create a structure we can use efficiently
+        for node in network.get('nodes', []):
+            neighbors.setdefault(str(node['id']), [])
 
-    for link in network.get('links', []):
-        source = str(link['source'])
-        target = str(link['target'])
-        neighbors.setdefault(source, []).append(target)
-        neighbors.setdefault(target, []).append(source)
+        for link in network.get('links', []):
+            source = str(link['source'])
+            target = str(link['target'])
+            neighbors.setdefault(source, []).append(target)
+            neighbors.setdefault(target, []).append(source)
 
     return neighbors
 

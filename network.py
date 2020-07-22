@@ -369,10 +369,6 @@ def clear(remotes=default_remotes):
 Get a dict to map nodes to remote computers
 '''
 def _get_remote_mapping(from_state, to_state, remotes):
-    # local only
-    if remotes is default_remotes == 0:
-        return {}
-
     def partition_into_subgraph_nodes(neighbor_map, nodes, rmap, remotes):
         random.shuffle(nodes)
         # remote_id => [<node_ids>]
@@ -456,7 +452,7 @@ def _get_remote_mapping(from_state, to_state, remotes):
     '''
 
     # try multiple random (connected) partitions and select the best
-    neighbor_map = convert_to_neighbors(to_state)
+    neighbor_map = convert_to_neighbors(from_state, to_state)
     tries = 20
     lowest_variance = math.inf
     best_partition = []
@@ -544,7 +540,7 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None, rem
             print('  remove "switch"')
 
         for remote in remotes:
-            exec('ip netns del "switch" || true')
+            exec(remote, 'ip netns del "switch" || true')
 
     # wait for tasks to complete
     wait_for_completion()
