@@ -24,8 +24,8 @@ Small example:
 
 JSON keys:
 
-- `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long. `source` and `target` are interchangeable and have not special distinction.
-- A list of nodes can be added (e.g. `"nodes": [{"id": "a"}, {"id": "b"}]` to define variables for use in combination with `--node-command`.
+- `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long. `source` and `target` are interchangeable and have no special distinction.
+- An explicit node list can be added (e.g. `"nodes": [{"id": "a"}, {"id": "b"}]` to define node specific variables for use in combination with the `--node-command`.
 - Other data fields are ignored.
 
 ## Usage
@@ -63,7 +63,7 @@ Stopped 100 batman-adv instances in 3.109s
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
 
-A collections of automated tests with data plot image generation is available in the [tests](tests/) subfolder.
+A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder.
 
 ## Software Components
 
@@ -110,7 +110,7 @@ Example remotes.json:
     {"address": "192.168.44.135"}
 ]
 ```
-(Note: You can also specifiy a SSH `identity_file`)
+(Note: You can also specifiy a SSH `"identity_file"`)
 
 ### SSH Connection Sharing
 
@@ -164,7 +164,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - OLSR1 has buggy/broken IPv6 support, we use IPv4 instead
   - tested with olsr1 0.9.8
 - Babel has a maximum metric of 2^16 - 1, a single wired hop has a default metric of 96, a wireless hop with no packet loss has a metric of 256. That allows a maximum hop count of around 683 hops. ([source](https://alioth-lists.debian.net/pipermail/babel-users/2020-April/003688.html))
-  - `default rxcost 16` in the configuration file should help
+  - use `default rxcost 16` in the configuration file to configure the metric
 - Yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
   - encrypts traffic
 - CJDNS security can be disabled. Compile for speed using `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
