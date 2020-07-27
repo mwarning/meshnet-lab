@@ -10,8 +10,10 @@ import network
 import tools
 
 
-software.clear()
-network.clear()
+remotes= [{}] #[{'address': '192.168.44.133'}, {'address': '192.168.44.137'}]
+
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -26,28 +28,28 @@ def run(protocol, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=state, link_command=get_tc_command)
+		network.change(from_state='none', to_state=state, link_command=get_tc_command, remotes=remotes)
 		tools.sleep(10)
 
 		software_start_ms = tools.millis()
-		software.start(protocol)
+		software.start(protocol, remotes)
 		software_startup_ms = tools.millis() - software_start_ms
 
 		tools.sleep(30)
 
 		paths = tools.get_random_paths(state, 2 * link_count)
 		paths = tools.filter_paths(state, paths, min_hops=2, path_count=link_count)
-		ping_result = tools.ping_paths(paths=paths, duration_ms=30000, verbosity='verbose')
+		ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=30000, verbosity='verbose')
 
-		sysload_result = tools.sysload()
+		sysload_result = tools.sysload(remotes)
 
-		software.clear()
+		software.clear(software)
 
 		# add data to csv file
 		extra = (['node_count', 'software_startup_ms'], [node_count, software_startup_ms])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData(), sysload_result)
 
-		network.clear()
+		network.clear(software)
 
 		# abort benchmark when less then 40% of the pings arrive
 		if (ping_result.received / ping_result.transmitted) < 0.4:
