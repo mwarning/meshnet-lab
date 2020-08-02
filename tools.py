@@ -163,8 +163,14 @@ def _get_clusters_sets(neighbors):
     sorted(clusters, key=lambda cluster: len(cluster))
     return clusters
 
-def filter_paths(network, paths, min_hops=1, max_hops=math.inf, path_count=None):
+def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
     dijkstra = Dijkstra(network)
+
+    if min_hops is None:
+        min_hops = 1
+
+    if max_hops is None:
+        max_hops = math.inf
 
     filtered = []
     for path in paths:
@@ -532,8 +538,8 @@ if __name__ == '__main__':
     parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
     parser_ping.add_argument('--input', help='JSON state of the network.')
     parser_ping.add_argument('--interface', help='Interface to send data over (autodetected).')
-    parser_ping.add_argument('--min-hops', type=int, default=1, help='Minimum hops to ping. Needs --input.')
-    parser_ping.add_argument('--max-hops', type=int, default=math.inf, help='Maximum hops to ping. Needs --input.')
+    parser_ping.add_argument('--min-hops', type=int, help='Minimum hops to ping. Needs --input.')
+    parser_ping.add_argument('--max-hops', type=int, help='Maximum hops to ping. Needs --input.')
     parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser_ping.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
 
@@ -575,6 +581,10 @@ if __name__ == '__main__':
             paths = get_random_paths(network=state, count=args.pings)
             paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
         else:
+            if args.min_hops is not None or args.max_hops is not None:
+                eprint('No min/max hops available without topology information (--input)')
+                stop_all_terminals()
+                exit(1)
             rmap = get_remote_mapping(args.remotes)
             nodes = [key[3:] for key in rmap.keys()]
             paths = _get_random_paths(nodes=nodes, count=args.pings)
