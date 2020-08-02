@@ -340,9 +340,13 @@ def csv_update(file, delimiter, *args):
 
     file.write(delimiter.join(values) + '\n')
 
+'''
+Get list of random unique pairs (no self references, no different directions)
+'''
 def _get_random_paths(nodes, count=10, seed=None):
-    if len(nodes) < 2 and count > 0:
-        eprint('Not enough nodes to get any pairs!')
+    if count > (len(nodes) * (len(nodes) - 1) // 2):
+        eprint(f'Path count ({count}) too big to generate unique paths.')
+        stop_all_terminals()
         exit(1)
 
     if seed is not None:
