@@ -480,11 +480,9 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
                     # count as started
                     started += 1
                 else:
-                    if verbosity == 'verbose':
-                        print('[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface))
-
+                    debug = '[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface)
                     process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D {target_addr}')
-                    processes.append(process)
+                    processes.append((process, debug))
                     started += 1
         else:
             # sleep a small amount
@@ -501,7 +499,7 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
     ret = _PingResult()
 
     # wait/collect for results from pings (prolongs testing up to 1 second!)
-    for process in processes:
+    for (process, debug) in processes:
         process.wait()
         (output, err) = process.communicate()
         result = _parse_ping(output.decode())
@@ -511,6 +509,13 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
         ret.transmitted += result.transmitted
         ret.received += result.received
         ret.rtt_avg += result.rtt_avg
+
+        if verbosity != 'quiet':
+            if result.send != result.received:
+                print(f'{debug} => failed')
+            else:
+                # success
+                print(f'{debug}')
 
     ret.rtt_avg = 0 if ret.received == 0 else int(ret.rtt_avg / ret.received)
     result_duration_ms = stop1_ms - start_ms
@@ -585,6 +590,7 @@ if __name__ == '__main__':
                 eprint('No min/max hops available without topology information (--input)')
                 stop_all_terminals()
                 exit(1)
+
             rmap = get_remote_mapping(args.remotes)
             nodes = [key[3:] for key in rmap.keys()]
             paths = _get_random_paths(nodes=nodes, count=args.pings)
