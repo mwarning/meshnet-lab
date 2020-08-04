@@ -409,12 +409,13 @@ def _get_nsnames(rmap, from_state, to_state):
     def get_nsname_set(state):
         nodes = set()
 
-        for link in state.get('links', []):
-            nodes.add('ns-{}'.format(link['source']))
-            nodes.add('ns-{}'.format(link['target']))
+        if state is not None:
+            for link in state.get('links', []):
+                nodes.add('ns-{}'.format(link['source']))
+                nodes.add('ns-{}'.format(link['target']))
 
-        for node in state.get('nodes', []):
-            nodes.add('ns-{}'.format(node['id']))
+            for node in state.get('nodes', []):
+                nodes.add('ns-{}'.format(node['id']))
 
         return nodes
 
@@ -505,10 +506,10 @@ if __name__ == '__main__':
     parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
-    parser_run.add_argument('command', help='Shell command that is run. {name} is replaced by the nodes name.')
+    parser_run.add_argument('command', nargs=argparse.REMAINDER, help='Shell command that is run. {name} is replaced by the nodes name.')
     parser_run.add_argument('--quiet', action='store_true', help='Do not output stdout and stderr.')
-    parser_run.add_argument('from_state', nargs='?', default='none', help='From state')
-    parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
+    #parser_run.add_argument('from_state', nargs='?', default='none', help='From state')
+    #parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
 
@@ -545,7 +546,7 @@ if __name__ == '__main__':
     elif args.action == 'clear':
         clear(args.remotes)
     elif args.action == 'run':
-        run(args.command, rmap, args.quiet)
+        run(' '.join(args.command), rmap, args.quiet)
     else:
         eprint('Unknown action: {}'.format(args.action))
         exit(1)
