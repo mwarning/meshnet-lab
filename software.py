@@ -238,7 +238,7 @@ def start_olsr2_instances(nsnames, rmap):
             print(f'start olsr2 in {address}/{nsname}')
 
         # Create a configuration file
-        exec(remote, f'echo "{config}" > /tmp/olsrd2-{nsname}.conf')
+        exec(remote, f'echo -e "{config}" > /tmp/olsrd2-{nsname}.conf')
 
         # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
         interface_down(remote, nsname, 'uplink')
