@@ -43,13 +43,13 @@ def run(protocol, csvfile):
 
 		sysload_result = tools.sysload(remotes)
 
-		software.clear(software)
+		software.clear(remotes)
 
 		# add data to csv file
 		extra = (['node_count', 'software_startup_ms'], [node_count, software_startup_ms])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData(), sysload_result)
 
-		network.clear(software)
+		network.clear(remotes)
 
 		# abort benchmark when less then 40% of the pings arrive
 		if (ping_result.received / ping_result.transmitted) < 0.4:
