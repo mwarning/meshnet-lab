@@ -58,16 +58,16 @@ def run(protocol, csvfile):
 		tools.sleep(300)
 
 		start_ms = tools.millis()
-		traffic_beg = tools.traffic()
+		traffic_beg = tools.traffic(remotes)
 
 		paths = tools.get_random_paths(state, 2 * node_count)
 		paths = tools.filter_paths(state, paths, min_hops=2, path_count=node_count)
 		ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
-		sysload_result = tools.sysload()
+		sysload_result = tools.sysload(remotes)
 
 		traffic_ms = tools.millis() - start_ms
-		traffic_end = tools.traffic()
+		traffic_end = tools.traffic(remotes)
 		software.clear(remotes)
 
 		# add data to csv file
