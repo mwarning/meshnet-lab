@@ -33,7 +33,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 	mobility.connect_range(state, max_links=150)
 
 	# create network and start routing software
-	network.change(from_state={}, to_state=state, link_command=get_tc_command)
+	network.apply(state, link_command=get_tc_command)
 	software.start(protocol)
 
 	test_beg_ms = tools.millis()
@@ -47,14 +47,13 @@ def run(protocol, csvfile, step_duration, step_distance):
 		wait_beg_ms = tools.millis()
 
 		# update network representation
-		old_state = copy.copy(state)
 		mobility.move_random(state, distance=step_distance)
 		mobility.connect_range(state, max_links=150)
 
 		# update network
 		tmp_ms = tools.millis()
-		network.change(from_state=old_state, to_state=state, link_command=get_tc_command)
-		#software.change(protocol=protocol, from_state=old_state, to_state=state) # we do not change the node count
+		network.apply(state=state, link_command=get_tc_command)
+		#software.apply(protocol=protocol, state=state) # we do not change the node count
 		network_ms = tools.millis() - tmp_ms
 
 		# Wait until wait seconds are over, else error

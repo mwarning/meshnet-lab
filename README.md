@@ -58,7 +58,7 @@ Started 100 batman-adv instances in 3.16s
 Stopped 100 batman-adv instances in 3.109s
 
 # Remove network
-./network.py change graph.json none
+./network.py apply none
 ```
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
@@ -91,7 +91,7 @@ The command can now make use of the following variables:
 ```
 ./network.py \
   --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192 latency {latency}ms' \
-  change none graph.json
+  apply graph.json
 ```
 
 Notes:

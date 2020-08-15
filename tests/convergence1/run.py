@@ -28,7 +28,7 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.change(from_state='none', to_state=state, link_command=get_tc_command)
+		network.apply(state=state, link_command=get_tc_command)
 
 		tools.sleep(10)
 

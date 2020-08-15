@@ -50,7 +50,7 @@ def run(protocol, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		state = network.change(remotes=remotes, from_state='none', to_state=state, link_command=get_tc_command)
+		state = network.apply(remotes=remotes, state=state, link_command=get_tc_command)
 		tools.sleep(10)
 
 		software.start(protocol, remotes)

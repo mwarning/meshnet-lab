@@ -8,6 +8,7 @@ import time
 import math
 import json
 import sys
+import re
 import os
 
 from shared import (
@@ -19,8 +20,15 @@ block_arp = False
 block_multicast = False
 verbosity = 'normal'
 
-def unique_number(s, min, max):
-    array = str.encode(str(s))
+# id independent of source/target direction
+def link_id(source, target):
+    if source > target:
+        return f'{source}-{target}'
+    else:
+        return f'{target}-{source}'
+
+def link_num(source, target, min, max):
+    array = str.encode(link_id(source, target))
     digest = hashlib.md5(array).digest()[:8]
     n = int.from_bytes(digest, byteorder='little', signed=False)
     return int(min + ((float(n - 0) / float(2**64)) * (max - min)))
@@ -136,7 +144,7 @@ def create_node(node, node_command=None, rmap={}):
     configure_interface(remote, nsname, upname)
 
     if node_command is not None:
-        exec(remote, f'ip netns exec "ns-{name}" ' + format_node_command(node_command, node))
+        exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
 def update_node(node, node_command=None, rmap={}):
     name = str(node['id'])
@@ -146,7 +154,7 @@ def update_node(node, node_command=None, rmap={}):
         print(f'  update node {name}')
 
     if node_command is not None:
-        exec(remote, f'ip netns exec "ns-{name}" ' + format_node_command(node_command, node))
+        exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
 def remove_link(link, rmap={}):
     source = str(link['source'])
@@ -164,16 +172,16 @@ def remove_link(link, rmap={}):
         addr2 = remote2['address']
 
         # ids do not have to be the same on both remotes - but it is simpler that way
-        tunnel_id = unique_number(f'{addr1}-{addr2}', min=1, max=2**32)
-        session_id = unique_number(f'{source}-{target}', min=1, max=2**32)
+        tunnel_id = link_num(addr1, addr2, min=1, max=2**32)
+        session_id = link_num(source, target, min=1, max=2**32)
 
-        remote_exec(remote1, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
+        exec(remote1, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
         if l2tp_session_count(remote1, tunnel_id) == 0:
-            remote_exec(remote1, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
+            exec(remote1, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
 
-        remote_exec(remote2, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
+        exec(remote2, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
         if l2tp_session_count(remote2, tunnel_id) == 0:
-            remote_exec(remote2, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
+            exec(remote2, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
 
 def update_link(link, link_command=None, rmap={}):
     source = str(link['source'])
@@ -216,9 +224,9 @@ def create_link(link, link_command=None, rmap={}):
         addr2 = remote2['address']
 
         # ids and port do not have to be the same on both remotes - but it is simpler that way
-        tunnel_id = unique_number(f'{addr1}-{addr2}', min=1, max=2**32)
-        session_id = unique_number(f'{source}-{target}', min=1, max=2**32)
-        port = unique_number(f'{addr1}-{addr2}', min=1024, max=2**16)
+        tunnel_id = link_num(addr1, addr2, min=1, max=2**32)
+        session_id = link_num(source, target, min=1, max=2**32)
+        port = link_num(addr1, addr2, min=1024, max=2**16)
 
         if not l2tp_tunnel_exists(remote1, tunnel_id):
             exec(remote1, f'ip l2tp add tunnel tunnel_id {tunnel_id} peer_tunnel_id {tunnel_id} encap udp local {addr1} remote {addr2} udp_sport {port} udp_dport {port}')
@@ -258,13 +266,15 @@ class _Task:
         self.nodes_remove = []
 
 def _process_json(json_data):
+    # in really, only '@', ':', '/' and whitespace should cause problems
+    name_re = re.compile(r'^[\w-]{1,6}$')
     links = {}
     nodes = {}
 
     for node in json_data.get('nodes', []):
         name = str(node['id'])
-        if len(name) > 6:
-            eprint(f'Node name too long: {name}')
+        if not name_re.match(name):
+            eprint(f'Invalid node name: {name}')
             exit(1)
 
         nodes[name] = node
@@ -368,14 +378,15 @@ def clear(remotes=default_remotes):
 '''
 Get a dict to map nodes to remote computers
 '''
-def _get_remote_mapping(from_state, to_state, remotes):
+def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
     def partition_into_subgraph_nodes(neighbor_map, nodes, rmap, remotes):
         random.shuffle(nodes)
         # remote_id => [<node_ids>]
         partitions = {}
 
         # keep running nodes on the same partition
-        for node_id, remote_id in rmap.items():
+        for node_id, remote in rmap.items():
+            remote_id = remotes.index(remote)
             partitions.setdefault(remote_id, []).append(node_id)
             if node_id not in nodes:
                 eprint(f'Node {node_id} not in previous state!')
@@ -405,15 +416,6 @@ def _get_remote_mapping(from_state, to_state, remotes):
             grow_cluster(partitions[key], nodes)
 
         return partitions
-
-    # get mapping of running nodes
-    initial_node_to_remote_map = {}
-    for remote_id, remote in enumerate(remotes):
-        stdout = exec(remote, 'ip netns list', get_output=True)[0]
-        for netns in stdout.split():
-            if netns.startswith('ns-'):
-                initial_node_to_remote_map[netns[3:]] = remote_id
-    # TODO: use get_remote_mapping ^^
 
     # get node distribution balance
     def get_variance(partition):
@@ -445,20 +447,20 @@ def _get_remote_mapping(from_state, to_state, remotes):
 
         interconnects = 0
         node_to_remote_map = partition_to_map(partition, remotes)
-        for link in to_state.get('links', []):
+        for link in new_state.get('links', []):
             if node_to_remote_map[str(link['source'])] is not node_to_remote_map[str(link['target'])]:
                 interconnects += 1
         print(f'  l2tp links: {interconnects}')
     '''
 
     # try multiple random (connected) partitions and select the best
-    neighbor_map = convert_to_neighbors(from_state, to_state)
+    neighbor_map = convert_to_neighbors(cur_state, new_state)
     tries = 20
     lowest_variance = math.inf
     best_partition = []
 
     for _ in range(tries):
-        partition = partition_into_subgraph_nodes(neighbor_map, list(neighbor_map.keys()), initial_node_to_remote_map, remotes)
+        partition = partition_into_subgraph_nodes(neighbor_map, list(neighbor_map.keys()), cur_state_rmap, remotes)
         if partition:
             variance = get_variance(partition)
             if variance < lowest_variance:
@@ -484,32 +486,32 @@ def _check_root_needed(remotes):
                 stop_all_terminals()
                 exit(1)
 
-def change(from_state={}, to_state={}, node_command=None, link_command=None, remotes=default_remotes):
+def state_empty(state):
+    return (len(state.get('links', []))) == 0 and (len(state.get('nodes', [])) == 0)
+
+def apply(state={}, node_command=None, link_command=None, remotes=default_remotes):
     _check_root_needed(remotes)
 
-    if isinstance(from_state, str):
-        if from_state == 'none':
-            from_state = {}
-        else:
-            with open(from_state) as file:
-                from_state = json.load(file)
+    new_state = state
+    (cur_state, cur_state_rmap) = _get_cur_state(remotes)
 
-    if isinstance(to_state, str):
-        if to_state == 'none':
-            to_state = {}
+    # handle different new_state types
+    if isinstance(new_state, str):
+        if new_state == 'none':
+            new_state = {}
         else:
-            with open(to_state) as file:
-                to_state = json.load(file)
+            with open(new_state) as file:
+                new_state = json.load(file)
 
     # map each node to a remote or local computer
     # distribute evenly with minimized interconnects
-    rmap = _get_remote_mapping(from_state, to_state, remotes)
-    data = _get_task(from_state, to_state)
+    rmap = _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap)
+    data = _get_task(cur_state, new_state)
 
     beg_ms = millis()
 
     # add "switch" namespace
-    if len(from_state) == 0:
+    if state_empty(cur_state):
         for remote in remotes:
             # add switch if it does not exist yet
             exec(remote, 'ip netns add "switch" || true')
@@ -535,7 +537,7 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None, rem
         remove_node(node, rmap)
 
     # remove "switch" namespace
-    if len(to_state) == 0:
+    if state_empty(new_state):
         if verbosity == 'normal':
             print('  remove "switch"')
 
@@ -551,13 +553,42 @@ def change(from_state={}, to_state={}, node_command=None, link_command=None, rem
         print(f'  nodes: {len(data.nodes_create)} created, {len(data.nodes_remove)} removed, {len(data.nodes_update)} updated')
         print(f'  links: {len(data.links_create)} created, {len(data.links_remove)} removed, {len(data.links_update)} updated')
 
-    return to_state
+    return new_state
+
+def _get_cur_state(remotes):
+    links = {}
+    nodes = []
+    rmap = {}
+
+    node_re = re.compile(r'\d+: br-([^:]+)')
+    link_re = re.compile(r'\d+: ve-([^@:]+).*(?<= master )br-([^ ]+)')
+
+    for remote in remotes:
+        stdout, stderr, rcode = exec(remote, f'ip netns exec "switch" ip a l || true', get_output=True)
+
+        for line in stdout.splitlines():
+            m = link_re.search(line)
+            if m:
+                ifname = m.group(1) # without ve-
+                master = m.group(2) # without br-
+                source = ifname[:len(master)]
+                target = ifname[len(master) + 1:]
+
+                lid = link_id(source, target)
+                if lid not in links:
+                    links[lid] = {'source': source, 'target': target}
+            m = node_re.search(line)
+            if m:
+                ifname = m.group(1)
+                nodes.append({'id': ifname})
+                rmap[ifname] = remote
+
+    return ({'nodes': nodes, 'links': list(links.values())}, rmap)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
-    parser.set_defaults(from_state='none', to_state='none')
 
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
@@ -568,9 +599,8 @@ if __name__ == '__main__':
 
     subparsers = parser.add_subparsers(dest='action', required=True)
 
-    parser_change = subparsers.add_parser('change', help='Create or change a virtual network.')
-    parser_change.add_argument('from_state', help='JSON file that describes the current topology. Use "none" if no namespace network exists.')
-    parser_change.add_argument('to_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
+    parser_change = subparsers.add_parser('apply', help='Create or change a virtual network.')
+    parser_change.add_argument('new_state', help='JSON file that describes the target topology. Use "none" to remove all network namespaces.')
     subparsers.add_parser('show', help='List all Linux network namespaces. Namespace "switch" is the special cable cabinet namespace.')
     subparsers.add_parser('clear', help='Remove all Linux network namespaces. Processes still might need to be killed.')
 
@@ -590,8 +620,8 @@ if __name__ == '__main__':
         clear(args.remotes)
     elif args.action == 'show':
         show(args.remotes)
-    elif args.action == 'change':
-        change(args.from_state, args.to_state, args.node_command, args.link_command, args.remotes)
+    elif args.action == 'apply':
+        apply(args.new_state, args.node_command, args.link_command, args.remotes)
     else:
         eprint(f'Invalid command: {args.action}')
         exit(1)
