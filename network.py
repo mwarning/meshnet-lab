@@ -493,7 +493,7 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
     _check_root_needed(remotes)
 
     new_state = state
-    (cur_state, cur_state_rmap) = _get_cur_state(remotes)
+    (cur_state, cur_state_rmap) = _get_current_state(remotes)
 
     # handle different new_state types
     if isinstance(new_state, str):
@@ -555,7 +555,7 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
 
     return new_state
 
-def _get_cur_state(remotes):
+def _get_current_state(remotes):
     links = {}
     nodes = []
     rmap = {}
