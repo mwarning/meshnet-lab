@@ -138,15 +138,19 @@ def convert_to_neighbors(*networks):
     for network in networks:
         # create a structure we can use efficiently
         for node in network.get('nodes', []):
-            neighbors.setdefault(str(node['id']), [])
+            neighbors.setdefault(str(node['id']), set())
 
         for link in network.get('links', []):
             source = str(link['source'])
             target = str(link['target'])
-            neighbors.setdefault(source, []).append(target)
-            neighbors.setdefault(target, []).append(source)
+            neighbors.setdefault(source, set()).add(target)
+            neighbors.setdefault(target, set()).add(source)
 
-    return neighbors
+    ret = {}
+    for key, value in neighbors.items():
+        ret[key] = list(value)
+
+    return ret
 
 def format_duration(time_ms):
     d, remainder = divmod(time_ms, 24 * 60 * 60 * 1000)
