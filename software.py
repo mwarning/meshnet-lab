@@ -174,7 +174,7 @@ def start_babel_instances(nsnames, rmap):
         interface_down(remote, nsname, 'uplink')
         interface_up(remote, nsname, 'uplink')
         set_addr6(remote, nsname, 'uplink', 64)
-        exec(remote, f'ip netns exec "{nsname}" babeld -D -I /tmp/babel-{nsname}.pid "uplink"')
+        exec(remote, f'ip netns exec "{nsname}" babeld -d -i /tmp/babel-{nsname}.pid "uplink"')
 
 def stop_babel_instances_all(remotes):
     for remote in remotes:
