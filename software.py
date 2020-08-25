@@ -10,8 +10,9 @@ import sys
 import os
 
 from shared import (
-    eprint, wait_for_completion, exec, default_remotes,
-    millis, get_remote_mapping, stop_all_terminals, format_duration
+    eprint, wait_for_completion, exec, default_remotes, check_access,
+    millis, get_remote_mapping, stop_all_terminals, format_duration,
+    get_current_state
 )
 
 verbosity = 'normal'
@@ -391,13 +392,8 @@ def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
     if not ignore_error and verbosity != 'quiet':
         print('Stopped {} {} instances in {}'.format(len(nsnames), protocol, format_duration(end_ms - beg_ms)))
 
-def _get_nsnames(rmap, from_state, to_state):
-    if isinstance(from_state, str):
-        if from_state == 'none':
-            from_state = {}
-        else:
-            with open(from_state) as file:
-                from_state = json.load(file)
+def _get_update(to_state, remotes):
+    (from_state, rmap) = get_current_state(remotes)
 
     if isinstance(to_state, str):
         if to_state == 'none':
@@ -430,7 +426,7 @@ def _get_nsnames(rmap, from_state, to_state):
     b = to_nsnames.difference(from_nsnames)
 
     # (old_nsnames, new_nsnames)
-    return (a, b)
+    return (a, b, rmap)
 
 
 protocol_choices = ['none', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
@@ -445,9 +441,8 @@ def stop(protocol, remotes=default_remotes):
     nsnames = list(rmap.keys())
     stop_routing_protocol(protocol, rmap, nsnames)
 
-def change(protocol, from_state = {}, to_state = {}, remotes=default_remotes):
-    rmap = get_remote_mapping(remotes)
-    (old_nsnames, new_nsnames) = _get_nsnames(rmap, from_state, to_state)
+def apply(protocol, to_state = {}, remotes=default_remotes):
+    (old_nsnames, new_nsnames, rmap) = _get_update(to_state, remotes)
 
     stop_routing_protocol(protocol, rmap, old_nsnames)
     start_routing_protocol(protocol, rmap, new_nsnames)
@@ -461,11 +456,6 @@ def clear(remotes=default_remotes):
     stop_bmx6_instances_all(remotes)
     stop_bmx7_instances_all(remotes)
     stop_cjdns_instances_all(remotes)
-
-    #rmap = get_remote_mapping(remotes)
-    #nsnames = list(rmap.keys())
-    #for protocol in protocol_choices:
-    #    stop_routing_protocol(protocol, rmap, nsnames, True)
 
 def run(command, rmap, quiet=False):
     for (nsname, remote) in rmap.items():
@@ -483,33 +473,28 @@ def run(command, rmap, quiet=False):
                 if stderr:
                     eprint(stderr)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
-    parser.set_defaults(from_state='none', to_state='none')
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
     parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
     parser_start.add_argument('protocol', choices=protocol_choices, help='Routing protocol to start.')
-    parser_start.add_argument('from_state', nargs='?', default='none',help='From state')
     parser_start.add_argument('to_state', nargs='?', default='none',help='To state')
 
     parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
     parser_stop.add_argument('protocol', choices=protocol_choices, help='Routing protocol to stop.')
-    parser_stop.add_argument('from_state', nargs='?', default='none',help='From state')
     parser_stop.add_argument('to_state', nargs='?', default='none',help='To state')
 
     parser_change = subparsers.add_parser('change', help='Stop/Start protocol daemons in every namespace.')
     parser_change.add_argument('protocol', choices=protocol_choices, help='Routing protocol to change.')
-    parser_change.add_argument('from_state', nargs='?', default='none', help='From state')
     parser_change.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
     parser_run.add_argument('command', nargs=argparse.REMAINDER, help='Shell command that is run. {name} is replaced by the nodes name.')
     parser_run.add_argument('--quiet', action='store_true', help='Do not output stdout and stderr.')
-    #parser_run.add_argument('from_state', nargs='?', default='none', help='From state')
-    #parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
+    parser_run.add_argument('to_state', nargs='?', default='none', help='To state')
 
     parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
 
@@ -521,20 +506,12 @@ if __name__ == '__main__':
     else:
         args.remotes = default_remotes
 
-    # need root for local setup
-    for remote in args.remotes:
-        if remote.get('address') is None:
-            if os.geteuid() != 0:
-                eprint('Need to run as root.')
-                exit(1)
+    check_access(args.remotes)
 
     verbosity = args.verbosity
 
-    # get node to remote mapping
-    rmap = get_remote_mapping(args.remotes)
-
     # get nodes that have been added or will be removed
-    (old_nsnames, new_nsnames) = _get_nsnames(rmap, args.from_state, args.to_state)
+    (old_nsnames, new_nsnames, rmap) = _get_update(args.to_state, args.remotes)
 
     if args.action == 'start':
         start_routing_protocol(args.protocol, rmap, new_nsnames)

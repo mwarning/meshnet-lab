@@ -531,7 +531,7 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
 
     return ret
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     subparsers = parser.add_subparsers(dest='action', required=True)

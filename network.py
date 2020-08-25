@@ -12,20 +12,15 @@ import re
 import os
 
 from shared import (
-    eprint, exec, default_remotes, convert_to_neighbors,
-    stop_all_terminals, format_duration, millis, wait_for_completion
+    eprint, exec, default_remotes, convert_to_neighbors, check_access,
+    stop_all_terminals, format_duration, millis, wait_for_completion,
+    get_current_state, link_id
 )
 
 block_arp = False
 block_multicast = False
 verbosity = 'normal'
 
-# id independent of source/target direction
-def link_id(source, target):
-    if source > target:
-        return f'{source}-{target}'
-    else:
-        return f'{target}-{source}'
 
 def link_num(source, target, min, max):
     array = str.encode(link_id(source, target))
@@ -358,7 +353,7 @@ def _get_task(old_state, new_state):
     return task
 
 def show(remotes=default_remotes):
-    _check_root_needed(remotes)
+    check_access(remotes)
 
     for remote_id, remote in enumerate(remotes):
         nodes = exec(remote, 'ip netns list', get_output=True)[0].count('ns-')
@@ -368,7 +363,7 @@ def show(remotes=default_remotes):
         print(f'{address}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
 
 def clear(remotes=default_remotes):
-    _check_root_needed(remotes)
+    check_access(remotes)
 
     for remote in remotes:
         exec(remote, 'ip -all netns delete || true')
@@ -477,23 +472,14 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
     # node_id => remote
     return partition_to_map(best_partition, remotes)
 
-def _check_root_needed(remotes):
-    # need root for local setup
-    for remote in remotes:
-        if remote.get('address') is None:
-            if os.geteuid() != 0:
-                eprint('Local setup needs to run as root.')
-                stop_all_terminals()
-                exit(1)
-
 def state_empty(state):
     return (len(state.get('links', []))) == 0 and (len(state.get('nodes', [])) == 0)
 
 def apply(state={}, node_command=None, link_command=None, remotes=default_remotes):
-    _check_root_needed(remotes)
+    check_access(remotes)
 
     new_state = state
-    (cur_state, cur_state_rmap) = _get_current_state(remotes)
+    (cur_state, cur_state_rmap) = get_current_state(remotes)
 
     # handle different new_state types
     if isinstance(new_state, str):
@@ -555,37 +541,8 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
 
     return new_state
 
-def _get_current_state(remotes):
-    links = {}
-    nodes = []
-    rmap = {}
 
-    node_re = re.compile(r'\d+: br-([^:]+)')
-    link_re = re.compile(r'\d+: ve-([^@:]+).*(?<= master )br-([^ ]+)')
-
-    for remote in remotes:
-        stdout, stderr, rcode = exec(remote, f'ip netns exec "switch" ip a l || true', get_output=True)
-
-        for line in stdout.splitlines():
-            m = link_re.search(line)
-            if m:
-                ifname = m.group(1) # without ve-
-                master = m.group(2) # without br-
-                source = ifname[:len(master)]
-                target = ifname[len(master) + 1:]
-
-                lid = link_id(source, target)
-                if lid not in links:
-                    links[lid] = {'source': source, 'target': target}
-            m = node_re.search(line)
-            if m:
-                ifname = m.group(1)
-                nodes.append({'id': ifname})
-                rmap[ifname] = remote
-
-    return ({'nodes': nodes, 'links': list(links.values())}, rmap)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
@@ -625,5 +582,4 @@ if __name__ == '__main__':
     else:
         eprint(f'Invalid command: {args.action}')
         exit(1)
-
-stop_all_terminals()
+    stop_all_terminals()

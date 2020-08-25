@@ -5,6 +5,7 @@ import queue
 import atexit
 import time
 import sys
+import re
 import os
 
 
@@ -120,6 +121,43 @@ def wait_for_completion():
         while term.queue.qsize() != 0:
             time.sleep(0.1)
 
+# id independent of source/target direction
+def link_id(source, target):
+    if source > target:
+        return f'{source}-{target}'
+    else:
+        return f'{target}-{source}'
+
+def get_current_state(remotes):
+    links = {}
+    nodes = []
+    rmap = {}
+
+    node_re = re.compile(r'\d+: br-([^:]+)')
+    link_re = re.compile(r'\d+: ve-([^@:]+).*(?<= master )br-([^ ]+)')
+
+    for remote in remotes:
+        stdout, stderr, rcode = exec(remote, f'ip netns exec "switch" ip a l || true', get_output=True)
+
+        for line in stdout.splitlines():
+            m = link_re.search(line)
+            if m:
+                ifname = m.group(1) # without ve-
+                master = m.group(2) # without br-
+                source = ifname[:len(master)]
+                target = ifname[len(master) + 1:]
+
+                lid = link_id(source, target)
+                if lid not in links:
+                    links[lid] = {'source': source, 'target': target}
+            m = node_re.search(line)
+            if m:
+                ifname = m.group(1)
+                nodes.append({'id': ifname})
+                rmap[ifname] = remote
+
+    return ({'nodes': nodes, 'links': list(links.values())}, rmap)
+
 def get_remote_mapping(remotes):
     rmap = {}
 
@@ -151,6 +189,17 @@ def convert_to_neighbors(*networks):
         ret[key] = list(value)
 
     return ret
+
+def check_access(remotes):
+    # need root for local setup
+    for remote in remotes:
+        if remote.get('address') is None:
+            if os.geteuid() != 0:
+                eprint('Local setup needs to run as root.')
+                stop_all_terminals()
+                exit(1)
+        # check if we can execute something
+        exec(remote, 'true')
 
 def format_duration(time_ms):
     d, remainder = divmod(time_ms, 24 * 60 * 60 * 1000)
