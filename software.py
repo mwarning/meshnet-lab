@@ -473,7 +473,7 @@ def run(command, rmap, quiet=False):
                 if stderr:
                     eprint(stderr)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
@@ -529,3 +529,6 @@ if __name__ == "__main__":
         exit(1)
 
     stop_all_terminals()
+
+if __name__ == "__main__":
+    main()

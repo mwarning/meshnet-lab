@@ -542,7 +542,7 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
     return new_state
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
@@ -583,3 +583,6 @@ if __name__ == "__main__":
         eprint(f'Invalid command: {args.action}')
         exit(1)
     stop_all_terminals()
+
+if __name__ == "__main__":
+    main()
