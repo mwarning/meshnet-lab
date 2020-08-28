@@ -244,7 +244,7 @@ def create_link(link, link_command=None, rmap={}):
     exec(remote1, f'ip netns exec "switch" bridge link set dev "{ifname1}" isolated on')
     exec(remote2, f'ip netns exec "switch" bridge link set dev "{ifname2}" isolated on')
 
-    # e.g. execute tc command on link 
+    # e.g. execute tc command on link
     if link_command is not None:
         # source -> target
         exec(remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
@@ -261,7 +261,7 @@ class _Task:
         self.nodes_remove = []
 
 def _process_json(json_data):
-    # in really, only '@', ':', '/' and whitespace should cause problems
+    # in reality, only '@', ':', '/' and whitespace should cause problems
     name_re = re.compile(r'^[\w-]{1,6}$')
     links = {}
     nodes = {}
