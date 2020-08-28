@@ -80,11 +80,6 @@ def count_instances(protocol, rmap):
         remotes = {value.get('address', 'local'): value for key, value in rmap.items()}.values()
         program = {'yggdrasil': 'yggdrasil', 'babel': 'babeld', 'olsr1': 'olsrd', 'olsr2': 'olsrd2', 'bmx6': 'bmx6', 'bmx7': 'bmx7', 'cjdns': 'cjdroute'}[protocol]
 
-        # Hack, otherwise pgrep will not count all process on the next try.
-        # To sleep for a few seconds does not help, there is probably a bug.
-        for remote in remotes:
-            exec(remote, f'pgrep -c {program} || true')
-
         # TODO: count in namespaces!
         count = 0
         for remote in remotes:
@@ -337,6 +332,10 @@ def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
 
     wait_for_completion()
 
+    # wait for last started process to fork
+    # otherwise we might have one extra counted instance
+    time.sleep(0.5)
+
     end_ms = millis()
     end_count = count_instances(protocol, rmap)
 
@@ -380,6 +379,10 @@ def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         interface_down(remote, nsname, 'uplink', ignore_error=ignore_error)
 
     wait_for_completion()
+
+    # wait for last stopped process to disappear
+    # otherwise we might have one extra counted instance
+    time.sleep(0.5)
 
     end_ms = millis()
     end_count = count_instances(protocol, rmap)
