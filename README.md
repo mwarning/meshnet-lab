@@ -39,7 +39,7 @@ Example run:
 ./topology.py grid4 10 10 > graph.json
 
 # Create network
-./network.py change none graph.json
+./network.py apply graph.json
 Network setup in 10.834s:
   nodes: 100 created, 0 removed, 0 updated
   links: 180 created, 0 removed, 0 updated
