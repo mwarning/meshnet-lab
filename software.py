@@ -308,22 +308,22 @@ def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         remote = rmap[nsname]
         interface_up(remote, nsname, 'uplink', ignore_error)
 
-    if protocol == 'batman-adv':
-        start_batmanadv_instances(nsnames, rmap)
-    elif protocol == 'yggdrasil':
-        start_yggdrasil_instances(nsnames, rmap)
-    elif protocol == 'babel':
+    if protocol == 'babel':
         start_babel_instances(nsnames, rmap)
-    elif protocol == 'olsr1':
-        start_olsr1_instances(nsnames, rmap)
-    elif protocol == 'olsr2':
-        start_olsr2_instances(nsnames, rmap)
+    elif protocol == 'batman-adv':
+        start_batmanadv_instances(nsnames, rmap)
     elif protocol == 'bmx6':
         start_bmx6_instances(nsnames, rmap)
     elif protocol == 'bmx7':
         start_bmx7_instances(nsnames, rmap)
     elif protocol == 'cjdns':
         start_cjdns_instances(nsnames, rmap)
+    elif protocol == 'olsr1':
+        start_olsr1_instances(nsnames, rmap)
+    elif protocol == 'olsr2':
+        start_olsr2_instances(nsnames, rmap)
+    elif protocol == 'yggdrasil':
+        start_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'none':
         return
     else:
@@ -352,22 +352,22 @@ def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
     beg_count = count_instances(protocol, rmap)
     beg_ms = millis()
 
-    if protocol == 'batman-adv':
-        stop_batmanadv_instances(nsnames, rmap)
-    elif protocol == 'yggdrasil':
-        stop_yggdrasil_instances(nsnames, rmap)
-    elif protocol == 'babel':
+    if protocol == 'babel':
         stop_babel_instances(nsnames, rmap)
-    elif protocol == 'olsr1':
-        stop_olsr1_instances(nsnames, rmap)
-    elif protocol == 'olsr2':
-        stop_olsr2_instances(nsnames, rmap)
+    elif protocol == 'batman-adv':
+        stop_batmanadv_instances(nsnames, rmap)
     elif protocol == 'bmx6':
         stop_bmx6_instances(nsnames, rmap)
     elif protocol == 'bmx7':
         stop_bmx7_instances(nsnames, rmap)
     elif protocol == 'cjdns':
         stop_cjdns_instances(nsnames, rmap)
+    elif protocol == 'olsr1':
+        stop_olsr1_instances(nsnames, rmap)
+    elif protocol == 'olsr2':
+        stop_olsr2_instances(nsnames, rmap)
+    elif protocol == 'yggdrasil':
+        stop_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'none':
         pass
     else:
@@ -432,7 +432,7 @@ def _get_update(to_state, remotes):
     return (a, b, rmap)
 
 
-protocol_choices = ['none', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
+protocol_choices = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil', 'none']
 
 def start(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -451,14 +451,14 @@ def apply(protocol, to_state = {}, remotes=default_remotes):
     start_routing_protocol(protocol, rmap, new_nsnames)
 
 def clear(remotes=default_remotes):
-    #stop_batman_adv_instances_all(remotes)
-    stop_yggdrasil_instances_all(remotes)
     stop_babel_instances_all(remotes)
-    stop_olsr1_instances_all(remotes)
-    stop_olsr2_instances_all(remotes)
+    #stop_batman_adv_instances_all(remotes)
     stop_bmx6_instances_all(remotes)
     stop_bmx7_instances_all(remotes)
     stop_cjdns_instances_all(remotes)
+    stop_olsr1_instances_all(remotes)
+    stop_olsr2_instances_all(remotes)
+    stop_yggdrasil_instances_all(remotes)
 
 def run(command, rmap, quiet=False):
     for (nsname, remote) in rmap.items():
