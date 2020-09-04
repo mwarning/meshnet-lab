@@ -76,7 +76,7 @@ def run(protocol, csvfile):
 
 		network.clear(remotes)
 
-for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
+for protocol in ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
 	with open(f"{prefix}freifunk1-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
 

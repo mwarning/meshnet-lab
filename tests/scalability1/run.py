@@ -62,7 +62,7 @@ def run(protocol, files, csvfile):
 		tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result.getData(), sysload_result)
 
 for name in ['line', 'grid4', 'rtree']:
-	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
+	for protocol in ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
 		with open(f"{prefix}scalability1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, f"../../data/{name}/*.json", csvfile)
 

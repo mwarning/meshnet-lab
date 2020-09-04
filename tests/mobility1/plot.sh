@@ -20,7 +20,6 @@ for step_duration in 10 30; do
 			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-batman-adv.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-bmx6.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-cjdns.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-olsr1.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-olsr2.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
@@ -34,7 +33,7 @@ for step_duration in 10 30; do
 			set term png; \
 			set terminal png size 1280,480; \
 			set output '${prefix}mobility1-${step_duration}-${step_distance}_arrival_stats.png'; \
-			array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
+			array protocols = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 			array SUM[|protocols|]; \
 			do for [i=1:|protocols|] { \
 				file = '${prefix}mobility1-${step_duration}-${step_distance}-'.protocols[i].'.csv'; \

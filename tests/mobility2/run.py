@@ -75,7 +75,7 @@ def run(protocol, csvfile):
 	network.clear()
 
 # remove none, after it has been verified to be 0% (also for mobility1)
-for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
+for protocol in ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
 	with open(f"{prefix}mobility2-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
 

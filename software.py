@@ -80,7 +80,6 @@ def count_instances(protocol, rmap):
         program = {
             'babel': 'babeld',
             'bmx6': 'bmx6',
-            'bmx7': 'bmx7',
             'cjdns': 'cjdroute',
             'olsr1': 'olsrd',
             'olsr2': 'olsrd2',
@@ -328,31 +327,6 @@ def stop_ospf_instances(ids, rmap):
         exec(remote, f'pkill -SIGKILL -x bird6 --nslist ns-{id} || true')
         exec(remote, f'rm -f /tmp/bird6-ospf-{id}.conf')
 
-def start_bmx7_instances(ids, rmap):
-    for id in ids:
-        remote = rmap[id]
-
-        if verbosity == 'verbose':
-            address = remote.get('address', 'local')
-            print(f'start bmx7 in {address}/ns-{id}')
-
-        # not sure about the setup
-        interface_down(remote, id, 'uplink')
-        interface_up(remote, id, 'uplink')
-        set_addr6(remote, id, 'uplink', 128)
-        exec(remote, f'ip netns exec "ns-{id}" bmx7 --runtimeDir /tmp/bmx7_{id} --nodeRsaKey 6 /keyPath=/tmp/bmx7_{id}/rsa.der --trustedNodesDir=/tmp/bmx7_{id}/trusted dev=uplink')
-
-def stop_bmx7_instances_all(remotes):
-    for remote in remotes:
-        exec(remote, f'pkill -SIGKILL -x bmx7 || true')
-        exec(remote, f'rm -rf /tmp/bmx7-*')
-
-def stop_bmx7_instances(ids, rmap):
-    for id in ids:
-        remote = rmap[id]
-        exec(remote, f'pkill -SIGKILL -x bmx7 --nslist ns-{id} || true')
-        exec(remote, f'rm -rf /tmp/bmx7_{id}')
-
 def start_bmx6_instances(ids, rmap):
     for id in ids:
         remote = rmap[id]
@@ -391,8 +365,6 @@ def start_routing_protocol(protocol, rmap, ids, ignore_error=False):
         start_batmanadv_instances(ids, rmap)
     elif protocol == 'bmx6':
         start_bmx6_instances(ids, rmap)
-    elif protocol == 'bmx7':
-        start_bmx7_instances(ids, rmap)
     elif protocol == 'cjdns':
         start_cjdns_instances(ids, rmap)
     elif protocol == 'olsr1':
@@ -437,8 +409,6 @@ def stop_routing_protocol(protocol, rmap, ids, ignore_error=False):
         stop_batmanadv_instances(ids, rmap)
     elif protocol == 'bmx6':
         stop_bmx6_instances(ids, rmap)
-    elif protocol == 'bmx7':
-        stop_bmx7_instances(ids, rmap)
     elif protocol == 'cjdns':
         stop_cjdns_instances(ids, rmap)
     elif protocol == 'olsr1':
@@ -507,7 +477,7 @@ def _get_update(to_state, remotes):
     # (old_ids, new_ids)
     return (a, b, rmap)
 
-protocol_choices = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil', 'none']
+protocol_choices = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil', 'none']
 
 def start(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -529,7 +499,6 @@ def clear(remotes=default_remotes):
     stop_babel_instances_all(remotes)
     stop_batmanadv_instances_all(remotes)
     stop_bmx6_instances_all(remotes)
-    stop_bmx7_instances_all(remotes)
     stop_cjdns_instances_all(remotes)
     stop_olsr1_instances_all(remotes)
     stop_olsr2_instances_all(remotes)
@@ -562,11 +531,11 @@ def main():
 
     parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
     parser_start.add_argument('protocol', choices=protocol_choices, help='Routing protocol to start.')
-    parser_start.add_argument('to_state', nargs='?', default=None,help='To state')
+    parser_start.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
     parser_stop.add_argument('protocol', choices=protocol_choices, help='Routing protocol to stop.')
-    parser_stop.add_argument('to_state', nargs='?', default=None,help='To state')
+    parser_stop.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_change = subparsers.add_parser('apply', help='Stop/Start protocol daemons in every namespace.')
     parser_change.add_argument('protocol', choices=protocol_choices, help='Routing protocol to change.')
