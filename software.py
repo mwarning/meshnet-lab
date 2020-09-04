@@ -3,6 +3,7 @@
 import datetime
 import argparse
 import subprocess
+import hashlib
 import json
 import math
 import time
@@ -57,13 +58,15 @@ def set_addr4(remote, nsname, interface, prefix_len):
         eprint(f'namespace expected to start with ns-: {nsname}')
         exit(1)
 
-    n = int(nsname[3:])
-    a, b = divmod(n, 255)
+    # map namespace to unique ip address
+    array = str.encode(nsname)
+    a = hashlib.md5(array).digest()[:4]
 
-    exec(remote, 'ip netns exec "{}" ip address add 10.0.{}.{}/{} dev {}'.format(
+    exec(remote, 'ip netns exec "{}" ip address add 10.{}.{}.{}/{} dev {}'.format(
         nsname,
-        a,
-        b,
+        a[0],
+        a[1],
+        a[2],
         prefix_len,
         interface
     ))
