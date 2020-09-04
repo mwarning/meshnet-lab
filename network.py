@@ -22,6 +22,7 @@ block_multicast = False
 verbosity = 'normal'
 
 
+# deterministic link id
 def link_num(source, target, min, max):
     array = str.encode(link_id(source, target))
     digest = hashlib.md5(array).digest()[:8]

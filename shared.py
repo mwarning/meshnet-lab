@@ -152,7 +152,7 @@ def get_current_state(remotes):
                     links[lid] = {'source': source, 'target': target}
             m = node_re.search(line)
             if m:
-                ifname = m.group(1)
+                ifname = m.group(1) # without br-
                 nodes.append({'id': ifname})
                 rmap[ifname] = remote
 
