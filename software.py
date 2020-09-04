@@ -81,7 +81,16 @@ def count_instances(protocol, rmap):
         return count
     else:
         remotes = {value.get('address', 'local'): value for key, value in rmap.items()}.values()
-        program = {'yggdrasil': 'yggdrasil', 'babel': 'babeld', 'olsr1': 'olsrd', 'olsr2': 'olsrd2', 'bmx6': 'bmx6', 'bmx7': 'bmx7', 'cjdns': 'cjdroute'}[protocol]
+        program = {
+            'babel': 'babeld',
+            'bmx6': 'bmx6',
+            'bmx7': 'bmx7',
+            'cjdns': 'cjdroute',
+            'olsr1': 'olsrd',
+            'olsr2': 'olsrd2',
+            'ospf': 'bird6',
+            'yggdrasil': 'yggdrasil'
+        }[protocol]
 
         # TODO: count in namespaces!
         count = 0
@@ -237,7 +246,7 @@ def start_olsr2_instances(nsnames, rmap):
             print(f'start olsr2 in {address}/{nsname}')
 
         # Create a configuration file
-        exec(remote, f'echo -e "{config}" > /tmp/olsrd2-{nsname}.conf')
+        exec(remote, f'printf "{config}" > /tmp/olsrd2-{nsname}.conf')
 
         # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
         interface_down(remote, nsname, 'uplink')
@@ -255,6 +264,65 @@ def stop_olsr2_instances(nsnames, rmap):
         remote = rmap[nsname]
         exec(remote, f'pkill -SIGKILL -x olsrd2 --nslist {nsname} || true')
         exec(remote, f'rm -f /tmp/olsrd2-{nsname}.conf')
+
+def start_ospf_instances(nsnames, rmap):
+    for nsname in nsnames:
+        remote = rmap[nsname]
+
+        '''
+            The route id can be any 32bit identifier
+            as integer or as IPv4 address.
+        '''
+        digest = hashlib.md5(str.encode(nsname)).digest()[:4]
+        router_id = int.from_bytes(digest, byteorder='little', signed=False)
+
+        # unlikely...
+        if router_id == 0:
+            router_id = 1
+
+        config = (
+            rf'router id {router_id};\n'
+            r'\n'
+            r'protocol kernel {\n'
+            r'  scan time 60;\n'
+            r'  import all;\n'
+            r'  export all;\n'
+            r'}\n'
+            r'\n'
+            r'protocol ospf v3 {\n'
+            r'  area 0 { interface \"uplink\" {}; };\n'
+            r'  import all;\n'
+            r'  export all;\n'
+            r'}\n'
+            r'\n'
+            r'protocol device {\n'
+            r'  scan time 60;\n'
+            r'}\n'
+        )
+
+        if verbosity == 'verbose':
+            address = remote.get('address', 'local')
+            print(f'start ospf in {address}/{nsname}')
+
+        # Create a configuration file
+        exec(remote, f'printf "{config}" > /tmp/bird6-ospf-{nsname}.conf')
+
+        # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
+        interface_down(remote, nsname, 'uplink')
+        interface_up(remote, nsname, 'uplink')
+        set_addr6(remote, nsname, 'uplink', 128)
+        exec(remote, f'ip netns exec "{nsname}" bird6 -P /tmp/bird6-ospf-{nsname}.pid -s /tmp/bird6-ospf-{nsname}.ctl -c /tmp/bird6-ospf-{nsname}.conf')
+
+def stop_ospf_instances_all(remotes):
+    for remote in remotes:
+        exec(remote, f'pkill -SIGKILL -x bird6 || true')
+        exec(remote, f'rm -f /tmp/bird6-ospf-*.conf')
+
+def stop_ospf_instances(nsnames, rmap):
+    for nsname in nsnames:
+        remote = rmap[nsname]
+        exec(remote, f'pkill -SIGKILL -x bird6 --nslist {nsname} || true')
+        exec(remote, f'rm -f /tmp/bird6-ospf-{nsname}.conf')
 
 def start_bmx7_instances(nsnames, rmap):
     for nsname in nsnames:
@@ -325,6 +393,8 @@ def start_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         start_olsr1_instances(nsnames, rmap)
     elif protocol == 'olsr2':
         start_olsr2_instances(nsnames, rmap)
+    elif protocol == 'ospf':
+        start_ospf_instances(nsnames, rmap)
     elif protocol == 'yggdrasil':
         start_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'none':
@@ -369,6 +439,8 @@ def stop_routing_protocol(protocol, rmap, nsnames, ignore_error=False):
         stop_olsr1_instances(nsnames, rmap)
     elif protocol == 'olsr2':
         stop_olsr2_instances(nsnames, rmap)
+    elif protocol == 'ospf':
+        stop_ospf_instances(nsnames, rmap)
     elif protocol == 'yggdrasil':
         stop_yggdrasil_instances(nsnames, rmap)
     elif protocol == 'none':
@@ -435,7 +507,7 @@ def _get_update(to_state, remotes):
     return (a, b, rmap)
 
 
-protocol_choices = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil', 'none']
+protocol_choices = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil', 'none']
 
 def start(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -461,6 +533,7 @@ def clear(remotes=default_remotes):
     stop_cjdns_instances_all(remotes)
     stop_olsr1_instances_all(remotes)
     stop_olsr2_instances_all(remotes)
+    stop_ospf_instances_all(remotes)
     stop_yggdrasil_instances_all(remotes)
 
 def run(command, rmap, quiet=False):

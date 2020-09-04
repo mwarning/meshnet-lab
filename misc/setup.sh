@@ -74,6 +74,9 @@ make
 make install
 ln -s /usr/local/sbin/olsrd2_static /usr/local/sbin/olsrd2
 
+# install OSPF/bird
+apt install bird
+
 # install cjdns
 cd $WD
 wget https://github.com/cjdelisle/cjdns/archive/cjdns-v20.6.tar.gz -O cjdns.tar.gz
