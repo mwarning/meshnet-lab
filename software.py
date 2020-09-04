@@ -598,13 +598,13 @@ def main():
         if args.to_state:
             start_routing_protocol(args.protocol, rmap, new_ids)
         else:
-            all = old_ids.union(new_ids)
+            all = list(rmap.keys())
             start_routing_protocol(args.protocol, rmap, all)
     elif args.action == 'stop':
         if args.to_state:
             stop_routing_protocol(args.protocol, rmap, old_ids)
         else:
-            all = old_ids.union(new_ids)
+            all = list(rmap.keys())
             stop_routing_protocol(args.protocol, rmap, all)
     elif args.action == 'apply':
         stop_routing_protocol(args.protocol, rmap, old_ids)
