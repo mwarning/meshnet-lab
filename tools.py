@@ -592,8 +592,8 @@ def main():
                 exit(1)
 
             rmap = get_remote_mapping(args.remotes)
-            nodes = [key[3:] for key in rmap.keys()]
-            paths = _get_random_paths(nodes=nodes, count=args.pings)
+            all = list(rmap.keys())
+            paths = _get_random_paths(nodes=all, count=args.pings)
 
         ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose')
     else:
