@@ -169,6 +169,11 @@ def stop_batmanadv_instances(ids, rmap):
         remote = rmap[id]
         exec(remote, f'ip netns exec "ns-{id}" batctl meshif "bat0" interface del "uplink" || true')
 
+def stop_batmanadv_instances_all(remotes):
+    rmap = get_remote_mapping(remotes)
+    for id, remote in rmap.items():
+        exec(remote, f'ip netns exec "ns-{id}" batctl meshif "bat0" interface del "uplink" || true')
+
 def start_babel_instances(ids, rmap):
     for id in ids:
         remote = rmap[id]
@@ -522,7 +527,7 @@ def apply(protocol, to_state = {}, remotes=default_remotes):
 
 def clear(remotes=default_remotes):
     stop_babel_instances_all(remotes)
-    #stop_batman_adv_instances_all(remotes)
+    stop_batmanadv_instances_all(remotes)
     stop_bmx6_instances_all(remotes)
     stop_bmx7_instances_all(remotes)
     stop_cjdns_instances_all(remotes)
