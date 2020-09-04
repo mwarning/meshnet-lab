@@ -22,6 +22,7 @@ gnuplot -e "
 	'${prefix}mobility2-cjdns.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 	'${prefix}mobility2-olsr1.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 	'${prefix}mobility2-olsr2.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
+	'${prefix}mobility2-ospf.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'green' title 'ospf [%]' axis x1y1, \
 	'${prefix}mobility2-yggdrasil.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 	;\
 "
@@ -43,6 +44,7 @@ gnuplot -e "
 	'${prefix}mobility2-cjdns.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 	'${prefix}mobility2-olsr1.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 	'${prefix}mobility2-olsr2.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
+	'${prefix}mobility2-ospf.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'ospf [%]' axis x1y1, \
 	'${prefix}mobility2-yggdrasil.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 	;\
 "
@@ -53,7 +55,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_arrival_stats.png'; \
-	array protocols = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
+	array protocols = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
 		file = '${prefix}mobility2-'.protocols[i].'.csv'; \
@@ -77,7 +79,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_traffic_stats.png'; \
-	array protocols = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
+	array protocols = ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
 		node_count = 50; \

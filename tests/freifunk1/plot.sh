@@ -22,6 +22,7 @@ gnuplot -e "
 	'${prefix}freifunk1-cjdns.csv' using (((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')):xtic(1) with histogram linetype rgb 'dark-red' title 'cjdns', \
 	'${prefix}freifunk1-olsr1.csv' using (((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')):xtic(1) with histogram linetype rgb 'coral' title 'olsr1', \
 	'${prefix}freifunk1-olsr2.csv' using (((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')):xtic(1) with histogram linetype rgb 'green' title 'olsr2', \
+	'${prefix}freifunk1-ospf.csv' using (((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')):xtic(1) with histogram linetype rgb 'green' title 'ospf', \
 	'${prefix}freifunk1-yggdrasil.csv' using (((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')):xtic(1) with histogram linetype rgb 'purple' title 'yggdrasil'; \
 "
 
@@ -44,6 +45,7 @@ gnuplot -e "
 	'${prefix}freifunk1-cjdns.csv' using (100 * (column('packets_received') / column('packets_send'))):xtic(1) with histogram linetype rgb 'dark-red' title 'cjdns', \
 	'${prefix}freifunk1-olsr1.csv' using (100 * (column('packets_received') / column('packets_send'))):xtic(1) with histogram linetype rgb 'coral' title 'olsr1', \
 	'${prefix}freifunk1-olsr2.csv' using (100 * (column('packets_received') / column('packets_send'))):xtic(1) with histogram linetype rgb 'green' title 'olsr2', \
+	'${prefix}freifunk1-ospf.csv' using (100 * (column('packets_received') / column('packets_send'))):xtic(1) with histogram linetype rgb 'green' title 'ospf', \
 	'${prefix}freifunk1-yggdrasil.csv' using (100 * (column('packets_received') / column('packets_send'))):xtic(1) with histogram linetype rgb 'purple' title 'yggdrasil'; \
 "
 
