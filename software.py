@@ -426,7 +426,7 @@ def _get_update(to_state, remotes):
 
     if len(from_nsnames) == 0 and len(to_nsnames) == 0:
         all = list(rmap.keys())
-        return (all, all)
+        return (all, all, rmap)
 
     a = from_nsnames.difference(to_nsnames)
     b = to_nsnames.difference(from_nsnames)
@@ -483,6 +483,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser.set_defaults(from_state='none', to_state='none')
+
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
     parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
