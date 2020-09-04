@@ -165,7 +165,7 @@ def get_remote_mapping(remotes):
         (stdout, _, _) = exec(remote, 'ip netns list', get_output=True)
         for line in stdout.split():
             if line.startswith('ns-'):
-                rmap[line.strip()] = remote
+                rmap[line.strip()[3:]] = remote
 
     return rmap
 

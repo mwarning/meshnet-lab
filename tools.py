@@ -290,21 +290,21 @@ class _Traffic:
         ts.tx_collsns = self.tx_collsns - other.tx_collsns
         return ts
 
-def traffic(remotes=default_remotes, nsnames=None, interface=None, rmap=None):
+def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
     if rmap is None:
         rmap = get_remote_mapping(remotes)
 
-    if nsnames is None:
-        nsnames = list(rmap.keys())
+    if ids is None:
+        ids = list(rmap.keys())
 
     if interface is None:
         interface = 'uplink'
 
     ts = _Traffic()
 
-    for nsname in nsnames:
-        remote = rmap[nsname]
-        stdout = exec(remote, f'ip netns exec {nsname} ip -statistics link show dev {interface}', get_output=True)[0]
+    for id in ids:
+        remote = rmap[id]
+        stdout = exec(remote, f'ip netns exec ns-{id} ip -statistics link show dev {interface}', get_output=True)[0]
         lines = stdout.split('\n')
         link_toks = lines[1].split()
         rx_toks = lines[3].split()
@@ -383,11 +383,11 @@ Return an IP address of the interface in this preference order:
 3. IPv6 link local
 4. IPv4 link local
 '''
-def _get_ip_address(remote, node_id, interface):
+def _get_ip_address(remote, id, interface):
     lladdr6 = None
     lladdr4 = None
 
-    stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{node_id}" ip addr list dev {interface}', get_output=True)
+    stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{id}" ip addr list dev {interface}', get_output=True)
     lines = stdout.split('\n')
 
     for line in lines:
@@ -467,8 +467,8 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
                     break
                 (source, target) = paths.pop()
 
-                source_remote = rmap[f'ns-{source}']
-                target_remote = rmap[f'ns-{target}']
+                source_remote = rmap[source]
+                target_remote = rmap[target]
 
                 if interface is None:
                     interface = _get_interface(source_remote, source)
