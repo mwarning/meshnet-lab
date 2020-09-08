@@ -17,6 +17,7 @@ from shared import (
 )
 
 verbosity = 'normal'
+ip_protocol = None # => IPv4 or IPv6
 
 def get_mac_address(remote, id, interface):
     # print only MAC address
@@ -83,7 +84,7 @@ def count_instances(protocol, rmap):
             'cjdns': 'cjdroute',
             'olsr1': 'olsrd',
             'olsr2': 'olsrd2',
-            'ospf': 'bird6',
+            'ospf': ('bird' if ip_protocol == '4' else 'bird6'),
             'yggdrasil': 'yggdrasil'
         }[protocol]
 
@@ -106,6 +107,13 @@ def start_cjdns_instances(ids, rmap):
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
         interface_flush(remote, id, 'uplink')
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'uplink', 32)
+        else:
+            # fe80 should do
+            pass
+
         exec(remote, f'cjdroute --genconf > /tmp/cjdns-{id}.conf')
         exec(remote, f'ip netns exec "ns-{id}" nohup cjdroute > /dev/null 2> /dev/null < /tmp/cjdns-{id}.conf &')
 
@@ -121,6 +129,9 @@ def stop_cjdns_instances(ids, rmap):
         exec(remote, f'rm -f /tmp/cjdns-{id}.conf')
 
 def start_yggdrasil_instances(ids, rmap):
+    if ip_protocol == '4':
+        eprint('warning: yggdrasil does not support IPv4')
+
     config = 'AdminListen: none'
     for id in ids:
         remote = rmap[id]
@@ -130,11 +141,16 @@ def start_yggdrasil_instances(ids, rmap):
             print(f'start yggdrasil in {address}/ns-{id}')
 
         # Create a configuration file
-        exec(remote, f'echo "{config}" > /tmp/yggdrasil-{id}.conf')
+        exec(remote, f'printf "{config}" > /tmp/yggdrasil-{id}.conf')
 
         # yggdrasil uses a tun0 interface, uplink only needs an fe80:* address
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
+
+        if ip_protocol == '4':
+            # yggdrasil does not support IPv4!
+            pass
+
         exec(remote, f'ip netns exec "ns-{id}" nohup yggdrasil -useconffile /tmp/yggdrasil-{id}.conf > /dev/null 2> /dev/null < /dev/null &')
 
 def stop_yggdrasil_instances_all(remotes):
@@ -156,12 +172,19 @@ def start_batmanadv_instances(ids, rmap):
             address = remote.get('address', 'local')
             print(f'start batman-adv in {address}/ns-{id}')
 
-        # traffic goes through bat0, uplink only needs to be up
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
         interface_flush(remote, id, 'uplink')
+
+        # traffic goes through bat0, uplink only needs to be up
         exec(remote, f'ip netns exec "ns-{id}" batctl meshif "bat0" interface add "uplink"')
         interface_up(remote, id, 'bat0')
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'bat0', 8)
+        else:
+            pass
+            # fe80 should do
 
 def stop_batmanadv_instances(ids, rmap):
     for id in ids:
@@ -184,7 +207,12 @@ def start_babel_instances(ids, rmap):
         # babel needs the link local (fe80:*) and a regular IPv6 address
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
-        set_addr6(remote, id, 'uplink', 64)
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'uplink', 32)
+        else:
+            set_addr6(remote, id, 'uplink', 64)
+
         exec(remote, f'ip netns exec "ns-{id}" babeld -D -I /tmp/babel-{id}.pid "uplink"')
 
 def stop_babel_instances_all(remotes):
@@ -199,6 +227,9 @@ def stop_babel_instances(ids, rmap):
         exec(remote, f'rm -f /tmp/babel-{id}.pid')
 
 def start_olsr1_instances(ids, rmap):
+    if ip_protocol == '6':
+        eprint('warning: IPv6 support for olsr1 is broken/buggy')
+
     for id in ids:
         remote = rmap[id]
 
@@ -206,12 +237,16 @@ def start_olsr1_instances(ids, rmap):
             address = remote.get('address', 'local')
             print(f'start olsr1 in {address}/ns-{id}')
 
-        # OLSR1 IPv6 seems to be broken/buggy
-        # Let's use IPv4 instead
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
         interface_flush(remote, id, 'uplink')
-        set_addr4(remote, id, 'uplink', 32)
+
+        if ip_protocol == '6':
+            # IPv6 support seems to be broken/buggy!
+            set_addr6(remote, id, 'uplink', 128)
+        else:
+            set_addr4(remote, id, 'uplink', 32)
+
         exec(remote, f'ip netns exec "ns-{id}" olsrd -d 0 -i "uplink" -f /dev/null')
 
 def stop_olsr1_instances_all(remotes):
@@ -251,10 +286,16 @@ def start_olsr2_instances(ids, rmap):
         # Create a configuration file
         exec(remote, f'printf "{config}" > /tmp/olsrd2-{id}.conf')
 
-        # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
-        set_addr6(remote, id, 'uplink', 128)
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'uplink', 32)
+        else:
+            # olsr2 needs the fe80:* address (link local)
+            # and a regular IPv6 address (/128 or other)
+            set_addr6(remote, id, 'uplink', 128)
+
         exec(remote, f'ip netns exec "ns-{id}" olsrd2 "uplink" --load /tmp/olsrd2-{id}.conf')
 
 def stop_olsr2_instances_all(remotes):
@@ -292,6 +333,8 @@ def start_ospf_instances(ids, rmap):
             r'  export all;\n'
             r'}\n'
             r'\n'
+            #r'protocol direct { interface \"uplink\" }\n'
+            r'\n'
             r'protocol ospf v3 {\n'
             r'  area 0 { interface \"uplink\" {}; };\n'
             r'  import all;\n'
@@ -310,22 +353,36 @@ def start_ospf_instances(ids, rmap):
         # Create a configuration file
         exec(remote, f'printf "{config}" > /tmp/bird6-ospf-{id}.conf')
 
-        # olsr2 needs the fe80:* address (link local) and a regular IPv6 address (/128 or other)
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
-        set_addr6(remote, id, 'uplink', 128)
-        exec(remote, f'ip netns exec "ns-{id}" bird6 -P /tmp/bird6-ospf-{id}.pid -s /tmp/bird6-ospf-{id}.ctl -c /tmp/bird6-ospf-{id}.conf')
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'uplink', 32)
+            exec(remote, f'ip netns exec "ns-{id}" bird -P /tmp/bird-ospf-{id}.pid -s /tmp/bird-ospf-{id}.ctl -c /tmp/bird-ospf-{id}.conf')
+        else:
+            # olsr2 needs the fe80:* address (link local)
+            # and a regular IPv6 address (/128 or other)
+            set_addr6(remote, id, 'uplink', 128)
+            exec(remote, f'ip netns exec "ns-{id}" bird6 -P /tmp/bird6-ospf-{id}.pid -s /tmp/bird6-ospf-{id}.ctl -c /tmp/bird6-ospf-{id}.conf')
 
 def stop_ospf_instances_all(remotes):
     for remote in remotes:
-        exec(remote, f'pkill -SIGKILL -x bird6 || true')
-        exec(remote, f'rm -f /tmp/bird6-ospf-*.conf')
+        if ip_protocol == '4':
+            exec(remote, f'pkill -SIGKILL -x bird || true')
+            exec(remote, f'rm -f /tmp/bird-ospf-*.conf')
+        else:
+            exec(remote, f'pkill -SIGKILL -x bird6 || true')
+            exec(remote, f'rm -f /tmp/bird6-ospf-*.conf')
 
 def stop_ospf_instances(ids, rmap):
     for id in ids:
         remote = rmap[id]
-        exec(remote, f'pkill -SIGKILL -x bird6 --nslist ns-{id} || true')
-        exec(remote, f'rm -f /tmp/bird6-ospf-{id}.conf')
+        if ip_protocol == '4':
+            exec(remote, f'pkill -SIGKILL -x bird --nslist ns-{id} || true')
+            exec(remote, f'rm -f /tmp/bird-ospf-{id}.conf')
+        else:
+            exec(remote, f'pkill -SIGKILL -x bird6 --nslist ns-{id} || true')
+            exec(remote, f'rm -f /tmp/bird6-ospf-{id}.conf')
 
 def start_bmx6_instances(ids, rmap):
     for id in ids:
@@ -335,9 +392,15 @@ def start_bmx6_instances(ids, rmap):
             address = remote.get('address', 'local')
             print(f'start bmx6 in {address}/ns-{id}')
 
-        # bmx6 only needs the link local fe80:* address
         interface_down(remote, id, 'uplink')
         interface_up(remote, id, 'uplink')
+
+        if ip_protocol == '4':
+            set_addr4(remote, id, 'uplink', 32)
+        else:
+            # Only the link local fe80:* address is needed
+            pass
+
         exec(remote, f'ip netns exec "ns-{id}" bmx6 --runtimeDir /tmp/bmx6_{id} dev=uplink')
 
 def stop_bmx6_instances_all(remotes):
@@ -525,6 +588,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser.add_argument('--ip-protocol', choices=['4', '6'], help='Use IPv4/IPv6 only.')
     parser.set_defaults(to_state=None)
 
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
@@ -550,6 +614,9 @@ def main():
 
     args = parser.parse_args()
 
+    global ip_protocol
+    ip_protocol = args.ip_protocol
+
     if args.remotes:
         with open(args.remotes) as file:
             args.remotes = json.load(file)
@@ -558,6 +625,7 @@ def main():
 
     check_access(args.remotes)
 
+    global verbosity
     verbosity = args.verbosity
 
     # get nodes that have been added or will be removed
