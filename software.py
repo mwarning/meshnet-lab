@@ -442,6 +442,7 @@ def start_routing_protocol(protocol, rmap, ids, ignore_error=False):
         return
     else:
         eprint(f'Error: unknown routing protocol: {protocol}')
+        stop_all_terminals()
         exit(1)
 
     wait_for_completion()
@@ -486,6 +487,7 @@ def stop_routing_protocol(protocol, rmap, ids, ignore_error=False):
         pass
     else:
         eprint('Error: unknown routing protocol: {}'.format(protocol))
+        stop_all_terminals()
         exit(1)
 
     for id in ids:
@@ -504,6 +506,7 @@ def stop_routing_protocol(protocol, rmap, ids, ignore_error=False):
     count = beg_count - end_count
     if count != len(ids):
         eprint(f'Error: Failed to stop {protocol} instances: {count}/{len(ids)} left')
+        stop_all_terminals()
         exit(1)
 
     if not ignore_error and verbosity != 'quiet':
@@ -652,6 +655,7 @@ def main():
         run(' '.join(args.command), rmap, args.quiet)
     else:
         eprint('Unknown action: {}'.format(args.action))
+        stop_all_terminals()
         exit(1)
 
     stop_all_terminals()
