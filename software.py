@@ -580,12 +580,11 @@ def run(command, rmap, quiet=False):
         else:
             stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{id}" {cmd}', get_output=True, ignore_error=True)
 
-            if stdout or stderr:
-                print(f'{id}')
-                if stdout:
-                    print(stdout)
-                if stderr:
-                    eprint(stderr)
+            if len(stdout) > 0:
+                print(stdout)
+
+            if len(stderr) > 0:
+                eprint(stderr)
 
 def main():
     parser = argparse.ArgumentParser()
