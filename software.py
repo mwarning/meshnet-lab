@@ -573,7 +573,7 @@ def clear(remotes=default_remotes):
 
 def run(command, rmap, quiet=False):
     for (id, remote) in rmap.items():
-        cmd = command.replace('{name}', id[3:])
+        cmd = command.replace('{name}', id)
 
         if quiet:
             exec(remote, f'ip netns exec "ns-{id}" {cmd}', get_output=False, ignore_error=True)
