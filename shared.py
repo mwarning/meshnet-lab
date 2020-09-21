@@ -18,7 +18,7 @@ def eprint(message):
 
 # get time in milliseconds
 def millis():
-    return int((datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds() * 1000)
+    return int(1000 * time.time())
 
 def create_process(remote, command):
     address = remote.get('address')
