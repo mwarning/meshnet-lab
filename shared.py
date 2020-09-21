@@ -191,15 +191,24 @@ def convert_to_neighbors(*networks):
     return ret
 
 def check_access(remotes):
-    # need root for local setup
+    # single empty remote with no address => local
+    if len(remotes) == 1 and ('address' not in remotes[0]):
+        if os.geteuid() == 0:
+            # must be root
+            return
+        else:
+            eprint('Local setup needs to run as root.')
+            stop_all_terminals()
+            exit(1)
+
     for remote in remotes:
-        if remote.get('address') is None:
-            if os.geteuid() != 0:
-                eprint('Local setup needs to run as root.')
-                stop_all_terminals()
-                exit(1)
-        # check if we can execute something
-        exec(remote, 'true')
+        if 'address' in remote:
+            # check if we can execute something
+            exec(remote, 'true')
+        else:
+            eprint('Need external address for all remotes.')
+            stop_all_terminals()
+            exit(1)
 
 def format_duration(time_ms):
     d, remainder = divmod(time_ms, 24 * 60 * 60 * 1000)
