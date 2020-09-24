@@ -9,9 +9,27 @@ import re
 import os
 
 
-default_remotes = [{}] # local
-terminals = {} # terminals (SSH/local)
+class Remote:
+    def __init__(self, address=None, port=None, identity_file=None):
+        self.address = address
+        self.port = port or 22
+        self.ifile = identity_file
 
+    def __hash__(self):
+        return hash((self.address, self.port, self.ifile))
+
+    def __eq__(self, other):
+        return (isinstance(other, type(self))
+            and self.address == other.address
+            and self.port == other.port
+            and self.ifile == other.ifile
+        )
+
+    def from_json(obj):
+        return Remote(obj.get("address"), obj.get("port"), obj.get("identity_file"))
+
+default_remotes = [Remote()] # local
+terminals = {} # terminals (SSH/local)
 
 def eprint(message):
     sys.stderr.write(f'{message}\n')
@@ -21,18 +39,14 @@ def millis():
     return int(1000 * time.time())
 
 def create_process(remote, command):
-    address = remote.get('address')
-    port = remote.get('port', 22)
-    ifile = remote.get('identity_file')
-
-    if address:
+    if remote.address:
         # SSH terminal
         command = command.replace('\'', '\\\'') # escape '
 
-        if ifile:
-            command = f'ssh -p {port} -i {ifile} root@{address} \'{command}\''
+        if remote.ifile:
+            command = f'ssh -p {remote.port} -i {remote.ifile} root@{remote.address} \'{command}\''
         else:
-            command = f'ssh -p {port} root@{address} \'{command}\''
+            command = f'ssh -p {remote.port} root@{remote.address} \'{command}\''
     else:
         # local terminal
         command = f'{command}'
@@ -66,7 +80,7 @@ class TerminalThread(threading.Thread):
                 errout = err.decode()
 
                 if p.returncode != 0 and not ignore_error:
-                    address = self.remote.get('address', 'local')
+                    address = self.remote or 'local'
                     eprint(errout)
                     eprint(stdout)
                     eprint(f'Abort, command failed on {address}: {command}')
@@ -86,16 +100,10 @@ class TerminalThread(threading.Thread):
                 exit(1)
 
 def exec(remote, command, get_output=False, ignore_error=False):
-    i = id(remote)
+    if remote not in terminals:
+        terminals[remote] = TerminalThread(remote)
 
-    if not type(remote) is dict:
-        print(f'Remote not a dict! {remote}')
-        exit(1)
-
-    if i not in terminals:
-        terminals[i] = TerminalThread(remote)
-
-    t = terminals[i]
+    t = terminals[remote]
     t.queue.put((ignore_error, get_output, command))
 
     while get_output:
@@ -192,7 +200,7 @@ def convert_to_neighbors(*networks):
 
 def check_access(remotes):
     # single empty remote with no address => local
-    if len(remotes) == 1 and ('address' not in remotes[0]):
+    if len(remotes) == 1 and remotes[0].address is None:
         if os.geteuid() == 0:
             # must be root
             return
@@ -202,7 +210,7 @@ def check_access(remotes):
             exit(1)
 
     for remote in remotes:
-        if 'address' in remote:
+        if remote.address is not None:
             # check if we can execute something
             exec(remote, 'true')
         else:

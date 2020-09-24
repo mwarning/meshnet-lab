@@ -14,7 +14,7 @@ import os
 from shared import (
     eprint, exec, default_remotes, convert_to_neighbors, check_access,
     stop_all_terminals, format_duration, millis, wait_for_completion,
-    get_current_state, link_id
+    get_current_state, link_id, Remote
 )
 
 block_arp = False
@@ -161,11 +161,12 @@ def remove_link(link, rmap={}):
     ifname1 = f've-{source}-{target}'
     ifname2 = f've-{target}-{source}'
 
-    if remote1 is remote2:
+    if remote1 == remote2:
         exec(remote1, f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
     else:
-        addr1 = remote1['address']
-        addr2 = remote2['address']
+        # multiple remotes always have address set
+        addr1 = remote1.address
+        addr2 = remote2.address
 
         # ids do not have to be the same on both remotes - but it is simpler that way
         tunnel_id = link_num(addr1, addr2, min=1, max=2**32)
@@ -211,13 +212,13 @@ def create_link(link, link_command=None, rmap={}):
     brname1 = f'br-{source}'
     brname2 = f'br-{target}'
 
-    if remote1 is remote2:
+    if remote1 == remote2:
         # create veth interface pair
         exec(remote1, f'ip netns exec "switch" ip link add "{ifname1}" type veth peer name "{ifname2}"')
     else:
         # create l2tp connection
-        addr1 = remote1['address']
-        addr2 = remote2['address']
+        addr1 = remote1.address
+        addr2 = remote2.address
 
         # ids and port do not have to be the same on both remotes - but it is simpler that way
         tunnel_id = link_num(addr1, addr2, min=1, max=2**32)
@@ -360,7 +361,7 @@ def show(remotes=default_remotes):
         nodes = exec(remote, 'ip netns list', get_output=True)[0].count('ns-')
         veth = int(exec(remote, 'ip netns exec switch ip addr list | grep -c "@ve-" || true', get_output=True)[0]) // 2
         l2tp = int(exec(remote, 'ip l2tp show session | grep -c "ve-" || true', get_output=True)[0])
-        address = remote.get('address', 'local')
+        address = remote.address or 'local'
         print(f'{address}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
 
 def clear(remotes=default_remotes):
@@ -570,7 +571,7 @@ def main():
 
     if args.remotes:
         with open(args.remotes) as file:
-            args.remotes = json.load(file)
+            args.remotes = [Remote.from_json(obj) for obj in json.load(file)]
     else:
         args.remotes = default_remotes
 

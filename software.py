@@ -13,7 +13,7 @@ import os
 from shared import (
     eprint, wait_for_completion, exec, default_remotes, check_access,
     millis, get_remote_mapping, stop_all_terminals, format_duration,
-    get_current_state
+    get_current_state, Remote
 )
 
 verbosity = 'normal'
@@ -100,7 +100,7 @@ def start_cjdns_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start cjdns in {address}/ns-{id}')
 
         # traffic goes through tun0, uplink only needs to be up
@@ -137,7 +137,7 @@ def start_yggdrasil_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start yggdrasil in {address}/ns-{id}')
 
         # Create a configuration file
@@ -169,7 +169,7 @@ def start_batmanadv_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start batman-adv in {address}/ns-{id}')
 
         interface_down(remote, id, 'uplink')
@@ -201,7 +201,7 @@ def start_babel_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start babel in {address}/ns-{id}')
 
         # babel needs the link local (fe80:*) and a regular IPv6 address
@@ -234,7 +234,7 @@ def start_olsr1_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start olsr1 in {address}/ns-{id}')
 
         interface_down(remote, id, 'uplink')
@@ -280,7 +280,7 @@ def start_olsr2_instances(ids, rmap):
     for id in ids:
         remote = rmap[id]
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start olsr2 in {address}/ns-{id}')
 
         # Create a configuration file
@@ -347,7 +347,7 @@ def start_ospf_instances(ids, rmap):
         )
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start ospf in {address}/ns-{id}')
 
         # Create a configuration file
@@ -389,7 +389,7 @@ def start_bmx6_instances(ids, rmap):
         remote = rmap[id]
 
         if verbosity == 'verbose':
-            address = remote.get('address', 'local')
+            address = remote.address or 'local'
             print(f'start bmx6 in {address}/ns-{id}')
 
         interface_down(remote, id, 'uplink')
@@ -621,7 +621,7 @@ def main():
 
     if args.remotes:
         with open(args.remotes) as file:
-            args.remotes = json.load(file)
+            args.remotes = [Remote.from_json(obj) for obj in json.load(file)]
     else:
         args.remotes = default_remotes
 

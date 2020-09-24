@@ -13,7 +13,7 @@ import re
 from shared import (
     eprint, create_process, exec, get_remote_mapping, millis,
     default_remotes, convert_to_neighbors, stop_all_terminals,
-    format_size
+    format_size, Remote
 )
 
 '''
@@ -558,7 +558,7 @@ def main():
 
     # need root for local setup
     for remote in args.remotes:
-        if remote.get('address') is None:
+        if remote.address is None:
             if os.geteuid() != 0:
                 eprint('Need to run as root.')
                 exit(1)
