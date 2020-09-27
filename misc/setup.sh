@@ -5,11 +5,11 @@
 set -xe
 
 apt-get update
-apt-get install -y sudo time git-core subversion build-essential g++ bash make libssl-dev patch libncurses5 libncurses5-dev zlib1g-dev gawk flex gettext wget unzip xz-utils python python-distutils-extra python3 python3-distutils-extra rsync linux-headers-amd64 pkg-config libnl-3-dev libnl-genl-3-dev libiw-dev bison cmake
-
+apt-get install -y sudo time git-core subversion build-essential g++ bash make libssl-dev patch libncurses5 libncurses5-dev zlib1g-dev gawk flex gettext wget unzip xz-utils python python-distutils-extra python3 python3-distutils-extra rsync linux-headers-$(uname -r) pkg-config libnl-3-dev libnl-genl-3-dev libiw-dev bison cmake
 
 WD="/tmp/work/"
 mkdir $WD
+echo "working directory: $WD"
 
 # install batman-adv
 cd $WD
