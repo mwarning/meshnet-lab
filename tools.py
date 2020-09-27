@@ -556,7 +556,7 @@ def main():
 
     if args.remotes:
         with open(args.remotes) as file:
-            args.remotes = json.load(file)
+            args.remotes = [Remote.from_json(obj) for obj in json.load(file)]
     else:
         args.remotes = default_remotes
 
