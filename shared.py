@@ -202,7 +202,7 @@ def check_access(remotes):
     # single empty remote with no address => local
     if len(remotes) == 1 and remotes[0].address is None:
         if os.geteuid() == 0:
-            # must be root
+            # we are root
             return
         else:
             eprint('Local setup needs to run as root.')
@@ -210,11 +210,16 @@ def check_access(remotes):
             exit(1)
 
     for remote in remotes:
-        if remote.address is not None:
-            # check if we can execute something
-            exec(remote, 'true')
-        else:
+        if remote.address is None:
             eprint('Need external address for all remotes.')
+            stop_all_terminals()
+            exit(1)
+
+        # check if we can execute something
+        (stdout, stderr, rcode) = exec(remote, 'true', get_output=True, ignore_error=True)
+        if rcode != 0:
+            eprint(stdout)
+            eprint(stderr)
             stop_all_terminals()
             exit(1)
 
