@@ -7,10 +7,14 @@ import glob
 sys.path.append('../../')
 import software
 import network
+from shared import Remote
 import tools
 
 
-remotes= [{}] #[{'address': '192.168.44.133'}, {'address': '192.168.44.137'}]
+remotes= [Remote()]
+
+tools.check_access(remotes)
+software.copy(remotes, '../../protocols', '/var/')
 
 software.clear(remotes)
 network.clear(remotes)

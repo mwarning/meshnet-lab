@@ -10,6 +10,7 @@ import sys
 import os
 import re
 
+import shared
 from shared import (
     eprint, create_process, exec, get_remote_mapping, millis,
     default_remotes, convert_to_neighbors, stop_all_terminals,
@@ -530,6 +531,9 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
         ))
 
     return ret
+
+def check_access(remotes):
+    shared.check_access(remotes)
 
 def main():
     parser = argparse.ArgumentParser()

@@ -5,13 +5,16 @@ import sys
 import glob
 
 sys.path.append('../../')
+from shared import Remote
 import software
 import network
 import tools
 
 
-remotes= [{}] #[{'address': '192.168.44.133'}, {'address': '192.168.44.137'}]
+remotes= [Remote()] #[Remote('192.168.44.133'), Remote('192.168.44.137')]
 
+tools.check_access(remotes)
+software.copy(remotes, '../../protocols', '/var/')
 software.clear(remotes)
 network.clear(remotes)
 
@@ -52,7 +55,7 @@ def run(protocol, csvfile):
 		network.clear(remotes)
 
 		# abort benchmark when less then 40% of the pings arrive
-		if (ping_result.received / ping_result.transmitted) < 0.4:
+		if ping_result.transmitted == 0 or (ping_result.received / ping_result.transmitted) < 0.4:
 			break
 
 for protocol in ['babel', 'batman-adv', 'yggdrasil']:

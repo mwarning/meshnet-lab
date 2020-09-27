@@ -63,6 +63,8 @@ Stopped 100 batman-adv instances in 3.109s
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
 
+The `batman-adv` protocol refers to the start/stop scripts in the [protocols](protocols/) subfolder. Add your own scripts to support other protocols.
+
 A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder.
 
 ## Software Components
@@ -111,6 +113,14 @@ Example remotes.json:
 ]
 ```
 (Note: You can also specifiy a SSH `"identity_file"`)
+
+A typical distributed workflow would be:
+```
+./network.py --remotes remotes.json apply graph.json
+./software.py --remotes remotes.json copy protocols/ /var/
+./software.py --remotes remotes.json start batman-adv
+./tools.py --remotes remotes.json ping
+```
 
 ### SSH Connection Sharing
 

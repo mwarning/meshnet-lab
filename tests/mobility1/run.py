@@ -12,13 +12,19 @@ import software
 import network
 import topology
 import mobility
+from shared import Remote
 import tools
 
 
-prefix = os.environ.get('PREFIX', '')
+remotes= [Remote()]
+
+tools.check_access(remotes)
+software.copy(remotes, '../../protocols', '/var/')
 
 software.clear()
 network.clear()
+
+prefix = os.environ.get('PREFIX', '')
 
 # 100MBit LAN cable
 def get_tc_command(link, ifname):
