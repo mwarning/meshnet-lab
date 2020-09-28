@@ -361,16 +361,16 @@ def show(remotes=default_remotes):
         nodes = exec(remote, 'ip netns list', get_output=True)[0].count('ns-')
         veth = int(exec(remote, 'ip netns exec switch ip addr list | grep -c "@ve-" || true', get_output=True)[0]) // 2
         l2tp = int(exec(remote, 'ip l2tp show session | grep -c "ve-" || true', get_output=True)[0])
-        address = remote.address or 'local'
-        print(f'{address}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
+        label = remote.address or 'local'
+        print(f'{label}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
 
 def clear(remotes=default_remotes):
     check_access(remotes)
 
     for remote in remotes:
         exec(remote, 'ip -all netns delete || true')
-        # removal of all l2tp tunnels removes all sessions as well
-        exec(remote, f'ip l2tp show tunnel | grep Tunnel | tr "," " " | cut -d" " -f2 | xargs -r -n1 ip l2tp del tunnel tunnel_id')
+        # removal of all l2tp tunnels - removes all sessions as well
+        exec(remote, 'ip l2tp show tunnel | grep Tunnel | tr "," " " | cut -d" " -f2 | xargs -r -n1 ip l2tp del tunnel tunnel_id')
 
 '''
 Get a dict to map nodes to remote computers

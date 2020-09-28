@@ -13,7 +13,6 @@ import tools
 remotes= [Remote()] #[Remote('192.168.44.133'), Remote('192.168.44.137')]
 
 tools.check_access(remotes)
-software.copy(remotes, '../../protocols', '/var/')
 
 software.clear(remotes)
 network.clear(remotes)

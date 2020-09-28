@@ -67,35 +67,61 @@ def copy(remotes, source, destination):
             # local terminal
             os.system(f'cp -r {source} {destination}')
 
-def _run(command, rmap, ids):
+def _stop_protocol(protocol, rmap, ids):
+    if not os.path.isfile(f'protocols/{protocol}_stop.sh'):
+        eprint(f'File does not exist: protocols/{protocol}_stop.sh')
+        stop_all_terminals()
+        exit(1)
+
     for id in ids:
         remote = rmap[id]
 
-        # replace {id} and {address}
-        cmd = command.replace('{id}', id).replace('{address}', remote.address or 'local')
+        label = remote.address or 'local'
+        cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_stop.sh'
 
-        if verbosity != 'quiet':
-            stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{id}" {cmd}', get_output=True, ignore_error=True)
+        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
+
+        if len(stdout) > 0:
+            sys.stdout.write(stdout)
+
+        if len(stderr) > 0:
+            sys.stderr.write(stderr)
+
+def _start_protocol(protocol, rmap, ids):
+    if not os.path.isfile(f'protocols/{protocol}_start.sh'):
+        eprint(f'File does not exist: protocols/{protocol}_start.sh')
+        stop_all_terminals()
+        exit(1)
+
+    for id in ids:
+        remote = rmap[id]
+
+        label = remote.address or 'local'
+        cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_start.sh'
+
+        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
+
+        if len(stdout) > 0:
+            sys.stdout.write(stdout)
+
+        if len(stderr) > 0:
+            sys.stderr.write(stderr)
+
+def clear(remotes):
+    for name in os.listdir('protocols/'):
+        if not name.endswith('_stop.sh'):
+            continue
+
+        cmd = '"sh -s" < protocols/{}'.format(name)
+
+        for remote in remotes:
+            stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
 
             if len(stdout) > 0:
                 sys.stdout.write(stdout)
 
             if len(stderr) > 0:
                 sys.stderr.write(stderr)
-        else:
-            exec(remote, f'ip netns exec "ns-{id}" {cmd}', get_output=False, ignore_error=True)
-
-    wait_for_completion()
-
-def _stop_protocol(protocol, rmap, ids):
-    _run('/var/protocols/{}_stop.sh {{address}} {{id}}'.format(protocol), rmap, ids)
-
-def _start_protocol(protocol, rmap, ids):
-    _run('/var/protocols/{}_start.sh {{address}} {{id}}'.format(protocol), rmap, ids)
-
-def clear(remotes):
-    for remote in remotes:
-        exec(remote, 'for c in /var/protocols/*_stop.sh; do $c; done', ignore_error=True)
 
 def stop(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -127,12 +153,11 @@ def main():
     parser_change.add_argument('protocol', help='Routing protocol to change.')
     parser_change.add_argument('to_state', nargs='?', default=None, help='To state')
 
-    # run is each namspace and on each remote??
     parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
     parser_run.add_argument('command', nargs=argparse.REMAINDER, help='Shell command that is run. {name} is replaced by the nodes name.')
     parser_run.add_argument('to_state', nargs='?', default=None, help='To state')
 
-    parser_copy = subparsers.add_parser('copy', help='Copy to remotes.')
+    parser_copy = subparsers.add_parser('copy', help='Copy to all remotes.')
     parser_copy.add_argument('source', nargs='+')
     parser_copy.add_argument('destination')
 
@@ -155,50 +180,45 @@ def main():
     (old_ids, new_ids, rmap) = _get_update(args.to_state, args.remotes)
 
     if args.action == 'start':
-        start_ms = millis()
-        if args.to_state:
-            _start_protocol(args.protocol, rmap, new_ids)
-        else:
-            all = list(rmap.keys())
-            _start_protocol(args.protocol, rmap, all)
+        ids = new_ids if args.to_state else list(rmap.keys())
+
+        beg_ms = millis()
+        _start_protocol(args.protocol, rmap, ids)
         end_ms = millis()
 
         if verbosity != 'quiet':
-            print('started {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
+            print('started {} in {} namespaces in {}'.format(args.protocol, len(ids), format_duration(end_ms - beg_ms)))
     elif args.action == 'stop':
-        start_ms = millis()
-        if args.to_state:
-            _stop_protocol(args.protocol, rmap, old_ids)
-        else:
-            all = list(rmap.keys())
-            _stop_protocol(args.protocol, rmap, all)
+        ids = old_ids if args.to_state else list(rmap.keys())
+
+        beg_ms = millis()
+        _stop_protocol(args.protocol, rmap, ids)
         end_ms = millis()
 
         if verbosity != 'quiet':
-            print('stopped {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
+            print('stopped {} in {} namespaces in {}'.format(args.protocol, len(ids), format_duration(end_ms - beg_ms)))
     elif args.action == 'apply':
-        start_ms = millis()
-        print("old_ids: {}, new_ids: {}".format(len(old_ids), len(new_ids)))
+        beg_ms = millis()
         _stop_protocol(args.protocol, rmap, old_ids)
         _start_protocol(args.protocol, rmap, new_ids)
         end_ms = millis()
 
         if verbosity != 'quiet':
-            print('applied {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
+            print('applied {} in {} namespaces in {}'.format(args.protocol, len(rmap.keys()), format_duration(end_ms - beg_ms)))
     elif args.action == 'clear':
-        start_ms = millis()
+        beg_ms = millis()
         clear(args.remotes)
         end_ms = millis()
 
         if verbosity != 'quiet':
-            print('cleared {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
+            print('cleared on {} remotes in {}'.format(len(args.remotes), format_duration(end_ms - beg_ms)))
     elif args.action == 'copy':
         beg_ms = millis()
         copy(args.remotes, args.source, args.destination)
         end_ms = millis()
 
         if verbosity != 'quiet':
-            print('copied on {} remotes in {}'.format(len(remotes), format_duration(end_ms - beg_ms)))
+            print('copied on {} remotes in {}'.format(len(args.remotes), format_duration(end_ms - beg_ms)))
     elif args.action == 'run':
         if args.to_state:
             _run(' '.join(args.command), rmap, new_ids)

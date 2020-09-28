@@ -38,15 +38,16 @@ def eprint(message):
 def millis():
     return int(1000 * time.time())
 
-def create_process(remote, command):
+def create_process(remote, command, add_quotes=True):
     if remote.address:
-        # SSH terminal
-        command = command.replace('\'', '\\\'') # escape '
+        if add_quotes:
+            command = command.replace('\'', '\\\'') # need to escape
+            command = f'\'{command}\''
 
         if remote.ifile:
-            command = f'ssh -p {remote.port} -i {remote.ifile} root@{remote.address} \'{command}\''
+            command = f'ssh -p {remote.port} -i {remote.ifile} root@{remote.address} {command}'
         else:
-            command = f'ssh -p {remote.port} root@{remote.address} \'{command}\''
+            command = f'ssh -p {remote.port} root@{remote.address} {command}'
     else:
         # local terminal
         command = f'{command}'
@@ -71,19 +72,19 @@ class TerminalThread(threading.Thread):
         while True:
             try:
                 # might raise Empty
-                (ignore_error, get_output, command) = self.queue.get(block=True, timeout=1)
+                (ignore_error, get_output, add_quotes, command) = self.queue.get(block=True, timeout=1)
 
-                p = create_process(self.remote, command)
+                p = create_process(self.remote, command, add_quotes)
 
                 (std, err) = p.communicate()
                 stdout = std.decode()
                 errout = err.decode()
 
                 if p.returncode != 0 and not ignore_error:
-                    address = self.remote or 'local'
+                    label = self.remote.address or 'local'
                     eprint(errout)
                     eprint(stdout)
-                    eprint(f'Abort, command failed on {address}: {command}')
+                    eprint(f'Abort, command failed on {label}: {command}')
                     eprint('Network might be in an undefined state!')
                     exit(1)
 
@@ -99,12 +100,12 @@ class TerminalThread(threading.Thread):
                 eprint(e)
                 exit(1)
 
-def exec(remote, command, get_output=False, ignore_error=False):
+def exec(remote, command, get_output=False, ignore_error=False, add_quotes=True):
     if remote not in terminals:
         terminals[remote] = TerminalThread(remote)
 
     t = terminals[remote]
-    t.queue.put((ignore_error, get_output, command))
+    t.queue.put((ignore_error, get_output, add_quotes, command))
 
     while get_output:
         t.output_lock.acquire()

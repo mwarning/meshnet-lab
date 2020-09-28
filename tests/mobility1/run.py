@@ -19,8 +19,6 @@ import tools
 remotes= [Remote()]
 
 tools.check_access(remotes)
-software.copy(remotes, '../../protocols', '/var/')
-
 software.clear()
 network.clear()
 

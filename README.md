@@ -116,9 +116,11 @@ Example remotes.json:
 
 A typical distributed workflow would be:
 ```
+# create network
 ./network.py --remotes remotes.json apply graph.json
-./software.py --remotes remotes.json copy protocols/ /var/
+# start software
 ./software.py --remotes remotes.json start batman-adv
+# run tests
 ./tools.py --remotes remotes.json ping
 ```
 
