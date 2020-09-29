@@ -115,13 +115,15 @@ def clear(remotes):
     (_, _, rmap) = _get_update(None, remotes)
     ids = list(rmap.keys())
 
+    names = []
+    for name in os.listdir('protocols/'):
+        if name.endswith('_stop.sh'):
+            names.append(name)
+
     for id in ids:
         remote = rmap[id]
 
-        for name in os.listdir('protocols/'):
-            if not name.endswith('_stop.sh'):
-                continue
-
+        for name in names:
             label = remote.address or 'local'
             cmd = f'sh -s {label} {id} < protocols/{name}'
             _exec_verbose(remote, cmd, ignore_error=True)
