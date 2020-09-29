@@ -112,20 +112,21 @@ def _start_protocol(protocol, rmap, ids):
     wait_for_completion()
 
 def clear(remotes):
-    for name in os.listdir('protocols/'):
-        if not name.endswith('_stop.sh'):
-            continue
+    (_, _, rmap) = _get_update(None, remotes)
+    ids = list(rmap.keys())
 
-        cmd = '"sh -s" < protocols/{}'.format(name)
+    for id in ids:
+        remote = rmap[id]
 
-        for remote in remotes:
-            stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
+        for name in os.listdir('protocols/'):
+            if not name.endswith('_stop.sh'):
+                continue
 
-            if len(stdout) > 0:
-                sys.stdout.write(stdout)
+            label = remote.address or 'local'
+            cmd = f'"sh -s {label} {id}" < protocols/{name}'
+            _exec_verbose(remote, cmd, ignore_error=True)
 
-            if len(stderr) > 0:
-                sys.stderr.write(stderr)
+    wait_for_completion()
 
 def stop(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -230,11 +231,13 @@ def main():
         if verbosity != 'quiet':
             print('copied on {} remotes in {}'.format(len(args.remotes), format_duration(end_ms - beg_ms)))
     elif args.action == 'run':
-        if args.to_state:
-            _run(' '.join(args.command), rmap, new_ids)
-        else:
-            all = list(rmap.keys())
-            _run(' '.join(args.command), rmap, all)
+        ids = new_ids if args.to_state else list(rmap.keys())
+
+        for id in ids:
+            remote = rmap[id]
+            label = remote.address or 'local'
+            cmd = f'ip netns exec ns-{id} {" ".join(args.command)} {label} {id}'
+            _exec_verbose(remote, cmd)
     else:
         eprint('Unknown action: {}'.format(args.action))
         stop_all_terminals()
