@@ -166,6 +166,11 @@ def main():
     args = parser.parse_args()
 
     if args.remotes:
+        if not os.path.isfile(args.remotes):
+            eprint(f'File not found: {args.remotes}')
+            stop_all_terminals()
+            exit(1)
+
         with open(args.remotes) as file:
             args.remotes = [Remote.from_json(obj) for obj in json.load(file)]
     else:

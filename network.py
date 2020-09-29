@@ -488,6 +488,11 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
         if new_state == 'none':
             new_state = {}
         else:
+            if not os.path.isfile(new_state):
+                eprint(f'File not found: {new_state}')
+                stop_all_terminals()
+                exit(1)
+
             with open(new_state) as file:
                 new_state = json.load(file)
 
@@ -570,6 +575,11 @@ def main():
     verbosity = args.verbosity
 
     if args.remotes:
+        if not os.path.isfile(args.remotes):
+            eprint(f'File not found: {args.remotes}')
+            stop_all_terminals()
+            exit(1)
+
         with open(args.remotes) as file:
             args.remotes = [Remote.from_json(obj) for obj in json.load(file)]
     else:
