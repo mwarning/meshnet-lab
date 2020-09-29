@@ -67,6 +67,18 @@ def copy(remotes, source, destination):
             # local terminal
             os.system(f'cp -r {source} {destination}')
 
+def _exec_verbose(remote, cmd, ignore_error=False):
+    if verbosity == 'verbose':
+        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=ignore_error, add_quotes=False)
+
+        if len(stdout) > 0:
+            sys.stdout.write(stdout)
+
+        if len(stderr) > 0:
+            sys.stderr.write(stderr)
+    else:
+        exec(remote, cmd, get_output=False, ignore_error=ignore_error, add_quotes=False)
+
 def _stop_protocol(protocol, rmap, ids):
     if not os.path.isfile(f'protocols/{protocol}_stop.sh'):
         eprint(f'File does not exist: protocols/{protocol}_stop.sh')
@@ -79,13 +91,9 @@ def _stop_protocol(protocol, rmap, ids):
         label = remote.address or 'local'
         cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_stop.sh'
 
-        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
+        _exec_verbose(remote, cmd)
 
-        if len(stdout) > 0:
-            sys.stdout.write(stdout)
-
-        if len(stderr) > 0:
-            sys.stderr.write(stderr)
+    wait_for_completion()
 
 def _start_protocol(protocol, rmap, ids):
     if not os.path.isfile(f'protocols/{protocol}_start.sh'):
@@ -99,13 +107,9 @@ def _start_protocol(protocol, rmap, ids):
         label = remote.address or 'local'
         cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_start.sh'
 
-        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=True, add_quotes=False)
+        _exec_verbose(remote, cmd)
 
-        if len(stdout) > 0:
-            sys.stdout.write(stdout)
-
-        if len(stderr) > 0:
-            sys.stderr.write(stderr)
+    wait_for_completion()
 
 def clear(remotes):
     for name in os.listdir('protocols/'):
