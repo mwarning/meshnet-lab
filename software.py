@@ -141,27 +141,28 @@ def main():
 
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
-    parser_start = subparsers.add_parser('start', help='Start protocol daemons in every namespace.')
-    parser_start.add_argument('protocol', help='Routing protocol to start.')
+    parser_start = subparsers.add_parser('start', help='Run start script in every namespace.')
+    parser_start.add_argument('protocol', help='Routing protocol script prefix.')
     parser_start.add_argument('to_state', nargs='?', default=None, help='To state')
 
-    parser_stop = subparsers.add_parser('stop', help='Stop protocol daemons in every namespace.')
-    parser_stop.add_argument('protocol', help='Routing protocol to stop.')
+    parser_stop = subparsers.add_parser('stop', help='Run stop script in every namespace.')
+    parser_stop.add_argument('protocol', help='Routing protocol script prefix.')
     parser_stop.add_argument('to_state', nargs='?', default=None, help='To state')
 
-    parser_change = subparsers.add_parser('apply', help='Stop/Start protocol daemons in every namespace.')
-    parser_change.add_argument('protocol', help='Routing protocol to change.')
+    parser_change = subparsers.add_parser('apply', help='Run stop/start scripts in every namespace.')
+    parser_change.add_argument('protocol', help='Routing protocol script prefix.')
     parser_change.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
-    parser_run.add_argument('command', nargs=argparse.REMAINDER, help='Shell command that is run. {name} is replaced by the nodes name.')
+    parser_run.add_argument('command', nargs=argparse.REMAINDER,
+        help='Shell command that is run. Remote address and namespace id is added to call arguments.')
     parser_run.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_copy = subparsers.add_parser('copy', help='Copy to all remotes.')
     parser_copy.add_argument('source', nargs='+')
     parser_copy.add_argument('destination')
 
-    parser_clear = subparsers.add_parser('clear', help='Stop all routing protocols.')
+    parser_clear = subparsers.add_parser('clear', help='Run all stop scripts in every namespaces.')
 
     args = parser.parse_args()
 
