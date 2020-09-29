@@ -51,7 +51,7 @@ Started 100 batman-adv instances in 3.16s
 # Run some test commands (output omitted)
 ./tools.py ping
 ./tools.py traffic --duration 3
-./software.py run 'ip a && echo "Hello from inside node {name}"'
+./software.py --verbosity verbose run 'ip a && echo "Hello from inside node"'
 
 # Stop software
 ./software.py stop batman-adv
