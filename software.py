@@ -89,7 +89,7 @@ def _stop_protocol(protocol, rmap, ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_stop.sh'
+        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < protocols/{protocol}_stop.sh'
 
         _exec_verbose(remote, cmd)
 
@@ -105,7 +105,7 @@ def _start_protocol(protocol, rmap, ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} "sh -s {label} {id}" < protocols/{protocol}_start.sh'
+        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < protocols/{protocol}_start.sh'
 
         _exec_verbose(remote, cmd)
 
@@ -123,7 +123,7 @@ def clear(remotes):
                 continue
 
             label = remote.address or 'local'
-            cmd = f'"sh -s {label} {id}" < protocols/{name}'
+            cmd = f'sh -s {label} {id} < protocols/{name}'
             _exec_verbose(remote, cmd, ignore_error=True)
 
     wait_for_completion()
