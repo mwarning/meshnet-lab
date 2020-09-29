@@ -531,9 +531,6 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
 
     # remove "switch" namespace
     if state_empty(new_state):
-        if verbosity == 'normal':
-            print('  remove "switch"')
-
         for remote in remotes:
             exec(remote, 'ip netns del "switch" || true')
 
