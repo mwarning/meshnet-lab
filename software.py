@@ -80,8 +80,11 @@ def _exec_verbose(remote, cmd, ignore_error=False):
         exec(remote, cmd, get_output=False, ignore_error=ignore_error, add_quotes=False)
 
 def _stop_protocol(protocol, rmap, ids):
-    if not os.path.isfile(f'protocols/{protocol}_stop.sh'):
-        eprint(f'File does not exist: protocols/{protocol}_stop.sh')
+    base = os.path.dirname(os.path.realpath(__file__))
+    path = f'{base}/protocols/{protocol}_stop.sh'
+
+    if not os.path.isfile(path):
+        eprint(f'File does not exist: {path}')
         stop_all_terminals()
         exit(1)
 
@@ -89,15 +92,18 @@ def _stop_protocol(protocol, rmap, ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < protocols/{protocol}_stop.sh'
+        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
         _exec_verbose(remote, cmd)
 
     wait_for_completion()
 
 def _start_protocol(protocol, rmap, ids):
-    if not os.path.isfile(f'protocols/{protocol}_start.sh'):
-        eprint(f'File does not exist: protocols/{protocol}_start.sh')
+    base = os.path.dirname(os.path.realpath(__file__))
+    path = f'{base}/protocols/{protocol}_start.sh'
+
+    if not os.path.isfile(path):
+        eprint(f'File does not exist: {path}')
         stop_all_terminals()
         exit(1)
 
@@ -105,18 +111,19 @@ def _start_protocol(protocol, rmap, ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < protocols/{protocol}_start.sh'
+        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
         _exec_verbose(remote, cmd)
 
     wait_for_completion()
 
 def clear(remotes):
+    base = os.path.dirname(os.path.realpath(__file__))
     (_, _, rmap) = _get_update(None, remotes)
     ids = list(rmap.keys())
 
     names = []
-    for name in os.listdir('protocols/'):
+    for name in os.listdir(f'{base}/protocols/'):
         if name.endswith('_stop.sh'):
             names.append(name)
 
@@ -125,7 +132,7 @@ def clear(remotes):
 
         for name in names:
             label = remote.address or 'local'
-            cmd = f'sh -s {label} {id} < protocols/{name}'
+            cmd = f'sh -s {label} {id} < {base}/protocols/{name}'
             _exec_verbose(remote, cmd, ignore_error=True)
 
     wait_for_completion()
