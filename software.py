@@ -119,20 +119,16 @@ def _start_protocol(protocol, rmap, ids):
 
 def clear(remotes):
     base = os.path.dirname(os.path.realpath(__file__))
-    (_, _, rmap) = _get_update(None, remotes)
-    ids = list(rmap.keys())
 
     names = []
     for name in os.listdir(f'{base}/protocols/'):
         if name.endswith('_stop.sh'):
             names.append(name)
 
-    for id in ids:
-        remote = rmap[id]
-
+    for remote in remotes:
         for name in names:
             label = remote.address or 'local'
-            cmd = f'sh -s {label} {id} < {base}/protocols/{name}'
+            cmd = f'sh -s {label} < {base}/protocols/{name}'
             _exec_verbose(remote, cmd, ignore_error=True)
 
     wait_for_completion()
