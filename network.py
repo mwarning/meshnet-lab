@@ -272,6 +272,7 @@ def _process_json(json_data):
         name = str(node['id'])
         if not name_re.match(name):
             eprint(f'Invalid node name: {name}')
+            stop_all_terminals()
             exit(1)
 
         nodes[name] = node
@@ -282,10 +283,12 @@ def _process_json(json_data):
 
         if len(source) > 6:
             eprint(f'Node name too long: {source}')
+            stop_all_terminals()
             exit(1)
 
         if len(target) > 6:
             eprint(f'Node name too long: {target}')
+            stop_all_terminals()
             exit(1)
 
         if source not in nodes:
@@ -387,6 +390,7 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
             partitions.setdefault(remote_id, []).append(node_id)
             if node_id not in nodes:
                 eprint(f'Node {node_id} not in previous state!')
+                stop_all_terminals()
                 exit(1)
             nodes.remove(node_id)
 
@@ -466,6 +470,7 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
 
     if len(best_partition) == 0:
         eprint('No network partition found.')
+        stop_all_terminals()
         exit(1)
 
     #if verbosity in ['verbose', 'normal']:
