@@ -114,13 +114,17 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
+'''
+Add links to network to make sure
+it is fully connected.
+'''
 def make_connected(network):
     neighbors = convert_to_neighbors(network)
     clusters = _get_clusters_sets(neighbors)
 
     def get_unique_id(neighbors, i = 0):
-        if f'interconnect-{i}' not in neighbors:
-             return f'interconnect-{i}'
+        if f'ic-{i}' not in neighbors:
+             return f'ic-{i}'
         else:
             return get_unique_id(neighbors, i + 1)
 
