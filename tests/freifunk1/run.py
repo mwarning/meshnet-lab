@@ -10,6 +10,9 @@ import network
 from shared import Remote
 import tools
 
+# increase limit for all the parallel pings
+os.system('ulimit -Sn 4096')
+
 remotes= [Remote()] #[Remote('192.168.44.133'), Remote('192.168.44.137')]
 
 tools.check_access(remotes)

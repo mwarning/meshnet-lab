@@ -10,6 +10,8 @@ import network
 from shared import Remote
 import tools
 
+# increase limit for all the parallel pings
+os.system('ulimit -Sn 4096')
 
 remotes= [Remote()]
 
