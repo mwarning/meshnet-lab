@@ -180,6 +180,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - Yggdrasil needs the most resources (CPU/RAM) of the routing protocol programs supported here
   - encrypts traffic
 - CJDNS security can be disabled. Compile for speed using `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
+- `[Errno 24] Too many open files`: With big networks, tests can spwan thousands of pings and wait for them. This can cause this error message. Use `ulimit -Sn 4096` to increase the file desciptor limit.
 
 ## Related Projects
 
