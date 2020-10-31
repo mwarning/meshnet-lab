@@ -76,7 +76,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 for step_duration in [10, 30]:
 	for step_distance in [10, 30, 60]:
-		for protocol in ['babel', 'batman-adv', 'bmx6', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
+		for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
 			with open(f"{prefix}mobility1-{step_duration}-{step_distance}-{protocol}.csv", 'w+') as csvfile:
 				run(protocol, csvfile, step_duration, step_distance)
 
