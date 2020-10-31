@@ -223,7 +223,8 @@ def json_count(path):
     obj = path
 
     if isinstance(path, str):
-        obj = json.load(open(path))
+        with open(path) as file:
+            obj = json.load(file)
 
     links = obj.get('links', [])
     nodes = {}
