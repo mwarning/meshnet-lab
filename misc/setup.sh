@@ -42,6 +42,20 @@ cd bmx6-*
 make
 cp bmx6 /usr/bin/
 
+# install bmx7
+cd $WD
+wget https://tls.mbed.org/download/mbedtls-2.4.0-gpl.tgz -O mbedtls.tgz
+tar -xvf mbedtls.tgz
+cd mbedtls-*
+make
+make install
+cd $WD
+wget https://github.com/bmx-routing/bmx7/archive/v7.1.1.tar.gz -O bmx7.tar.gz
+tar -xvf bmx7.tar.gz
+cd bmx7-*/src
+make EXTRA_CFLAGS="-DCRYPTLIB=MBEDTLS_2_4_0"
+cp bmx7 /usr/bin/
+
 # install olsr1/olsrd
 cd $WD
 wget https://github.com/OLSR/olsrd/archive/v0.9.8.tar.gz -O olsrd.tar.gz
