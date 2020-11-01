@@ -10,8 +10,10 @@ import network
 import tools
 
 
-software.clear()
-network.clear()
+remotes= [Remote()]
+
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -28,13 +30,13 @@ def run(protocol, files, csvfile):
 
 		print(f'run {protocol} on {path}')
 
-		network.apply(state=state, link_command=get_tc_command)
+		network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 
 		tools.sleep(10)
 
 		for offset in range(0, 60, 2):
 			tmp_ms = tools.millis()
-			traffic_beg = tools.traffic()
+			traffic_beg = tools.traffic(remotes)
 			traffic_ms = tools.millis() - tmp_ms
 
 			tmp_ms = tools.millis()
@@ -46,19 +48,19 @@ def run(protocol, files, csvfile):
 
 			paths = tools.get_random_paths(state, 2 * 200)
 			paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
-			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
+			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
 
-			traffic_end = tools.traffic()
+			traffic_end = tools.traffic(remotes)
 
-			sysload_result = tools.sysload()
+			sysload_result = tools.sysload(remotes)
 
-			software.clear()
+			software.clear(remotes)
 
 			# add data to csv file
 			extra = (['node_count', 'traffic_ms', 'software_ms', 'offset_ms'], [node_count, traffic_ms, software_ms, offset * 1000])
 			tools.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result.getData(), sysload_result)
 
-		network.clear()
+		network.clear(remotes)
 
 for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0050.json']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:

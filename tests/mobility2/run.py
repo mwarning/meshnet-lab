@@ -20,8 +20,8 @@ remotes= [Remote()]
 
 tools.check_access(remotes)
 
-software.clear()
-network.clear()
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -38,14 +38,14 @@ def run(protocol, csvfile):
 	mobility.connect_range(state, max_links=150)
 
 	# create network and start routing software
-	network.apply(state=state, link_command=get_tc_command)
+	network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 	software.start(protocol)
 	tools.sleep(30)
 
 	for step_distance in [50, 100, 150, 200, 250, 300, 350, 400]:
 		print(f'{protocol}: step_distance {step_distance}')
 
-		traffic_beg = tools.traffic()
+		traffic_beg = tools.traffic(remotes)
 		for n in range(0, 6):
 			#with open(f'graph-{step_distance}-{n}.json', 'w+') as file:
 			#	json.dump(state, file, indent='  ')
@@ -58,17 +58,17 @@ def run(protocol, csvfile):
 			mobility.connect_range(state, max_links=150)
 
 			# update network
-			network.apply(state=state, link_command=get_tc_command)
+			network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 
 			# Wait until wait seconds are over, else error
 			tools.wait(wait_beg_ms, 10)
 
 			paths = tools.get_random_paths(state, 2 * 200)
 			paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
-			ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
+			ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=2000, verbosity='verbose')
 
 			packets_arrived_pc = 100 * (ping_result.received / ping_result.send)
-			traffic_end = tools.traffic()
+			traffic_end = tools.traffic(remotes)
 
 			# add data to csv file
 			extra = (['node_count', 'time_ms', 'step_distance_m', 'n', 'packets_arrived_pc'], [node_count, tools.millis() - wait_beg_ms, step_distance, n, packets_arrived_pc])
@@ -76,8 +76,8 @@ def run(protocol, csvfile):
 
 			traffic_beg = traffic_end
 
-	software.clear()
-	network.clear()
+	software.clear(remotes)
+	network.clear(remotes)
 
 # remove none, after it has been verified to be 0% (also for mobility1)
 for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:

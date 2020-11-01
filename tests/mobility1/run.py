@@ -19,8 +19,8 @@ import tools
 remotes= [Remote()]
 
 tools.check_access(remotes)
-software.clear()
-network.clear()
+software.clear(remotes)
+network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
@@ -37,7 +37,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 	mobility.connect_range(state, max_links=150)
 
 	# create network and start routing software
-	network.apply(state, link_command=get_tc_command)
+	network.apply(state, link_command=get_tc_command, remotes=remotes)
 	software.start(protocol)
 
 	test_beg_ms = tools.millis()
@@ -56,7 +56,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		# update network
 		tmp_ms = tools.millis()
-		network.apply(state=state, link_command=get_tc_command)
+		network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 		#software.apply(protocol=protocol, state=state) # we do not change the node count
 		network_ms = tools.millis() - tmp_ms
 
@@ -65,14 +65,14 @@ def run(protocol, csvfile, step_duration, step_distance):
 
 		paths = tools.get_random_paths(state, 2 * 200)
 		paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
-		ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose')
+		ping_result = tools.ping_paths(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
 
 		# add data to csv file
 		extra = (['node_count', 'time_ms'], [node_count, tools.millis() - test_beg_ms])
 		tools.csv_update(csvfile, '\t', extra, ping_result.getData())
 
-	software.clear()
-	network.clear()
+	software.clear(remotes)
+	network.clear(remotes)
 
 for step_duration in [10, 30]:
 	for step_distance in [10, 30, 60]:
