@@ -5,7 +5,7 @@ id="$2"
 
 echo "start olsr2 on ${address} in ${id}"
 
-cat <<- EOF > "/tmp/olsrd2-${node}.conf"
+cat <<- EOF > "/tmp/olsrd2-${id}.conf"
 	[global]
 	fork       yes
 	lockfile   -
