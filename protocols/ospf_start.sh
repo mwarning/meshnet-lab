@@ -3,7 +3,7 @@
 address="$1"
 id="$2"
 
-echo "start bird-ospf on ${address} in ${id}"
+echo "start ospf on ${address} in ${id}"
 
 # The route id can be any 32bit identifier
 # as integer or as IPv4 address.
@@ -12,7 +12,7 @@ router_id=$(shuf -i 0-4294967296 -n 1)
 cat <<- EOF > "/tmp/bird-ospf-${id}.conf"
   router id ${router_id};
   protocol kernel {
-    scan time 60;
+    scan time 10;
     import all;
     export all;
   }
