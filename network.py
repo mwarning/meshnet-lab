@@ -161,6 +161,10 @@ def remove_link(link, rmap={}):
     ifname1 = f've-{source}-{target}'
     ifname2 = f've-{target}-{source}'
 
+    if source == target:
+        eprint(f'Warning: Cannot remove link with identical source ({source}) and target ({target}) => ignore')
+        return
+
     if remote1 == remote2:
         exec(remote1, f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
     else:
@@ -189,6 +193,10 @@ def update_link(link, link_command=None, rmap={}):
     ifname1 = f've-{source}-{target}'
     ifname2 = f've-{target}-{source}'
 
+    if source == target:
+        eprint(f'Warning: Cannot update link with identical source ({source}) and target ({target}) => ignore')
+        return
+
     if link_command is not None:
         # source -> target
         exec(remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
@@ -211,6 +219,10 @@ def create_link(link, link_command=None, rmap={}):
     ifname2 = f've-{target}-{source}'
     brname1 = f'br-{source}'
     brname2 = f'br-{target}'
+
+    if source == target:
+        eprint(f'Warning: Cannot create link with identical source ({source}) and target ({target}) => ignore')
+        return
 
     if remote1 == remote2:
         # create veth interface pair
