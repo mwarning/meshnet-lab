@@ -7,6 +7,7 @@ import glob
 sys.path.append('../../')
 import software
 import network
+from shared import Remote
 import tools
 
 
