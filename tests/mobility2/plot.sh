@@ -19,11 +19,11 @@ gnuplot -e "
 	'${prefix}mobility2-babel.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
 	'${prefix}mobility2-batman-adv.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
 	'${prefix}mobility2-bmx6.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-	'${prefix}mobility2-bmx7.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-yellow' title 'bmx7 [%]' axis x1y1, \
+	'${prefix}mobility2-bmx7.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'gold' title 'bmx7 [%]' axis x1y1, \
 	'${prefix}mobility2-cjdns.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 	'${prefix}mobility2-olsr1.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 	'${prefix}mobility2-olsr2.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
-	'${prefix}mobility2-ospf.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'green' title 'ospf [%]' axis x1y1, \
+	'${prefix}mobility2-ospf.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'dark-green' title 'ospf [%]' axis x1y1, \
 	'${prefix}mobility2-yggdrasil.csv' using 0:(column('packets_arrived_pc')) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 	;\
 "
@@ -42,11 +42,11 @@ gnuplot -e "
 	'${prefix}mobility2-babel.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
 	'${prefix}mobility2-batman-adv.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
 	'${prefix}mobility2-bmx6.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-	'${prefix}mobility2-bmx7.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y1, \
+	'${prefix}mobility2-bmx7.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'gold' title 'bmx7 [%]' axis x1y1, \
 	'${prefix}mobility2-cjdns.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 	'${prefix}mobility2-olsr1.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 	'${prefix}mobility2-olsr2.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
-	'${prefix}mobility2-ospf.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'ospf [%]' axis x1y1, \
+	'${prefix}mobility2-ospf.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-green' title 'ospf [%]' axis x1y1, \
 	'${prefix}mobility2-yggdrasil.csv' using 0:(((column('tx_bytes') / 1000) / (column('time_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 	;\
 "
@@ -57,7 +57,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_arrival_stats.png'; \
-	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', yggdrasil']; \
+	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
 		file = '${prefix}mobility2-'.protocols[i].'.csv'; \
@@ -69,7 +69,7 @@ gnuplot -e "
 	set style fill solid; \
 	set boxwidth 0.5; \
 	set yrange [0:]; \
-	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'dark-green', 4 'dark-red', 5 'coral', 6 'green', 7 'purple', 8 'blue'); \
+	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'gold', 4 'dark-red', 5 'coral', 6 'green', 7 'dark-green', 8 'purple'); \
 	set cbrange [0:8]; \
 	unset colorbox; \
 	plot SUM using 0:2:(column(0)):xticlabels(protocols[column(0)+1]) with boxes linecolor palette; \
@@ -81,7 +81,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,480; \
 	set output '${prefix}mobility2_traffic_stats.png'; \
-	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', yggdrasil']; \
+	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
 		node_count = 50; \
@@ -97,7 +97,7 @@ gnuplot -e "
 	set style fill solid; \
 	set boxwidth 0.5; \
 	set yrange [0:]; \
-	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'dark-green', 4 'dark-red', 5 'coral', 6 'green', 7 'purple', 8 'blue'); \
+	set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'gold', 4 'dark-red', 5 'coral', 6 'green', 7 'dark-green', 8 'purple'); \
 	set cbrange [0:8]; \
 	unset colorbox; \
 	plot SUM using 0:2:(column(0)):xticlabels(protocols[column(0)+1]) with boxes linecolor palette; \

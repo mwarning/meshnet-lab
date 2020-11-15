@@ -28,8 +28,8 @@ for id in 'line' 'grid4' 'rtree'; do
 		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [KB/s/node]' axis x1y1, \
 		'${prefix}scalability1-bmx6-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y2, \
 		\
-		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-green' title 'bmx7 [KB/s/node]' axis x1y1, \
-		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y2, \
+		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'gold' title 'bmx7 [KB/s/node]' axis x1y1, \
+		'${prefix}scalability1-bmx7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'gold' title 'bmx7 [%]' axis x1y2, \
 		\
 		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-red' title 'cjdns [KB/s/node]' axis x1y1, \
 		'${prefix}scalability1-cjdns-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'dark-red' title 'cjdns [%]' axis x1y2, \

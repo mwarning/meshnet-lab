@@ -20,11 +20,11 @@ for step_duration in 10 30; do
 			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-batman-adv.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-bmx6.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-green' title 'bmx7 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'gold' title 'bmx7 [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-cjdns.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-olsr1.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-olsr2.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-ospf.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'green' title 'ospf [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-ospf.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-green' title 'ospf [%]' axis x1y1, \
 			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
 			;\
 		"
@@ -50,7 +50,7 @@ for step_duration in 10 30; do
 			set style fill solid; \
 			set boxwidth 0.5; \
 			set yrange [0:]; \
-			set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'dark-green', 4 'dark-red', 5 'coral', 6 'green', 7 'purple', 8 'blue'); \
+			set palette defined (0 'dark-violet', 1 'skyblue', 2 'dark-yellow', 3 'gold', 4 'dark-red', 5 'coral', 6 'green', 7 'dark-green', 8 'purple'); \
 			set cbrange [0:8]; \
 			unset colorbox; \
 			plot SUM using 0:2:(column(0)):xticlabels(protocols[column(0)+1]) with boxes linecolor palette; \
