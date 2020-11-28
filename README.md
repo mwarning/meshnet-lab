@@ -74,7 +74,7 @@ A collections of automated tests with data plot generation is available in the [
 * `topology.py` creates JSON files with descriptions of common topologies (grids, lines, loop, trees).
 * `tools.py` contains tools to create ping statistics and to measure traffic.
 
-The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands.
+The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands. You need Linux Kernel >=4.18 to run meshnet-lab.
 
 ## Add Traffic Control
 
