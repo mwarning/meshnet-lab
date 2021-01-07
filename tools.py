@@ -217,6 +217,7 @@ def wait(beg_ms, until_sec):
         time.sleep(((until_sec * 1000) - (now_ms - beg_ms)) / 1000.0)
     else:
         eprint('Wait timeout already passed by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
+        stop_all_terminals()
         exit(1)
 
 def json_count(path):
