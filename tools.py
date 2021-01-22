@@ -488,7 +488,7 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
                     started += 1
                 else:
                     debug = '[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface)
-                    process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D {target_addr}')
+                    process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D -I {interface} {target_addr}')
                     processes.append((process, debug))
                     started += 1
         else:
