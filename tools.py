@@ -180,7 +180,7 @@ def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
     filtered = []
     for path in paths:
         d = dijkstra.find_shortest_distance(path[0], path[1])
-        if d >= min_hops and d <= max_hops:
+        if d >= min_hops and d <= max_hops and d != math.inf:
             filtered.append(path)
 
     if path_count is not None:
