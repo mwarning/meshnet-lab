@@ -185,7 +185,7 @@ def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
 
     if path_count is not None:
         if len(filtered) < path_count:
-            eprint('Only {len(filtered)} paths left after filtering. Required were at least {path_count}.')
+            eprint(f'Only {len(filtered)} paths left after filtering. Required were at least {path_count}.')
             exit(1)
 
         if len(filtered) > path_count:
