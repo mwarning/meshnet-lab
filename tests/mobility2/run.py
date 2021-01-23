@@ -63,7 +63,7 @@ def run(protocol, csvfile):
 			# Wait until wait seconds are over, else error
 			tools.wait(wait_beg_ms, 10)
 
-			paths = tools.get_random_paths(state, 2 * 200)
+			paths = tools.get_random_paths(state, 2 * 400)
 			paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
 			ping_result = tools.ping_paths(remotes=remotes, paths=paths, duration_ms=2000, verbosity='verbose')
 
