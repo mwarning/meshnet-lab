@@ -61,7 +61,7 @@ def run(protocol, csvfile):
 			network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 
 			# Wait until wait seconds are over, else error
-			tools.wait(wait_beg_ms, 10)
+			tools.wait(wait_beg_ms, 15)
 
 			paths = tools.get_random_paths(state, 2 * 400)
 			paths = tools.filter_paths(state, paths, min_hops=2, path_count=200)
