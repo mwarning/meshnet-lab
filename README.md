@@ -184,6 +184,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Related Projects
 
+- [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
 - [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
 - [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandened)
