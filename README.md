@@ -59,6 +59,9 @@ Stopped 100 batman-adv instances in 3.109s
 
 # Remove network
 ./network.py apply none
+
+# Create graphviz chart
+./visualize.py graph.json > chart.gv
 ```
 
 As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
