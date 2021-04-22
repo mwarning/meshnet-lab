@@ -61,6 +61,8 @@ Stopped 100 batman-adv instances in 3.109s
 ./network.py apply none
 
 # Create graphviz chart
+# You should create a virtuelenv
+pip install -r requirements.txt
 ./visualize.py graph.json > chart.gv
 ```
 
