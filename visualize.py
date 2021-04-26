@@ -7,11 +7,13 @@ def draw(file):
     dot = Graph()
     f = json.load(file)
     
-    for node in f["nodes"]:
-        dot.node(str(node["id"]))
+    if "nodes" in f:
+        for node in f["nodes"]:
+            dot.node(str(node["id"]))
 
-    for link in f["links"]:
-        dot.edge(str(link["source"]), str(link["target"]))
+    if "links" in f:
+        for link in f["links"]:
+            dot.edge(str(link["source"]), str(link["target"]))
 
     print(dot.source)
 
