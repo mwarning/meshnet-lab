@@ -20,6 +20,7 @@ from shared import (
 block_arp = False
 block_multicast = False
 verbosity = 'normal'
+mtu = 1500
 
 
 # deterministic link id
@@ -31,7 +32,7 @@ def link_num(source, target, min, max):
 
 def configure_interface(remote, nsname, ifname):
     # up interface
-    exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" up')
+    exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" up mtu {mtu}')
 
     # disable arp / multicast
     # we do not want the OS to send packets on its own,
