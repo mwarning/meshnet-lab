@@ -48,6 +48,9 @@ Network setup in 10.834s:
 ./software.py start batman-adv
 Started 100 batman-adv instances in 3.16s
 
+# Sleep to allow mesh discovery
+sleep 30
+
 # Run some test commands (output omitted)
 ./tools.py ping
 ./tools.py traffic --duration 3
