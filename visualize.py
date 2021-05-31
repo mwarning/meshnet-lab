@@ -21,8 +21,6 @@ def draw(file):
             # else:
             dot.edge(str(link["source"]), str(link["target"]))
 
-
-
     return dot
 
 if __name__ == '__main__':
