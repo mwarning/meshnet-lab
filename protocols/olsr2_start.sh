@@ -36,10 +36,10 @@ addr6() {
   printf fdef:17a0:ffb1:300:$(printf %02x $((0x$1 ^ 2)))$2:${3}ff:fe$4:$5$6
 }
 
-ip link set "uplink" down
-ip link set "uplink" up
 ip -4 addr flush dev "uplink"
 ip -6 addr flush dev "uplink"
+ip link set "uplink" down
+ip link set "uplink" up
 ip a a $(addr4 "uplink")/32 dev "uplink"
 ip a a $(addr6 "uplink")/128 dev "uplink"
 
