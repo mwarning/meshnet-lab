@@ -217,7 +217,7 @@ def get_paths_to_gateways(network, gateways):
                 gateway_min = gateway
 
         if gateway_min is not None:
-            paths.append((gateway, node))
+            paths.append((node, gateway))
 
     return paths
 
