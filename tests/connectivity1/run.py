@@ -10,7 +10,8 @@ import json
 sys.path.append('../../')
 import topology
 import mobility
-import tools
+import shared
+import ping
 
 
 prefix = os.environ.get('PREFIX', '')
@@ -40,7 +41,7 @@ def get_mean_geo_distance(state, paths):
 	return distance / len(paths)
 
 def get_connectivity(state, paths):
-	dijkstra = tools.Dijkstra(state)
+	dijkstra = ping.Dijkstra(state)
 	path_count = 0
 	hop_count = 0
 	max_hop_count = 0
@@ -78,10 +79,10 @@ def run(node_count, csvfile):
 				['node_count', 'max_range', 'mean_geo_distance', 'connectivity_per', 'connected_median_hop_count', 'connected_max_hop_count'],
 				[node_count, max_range, mean_geo_distance, connectivity_per, connected_median_hop_count, connected_max_hop_count]
 			)
-			tools.csv_update(csvfile, '\t', extra)
+			shared.csv_update(csvfile, '\t', extra)
 
 for node_count in [10, 20, 30, 40, 50]:
 	with open(f'{prefix}connectivity1-{node_count}.csv', 'w+') as csvfile:
 		run(node_count, csvfile)
 
-tools.stop_all_terminals()
+shared.stop_all_terminals()

@@ -52,8 +52,8 @@ Started 100 batman-adv instances in 3.16s
 sleep 30
 
 # Run some test commands (output omitted)
-./tools.py ping
-./tools.py traffic --duration 3
+./ping.py
+./traffic.py --duration 3
 ./software.py --verbosity verbose run 'ip a && echo "Hello from inside node"'
 
 # Stop software
@@ -75,7 +75,9 @@ A collections of automated tests with data plot generation is available in the [
 * `network.py` creates a network topology from a description in JSON.
 * `software.py` starts routing protocol software in all namespaces.
 * `topology.py` creates JSON files with descriptions of common topologies (grids, lines, loop, trees).
-* `tools.py` contains tools to create ping statistics and to measure traffic.
+* `ping.py` send pings between the nodes and print statistics.
+* `traffic.py` Measure the traffic that has been send between the nodes.
+* `shared.py` Not callable. A collection of shared methods across this repo.
 
 The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands. You need Linux Kernel >=4.18 to run meshnet-lab.
 
@@ -124,7 +126,7 @@ A typical distributed workflow would be:
 # start software
 ./software.py --remotes remotes.json start batman-adv
 # run tests
-./tools.py --remotes remotes.json ping
+./ping.py --remotes remotes.json
 ```
 
 ### SSH Connection Sharing
