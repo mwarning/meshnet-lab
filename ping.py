@@ -166,7 +166,7 @@ Get list of random unique pairs (no self references, no different directions)
 '''
 def _get_random_paths(nodes, count=10, seed=None):
     if count > (len(nodes) * (len(nodes) - 1) // 2):
-        eprint(f'Path count ({count}) too big to generate unique paths.')
+        eprint(f'Not enough nodes to generate {count} unique paths.')
         stop_all_terminals()
         exit(1)
 
