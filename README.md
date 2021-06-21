@@ -187,6 +187,10 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 - CJDNS security can be disabled. Compile for speed using `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
 - `[Errno 24] Too many open files`: With big networks, tests can spwan thousands of pings and wait for them. This can cause this error message. Use `ulimit -Sn 4096` to increase the file desciptor limit.
 
+## Simulation Notes
+
+To lessen the effect of the system on the results when a lot of processes are run, it is advisable to slow down the running speed of the routing protocols (use `cpulimit` or croups) and slow down time as well ([libfaketime](https://github.com/wolfcw/libfaketime)). This has not been tried here yet!
+
 ## Related Projects
 
 - [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation
