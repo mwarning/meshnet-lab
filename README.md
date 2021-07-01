@@ -48,9 +48,12 @@ Network setup in 10.834s:
 ./software.py start batman-adv
 Started 100 batman-adv instances in 3.16s
 
+# Sleep to allow mesh discovery
+sleep 30
+
 # Run some test commands (output omitted)
-./tools.py ping
-./tools.py traffic --duration 3
+./ping.py
+./traffic.py --duration 3
 ./software.py --verbosity verbose run 'ip a && echo "Hello from inside node"'
 
 # Stop software
@@ -78,7 +81,9 @@ A collections of automated tests with data plot generation is available in the [
 * `network.py` creates a network topology from a description in JSON.
 * `software.py` starts routing protocol software in all namespaces.
 * `topology.py` creates JSON files with descriptions of common topologies (grids, lines, loop, trees).
-* `tools.py` contains tools to create ping statistics and to measure traffic.
+* `ping.py` send pings between the nodes and print statistics.
+* `traffic.py` Measure the traffic that has been send between the nodes.
+* `shared.py` Not callable. A collection of shared methods across this repo.
 
 The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands. You need Linux Kernel >=4.18 to run meshnet-lab.
 
@@ -127,7 +132,7 @@ A typical distributed workflow would be:
 # start software
 ./software.py --remotes remotes.json start batman-adv
 # run tests
-./tools.py --remotes remotes.json ping
+./ping.py --remotes remotes.json
 ```
 
 ### SSH Connection Sharing
@@ -187,6 +192,10 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - encrypts traffic
 - CJDNS security can be disabled. Compile for speed using `NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do`.
 - `[Errno 24] Too many open files`: With big networks, tests can spwan thousands of pings and wait for them. This can cause this error message. Use `ulimit -Sn 4096` to increase the file desciptor limit.
+
+## Simulation Notes
+
+To lessen the effect of the system on the results when a lot of processes are run, it is advisable to slow down the running speed of the routing protocols (use `cpulimit` or croups) and slow down time as well ([libfaketime](https://github.com/wolfcw/libfaketime)). This has not been tried here yet!
 
 ## Related Projects
 

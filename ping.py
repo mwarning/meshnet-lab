@@ -3,7 +3,6 @@
 import random
 import datetime
 import argparse
-import json
 import math
 import time
 import sys
@@ -114,37 +113,6 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
-'''
-Add links to network to make sure
-it is fully connected.
-'''
-def make_connected(network):
-    neighbors = convert_to_neighbors(network)
-    clusters = _get_clusters_sets(neighbors)
-
-    def get_unique_id(neighbors, i = 0):
-        if f'ic-{i}' not in neighbors:
-             return f'ic-{i}'
-        else:
-            return get_unique_id(neighbors, i + 1)
-
-    def get_center_node(neighbors, cluster):
-        max_neighbors = 0
-        center_node = None
-        for sid, neighs in neighbors.items():
-            if sid in cluster and len(neighs) >= max_neighbors:
-                max_neighbors = len(neighs)
-                center_node = sid
-        return center_node
-
-    if len(clusters) > 1:
-        central = get_unique_id(neighbors)
-
-        # connect all clusters via central node
-        for cluster in clusters:
-            center = get_center_node(neighbors, cluster)
-            network['links'].append({'source': central, 'target': center, 'type': 'vpn'})
-
 def _get_clusters_sets(neighbors):
     visited = {}
 
@@ -193,172 +161,12 @@ def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
 
     return filtered
 
-def root():
-    if os.geteuid() != 0:
-        eprint('Need to run as root.')
-        exit(1)
-
-def load_json(path):
-    with open(path) as file:
-        return json.load(file)
-    return None
-
-def seed_random(value):
-    random.seed(value)
-
-def sleep(seconds):
-    time.sleep(seconds)
-
-def wait(beg_ms, until_sec):
-    now_ms = millis()
-
-    # wait until time is over
-    if (now_ms - beg_ms) < (until_sec * 1000):
-        time.sleep(((until_sec * 1000) - (now_ms - beg_ms)) / 1000.0)
-    else:
-        eprint('Wait timeout already passed by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
-        stop_all_terminals()
-        exit(1)
-
-def json_count(path):
-    obj = path
-
-    if isinstance(path, str):
-        with open(path) as file:
-            obj = json.load(file)
-
-    links = obj.get('links', [])
-    nodes = {}
-    for link in links:
-        nodes[link['source']] = 0;
-        nodes[link['target']] = 0;
-    links = obj.get('links', [])
-
-    return (len(nodes), len(links))
-
-def sysload(remotes=default_remotes):
-    load1 = 0
-    load5 = 0
-    load15 = 0
-
-    for remote in remotes:
-        stdout = exec(remote, 'uptime', get_output=True)[0]
-        t = stdout.split('load average:')[1].split(',')
-        load1 += float(t[0])
-        load5 += float(t[1])
-        load15 += float(t[2])
-
-    titles = ['load1', 'load5', 'load15']
-    values = [load1 / len(remotes), load5 / len(remotes), load15 / len(remotes)]
-
-    return (titles, values)
-
-class _Traffic:
-    def __init__(self):
-        self.rx_bytes = 0
-        self.rx_packets = 0
-        self.rx_errors = 0
-        self.rx_dropped = 0
-        self.rx_overrun = 0
-        self.rx_mcast = 0
-        self.tx_bytes = 0
-        self.tx_packets = 0
-        self.tx_errors = 0
-        self.tx_dropped = 0
-        self.tx_carrier = 0
-        self.tx_collsns = 0
-
-    def getData(self):
-        titles = ['rx_bytes', 'rx_packets', 'rx_errors', 'rx_dropped',
-            'rx_overrun', 'rx_mcast', 'tx_bytes', 'tx_packets',
-            'tx_errors', 'tx_dropped', 'tx_carrier', 'tx_collsns'
-        ]
-
-        values = [self.rx_bytes, self.rx_packets, self.rx_errors, self.rx_dropped,
-            self.rx_overrun, self.rx_mcast, self.tx_bytes, self.tx_packets,
-            self.tx_errors, self.tx_dropped, self.tx_carrier, self.tx_collsns
-        ]
-
-        return (titles, values)
-
-    def __sub__(self, other):
-        ts = _Traffic()
-        ts.rx_bytes = self.rx_bytes - other.rx_bytes
-        ts.rx_packets = self.rx_packets - other.rx_packets
-        ts.rx_errors = self.rx_errors - other.rx_errors
-        ts.rx_dropped = self.rx_dropped - other.rx_dropped
-        ts.rx_overrun = self.rx_overrun - other.rx_overrun
-        ts.rx_mcast = self.rx_mcast - other.rx_mcast
-        ts.tx_bytes = self.tx_bytes - other.tx_bytes
-        ts.tx_packets = self.tx_packets - other.tx_packets
-        ts.tx_errors = self.tx_errors - other.tx_errors
-        ts.tx_dropped = self.tx_dropped - other.tx_dropped
-        ts.tx_carrier = self.tx_carrier - other.tx_carrier
-        ts.tx_collsns = self.tx_collsns - other.tx_collsns
-        return ts
-
-def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
-    if rmap is None:
-        rmap = get_remote_mapping(remotes)
-
-    if ids is None:
-        ids = list(rmap.keys())
-
-    if interface is None:
-        interface = 'uplink'
-
-    ts = _Traffic()
-
-    for id in ids:
-        remote = rmap[id]
-        stdout = exec(remote, f'ip netns exec ns-{id} ip -statistics link show dev {interface}', get_output=True)[0]
-        lines = stdout.split('\n')
-        link_toks = lines[1].split()
-        rx_toks = lines[3].split()
-        tx_toks = lines[5].split()
-        ts.rx_bytes += int(rx_toks[0])
-        ts.rx_packets += int(rx_toks[1])
-        ts.rx_errors += int(rx_toks[2])
-        ts.rx_dropped += int(rx_toks[3])
-        ts.rx_overrun += int(rx_toks[4])
-        ts.rx_mcast += int(rx_toks[5])
-        ts.tx_bytes += int(tx_toks[0])
-        ts.tx_packets += int(tx_toks[1])
-        ts.tx_errors += int(tx_toks[2])
-        ts.tx_dropped += int(tx_toks[3])
-        ts.tx_carrier += int(tx_toks[4])
-        ts.tx_collsns += int(tx_toks[5])
-
-    return ts
-
-# add titles and values to a CSV file
-def csv_update(file, delimiter, *args):
-    titles = list()
-    values = list()
-
-    for arg in args:
-        titles += arg[0]
-        values += arg[1]
-
-    # convert elements to str
-    for i in range(0, len(titles)):
-        titles[i] = str(titles[i])
-
-    # convert elements to str
-    for i in range(0, len(values)):
-        values[i] = str(values[i])
-
-    if file.tell() == 0:
-        file.write(delimiter.join(titles) + '\n')
-
-    file.write(delimiter.join(values) + '\n')
-
 '''
 Get list of random unique pairs (no self references, no different directions)
 '''
 def _get_random_paths(nodes, count=10, seed=None):
     if count > (len(nodes) * (len(nodes) - 1) // 2):
-        eprint(f'Path count ({count}) too big to generate unique paths.')
+        eprint(f'Not enough nodes to generate {count} unique paths.')
         stop_all_terminals()
         exit(1)
 
@@ -383,6 +191,36 @@ def get_random_paths(network=None, count=10, seed=None):
     nodes = list(convert_to_neighbors(network).keys())
     return _get_random_paths(nodes=nodes, count=count, seed=seed)
 
+def get_random_nodes(network, count):
+    nodes = list(convert_to_neighbors(network).keys())
+    return random.sample(nodes, count)
+
+# get all paths to neares gateways
+def get_paths_to_gateways(network, gateways):
+    nodes = list(convert_to_neighbors(network).keys())
+
+    dijkstra = Dijkstra(network)
+
+    paths = []
+
+    # remove gateways from nodes list
+    for gateway in gateways:
+        nodes.remove(gateway)
+
+    for node in nodes:
+        distance_min = math.inf
+        gateway_min = None
+        for gateway in gateways:
+            d = dijkstra.find_shortest_distance(gateway, node)
+            if distance_min == math.inf or d <= distance_min:
+                distance_min = d
+                gateway_min = gateway
+
+        if gateway_min is not None:
+            paths.append((node, gateway))
+
+    return paths
+
 '''
 Return an IP address of the interface in this preference order:
 1. IPv4 not link local
@@ -390,9 +228,11 @@ Return an IP address of the interface in this preference order:
 3. IPv6 link local
 4. IPv4 link local
 '''
-def _get_ip_address(remote, id, interface):
+def _get_ip_address(remote, id, interface, address_type=None):
     lladdr6 = None
     lladdr4 = None
+    addr6 = None
+    addr4 = None
 
     stdout, stderr, rcode = exec(remote, f'ip netns exec "ns-{id}" ip addr list dev {interface}', get_output=True)
     lines = stdout.split('\n')
@@ -403,7 +243,7 @@ def _get_ip_address(remote, id, interface):
             if addr4.startswith('169.254.'):
                 lladdr4 = addr4
             else:
-                return addr4
+                break
 
     for line in lines:
         if 'inet6 ' in line:
@@ -411,12 +251,33 @@ def _get_ip_address(remote, id, interface):
             if addr6.startswith('fe80:'):
                 lladdr6 = addr6
             else:
-                return addr6
+                break
 
-    if lladdr6 is not None:
-        return lladdr6
-    else:
-        return lladdr4
+    if address_type is None:
+        if addr4 is not None:
+            return addr4
+
+        if addr6 is not None:
+            return addr6
+
+        if lladdr6 is not None:
+            return lladdr6
+        else:
+            return lladdr4
+
+    if address_type == '4':
+        if addr4 is not None:
+            return addr4
+        else:
+            return lladdr4
+
+    if address_type == '6':
+        if addr6 is not None:
+            return addr6
+        else:
+            return lladdr6
+
+    return None
 
 class _PingResult:
     send = 0
@@ -457,7 +318,7 @@ def _get_interface(remote, source):
             return interface
     return 'uplink'
 
-def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal'):
+def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None):
     ping_deadline=1
     ping_count=1
     processes = []
@@ -480,7 +341,7 @@ def ping_paths(paths, duration_ms=1000, remotes=default_remotes, interface=None,
                 if interface is None:
                     interface = _get_interface(source_remote, source)
 
-                target_addr = _get_ip_address(target_remote, target, interface)
+                target_addr = _get_ip_address(target_remote, target, interface, address_type)
 
                 if target_addr is None:
                     eprint(f'Cannot get address of {interface} in ns-{target}')
@@ -542,21 +403,16 @@ def check_access(remotes):
     shared.check_access(remotes)
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Ping various nodes.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
-    subparsers = parser.add_subparsers(dest='action', required=True)
-
-    parser_traffic = subparsers.add_parser('traffic', help='Measure mean traffic.')
-    parser_traffic.add_argument('--interface', help='Interface to measure traffic on.')
-    parser_traffic.add_argument('--duration', type=int, help='Measurement duration in seconds.')
-
-    parser_ping = subparsers.add_parser('ping', help='Ping various nodes.')
-    parser_ping.add_argument('--input', help='JSON state of the network.')
-    parser_ping.add_argument('--interface', help='Interface to send data over (autodetected).')
-    parser_ping.add_argument('--min-hops', type=int, help='Minimum hops to ping. Needs --input.')
-    parser_ping.add_argument('--max-hops', type=int, help='Maximum hops to ping. Needs --input.')
-    parser_ping.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
-    parser_ping.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
+    parser.add_argument('--input', help='JSON state of the network.')
+    parser.add_argument('--interface', help='Interface to send data over (autodetected).')
+    parser.add_argument('--min-hops', type=int, help='Minimum hops to ping. Needs --input.')
+    parser.add_argument('--max-hops', type=int, help='Maximum hops to ping. Needs --input.')
+    parser.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
+    parser.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
+    parser.add_argument('-4', action='store_true', help='Force use of IPv4 addresses.')
+    parser.add_argument('-6', action='store_true', help='Force use of IPv6 addresses.')
 
     args = parser.parse_args()
 
@@ -578,42 +434,29 @@ def main():
                 eprint('Need to run as root.')
                 exit(1)
 
-    if args.action == 'traffic':
-        rmap = get_remote_mapping(args.remotes)
-        if args.duration:
-            ds = args.duration
-            ts_beg = traffic(args.remotes, interface=args.interface, rmap=rmap)
-            time.sleep(ds)
-            ts_end = traffic(args.remotes, interface=args.interface, rmap=rmap)
-            ts = ts_end - ts_beg
-            n = ds * len(rmap)
-            print(f'rx: {format_size(ts.rx_bytes / n)}/s, {ts.rx_packets / n:.2f} packets/s, {ts.rx_dropped / n:.2f} dropped/s (avg. per node)')
-            print(f'tx: {format_size(ts.tx_bytes / n)}/s, {ts.tx_packets / n:.2f} packets/s, {ts.tx_dropped / n:.2f} dropped/s (avg. per node)')
-        else:
-            ts = traffic(args.remotes, interface=args.interface, rmap=rmap)
-            print(f'rx: {format_size(ts.rx_bytes)} / {ts.rx_packets} packets / {ts.rx_dropped} dropped')
-            print(f'tx: {format_size(ts.tx_bytes)} / {ts.tx_packets} packets / {ts.tx_dropped} dropped')
-    elif args.action == 'ping':
-        paths = None
+    paths = None
 
-        if args.input:
-            state = json.load(args.input)
-            paths = get_random_paths(network=state, count=args.pings)
-            paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
-        else:
-            if args.min_hops is not None or args.max_hops is not None:
-                eprint('No min/max hops available without topology information (--input)')
-                stop_all_terminals()
-                exit(1)
-
-            rmap = get_remote_mapping(args.remotes)
-            all = list(rmap.keys())
-            paths = _get_random_paths(nodes=all, count=args.pings)
-
-        ping_paths(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose')
+    if args.input:
+        state = json.load(args.input)
+        paths = get_random_paths(network=state, count=args.pings)
+        paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
     else:
-        eprint(f'Unknown action: {args.action}')
-        exit(1)
+        if args.min_hops is not None or args.max_hops is not None:
+            eprint('No min/max hops available without topology information (--input)')
+            stop_all_terminals()
+            exit(1)
+
+        rmap = get_remote_mapping(args.remotes)
+        all = list(rmap.keys())
+        paths = _get_random_paths(nodes=all, count=args.pings)
+
+    address_type = None
+    if getattr(args, '4'):
+        address_type = '4'
+    if getattr(args, '6'):
+        address_type = '6'
+
+    ping(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose', address_type=address_type)
 
     stop_all_terminals()
 

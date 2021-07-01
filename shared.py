@@ -1,8 +1,10 @@
 import datetime
 import subprocess
 import threading
+import random
 import queue
 import atexit
+import json
 import time
 import sys
 import re
@@ -37,6 +39,123 @@ def eprint(message):
 # get time in milliseconds
 def millis():
     return int(1000 * time.time())
+
+def check_access(remotes):
+    shared.check_access(remotes)
+
+def root():
+    if os.geteuid() != 0:
+        eprint('Need to run as root.')
+        exit(1)
+
+def load_json(path):
+    with open(path) as file:
+        return json.load(file)
+    return None
+
+def seed_random(value):
+    random.seed(value)
+
+def sleep(seconds):
+    time.sleep(seconds)
+
+def wait(beg_ms, until_sec):
+    now_ms = millis()
+
+    # wait until time is over
+    if (now_ms - beg_ms) < (until_sec * 1000):
+        time.sleep(((until_sec * 1000) - (now_ms - beg_ms)) / 1000.0)
+    else:
+        eprint('Wait timeout already passed by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
+        stop_all_terminals()
+        exit(1)
+
+'''
+Add links to network to make sure
+it is fully connected.
+'''
+def make_connected(network):
+    neighbors = convert_to_neighbors(network)
+    clusters = _get_clusters_sets(neighbors)
+
+    def get_unique_id(neighbors, i = 0):
+        if f'ic-{i}' not in neighbors:
+             return f'ic-{i}'
+        else:
+            return get_unique_id(neighbors, i + 1)
+
+    def get_center_node(neighbors, cluster):
+        max_neighbors = 0
+        center_node = None
+        for sid, neighs in neighbors.items():
+            if sid in cluster and len(neighs) >= max_neighbors:
+                max_neighbors = len(neighs)
+                center_node = sid
+        return center_node
+
+    if len(clusters) > 1:
+        central = get_unique_id(neighbors)
+
+        # connect all clusters via central node
+        for cluster in clusters:
+            center = get_center_node(neighbors, cluster)
+            network['links'].append({'source': central, 'target': center, 'type': 'vpn'})
+
+def json_count(path):
+    obj = path
+
+    if isinstance(path, str):
+        with open(path) as file:
+            obj = json.load(file)
+
+    links = obj.get('links', [])
+    nodes = {}
+    for link in links:
+        nodes[link['source']] = 0;
+        nodes[link['target']] = 0;
+    links = obj.get('links', [])
+
+    return (len(nodes), len(links))
+
+# add titles and values to a CSV file
+def csv_update(file, delimiter, *args):
+    titles = list()
+    values = list()
+
+    for arg in args:
+        titles += arg[0]
+        values += arg[1]
+
+    # convert elements to str
+    for i in range(0, len(titles)):
+        titles[i] = str(titles[i])
+
+    # convert elements to str
+    for i in range(0, len(values)):
+        values[i] = str(values[i])
+
+    if file.tell() == 0:
+        file.write(delimiter.join(titles) + '\n')
+
+    file.write(delimiter.join(values) + '\n')
+
+def sysload(remotes=default_remotes):
+    load1 = 0
+    load5 = 0
+    load15 = 0
+
+    for remote in remotes:
+        stdout = exec(remote, 'uptime', get_output=True)[0]
+        t = stdout.split('load average:')[1].split(',')
+        load1 += float(t[0])
+        load5 += float(t[1])
+        load15 += float(t[2])
+
+    titles = ['load1', 'load5', 'load15']
+    values = [load1 / len(remotes), load5 / len(remotes), load15 / len(remotes)]
+
+    return (titles, values)
+
 
 def create_process(remote, command, add_quotes=True):
     if remote.address:
