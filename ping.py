@@ -318,8 +318,7 @@ def _get_interface(remote, source):
             return interface
     return 'uplink'
 
-def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None):
-    ping_deadline=1
+def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = 1):
     ping_count=1
     processes = []
     start_ms = millis()
@@ -411,6 +410,7 @@ def main():
     parser.add_argument('--max-hops', type=int, help='Maximum hops to ping. Needs --input.')
     parser.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
+    parser.add_argument('--deadline', type=int, default=1, help='Timeout for ping')
     parser.add_argument('-4', action='store_true', help='Force use of IPv4 addresses.')
     parser.add_argument('-6', action='store_true', help='Force use of IPv6 addresses.')
 
@@ -456,7 +456,7 @@ def main():
     if getattr(args, '6'):
         address_type = '6'
 
-    ping(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose', address_type=address_type)
+    ping(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose', address_type=address_type, ping_deadline=args.deadline)
 
     stop_all_terminals()
 
