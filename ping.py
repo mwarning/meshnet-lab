@@ -401,6 +401,13 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
 def check_access(remotes):
     shared.check_access(remotes)
 
+def namespace_exists(remotes, ns):
+    for remote in remotes:
+        rcode = exec(remote, f'ip netns exec ns-{ns} true', get_output=True, ignore_error=True)[2]
+        if rcode == 0:
+            return True
+    return False
+
 def main():
     parser = argparse.ArgumentParser(description='Ping various nodes.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
@@ -411,6 +418,7 @@ def main():
     parser.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
     parser.add_argument('--deadline', type=int, default=1, help='Timeout for ping')
+    parser.add_argument('--path', nargs=2, help='Send pings from a node to another.')
     parser.add_argument('-4', action='store_true', help='Force use of IPv4 addresses.')
     parser.add_argument('-6', action='store_true', help='Force use of IPv6 addresses.')
 
@@ -436,7 +444,14 @@ def main():
 
     paths = None
 
-    if args.input:
+    if args.path:
+        for ns in args.path:
+            if not namespace_exists(args.remotes, ns):
+                eprint(f'Namespace ns-{ns} does not exist')
+                stop_all_terminals()
+                exit(1)
+        paths = [args.path]
+    elif args.input:
         state = json.load(args.input)
         paths = get_random_paths(network=state, count=args.pings)
         paths = filter_paths(state, paths, min_hops=args.min_hops, max_hops=args.max_hops)
