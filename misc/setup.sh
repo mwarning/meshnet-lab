@@ -20,7 +20,7 @@ make
 make install
 
 cd $WD
-wget https://downloads.open-mesh.org/batman/releases/batman-adv-2020.1/batman-adv-2020.1.tar.gz -O batman-adv.tar.gz
+wget https://downloads.open-mesh.org/batman/releases/batman-adv-2021.0/batman-adv-2021.0.tar.gz -O batman-adv.tar.gz
 tar -xvf batman-adv.tar.gz
 cd batman-adv-*
 make
@@ -39,6 +39,7 @@ cd $WD
 wget https://github.com/bmx-routing/bmx6/archive/v1.0.tar.gz -O bmx6.tar.gz
 tar -xvf bmx6.tar.gz
 cd bmx6-*
+sed -i  '17i\#include <linux/sockios.h>' schedule.c
 make
 cp bmx6 /usr/bin/
 
@@ -53,6 +54,7 @@ cd $WD
 wget https://github.com/bmx-routing/bmx7/archive/v7.1.1.tar.gz -O bmx7.tar.gz
 tar -xvf bmx7.tar.gz
 cd bmx7-*/src
+sed -i  '17i\#include <linux/sockios.h>' schedule.c
 make EXTRA_CFLAGS="-DCRYPTLIB=MBEDTLS_2_4_0"
 cp bmx7 /usr/bin/
 
