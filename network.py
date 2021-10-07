@@ -140,6 +140,10 @@ def create_node(node, node_command=None, rmap={}):
     configure_interface(remote, 'switch', downname)
     configure_interface(remote, nsname, upname)
 
+    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv6.conf.{upname}.hop_limit=255')
+    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv6.conf.default.hop_limit=255')
+    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv4.ip_default_ttl=255')
+
     if node_command is not None:
         exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
