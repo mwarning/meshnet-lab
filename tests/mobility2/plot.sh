@@ -3,7 +3,7 @@
 # to distinguish multiple runs (if needed)
 prefix="$1"
 
-title='Mobility1 Test for 50 randomly placed nodes in a 1x1km square.\nMove in random directions of 50-400m in 50m increments.\nWait and measure ping arrival over 60s in 10s intervals each time.\n100MBit/s - 1ms latency links.'
+title='Mobility2 Test for 50 randomly placed nodes in a 1x1km square.\nMove in random directions of 50-400m in 50m increments.\nWait and measure ping arrival over 60s in 10s intervals each time.\n100MBit/s - 1ms latency links.'
 
 # progress of packet arrival rate
 gnuplot -e "

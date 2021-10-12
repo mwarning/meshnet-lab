@@ -15,6 +15,7 @@ import mobility
 from shared import Remote
 import shared
 import ping
+import traffic
 
 remotes= [Remote()]
 
