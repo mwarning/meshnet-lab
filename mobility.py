@@ -113,12 +113,12 @@ if __name__ == '__main__':
     parser_random.add_argument('--seed', type=int, help='Seed for random generator.')
 
     parser_connect = subparsers.add_parser('connect', help='Connect all nodes that are in range. Removes all existing list first.')
-    parser_move.add_argument('--distance', type=float, default=1, help='Connect nodes up to this distance.')
-    parser_move.add_argument('--max-links', type=int, help='Maximum number of links to create.')
+    parser_connect.add_argument('--distance', type=float, default=1, help='Connect nodes up to this distance.')
+    parser_connect.add_argument('--max-links', type=int, help='Maximum number of links to create.')
 
     args = parser.parse_args()
 
-    output = json.load(parser.input)
+    output = json.load(open(args.input))
 
     if args.action == 'move':
         move_nodes(output, args.add_x, args.add_y, args.add_z, args.multiply_x, args.multiply_y, args.multiply_z)
