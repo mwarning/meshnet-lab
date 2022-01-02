@@ -53,6 +53,7 @@ sleep 30
 
 # Run some test commands (output omitted)
 ./ping.py
+./ping.py --path 0 49
 ./traffic.py --duration 3
 ./software.py --verbosity verbose run 'ip a && echo "Hello from inside node"'
 
@@ -144,7 +145,7 @@ Host *
 
 ## Limitations
 
-- no support for multiple connections between two nodes (multigraphs)
+- no support for multiple direct connections between two nodes (multigraphs)
 - only one mesh interface per node/namespace
 - no discrete event simulation that can run faster than real time
 - computer performance might influence results
@@ -167,7 +168,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 ## Routing Protocol Notes
 
 - BATMAN-adv:
-  - needs batctl installed
+  - needs `batctl` installed
   - the current metric limits the maximum hop count to 32 ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019212.html))
   - `kworker/u32:1+bat_events` quickly becomes a single threaded bottleneck
     - change `create_singlethread_workqueue()` to `create_workqueue()` in `net/batman-adv/main.c` ([source](https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2020-April/019214.html))
@@ -176,7 +177,7 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
   - tested with batman-adv 2019.4
 - OLSR2 complains when the Linux kernel is not compiled with CONFIG_IPV6_MULTIPLE_TABLES enabled
   - all routes will land in the main table which can interfere with Internet access
-    - this is of no concern for the test setup
+    - this does not affect a network namespace based test setup
   - tested with olsr2 0.15.1
 - OLSR1 has buggy/broken IPv6 support, we use IPv4 instead
   - tested with olsr1 0.9.8
@@ -189,11 +190,11 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 ## Simulation Notes
 
-To lessen the effect of the system on the results when a lot of processes are run, it is advisable to slow down the running speed of the routing protocols (use `cpulimit` or croups) and slow down time as well ([libfaketime](https://github.com/wolfcw/libfaketime)). This has not been tried here yet!
+To lessen the effect of the host system on the results when a lot of processes are run, it is advisable to slow down the running speed of the routing protocols (use `cpulimit` or croups) and slow down time as well ([libfaketime](https://github.com/wolfcw/libfaketime)). This has not been tried here yet!
 
 ## Related Projects
 
-- [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation
+- [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation without binary modification
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
 - [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
 - [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandened)
