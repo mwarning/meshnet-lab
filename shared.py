@@ -201,8 +201,8 @@ class TerminalThread(threading.Thread):
 
                 if p.returncode != 0 and not ignore_error:
                     label = self.remote.address or 'local'
-                    eprint(errout)
                     eprint(stdout)
+                    eprint(errout)
                     eprint(f'Abort, command failed on {label}: {command}')
                     eprint('Network might be in an undefined state!')
                     exit(1)
