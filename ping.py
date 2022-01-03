@@ -311,7 +311,7 @@ def _parse_ping(output):
     return ret
 
 def _get_interface(remote, source):
-    # some protocols use their own interface as entry point to the mesh
+    # batman-adv uses bat0 as default entry interface
     for interface in ['tun0', 'bat0']:
         rcode = exec(remote, f'ip netns exec ns-{source} ip addr list dev {interface}', get_output=True, ignore_error=True)[2]
         if rcode == 0:
