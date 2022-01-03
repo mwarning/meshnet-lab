@@ -325,7 +325,7 @@ def check_access(remotes):
             # we are root
             return
         else:
-            eprint('Local setup needs to run as root.')
+            eprint('Need to run as root for local execution.')
             stop_all_terminals()
             exit(1)
 
