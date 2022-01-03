@@ -347,7 +347,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
                     # count as started
                     started += 1
                 else:
-                    debug = '[{:06}] Ping {} => {} ({} / {})'.format(millis() - start_ms, source, target, target_addr, interface)
+                    debug = '[{:06}] Ping {:>4} => {:>4} ({:<15} / {})'.format(millis() - start_ms, source, target, target_addr, interface)
                     process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D -I {interface} {target_addr}')
                     processes.append((process, debug))
                     started += 1
