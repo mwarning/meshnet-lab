@@ -14,6 +14,7 @@ for id in 'line' 'grid4' 'rtree'; do
 		set xlabel '# number of nodes'; \
 		set ylabel 'tx per node [KB/s]'; \
 		set y2label 'packet arrival [%]'; \
+		set y2range [0:105];
 		set key right top; \
 		set y2tics 0, 10; \
 		set ytics nomirror; \
