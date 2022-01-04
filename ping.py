@@ -389,7 +389,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
-        print('send: {}, received: {}, arrived: {}%, measurement span: {}ms'.format(
+        print('send: {}, received: {} ({}%), measurement span: {}ms'.format(
             ret.send,
             ret.received,
             '-' if (ret.send == 0) else '{:0.2f}'.format(100.0 * (ret.received / ret.send)),
