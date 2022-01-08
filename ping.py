@@ -280,6 +280,7 @@ def _get_ip_address(remote, id, interface, address_type=None):
     return None
 
 class _PingResult:
+    done = False
     send = 0
     transmitted = 0
     received = 0
@@ -294,21 +295,18 @@ class _PingResult:
 
 _numbers_re = re.compile('[^0-9.]+')
 
-def _parse_ping(output):
-    ret = _PingResult()
+def _parse_ping(result, output):
     for line in output.split('\n'):
         if 'packets transmitted' in line:
             toks = _numbers_re.split(line)
-            ret.transmitted = int(toks[0])
-            ret.received = int(toks[1])
+            result.transmitted = int(toks[0])
+            result.received = int(toks[1])
         if line.startswith('rtt min/avg/max/mdev'):
             toks = _numbers_re.split(line)
-            ret.rtt_min = float(toks[1])
-            ret.rtt_avg = float(toks[2])
-            ret.rtt_max = float(toks[3])
-            #ret.rtt_mdev = float(toks[4])
-
-    return ret
+            result.rtt_min = float(toks[1])
+            result.rtt_avg = float(toks[2])
+            result.rtt_max = float(toks[3])
+            #result.rtt_mdev = float(toks[4])
 
 def _get_interface(remote, source):
     # batman-adv uses bat0 as default entry interface
@@ -319,70 +317,113 @@ def _get_interface(remote, source):
     return 'uplink'
 
 def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = 1):
-    ping_count=1
-    processes = []
-    start_ms = millis()
-    started = 0
+    ping_count = 1
     rmap = get_remote_mapping(remotes)
     path_count = len(paths)
-    while started < path_count:
-        # number of expected tests to have been run
-        started_expected = math.ceil(path_count * ((millis() - start_ms) / duration_ms))
+
+    # prepare ping tasks
+    tasks = []
+    for (source, target) in paths:
+        source_remote = rmap[source]
+        target_remote = rmap[target]
+
+        if interface is None:
+            interface = _get_interface(source_remote, source)
+
+        target_addr = _get_ip_address(target_remote, target, interface, address_type)
+
+        if target_addr is None:
+            eprint(f'Cannot get address of {interface} in ns-{target}')
+        else:
+            debug = 'ping {:>4} => {:>4} ({:<15} / {})'.format(source, target, target_addr, interface)
+            command = f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D -I {interface} {target_addr}'
+            tasks.append((source_remote, command, debug))
+
+    processes = []
+    started = 0
+
+    def process_results():
+        for (process, started_ms, debug, result) in processes:
+            if not result.done and process.poll() is not None:
+                (output, err) = process.communicate()
+                _parse_ping(result, output.decode())
+                result.done = True
+                result.send = ping_count # TODO: nicer
+
+    # keep track of status ouput lines to delete them for updates
+    lines_printed = 0
+
+    def print_processes():
+        nonlocal lines_printed
+
+        # delete previous printed lines
+        for _ in range(lines_printed):
+            sys.stdout.write("\x1b[1A\x1b[2K")
+
+        lines_printed = 0
+        process_counter = 0
+        for (process, started_ms, debug, result) in processes:
+            process_counter += 1
+            status = "???"
+            if result.done:
+                if result.send == result.received:
+                    status = "done"
+                else:
+                    status = "failed"
+            else:
+                status = "running"
+
+            print(f"[{process_counter:03}:{started_ms:06}] {debug} => {status}")
+            lines_printed += 1
+
+    # start tasks in the given time frame
+    start_ms = millis()
+    last_processed = millis()
+    tasks_count = len(tasks)
+    while started < tasks_count:
+        started_expected = math.ceil(tasks_count * ((millis() - start_ms) / duration_ms))
         if started_expected > started:
             for _ in range(0, started_expected - started):
-                if len(paths) == 0:
+                if len(tasks) == 0:
                     break
-                (source, target) = paths.pop()
 
-                source_remote = rmap[source]
-                target_remote = rmap[target]
+                (remote, command, debug) = tasks.pop()
+                process = create_process(remote, command)
+                started_ms = millis() - start_ms
+                processes.append((process, started_ms, debug, _PingResult()))
 
-                if interface is None:
-                    interface = _get_interface(source_remote, source)
+                # process results and print updates once per second
+                if (last_processed + 1000) < millis():
+                    last_processed = millis()
+                    process_results()
+                    if verbosity != 'quiet':
+                        print_processes()
 
-                target_addr = _get_ip_address(target_remote, target, interface, address_type)
-
-                if target_addr is None:
-                    eprint(f'Cannot get address of {interface} in ns-{target}')
-                    # count as started
-                    started += 1
-                else:
-                    debug = '[{:06}] Ping {:>4} => {:>4} ({:<15} / {})'.format(millis() - start_ms, source, target, target_addr, interface)
-                    process = create_process(source_remote, f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D -I {interface} {target_addr}')
-                    processes.append((process, debug))
-                    started += 1
+                started += 1
         else:
             # sleep a small amount
-            time.sleep(duration_ms / path_count / 1000.0 / 10.0)
+            time.sleep(duration_ms / tasks_count / 1000.0 / 10.0)
 
     stop1_ms = millis()
 
-    # wait until duration_ms is over
+    # wait until rest fraction of duration_ms is over
     if (stop1_ms - start_ms) < duration_ms:
         time.sleep((duration_ms - (stop1_ms - start_ms)) / 1000.0)
 
     stop2_ms = millis()
 
+    process_results()
+    if verbosity != 'quiet':
+        print_processes()
+
+    # collect results
     ret = _PingResult()
-
-    # wait/collect for results from pings (prolongs testing up to 1 second!)
-    for (process, debug) in processes:
-        process.wait()
-        (output, err) = process.communicate()
-        result = _parse_ping(output.decode())
-        result.send = ping_count # TODO: nicer
-
-        ret.send += result.send
-        ret.transmitted += result.transmitted
-        ret.received += result.received
-        ret.rtt_avg += result.rtt_avg
-
-        if verbosity != 'quiet':
-            if result.send != result.received:
-                print(f'{debug} => failed')
-            else:
-                # success
-                print(f'{debug}')
+    for (process, started_ms, debug, result) in processes:
+        if result.done:
+            ret.send += result.send
+            ret.transmitted += result.transmitted
+            ret.received += result.received
+            ret.rtt_avg += result.rtt_avg
 
     ret.rtt_avg = 0 if ret.received == 0 else int(ret.rtt_avg / ret.received)
     result_duration_ms = stop1_ms - start_ms
