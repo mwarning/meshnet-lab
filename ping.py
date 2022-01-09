@@ -367,7 +367,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
             status = "???"
             if result.done:
                 if result.send == result.received:
-                    status = "done"
+                    status = "success"
                 else:
                     status = "failed"
             else:
