@@ -448,7 +448,7 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
 
         return math.sqrt(q / len(partition))
 
-    def partition_to_map(partition, remote):
+    def partition_to_map(partition, remotes):
         node_to_remote_map = {}
         for remote_id, node_ids in partition.items():
             for node_id in node_ids:
