@@ -477,6 +477,10 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
     lowest_variance = math.inf
     best_partition = []
 
+    # shortcut: if no mapping on multiple remotes is needed
+    if len(remotes) == 1 and len(cur_state_rmap) == 0:
+        return partition_to_map({0: neighbor_map.keys()}, remotes)
+
     for _ in range(tries):
         partition = partition_into_subgraph_nodes(neighbor_map, list(neighbor_map.keys()), cur_state_rmap, remotes)
         if partition:
