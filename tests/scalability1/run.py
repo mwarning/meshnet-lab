@@ -36,39 +36,62 @@ def run(protocol, files, csvfile):
 		(node_count, link_count) = shared.json_count(state)
 
 		# Limit node count to 300
-		if node_count > 300:
-			continue
+		#if node_count < 300:
+		#	continue
 
 		print(f'run {protocol} on {path}')
 
+		network_start_ms = shared.millis()
 		network.apply(state=state, link_command=get_tc_command, remotes=remotes)
+		network_stop_ms = shared.millis()
 
 		shared.sleep(10)
 
 		software_start_ms = shared.millis()
 		software.start(protocol, remotes)
-		software_startup_ms = shared.millis() - software_start_ms
+		software_stop_ms = shared.millis()
 
-		shared.sleep(300)
+		# Let the nodes start up and discover themselves.
+		# Increase the value if the system is rather slow.
+		shared.sleep(30)
 
-		start_ms = shared.millis()
-		traffic_beg = traffic.traffic(remotes)
+		traffic_start_ms = shared.millis()
+		traffic_begin = traffic.traffic(remotes)
 
-		paths = ping.get_random_paths(state, 2 * 200)
-		paths = ping.filter_paths(state, paths, min_hops=2, path_count=200)
+		# Send <node_count> pings.
+		# For a good routing algorithm, this should make the traffic per node constant.
+		paths = ping.get_random_paths(state, 2 * node_count)
+		paths = ping.filter_paths(state, paths, min_hops=2, path_count=node_count)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
-		traffic_ms = shared.millis() - start_ms
+		traffic_stop_ms = shared.millis()
 		traffic_end = traffic.traffic(remotes)
 
 		sysload_result = shared.sysload(remotes)
 
+		# remove network and stop all started routing software
 		software.clear(remotes)
 		network.clear(remotes)
 
-		# add data to csv file
-		extra = (['node_count', 'traffic_ms', 'software_startup_ms'], [node_count, traffic_ms, software_startup_ms])
-		shared.csv_update(csvfile, '\t', extra, (traffic_end - traffic_beg).getData(), ping_result.getData(), sysload_result)
+		# Add data to csv file
+		network_startup_ms = network_stop_ms - network_start_ms
+		software_startup_ms = software_stop_ms - software_start_ms
+		traffic_measurement_ms = traffic_stop_ms - traffic_start_ms
+
+		extra = (['node_count', 'network_startup_ms', 'software_startup_ms', 'traffic_measurement_ms'],
+			[node_count, network_startup_ms, traffic_measurement_ms, software_startup_ms])
+		shared.csv_update(csvfile, '\t', extra, (traffic_end - traffic_begin).getData(), ping_result.getData(), sysload_result)
+
+		# Skip test if the successful pings drop below 60%
+		if (100.0 * ping_result.received / ping_result.send) < 60:
+			print('Less than 60%% successful pings => skip test')
+			break
+
+		# Skip test if network setup takes too long.
+		# but this is not unusual for huge networks and we could continue anyway.
+		if network_startup_ms > (60*60*1000):
+			print('Network setup took more than one hour => skip test')
+			break
 
 for name in ['line', 'grid4', 'rtree']:
 	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
