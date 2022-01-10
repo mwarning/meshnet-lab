@@ -30,7 +30,9 @@ Routing Software:
 * bmx7 (v7.1.1 / 21.07.2019 / 91d6651ccb5a)
 * cjdns (v20.5)
 
-Note: I was not able to get bmx7 working in the test setup. As such, please ignore any bmx7 results for now!
+Note:
+* I was not able to get bmx7 working in the test setup. As such, please ignore any bmx7 results for now!
+* The test code might have been changed, use a matching meshnet-lab source code revision for result recreation.
 
 ## Topologies
 
@@ -110,6 +112,7 @@ Notes:
 
 Notes:
 
+- under optimal routing strategies, the traffic per node should decline, since the number of pings are constant in this test but the number of nodes increases
 - a low packet arrival rate makes the corresponding traffic result data meaningless (e.g. the complete line data :/)
 - this test is low traffic by design and tries to measure overhead only
 - a few edge cases seem to be revealed
