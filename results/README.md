@@ -89,7 +89,7 @@ Notes:
   5. continue at step 2
 - the higher a line, the better
 - bmx7 is at the baseline, because in this test, it does no routing
-- the data for each graph takes 1 hour to generate
+- the data for each graph took 1 hour to generate
 
 ## Mobility 2 Test
 
@@ -102,7 +102,7 @@ Notes:
       2. 150 nearest links are established
       3. wait 10 seconds
       4. 200 pings are send from a random source node to random destination node (over 2s)
-- the data takes 1.5 hours to generate
+- the data took 1.5 hours to generate
 
 ## Scalability1 Test
 
@@ -117,7 +117,7 @@ Notes:
 - this test is low traffic by design and tries to measure overhead only
 - a few edge cases seem to be revealed
 - batman-adv has a maximum hop limit of 32
-- the data for each graph takes 18 hours to generate
+- the data for each graph took 18 hours to generate
 
 ## Connectivity1 Test
 
