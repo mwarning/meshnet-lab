@@ -280,7 +280,6 @@ def _get_ip_address(remote, id, interface, address_type=None):
     return None
 
 class _PingStats:
-    count = 0
     send = 0
     received = 0
     rtt_avg_ms = 0.0
@@ -297,9 +296,9 @@ class _PingResult:
     received = 0
     errors = 0
     packet_loss = 0.0
-    rtt_min = 0.0
-    rtt_max = 0.0
-    rtt_avg = 0.0
+    rtt_min = float('nan')
+    rtt_max = float('nan')
+    rtt_avg = float('nan')
 
 _numbers_re = re.compile('[^0-9.]+')
 
@@ -433,15 +432,18 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
         print_processes()
 
     # collect results
+    rtt_avg_ms_count = 0
     ret = _PingStats()
     for (process, started_ms, debug, result) in processes:
         if result.processed:
-            ret.count += 1
             ret.send += result.send
             ret.received += int(result.send * (1.0 - (result.packet_loss / 100.0)))
-            ret.rtt_avg_ms += result.rtt_avg
+            # failing ping outputs do not have rtt values
+            if not math.isnan(result.rtt_avg):
+                ret.rtt_avg_ms += result.rtt_avg
+                rtt_avg_ms_count += 1
 
-    ret.rtt_avg_ms /= float(ret.count)
+    ret.rtt_avg_ms /= float(rtt_avg_ms_count)
 
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
