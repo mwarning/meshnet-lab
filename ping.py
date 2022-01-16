@@ -309,8 +309,12 @@ def _parse_ping(result, output):
             toks = _numbers_re.split(line)
             result.transmitted = int(toks[0])
             result.received = int(toks[1])
-            result.errors = int(toks[2])
-            result.packet_loss = int(toks[3])
+            if 'errors' in line:
+                result.errors = int(toks[2])
+                result.packet_loss = int(toks[3])
+            else:
+                result.packet_loss = int(toks[2])
+
         if line.startswith('rtt min/avg/max/mdev'):
             toks = _numbers_re.split(line)
             result.rtt_min = float(toks[1])
