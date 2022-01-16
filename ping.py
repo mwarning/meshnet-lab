@@ -449,7 +449,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
-        success_pc = 100.0 * (ret.send / ret.received)
+        success_pc = 100.0 * (ret.received / ret.send)
         print('pings send: {}, received: {} ({}%), measurement span: {}ms'.format(
             ret.send,
             ret.received,
