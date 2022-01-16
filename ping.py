@@ -279,19 +279,27 @@ def _get_ip_address(remote, id, interface, address_type=None):
 
     return None
 
-class _PingResult:
-    done = False
+class _PingStats:
+    count = 0
     send = 0
-    transmitted = 0
     received = 0
-    rtt_min = 0.0
-    rtt_max = 0.0
-    rtt_avg = 0.0
+    rtt_avg_ms = 0.0
 
     def getData(self):
         titles = ['packets_send', 'packets_received', 'rtt_avg_ms']
-        values = [self.send, self.received, self.rtt_avg]
+        values = [self.send, self.received, self.rtt_avg_ms]
         return (titles, values)
+
+class _PingResult:
+    processed = False
+    send = 0
+    transmitted = 0
+    received = 0
+    errors = 0
+    packet_loss = 0.0
+    rtt_min = 0.0
+    rtt_max = 0.0
+    rtt_avg = 0.0
 
 _numbers_re = re.compile('[^0-9.]+')
 
@@ -301,6 +309,8 @@ def _parse_ping(result, output):
             toks = _numbers_re.split(line)
             result.transmitted = int(toks[0])
             result.received = int(toks[1])
+            result.errors = int(toks[2])
+            result.packet_loss = int(toks[3])
         if line.startswith('rtt min/avg/max/mdev'):
             toks = _numbers_re.split(line)
             result.rtt_min = float(toks[1])
@@ -344,10 +354,10 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
 
     def process_results():
         for (process, started_ms, debug, result) in processes:
-            if not result.done and process.poll() is not None:
+            if not result.processed and process.poll() is not None:
                 (output, err) = process.communicate()
                 _parse_ping(result, output.decode())
-                result.done = True
+                result.processed = True
                 result.send = ping_count # TODO: nicer
 
     # keep track of status ouput lines to delete them for updates
@@ -365,11 +375,13 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
         for (process, started_ms, debug, result) in processes:
             process_counter += 1
             status = "???"
-            if result.done:
-                if result.send == result.received:
+            if result.processed:
+                if result.packet_loss == 0:
                     status = "success"
-                else:
+                elif result.packet_loss == 100:
                     status = "failed"
+                else:
+                    status = f"mixed ({result.packet_loss}% loss)"
             else:
                 status = "running"
 
@@ -417,23 +429,25 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
         print_processes()
 
     # collect results
-    ret = _PingResult()
+    ret = _PingStats()
     for (process, started_ms, debug, result) in processes:
-        if result.done:
+        if result.processed:
+            ret.count += 1
             ret.send += result.send
-            ret.transmitted += result.transmitted
-            ret.received += result.received
-            ret.rtt_avg += result.rtt_avg
+            ret.received += int(result.send * (1.0 - (result.packet_loss / 100.0)))
+            ret.rtt_avg_ms += result.rtt_avg
 
-    ret.rtt_avg = 0 if ret.received == 0 else int(ret.rtt_avg / ret.received)
+    ret.rtt_avg_ms /= float(ret.count)
+
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
+        success_pc = 100.0 * (ret.send / ret.received)
         print('pings send: {}, received: {} ({}%), measurement span: {}ms'.format(
             ret.send,
             ret.received,
-            '-' if (ret.send == 0) else '{:0.2f}'.format(100.0 * (ret.received / ret.send)),
+            '-' if (ret.send == 0) else f'{success_pc:0.2f}',
             result_duration_ms + result_filler_ms
         ))
 
