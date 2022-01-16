@@ -358,6 +358,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
     def process_results():
         for (process, started_ms, debug, result) in processes:
             if not result.processed and process.poll() is not None:
+                process.wait()
                 (output, err) = process.communicate()
                 _parse_ping(result, output.decode())
                 result.processed = True
