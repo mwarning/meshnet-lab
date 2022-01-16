@@ -444,7 +444,8 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
                 ret.rtt_avg_ms += result.rtt_avg
                 rtt_avg_ms_count += 1
 
-    ret.rtt_avg_ms /= float(rtt_avg_ms_count)
+    if rtt_avg_ms_count > 0:
+        ret.rtt_avg_ms /= float(rtt_avg_ms_count)
 
     result_duration_ms = stop1_ms - start_ms
     result_filler_ms = stop2_ms - stop1_ms
