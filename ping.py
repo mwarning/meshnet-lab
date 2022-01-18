@@ -310,9 +310,9 @@ def _parse_ping(result, output):
             result.received = int(toks[1])
             if 'errors' in line:
                 result.errors = int(toks[2])
-                result.packet_loss = int(toks[3])
+                result.packet_loss = float(toks[3])
             else:
-                result.packet_loss = int(toks[2])
+                result.packet_loss = float(toks[2])
 
         if line.startswith('rtt min/avg/max/mdev'):
             toks = _numbers_re.split(line)
@@ -380,12 +380,12 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
             process_counter += 1
             status = "???"
             if result.processed:
-                if result.packet_loss == 0:
+                if result.packet_loss == 0.0:
                     status = "success"
-                elif result.packet_loss == 100:
+                elif result.packet_loss == 100.0:
                     status = "failed"
                 else:
-                    status = f"mixed ({result.packet_loss}% loss)"
+                    status = f"mixed ({result.packet_loss:0.2f}% loss)"
             else:
                 status = "running"
 
