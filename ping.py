@@ -451,11 +451,10 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
     result_filler_ms = stop2_ms - stop1_ms
 
     if verbosity != 'quiet':
-        success_pc = 100.0 * (ret.received / ret.send)
         print('pings send: {}, received: {} ({}%), measurement span: {}ms'.format(
             ret.send,
             ret.received,
-            '-' if (ret.send == 0) else f'{success_pc:0.2f}',
+            '-' if (ret.send == 0) else f'{100.0 * (ret.received / ret.send):0.2f}',
             result_duration_ms + result_filler_ms
         ))
 
