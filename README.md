@@ -30,7 +30,7 @@ JSON keys:
 
 ## Usage
 
-First you need to have at least one routing protocol available. Batman-adv is already in the Linux kernel, so you only need to install the batctl package. There is a [script](misc/setup.sh) to install all routing protocols.
+First you need to have at least one mesh routing protocol installed. For batman-adv you also need to have the batctl package installed. There is also a [script](misc/setup.sh) to install all routing protocols.
 
 Example run:
 
@@ -65,9 +65,9 @@ Stopped 100 batman-adv instances in 3.109s
 ./network.py apply none
 ```
 
-As an alternative, you can stop all protocols using `./software.py clear` and remove all namespaces using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
+As an alternative, you can stop all protocols using `./software.py clear` and remove all nodes (= Linux network namespaces) using `./network.py clear`. This is useful to cleanup after a tests has been interrupted.
 
-The `batman-adv` protocol refers to the start/stop scripts in the [protocols](protocols/) subfolder. Add your own scripts to support other protocols.
+The protocol name (e.g. `batman-adv`) refers to the start/stop scripts in the [protocols](protocols/) subfolder. Add your own scripts to support other protocols. The start script is executed once in each virtual node. The stop script is stopping all routing protocol daemons at once for convenience, while this is still a TODO, none of the current tests add/remove nodes during tests yet.
 
 A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder.
 
