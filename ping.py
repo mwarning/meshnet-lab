@@ -330,6 +330,9 @@ class _PingResult:
     rtt_max = float("nan")
     rtt_avg = float("nan")
 
+    def __init__(self, send):
+        self.send = send
+
 
 _numbers_re = re.compile("[^0-9.]+")
 
@@ -415,7 +418,6 @@ def ping(
                 (output, err) = process.communicate()
                 _parse_ping(result, output.decode())
                 result.processed = True
-                result.send = ping_count  # TODO: nicer
 
     # keep track of status ouput lines to delete them for updates
     lines_printed = 0
@@ -461,7 +463,7 @@ def ping(
                 (remote, command, debug) = tasks.pop()
                 process = create_process(remote, command)
                 started_ms = millis() - start_ms
-                processes.append((process, started_ms, debug, _PingResult()))
+                processes.append((process, started_ms, debug, _PingResult(ping_count)))
 
                 # process results and print updates once per second
                 if (last_processed + 1000) < millis():
