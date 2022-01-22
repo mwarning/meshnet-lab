@@ -396,9 +396,7 @@ def ping(
         if target_addr is None:
             eprint(f"Cannot get address of {interface} in ns-{target}")
         else:
-            debug = "ping {:>4} => {:>4} ({:<15} / {})".format(
-                source, target, target_addr, interface
-            )
+            debug = f"ping {source:>4} => {target:>4} ({target_addr:<18} / {interface})"
             command = (
                 f"ip netns exec ns-{source} ping -c {ping_count} "
                 + (f"-w {ping_deadline} " if ping_deadline is not None else "")
