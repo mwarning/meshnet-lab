@@ -329,7 +329,7 @@ def _get_interface(remote, source):
             return interface
     return 'uplink'
 
-def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = 1):
+def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = None):
     ping_count = 1
     rmap = get_remote_mapping(remotes)
     path_count = len(paths)
@@ -349,7 +349,11 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
             eprint(f'Cannot get address of {interface} in ns-{target}')
         else:
             debug = 'ping {:>4} => {:>4} ({:<15} / {})'.format(source, target, target_addr, interface)
-            command = f'ip netns exec ns-{source} ping -c {ping_count} -w {ping_deadline} -D -I {interface} {target_addr}'
+            command = (
+                f"ip netns exec ns-{source} ping -c {ping_count} "
+                + (f"-w {ping_deadline} " if ping_deadline is not None else "")
+                + f"-D -I {interface} {target_addr}"
+            )
             tasks.append((source_remote, command, debug))
 
     processes = []
@@ -479,7 +483,7 @@ def main():
     parser.add_argument('--max-hops', type=int, help='Maximum hops to ping. Needs --input.')
     parser.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
-    parser.add_argument('--deadline', type=int, default=1, help='Timeout for ping')
+    parser.add_argument('--deadline', type=int, default=None, help='Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received. In this case ping does not stop after count packet are sent, it waits either for deadline expire or until count probes are answered or for some error notification from network.')
     parser.add_argument('--path', nargs=2, help='Send pings from a node to another.')
     parser.add_argument('-4', action='store_true', help='Force use of IPv4 addresses.')
     parser.add_argument('-6', action='store_true', help='Force use of IPv6 addresses.')
