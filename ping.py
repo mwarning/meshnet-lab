@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from cmath import pi
 import random
 import argparse
 import math
@@ -329,7 +330,7 @@ def _get_interface(remote, source):
             return interface
     return 'uplink'
 
-def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = None):
+def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbosity='normal', address_type=None, ping_deadline = None, ping_timeout = None):
     ping_count = 1
     rmap = get_remote_mapping(remotes)
     path_count = len(paths)
@@ -352,6 +353,7 @@ def ping(paths, duration_ms=1000, remotes=default_remotes, interface=None, verbo
             command = (
                 f"ip netns exec ns-{source} ping -c {ping_count} "
                 + (f"-w {ping_deadline} " if ping_deadline is not None else "")
+                + (f"-W {ping_timeout} " if ping_timeout is not None else "")
                 + f"-D -I {interface} {target_addr}"
             )
             tasks.append((source_remote, command, debug))
@@ -484,6 +486,7 @@ def main():
     parser.add_argument('--pings', type=int, default=10, help='Number of pings (unique, no self, no reverse paths).')
     parser.add_argument('--duration', type=int, default=1000, help='Spread pings over duration in ms.')
     parser.add_argument('--deadline', type=int, default=None, help='Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received. In this case ping does not stop after count packet are sent, it waits either for deadline expire or until count probes are answered or for some error notification from network.')
+    parser.add_argument("--timeout", type=int, default=None, help="Time to wait for a response, in seconds. The option affects only timeout in absence of any responses, otherwise ping waits for two RTTs.")
     parser.add_argument('--path', nargs=2, help='Send pings from a node to another.')
     parser.add_argument('-4', action='store_true', help='Force use of IPv4 addresses.')
     parser.add_argument('-6', action='store_true', help='Force use of IPv6 addresses.')
@@ -537,7 +540,7 @@ def main():
     if getattr(args, '6'):
         address_type = '6'
 
-    ping(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose', address_type=address_type, ping_deadline=args.deadline)
+    ping(paths=paths, remotes=args.remotes, duration_ms=args.duration, interface=args.interface, verbosity='verbose', address_type=address_type, ping_deadline=args.deadline, ping_timeout=args.timeout)
 
     stop_all_terminals()
 
