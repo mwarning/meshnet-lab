@@ -491,8 +491,8 @@ def ping(
     rtt_avg_ms_count = 0
     ret = _PingStats()
     for (process, started_ms, debug, result) in processes:
+        ret.send += result.send
         if result.processed:
-            ret.send += result.send
             ret.received += int(result.send * (1.0 - (result.packet_loss / 100.0)))
             # failing ping outputs do not have rtt values
             if not math.isnan(result.rtt_avg):
