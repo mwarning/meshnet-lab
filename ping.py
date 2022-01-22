@@ -375,7 +375,7 @@ def ping(
     interface=None,
     verbosity="normal",
     address_type=None,
-    ping_deadline=None,
+    ping_deadline=1,
     ping_timeout=None,
 ):
     ping_count = 1
@@ -562,7 +562,7 @@ def main():
     parser.add_argument(
         "--deadline",
         type=int,
-        default=None,
+        default=1,
         help="Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received. In this case ping does not stop after count packet are sent, it waits either for deadline expire or until count probes are answered or for some error notification from network.",
     )
     parser.add_argument(
