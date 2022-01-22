@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import random
-import datetime
 import argparse
 import math
 import time
