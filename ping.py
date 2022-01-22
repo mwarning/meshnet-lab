@@ -507,10 +507,12 @@ def ping(
 
     if verbosity != "quiet":
         print(
-            "pings send: {}, received: {} ({}%), measurement span: {}ms".format(
+            "pings send: {}, received: {} ({}), measurement span: {}ms".format(
                 ret.send,
                 ret.received,
-                "-" if (ret.send == 0) else f"{100.0 * (ret.received / ret.send):0.2f}",
+                "-"
+                if (ret.send == 0)
+                else f"{100.0 * (ret.received / ret.send):0.2f}%",
                 result_duration_ms + result_filler_ms,
             )
         )
