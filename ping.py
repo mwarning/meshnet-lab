@@ -178,33 +178,43 @@ def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
 
 
 """
-Get list of random unique pairs (no self references, no different directions)
+Get list of random pairs (but no path to self).
+
+If sample_without_replacement=True, then the paths will be
+unique and a single node will only receive one ping at most!
 """
-
-
-def _get_random_paths(nodes, count=10, seed=None):
-    if count > (len(nodes) * (len(nodes) - 1) // 2):
-        eprint(f"Not enough nodes to generate {count} unique paths.")
-        stop_all_terminals()
-        exit(1)
+def _get_random_paths(nodes, count=10, seed=None, sample_without_replacement=False):
+    if sample_without_replacement:
+        if count > (len(nodes) / 2):
+            eprint(f"Not enough nodes ({len(nodes)}) to generate {count} unique paths.")
+            stop_all_terminals()
+            exit(1)
+    else:
+        if len(nodes) < 2:
+            eprint(f"Not enough nodes ({len(nodes)}) to generate {count} paths.")
+            stop_all_terminals()
+            exit(1)
 
     if seed is not None:
         random.seed(seed)
 
-    def decode(items, i):
-        k = math.floor((1 + math.sqrt(1 + 8 * i)) / 2)
-        return (items[k], items[i - k * (k - 1) // 2])
+    paths = []
+    s = list(range(0, len(nodes)))
+    for i in range(count):
+        a = random.choice(s[:-1])
+        a_index = s.index(a)
+        b = random.choice(s[(a_index + 1):])
+        b_index = s.index(b)
 
-    def rand_pair(n):
-        return decode(random.randrange(n * (n - 1) // 2))
+        if sample_without_replacement:
+            s = s[:a_index] + s[(a_index+1):b_index] + s[(b_index+1):]
 
-    def rand_pairs(items, npairs):
-        n = len(items)
-        return [
-            decode(items, i) for i in random.sample(range(n * (n - 1) // 2), npairs)
-        ]
+        if random.uniform(0, 1) > 0.5:
+            paths.append((nodes[a], nodes[b]))
+        else:
+            paths.append((nodes[b], nodes[a]))
 
-    return rand_pairs(nodes, count)
+    return paths
 
 
 # get random node pairs (unique, no self, no reverses)
