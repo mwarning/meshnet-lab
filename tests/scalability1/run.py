@@ -68,13 +68,12 @@ def run(topology, path, state):
 
 # Keep track of tests that exceed the machines resources and skip bigger networks
 drop_test = set()
+protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']
 
 for topology in ['line', 'grid4', 'grid8', 'rtree']:
 	for path in sorted(glob.glob(f'../../data/{topology}/*.json')):
 		state = shared.load_json(path)
 		(node_count, link_count) = shared.json_count(state)
-
-		protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']
 
 		# No test to be done for this topology
 		if all((f'{p}_{topology}' in drop_test) for p in protocols):
