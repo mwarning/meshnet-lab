@@ -583,6 +583,7 @@ def main():
     parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
     parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
 
     subparsers = parser.add_subparsers(dest='action', required=True)
 
@@ -596,10 +597,12 @@ def main():
     global block_arp
     global block_multicast
     global verbosity
+    global mtu
 
     block_arp = args.block_arp
     block_multicast = args.block_multicast
     verbosity = args.verbosity
+    mtu = args.mtu
 
     if args.remotes:
         if not os.path.isfile(args.remotes):
