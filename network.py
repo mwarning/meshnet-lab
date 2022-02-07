@@ -17,8 +17,8 @@ from shared import (
     get_current_state, link_id, Remote
 )
 
-block_arp = False
-block_multicast = False
+disable_arp = False
+disable_multicast = False
 verbosity = 'normal'
 mtu = 1500
 
@@ -37,10 +37,10 @@ def configure_interface(remote, nsname, ifname):
     # disable arp / multicast
     # we do not want the OS to send packets on its own,
     # but many mesh protocols need arp/multicast on each link to work
-    if block_arp:
+    if disable_arp:
         exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off')
 
-    if block_multicast:
+    if disable_multicast:
         exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off')
 
 def get_filtered_link(link, direction):
@@ -580,8 +580,8 @@ def main():
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
     parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
-    parser.add_argument('--block-arp', action='store_true', help='Block ARP packets.')
-    parser.add_argument('--block-multicast', action='store_true', help='Block multicast packets.')
+    parser.add_argument('--disable-arp', action='store_true', help='Disable ARP support on each interface.')
+    parser.add_argument('--disable-multicast', action='store_true', help='Disable Multicast support each interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
 
@@ -594,13 +594,13 @@ def main():
 
     args = parser.parse_args()
 
-    global block_arp
-    global block_multicast
+    global disable_arp
+    global disable_multicast
     global verbosity
     global mtu
 
-    block_arp = args.block_arp
-    block_multicast = args.block_multicast
+    disable_arp = args.disable_arp
+    disable_multicast = args.disable_multicast
     verbosity = args.verbosity
     mtu = args.mtu
 
