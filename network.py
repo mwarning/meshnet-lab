@@ -593,6 +593,10 @@ def main():
 
     args = parser.parse_args()
 
+    global block_arp
+    global block_multicast
+    global verbosity
+
     block_arp = args.block_arp
     block_multicast = args.block_multicast
     verbosity = args.verbosity
