@@ -5,7 +5,7 @@ This data has been downloaded from the online maps provided by the communities o
 
 Most networks run batman-adv. All huge networks are also segmented, meaning that they are multiple smaller networks bound together via dedicated gateways/servers on the Internet. This is to minimize scaling overhead.
 
-The raw data is JSON data that have been downloaded from the community site. Python scripts have been used ([1](original_freifunk_data/convert_hopglass.py), [2](original_freifunk_data/convert_hopglass.py) to convert the raw data (Meshviewer or Hopglass format) to a processed format that can be used for testing.
+The raw data is JSON data that have been downloaded from the community site. Python scripts have been used ([1](original_freifunk_data/convert_hopglass.py), [2](original_freifunk_data/convert_hopglass.py)) to convert the raw data (Meshviewer or Hopglass format) to a processed format that can be used for testing.
 
 The images were created using [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer). Note that highly connected graphs result in dense balls that obfuscate finer features.
 
@@ -92,7 +92,7 @@ The images were created using [MeshGraphViewer](https://github.com/mwarning/Mesh
 * \~1800 nodes
 * batman-adv, segmented
 * [processed data](freifunk-munich.json)
-* [raw data](original_freifunk_data/freifunk-munich.json)
+* [raw data](original_freifunk_data/freifunk-munich-meshviewer.json)
 * [data source](https://map.ffmuc.net/data/meshviewer.json)
 
 ![image](freifunk-munich.png)
@@ -103,7 +103,7 @@ The images were created using [MeshGraphViewer](https://github.com/mwarning/Mesh
 * \~1400 nodes
 * batman-adv, segmented
 * [processed data](freifunk-stuttgart.json)
-* [raw data](original_freifunk_data/freifunk-stuttgart.json)
+* [raw data](original_freifunk_data/freifunk-stuttgart-meshviewer.json)
 * [data source](https://map02.freifunk-stuttgart.de/data/meshviewer.json)
 
 ![image](freifunk-stuttgart.png)
@@ -114,7 +114,7 @@ The images were created using [MeshGraphViewer](https://github.com/mwarning/Mesh
 * \~200 nodes
 * batman-adv, not segmented
 * [processed data](freifunk-ulm.json)
-* [raw data](original_freifunk_data/freifunk-ulm.json)
+* [raw data](original_freifunk_data/freifunk-ulm-meshviewer.json)
 * [data source](https://map11.freifunk-ulm.de/data/meshviewer.json)
 
 ![image](freifunk-ulm.png)
