@@ -1,9 +1,9 @@
 # Topologies
 
-Here are examples of the line, grid4, grid8 (grid of 4/8 neighbors) and rtree (random tree) topologies.
-There is also a [Freifunk data set](freifunk/README.md) for real life topologies.
+A collection of several topologies for testing.
 
-![image](line/line-0050.png)
-![image](grid4/grid4-0049.png)
-![image](grid8/grid8-0049.png)
-![image](rtree/rtree-0050.png)
+* [Line Data Set](line/README.md)
+* [Grid4 Data Set](grid4/README.md)
+* [Grid8 Data Set](grid8/README.md)
+* [RTree Data Set](rtree/README.md)
+* [Freifunk Data Set](freifunk/README.md)
