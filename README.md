@@ -7,8 +7,8 @@ Supported is the emulation of different network characteristics like bandwidth, 
 This project is meant to test Mobile AdHoc Mesh routing protocols. Out of the box supported are [Babel](https://www.irif.fr/~jch/software/babel/), [B.A.T.M.A.N.-adv](https://www.open-mesh.org/projects/open-mesh/wiki), [OLSR1](https://github.com/OLSR/olsrd), [OLSR2](https://github.com/OLSR/OONF), [BMX6](https://github.com/bmx-routing/bmx6), [BMX7](https://github.com/bmx-routing/bmx7), [Yggdrasil](https://github.com/yggdrasil-network) and [CJDNS](https://github.com/cjdelisle/cjdns).
 
 * [routing protocols](protocols/README.md)
-* [tests](tests/README.md)
-* [data sets](data/README.md)
+* [test scenarios](tests/README.md)
+* [test data sets](data/README.md)
 * [test results](results/README.md)
 
 Small example:
