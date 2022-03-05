@@ -70,6 +70,29 @@ def wait(beg_ms, until_sec):
         stop_all_terminals()
         exit(1)
 
+def _get_clusters_sets(neighbors):
+    visited = {}
+
+    for node in neighbors:
+        visited[node] = False
+
+    def dfs(node, cluster):
+        visited[node] = True
+        cluster.add(node)
+        for neighbor in neighbors[node]:
+            if not visited[neighbor]:
+                dfs(neighbor, cluster)
+
+    clusters = []
+    for node in visited:
+        if not visited[node]:
+            cluster = set()
+            dfs(node, cluster)
+            clusters.append(cluster)
+
+    sorted(clusters, key=lambda cluster: len(cluster))
+    return clusters
+
 '''
 Add links to network to make sure
 it is fully connected.
