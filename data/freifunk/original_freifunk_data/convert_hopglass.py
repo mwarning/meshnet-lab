@@ -66,6 +66,9 @@ with open(args.input, "r") as file:
 				'target': nodes[lnode['id']]['id']
 			}
 
+			if link['source'] == link['target']:
+				continue
+
 			if 'wifi' in lnode:
 				link['type'] = 'wifi'
 			else:
