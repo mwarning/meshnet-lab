@@ -97,6 +97,20 @@ def create_random_tree(count, intra = 0):
 
     return {'nodes': nodes, 'links': list(links.values())}
 
+def create_full(count):
+    nodes = []
+    links = []
+
+    for i in range(0, count):
+        nodes.append({'id': i})
+
+    for i in range(0, count):
+        for j in range(0, count):
+            if i < j:
+                links.append({'source': i, 'target': j})
+
+    return {'nodes': nodes, 'links': links}
+
 def create_nodes(count):
     nodes = []
 
@@ -130,6 +144,8 @@ if __name__ == '__main__':
     parser_rtree = subparsers.add_parser('rtree', help='Create nodes connected in a random tree.')
     parser_rtree.add_argument('count', type=int, help='Number of nodes.')
     parser_rtree.add_argument('intra', type=int, help='Intraconnections that disrupt the tree structure.')
+    parser_full = subparsers.add_parser('full', help='Create a full mesh. Every node is connected to everybody else.')
+    parser_full.add_argument('n', type=int, help='Number of nodes.')
     parser_nodes = subparsers.add_parser('nodes', help='Create nodes.')
     parser_nodes.add_argument('count', type=int, help='Number of nodes.')
 
@@ -149,6 +165,8 @@ if __name__ == '__main__':
         output = create_tree(args.depth, args.degree)
     elif args.topology == 'rtree':
         output = create_random_tree(args.count, args.intra)
+    elif args.topology == 'full':
+        output = create_full(args.n)
     elif args.topology == 'nodes':
         output = create_nodes(args.count)
     else:
