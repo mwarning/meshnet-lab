@@ -40,6 +40,7 @@ First you need to have at least one mesh routing protocol installed. For batman-
 Example run:
 
 ```
+# Need to run as root for local execution
 # Create a 10x10 grid and write it to a file called graph.json
 ./topology.py grid4 10 10 > graph.json
 
@@ -64,7 +65,6 @@ sleep 30
 
 # Stop software
 ./software.py stop batman-adv
-Stopped 100 batman-adv instances in 3.109s
 
 # Remove network
 ./network.py apply none
