@@ -151,10 +151,10 @@ def update_node(node, node_command=None, rmap={}):
     name = str(node['id'])
     remote = rmap.get(name)
 
-    if verbosity == 'normal':
-        print(f'  update node {name}')
-
     if node_command is not None:
+        if verbosity == 'normal':
+            print(f'  update node {name}')
+
         exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
 def remove_link(link, rmap={}):
