@@ -2,10 +2,17 @@
 
 import os
 import sys
+import time
 import glob
 import copy
 import math
 import json
+
+# for animation
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import collections as mc
+from matplotlib.animation import FuncAnimation
 
 sys.path.append('../../')
 import software
@@ -15,12 +22,6 @@ import mobility
 import ping
 from shared import Remote
 import shared
-
-import time
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import collections as mc
-from matplotlib.animation import FuncAnimation
 
 
 MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
