@@ -1,4 +1,4 @@
-# Connectivity Test 1
+# Connectivity1 Test
 
 This is a test that tests theoretical connectivity and does not run an network on connection.
 It tests how dense nodes to be placed geographical to achive a speicifc percentage of connectivity.
