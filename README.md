@@ -148,12 +148,20 @@ Host *
 ```
 (Note: make sure directory `~/.ssh/sockets/` exists)
 
-## Limitations
+## Pro / Cons
 
-- no support for multiple direct connections between two nodes (multigraphs)
-- only one mesh interface per node/namespace
+Pro:
+- no need to modify existing routing protocol implementations
+- test the same binaries that are deployed
+
+Cons:
 - no discrete event simulation that can run faster than real time
 - computer performance might influence results
+- less realistic wireless behavior
+
+## Why No NS-2 or NS-3
+
+Network Simulator 2 or 3 are popular discrete event simulators that allows fine measurements along with exact reproduceable behavior and a lot of features. The drawback is, that you have to modify your routing program to run in NS. For testing existing routing protocol implementations in different programming languages, this is too much work.
 
 ## Internal Working
 
