@@ -1,0 +1,330 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import copy
+import math
+import json
+
+sys.path.append('../../')
+import software
+import network
+import topology
+import mobility
+import ping
+from shared import Remote
+import shared
+
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import collections as mc
+from matplotlib.animation import FuncAnimation
+
+
+MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
+MAX_SATELLITE_TO_SATELLITE_DISTANCE = 2_000_000
+SPEEDUP = 2 # speedup simulation compared to realtime (100x makes an interesting animation)
+
+unique_id_counter = 0
+
+def getNewUniqueID():
+    global unique_id_counter
+    new_id = unique_id_counter
+    unique_id_counter += 1
+    return new_id
+
+class Satellite:
+    def __init__(self, height, azimuth, inclination,
+                 offset_t=0, offset_azimuth=0):
+        self.id = getNewUniqueID()
+        self.name = str(id)
+        self.plot = None # for animation
+        self.height = height
+        self.azimuth = np.radians(azimuth)  # 0-360°
+        self.inclination = np.radians(inclination)  # 0-90°
+        self.T = self.satellite_period(height)
+        self.offset_azimuth = np.radians(offset_azimuth)
+        self.offset_t = np.radians(offset_t)
+        self.pos = [0, 0, 0]
+
+    # get orbital period in seconds
+    def satellite_period(self, h):
+        G = 6.67430e-11  # gravitational constant
+        M = 5.9722e24  # earth mass
+        R = 6371000  # earth radius
+        r = R + h
+        v = np.sqrt(G * M / r)
+        return 2 * np.pi * r / v
+
+    def update_position(self, t):
+        R = 6371000  # earth radius
+        r = R + self.height
+        z = self.offset_azimuth + self.azimuth
+        a = self.inclination
+        p = self.offset_t + 2 * np.pi * t / self.T
+        self.pos[0] = r * (np.cos(a)*np.cos(z)*np.cos(p) - np.sin(z)*np.sin(p))
+        self.pos[1] = r * (np.cos(a)*np.sin(z)*np.cos(p) + np.cos(z)*np.sin(p))
+        self.pos[2] = r * np.sin(a)*np.cos(p)
+
+# ground station
+class Station():
+    def __init__(self, name, lat, lon):
+        R = 6371000  # earth radius
+        self.id = getNewUniqueID()
+        self.name = name
+        self.height = R
+        self.plot = None # for animation
+
+        lat = np.radians(lat)
+        lon = np.radians(lon)
+
+        self.pos = [R * np.cos(lat) * np.cos(lon),
+                    R * np.cos(lat) * np.sin(lon),
+                    R * np.sin(lat)]
+
+# get list of ground stations
+def get_station_set1():
+    return [
+        Station("Paris", 48.864716, 2.349014),
+        Station("Berlin", 52.52437, 13.41053),
+        Station("New York", 40.7127837, -74.0059413),
+        Station("Seoul", 37.532600, 127.024612),
+        Station("New Dehli", 28.679079, 77.069710),
+        Station("Rio de Janeiro", -22.908333, -43.196388),
+    ]
+
+# get list of satellites
+def get_satellite_set1():
+    NUM_SATELLITES = 30
+    satellites = []
+
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(550000, 0, 53, i * 360 / NUM_SATELLITES, 0))
+
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(560000, 0, 53, i * 360 / NUM_SATELLITES, 200))
+
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(570000, 0, 53, i * 360 / NUM_SATELLITES, 240))
+
+    return satellites
+
+def distance(pos1, pos2):
+    return np.sqrt(
+          (pos1[0] - pos2[0]) ** 2
+        + (pos1[1] - pos2[1]) ** 2
+        + (pos1[2] - pos2[2]) ** 2)
+
+def get_connections(stations, satellites,
+        max_station_to_satellite_distance=2_000_000,
+        max_satellite_to_satellite_distance=2_000_000):
+
+    connections = []
+
+    # add satellites and connect them
+    for s1 in satellites:
+        for s2 in satellites:
+            if s1.id >= s2.id:
+                continue
+
+            d = distance(s1.pos, s2.pos)
+            if d <= MAX_SATELLITE_TO_SATELLITE_DISTANCE:
+                connections.append((s1, s2))
+
+    # add stations and connect to one nearest satellite
+    for s1 in stations:
+        min_s = None
+        min_d = None
+
+        for s2 in satellites:
+            d = distance(s1.pos, s2.pos)
+            if min_d == None or d < min_d:
+                min_s = s2
+                min_d = d
+
+        # connect ground station with one satellite
+        if min_d != None and min_d <= MAX_STATION_TO_SATELLITE_DISTANCE:
+            connections.append((s1, min_s))
+
+    return connections
+
+# for creating a visual animation
+def start_animation(satellites, stations):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-7000000.0, 7000000.0])
+    ax.set_xlabel('X')
+
+    ax.set_ylim3d([-7000000.0, 7000000.0])
+    ax.set_ylabel('Y')
+
+    ax.set_zlim3d([-7000000, 7000000.0])
+    ax.set_zlabel('Z')
+
+    # height => plot object for satellite/station
+    plots = {}
+    def get_plot(height):
+        # get a color for each plane and its satellites
+        def get_color(c, NUM_COLORS):
+            cm = plt.get_cmap('gist_rainbow')
+            return cm(1. * c / NUM_COLORS)
+
+        h = int(height)
+        if height not in plots:
+            plots[h] = ax.scatter3D([], [], [])
+        return plots[h]
+
+
+    for s in stations:
+        s.plot = get_plot(s.height)
+
+    for s in satellites:
+        s.plot = get_plot(s.height)
+
+    # ground stations do not move => print labels once here
+    for s in stations:
+        # add labels to ground stations
+        ax.text(s.pos[0], s.pos[1], s.pos[2], s.name, size=10, zorder=1, color='k') 
+
+    started = time.time() # seconds until epoch
+
+    lines = []
+    def update(i):
+        sim_time = SPEEDUP * (time.time() - started)
+        plt.title(f'Time: {int((sim_time/(60*60))%24):02d}h:{int((sim_time/60)%60):02d}m:{int(sim_time%60):02d}s (x{SPEEDUP})')
+
+        # remove previous connections/links
+        for line in lines:
+            line.remove()
+        lines.clear()
+
+        # calculate satellite positions (stations do not change)
+        for s in satellites:
+            s.update_position(sim_time)
+
+        for h, plot in plots.items():
+            plot._offsets3d = ([], [], [])
+
+        for s in stations:
+            s.plot._offsets3d[0].append(s.pos[0])
+            s.plot._offsets3d[1].append(s.pos[1])
+            s.plot._offsets3d[2].append(s.pos[2])
+
+        for s in satellites:
+            s.plot._offsets3d[0].append(s.pos[0])
+            s.plot._offsets3d[1].append(s.pos[1])
+            s.plot._offsets3d[2].append(s.pos[2])
+
+        connections = get_connections(stations, satellites)
+        for c in connections:
+            p1 = c[0].pos
+            p2 = c[1].pos
+
+            # connections between stallites => red
+            # connections to satellites => green
+            color = 'r' if isinstance(c[0], Station) or isinstance(c[1], Station) else 'g'
+            line, = ax.plot([p1[0], p2[0]], [p1[1], p2[1]], [p1[2], p2[2]], linewidth=1, color=color)
+            lines.append(line)
+
+    fig.tight_layout()
+    ani = FuncAnimation(fig, update, frames=10)
+
+    ani.save('animation2.gif', writer='imagemagick', fps=20)
+
+    plt.show()
+    exit(0)
+
+
+# JSON representation of the current state
+# name, x,y,z,length are optional
+def get_state(stations, satellites, connections):
+    links = []
+    nodes = []
+
+    # add satellites and connect them
+    for s in satellites:
+        nodes.append({"id": s.id, "x": s.pos[0], "y": s.pos[1], "z": s.pos[2]})
+
+    for s in stations:
+        nodes.append({"id": s.id, "name": s.name, "x": s.pos[0], "y": s.pos[1], "z": s.pos[2]})
+
+    for c in connections:
+        links.append({"source": c[0].id, "target": c[1].id, "length": distance(c[0].pos, c[1].pos)})
+
+    return {"nodes": nodes, "links": links}
+
+satellites = get_satellite_set1()
+stations = get_station_set1()
+
+# uncomment for animation
+#start_animation(satellites, stations)
+
+remotes= [Remote()]
+
+shared.check_access(remotes)
+software.clear(remotes)
+network.clear(remotes)
+
+prefix = os.environ.get('PREFIX', '')
+
+
+def run(protocol, csvfile):
+    shared.seed_random(42)
+
+    # pick 20 random paths between ground stations
+    paths = ping.get_random_paths(get_state(stations, [], []), 20)
+
+    # create network and start routing software
+    state = get_state(stations, satellites, [])
+    network.apply(state, remotes=remotes)
+    software.start(protocol)
+
+    shared.sleep(30)
+
+    test_beg_ms = shared.millis()
+
+    DURATION_SIMTIME_SEC = 2*60*60
+    STEP_SIMTIME_SEC = 5*60
+    STEP_REALTIME_SEC = STEP_SIMTIME_SEC / SPEEDUP
+
+    print(f'STEP_SIMTIME_SEC: {STEP_SIMTIME_SEC}s')
+    print(f'STEP_REALTIME_SEC: {STEP_REALTIME_SEC}s')
+
+    # cover 2 hours in 5 minute steps (24 steps)
+    for sim_time in range(0, DURATION_SIMTIME_SEC, STEP_SIMTIME_SEC):
+        real_time = int((shared.millis() - test_beg_ms)/1000)
+
+        print(f'{protocol}: sim time {sim_time}s, real time {real_time}s ({int(sim_time/STEP_SIMTIME_SEC)}/{int(DURATION_SIMTIME_SEC/STEP_SIMTIME_SEC)})')
+
+        wait_beg_ms = shared.millis()
+
+        # update node positions
+        for s in satellites:
+            s.update_position(sim_time)
+
+        # update network
+        connections = get_connections(stations, satellites)
+        state = get_state(stations, satellites, connections)
+
+        network.apply(state=state, remotes=remotes)
+
+        shared.wait(wait_beg_ms, STEP_REALTIME_SEC - 2)
+
+        ping_result = ping.ping(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
+
+        # add data to csv file
+        extra = (['station_count', 'satellite_count', 'sim_time_sec', 'real_time_sec'],
+            [len(stations), len(satellites), sim_time, (shared.millis() - test_beg_ms) / 1000])
+        shared.csv_update(csvfile, '\t', extra, ping_result.getData())
+
+    software.clear(remotes)
+    network.clear(remotes)
+
+for protocol in ['batman-adv', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
+    with open(f"{prefix}satellites1-{protocol}.csv", 'w+') as csvfile:
+        run(protocol, csvfile)
+
+shared.stop_all_terminals()
