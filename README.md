@@ -159,7 +159,7 @@ Cons:
 - computer performance might influence results
 - less realistic wireless behavior
 
-## Why No NS-2 or NS-3
+## What about NS-2 or NS-3?
 
 Network Simulator 2 or 3 are popular discrete event simulators that allows fine measurements along with exact reproduceable behavior and a lot of features. The drawback is, that you have to modify your routing program to run in NS. For testing existing routing protocol implementations in different programming languages, this is too much work.
 
