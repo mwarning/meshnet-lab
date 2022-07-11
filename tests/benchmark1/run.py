@@ -54,7 +54,7 @@ def run(protocol, csvfile):
 
 		network.clear(remotes)
 
-		# abort benchmark when less then 40% of the pings arrive
+		# abort benchmark when less than 40% of the pings arrive
 		if ping_result.send == 0 or (ping_result.received / ping_result.send) < 0.4:
 			break
 
