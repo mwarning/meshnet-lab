@@ -1,6 +1,6 @@
 # Tests
 
-A collection of test scenarios. Execute `run.py` as user root in the sub folders to run the tests. They need the routing protocol installed. Or modifiy them to run a limited scope of the test. Be aware that the execution time can take from 5 minutes to some hours.
+A collection of test scenarios. Execute `run.py` as user root in the sub folders to run the tests. The tests all expect the routing protocols to be installed. Otherwise modifiy the scripts. Be aware that the general execution time can take from 5 minutes up to some hours.
 
 The tests will create a bunch of `*.csv` files with comma separated values. Use `./plot.sh` to create image graphs. You will need the `gnuplot` program installed for that.
 
@@ -46,6 +46,12 @@ Similar to Mobility1, but the nodes move around at increasing speeds.
 Test on topologies from the Freifunk data set with cable and WiFi connections. Measure connectivity and traffic.
 
 [Go to Test](freifunk1/)
+
+## Satellites1 Test
+
+Test connectivity on a satellite network.
+
+[Go to Test](satellites1/)
 
 ## Scalability1 Test
 
