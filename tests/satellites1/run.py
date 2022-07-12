@@ -112,42 +112,29 @@ def get_satellite_set1():
 
     return satellites
 
+# squared distance
+def distance2(pos1, pos2):
+    return (pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2 + (pos1[2] - pos2[2]) ** 2
+
 def distance(pos1, pos2):
-    return np.sqrt(
-          (pos1[0] - pos2[0]) ** 2
-        + (pos1[1] - pos2[1]) ** 2
-        + (pos1[2] - pos2[2]) ** 2)
+    return np.sqrt(distance2(pos1, pos2))
 
-def get_connections(stations, satellites,
-        max_station_to_satellite_distance=2_000_000,
-        max_satellite_to_satellite_distance=2_000_000):
-
+def get_connections(stations, satellites):
     connections = []
 
-    # add satellites and connect them
+    # connect satellites
     for s1 in satellites:
         for s2 in satellites:
-            if s1.id >= s2.id:
-                continue
-
-            d = distance(s1.pos, s2.pos)
-            if d <= MAX_SATELLITE_TO_SATELLITE_DISTANCE:
+            d = distance2(s1.pos, s2.pos)
+            if d > 0 and d <= (MAX_SATELLITE_TO_SATELLITE_DISTANCE ** 2):
                 connections.append((s1, s2))
 
-    # add stations and connect to one nearest satellite
+    # connect stations and satellites
     for s1 in stations:
-        min_s = None
-        min_d = None
-
         for s2 in satellites:
-            d = distance(s1.pos, s2.pos)
-            if min_d == None or d < min_d:
-                min_s = s2
-                min_d = d
-
-        # connect ground station with one satellite
-        if min_d != None and min_d <= MAX_STATION_TO_SATELLITE_DISTANCE:
-            connections.append((s1, min_s))
+            d = distance2(s1.pos, s2.pos)
+            if d > 0 and d <= (MAX_STATION_TO_SATELLITE_DISTANCE ** 2):
+                connections.append((s1, s2))
 
     return connections
 
