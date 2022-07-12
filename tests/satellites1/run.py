@@ -129,23 +129,24 @@ def get_connections(stations, satellites):
     for s1 in satellites:
         found = []
         for s2 in satellites:
-            d = distance2(s1.pos, s2.pos)
-            if d > 0 and d <= (MAX_SATELLITE_TO_SATELLITE_DISTANCE ** 2):
-                found.append((s1, s2))
-        found.sort(key=lambda s: distance2(s[0].pos, s[1].pos))
+            d2 = distance2(s1.pos, s2.pos)
+            if d2 > 0 and d2 <= (MAX_SATELLITE_TO_SATELLITE_DISTANCE ** 2):
+                found.append((s1, s2, d2))
+        found.sort(key=lambda s: s[2])
         connections.extend(found[:MAX_SATELLITE_TO_SATELLITE_CONNECTIONS])
 
     # connect stations and satellites
     for s1 in stations:
         found = []
         for s2 in satellites:
-            d = distance2(s1.pos, s2.pos)
-            if d > 0 and d <= (MAX_STATION_TO_SATELLITE_DISTANCE ** 2):
-                found.append((s1, s2))
-        found.sort(key=lambda s: distance2(s[0].pos, s[1].pos))
+            d2 = distance2(s1.pos, s2.pos)
+            if d2 > 0 and d2 <= (MAX_STATION_TO_SATELLITE_DISTANCE ** 2):
+                found.append((s1, s2, d2))
+        found.sort(key=lambda s: s[2])
         connections.extend(found[:MAX_STATION_TO_SATELLITE_CONNECTIONS])
 
     return connections
+
 
 # for creating a visual animation
 def start_animation(satellites, stations):
@@ -249,7 +250,7 @@ def get_state(stations, satellites, connections):
         nodes.append({"id": s.id, "name": s.name, "x": s.pos[0], "y": s.pos[1], "z": s.pos[2]})
 
     for c in connections:
-        links.append({"source": c[0].id, "target": c[1].id, "length": distance(c[0].pos, c[1].pos)})
+        links.append({"source": c[0].id, "target": c[1].id, "length": np.sqrt(c[2])})
 
     return {"nodes": nodes, "links": links}
 
