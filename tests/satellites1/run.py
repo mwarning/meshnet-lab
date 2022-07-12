@@ -220,7 +220,7 @@ def start_animation(satellites, stations):
     fig.tight_layout()
     ani = FuncAnimation(fig, update, frames=10)
 
-    ani.save('animation2.gif', writer='imagemagick', fps=20)
+    #ani.save('animation.gif', writer='imagemagick', fps=20)
 
     plt.show()
     exit(0)
