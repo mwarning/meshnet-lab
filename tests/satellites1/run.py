@@ -24,8 +24,11 @@ from shared import Remote
 import shared
 
 
+MAX_STATION_TO_SATELLITE_CONNECTIONS = 2
 MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
+MAX_SATELLITE_TO_SATELLITE_CONNECTIONS = 8
 MAX_SATELLITE_TO_SATELLITE_DISTANCE = 2_000_000
+
 SPEEDUP = 2 # speedup simulation compared to realtime (100x makes an interesting animation)
 
 unique_id_counter = 0
@@ -124,17 +127,23 @@ def get_connections(stations, satellites):
 
     # connect satellites
     for s1 in satellites:
+        found = []
         for s2 in satellites:
             d = distance2(s1.pos, s2.pos)
             if d > 0 and d <= (MAX_SATELLITE_TO_SATELLITE_DISTANCE ** 2):
-                connections.append((s1, s2))
+                found.append((s1, s2))
+        found.sort(key=lambda s: distance2(s[0].pos, s[1].pos))
+        connections.extend(found[:MAX_SATELLITE_TO_SATELLITE_CONNECTIONS])
 
     # connect stations and satellites
     for s1 in stations:
+        found = []
         for s2 in satellites:
             d = distance2(s1.pos, s2.pos)
             if d > 0 and d <= (MAX_STATION_TO_SATELLITE_DISTANCE ** 2):
-                connections.append((s1, s2))
+                found.append((s1, s2))
+        found.sort(key=lambda s: distance2(s[0].pos, s[1].pos))
+        connections.extend(found[:MAX_STATION_TO_SATELLITE_CONNECTIONS])
 
     return connections
 
