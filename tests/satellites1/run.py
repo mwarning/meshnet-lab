@@ -164,23 +164,25 @@ def start_animation(satellites, stations):
 
     # height => plot object for satellite/station
     plots = {}
-    def get_plot(height):
-        # get a color for each plane and its satellites
-        def get_color(c, NUM_COLORS):
-            cm = plt.get_cmap('gist_rainbow')
-            return cm(1. * c / NUM_COLORS)
-
+    def getPlot(height):
         h = int(height)
-        if height not in plots:
+        if h not in plots:
             plots[h] = ax.scatter3D([], [], [])
         return plots[h]
 
+    def getColor(s1, s2, d):
+        if isinstance(s1, Station) or isinstance(s2, Station):
+            r = d / MAX_STATION_TO_SATELLITE_DISTANCE
+            return (0.6 * r, 1.0 - r , 0.0)
+        else:
+            r = d / MAX_STATION_TO_SATELLITE_DISTANCE
+            return (0.6 * r, 1.0 - r , 0.0)
 
     for s in stations:
-        s.plot = get_plot(s.height)
+        s.plot = getPlot(s.height)
 
     for s in satellites:
-        s.plot = get_plot(s.height)
+        s.plot = getPlot(s.height)
 
     # ground stations do not move => print labels once here
     for s in stations:
@@ -220,11 +222,9 @@ def start_animation(satellites, stations):
         for c in connections:
             p1 = c[0].pos
             p2 = c[1].pos
+            d = np.sqrt(c[2])
 
-            # connections between stallites => red
-            # connections to satellites => green
-            color = 'r' if isinstance(c[0], Station) or isinstance(c[1], Station) else 'g'
-            line, = ax.plot([p1[0], p2[0]], [p1[1], p2[1]], [p1[2], p2[2]], linewidth=1, color=color)
+            line, = ax.plot([p1[0], p2[0]], [p1[1], p2[1]], [p1[2], p2[2]], linewidth=1, color=getColor(c[0], c[1], d))
             lines.append(line)
 
     fig.tight_layout()
