@@ -1,6 +1,6 @@
 # Satellites 1
 
-Test a mobile topology with satellites, ground stations and gound clients. The setup is inspired by [Starlink](https://www.starlink.com/) setup operated by [SpaceX](https://www.spacex.com/). The amount of those in this particular test is very low.
+Test a mobile topology with satellites, ground stations and gound clients. The setup is inspired by [Starlink](https://www.starlink.com/) setup operated by [SpaceX](https://www.spacex.com/). The amount of those in this particular test is very low. The animation does not show live data from the simulation, but shows the movements in the test (at a different speed).
 
 ![image](animation.gif)
 
