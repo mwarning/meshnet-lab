@@ -357,7 +357,7 @@ def run(protocol, csvfile):
     network.clear(remotes)
 
 for protocol in ['batman-adv', 'babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
-    with open(f"{prefix}satellites1-{protocol}.csv", 'w+') as csvfile:
+    with open(f"{prefix}satellites2-{protocol}.csv", 'w+') as csvfile:
         run(protocol, csvfile)
 
 shared.stop_all_terminals()
