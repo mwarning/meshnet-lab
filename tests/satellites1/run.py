@@ -43,7 +43,7 @@ class Satellite:
     def __init__(self, height, azimuth, inclination,
                  offset_t=0, offset_azimuth=0):
         self.id = getNewUniqueID()
-        self.name = str(id)
+        self.name = str(self.id)
         self.plot = None # for animation
         self.height = height
         self.azimuth = np.radians(azimuth)  # 0-360°
@@ -162,7 +162,7 @@ def start_animation(satellites, stations):
     ax.set_zlim3d([-7000000, 7000000.0])
     ax.set_zlabel('Z')
 
-    # height => plot object for satellite/station
+    # height => plot object for satellites/stations
     plots = {}
     def getPlot(height):
         h = int(height)
@@ -187,7 +187,7 @@ def start_animation(satellites, stations):
     # ground stations do not move => print labels once here
     for s in stations:
         # add labels to ground stations
-        ax.text(s.pos[0], s.pos[1], s.pos[2], s.name, size=10, zorder=1, color='k') 
+        ax.text(s.pos[0], s.pos[1], s.pos[2], s.name, size=10, zorder=1, color='k')
 
     started = time.time() # seconds until epoch
 
@@ -237,7 +237,7 @@ def start_animation(satellites, stations):
 
 
 # JSON representation of the current state
-# name, x,y,z,length are optional
+# name, x, y, z, distance are optional
 def get_state(stations, satellites, connections):
     links = []
     nodes = []
@@ -250,7 +250,7 @@ def get_state(stations, satellites, connections):
         nodes.append({"id": s.id, "name": s.name, "x": s.pos[0], "y": s.pos[1], "z": s.pos[2]})
 
     for c in connections:
-        links.append({"source": c[0].id, "target": c[1].id, "length": np.sqrt(c[2])})
+        links.append({"source": c[0].id, "target": c[1].id, "distance": np.sqrt(c[2])})
 
     return {"nodes": nodes, "links": links}
 
@@ -268,9 +268,16 @@ network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
+def print_stations():
+    print('station names:')
+    for s in stations:
+        print(f'{s.id} => {s.name}')
 
 def run(protocol, csvfile):
     shared.seed_random(42)
+
+    # informal, data does not change
+    print_stations()
 
     # pick 20 random paths between ground stations
     paths = ping.get_random_paths(get_state(stations, [], []), 20)
