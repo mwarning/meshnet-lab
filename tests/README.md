@@ -49,9 +49,15 @@ Test on topologies from the Freifunk data set with cable and WiFi connections. M
 
 ## Satellites1 Test
 
-Test connectivity on a satellite network.
+Test connectivity on a simple satellite network.
 
 [Go to Test](satellites1/)
+
+## Satellites2 Test
+
+Test connectivity and traffic on a more complex satellite network.
+
+[Go to Test](satellites2/)
 
 ## Scalability1 Test
 
