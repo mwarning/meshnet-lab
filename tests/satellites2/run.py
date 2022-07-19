@@ -31,7 +31,7 @@ MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
 MAX_SATELLITE_TO_SATELLITE_CONNECTIONS = 8
 MAX_SATELLITE_TO_SATELLITE_DISTANCE = 2_000_000
 
-SPEEDUP = 100 # speedup simulation compared to realtime (100x makes an interesting animation)
+ANIMATION_SPEEDUP = 100 # speedup simulation compared to realtime (100x makes an interesting animation)
 
 unique_id_counter = 0
 
@@ -195,8 +195,8 @@ def start_animation(satellites, stations):
 
     lines = []
     def update(i):
-        sim_time = SPEEDUP * (time.time() - started)
-        plt.title(f'Time: {int((sim_time/(60*60))%24):02d}h:{int((sim_time/60)%60):02d}m:{int(sim_time%60):02d}s (x{SPEEDUP})')
+        sim_time = ANIMATION_SPEEDUP * (time.time() - started)
+        plt.title(f'Time: {int((sim_time/(60*60))%24):02d}h:{int((sim_time/60)%60):02d}m:{int(sim_time%60):02d}s (x{ANIMATION_SPEEDUP})')
 
         # remove previous connections/links
         for line in lines:

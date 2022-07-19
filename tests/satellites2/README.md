@@ -1,6 +1,7 @@
 # Satellites 2
 
-Test a mobile topology with satellites, ground stations and gound clients. Similar to [Satellites1](../satellites1/) test.
+Test a mobile topology with satellites, ground stations and gound clients. Similar to the [Satellites1](../satellites1/) test.
+The animation does not show live data from the simulation, but shows the movements in the test (at a different speed).
 
 ![image](animation.gif)
 
