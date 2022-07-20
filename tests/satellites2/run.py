@@ -29,8 +29,8 @@ import shared
 
 MAX_STATION_TO_SATELLITE_CONNECTIONS = 2
 MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
-MAX_SATELLITE_TO_SATELLITE_CONNECTIONS = 8
-MAX_SATELLITE_TO_SATELLITE_DISTANCE = 2_000_000
+MAX_SATELLITE_TO_SATELLITE_CONNECTIONS = 5
+MAX_SATELLITE_TO_SATELLITE_DISTANCE = 1_500_000
 
 TEST_SPEEDUP = 2
 ANIMATION_SPEEDUP = 100
@@ -105,17 +105,31 @@ def get_station_set1():
 
 # get list of satellites
 def get_satellite_set1():
-    NUM_SATELLITES = 30
     satellites = []
 
+    NUM_SATELLITES = 50
     for i in range(0, NUM_SATELLITES):
-        satellites.append(Satellite(550000, 0, 53, i * 360 / NUM_SATELLITES, 0))
+        satellites.append(Satellite(560000, 0, 53, i * 360 / NUM_SATELLITES, 0))
 
+    NUM_SATELLITES = 30
     for i in range(0, NUM_SATELLITES):
-        satellites.append(Satellite(560000, 0, 53, i * 360 / NUM_SATELLITES, 200))
+        satellites.append(Satellite(550000, 0, 53, i * 360 / NUM_SATELLITES, 200))
 
+    NUM_SATELLITES = 60
     for i in range(0, NUM_SATELLITES):
-        satellites.append(Satellite(570000, 0, 53, i * 360 / NUM_SATELLITES, 240))
+        satellites.append(Satellite(550000, 0, 20, i * 360 / NUM_SATELLITES, 200))
+
+    NUM_SATELLITES = 30
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(600000, 0, 0, i * 360 / NUM_SATELLITES, 200))
+
+    NUM_SATELLITES = 40
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(700000, 0, 53, i * 360 / NUM_SATELLITES, 240))
+
+    NUM_SATELLITES = 40
+    for i in range(0, NUM_SATELLITES):
+        satellites.append(Satellite(2000000, 0, 70, i * 360 / NUM_SATELLITES, 240))
 
     return satellites
 
