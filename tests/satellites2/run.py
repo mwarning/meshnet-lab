@@ -13,6 +13,7 @@ import copy
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import collections as mc
+from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from matplotlib.animation import FuncAnimation
 
 sys.path.append('../../')
@@ -31,7 +32,8 @@ MAX_STATION_TO_SATELLITE_DISTANCE = 2_000_000
 MAX_SATELLITE_TO_SATELLITE_CONNECTIONS = 8
 MAX_SATELLITE_TO_SATELLITE_DISTANCE = 2_000_000
 
-ANIMATION_SPEEDUP = 100 # speedup simulation compared to realtime (100x makes an interesting animation)
+TEST_SPEEDUP = 2
+ANIMATION_SPEEDUP = 100
 
 unique_id_counter = 0
 
@@ -174,11 +176,11 @@ def start_animation(satellites, stations):
 
     def getColor(s1, s2, d):
         if isinstance(s1, Station) or isinstance(s2, Station):
-            r = d / MAX_STATION_TO_SATELLITE_DISTANCE
-            return (0.6 * r, 1.0 - r , 0.0)
+            r = (d / MAX_STATION_TO_SATELLITE_DISTANCE) ** 2
+            return (r, 1.0 - r, 0.0)
         else:
-            r = d / MAX_STATION_TO_SATELLITE_DISTANCE
-            return (0.6 * r, 1.0 - r , 0.0)
+            r = (d / MAX_STATION_TO_SATELLITE_DISTANCE) ** 2
+            return (r, 1.0 - r, 0.0)
 
     for s in stations:
         s.plot = getPlot(s.height)
@@ -191,17 +193,26 @@ def start_animation(satellites, stations):
         # add labels to ground stations
         ax.text(s.pos[0], s.pos[1], s.pos[2], s.name, size=10, zorder=1, color='k')
 
+    def get_LineCollection3d(connections):
+        colors = []
+        segments = []
+        for c in connections:
+            s1 = c[0]
+            s2 = c[1]
+            d = np.sqrt(c[2])
+            segments.append((s1.pos, s2.pos))
+            colors.append(getColor(s1, s2, d))
+        return Line3DCollection(segments, colors=colors, linewidth=1)
+
+
     started = time.time() # seconds until epoch
 
-    lines = []
+    lc = get_LineCollection3d([])
+    ax.add_collection3d(lc)
+
     def update(i):
         sim_time = ANIMATION_SPEEDUP * (time.time() - started)
         plt.title(f'Time: {int((sim_time/(60*60))%24):02d}h:{int((sim_time/60)%60):02d}m:{int(sim_time%60):02d}s (x{ANIMATION_SPEEDUP})')
-
-        # remove previous connections/links
-        for line in lines:
-            line.remove()
-        lines.clear()
 
         # calculate satellite positions (stations do not change)
         for s in satellites:
@@ -221,22 +232,19 @@ def start_animation(satellites, stations):
             s.plot._offsets3d[2].append(s.pos[2])
 
         connections = get_connections(stations, satellites)
-        for c in connections:
-            p1 = c[0].pos
-            p2 = c[1].pos
-            d = np.sqrt(c[2])
 
-            line, = ax.plot([p1[0], p2[0]], [p1[1], p2[1]], [p1[2], p2[2]], linewidth=1, color=getColor(c[0], c[1], d))
-            lines.append(line)
+        nonlocal lc
+        lc.remove()
+        lc = get_LineCollection3d(connections)
+        ax.add_collection3d(lc)
 
     fig.tight_layout()
     ani = FuncAnimation(fig, update, frames=10)
 
-    #ani.save('animation.gif', writer='imagemagick', fps=20)
+    #ani.save('animation.gif', writer='imagemagick', fps=30)
 
     plt.show()
     exit(0)
-
 
 # JSON representation of the current state
 # name, x, y, z, distance are optional
