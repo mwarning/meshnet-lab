@@ -256,9 +256,9 @@ def start_animation(satellites, stations):
         ax.add_collection3d(lc)
 
     fig.tight_layout()
-    ani = FuncAnimation(fig, update, frames=10)
+    ani = FuncAnimation(fig, update, frames=30)
 
-    #ani.save('animation.gif', writer='imagemagick', fps=30)
+    #ani.save('animation.gif', writer='imagemagick', fps=15)
 
     plt.show()
     exit(0)
