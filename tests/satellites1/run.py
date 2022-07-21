@@ -210,7 +210,10 @@ def start_animation(satellites, stations):
 
     def update(i):
         sim_time = ANIMATION_SPEEDUP * (time.time() - started)
-        plt.title(f'Time: {int((sim_time/(60*60))%24):02d}h:{int((sim_time/60)%60):02d}m:{int(sim_time%60):02d}s (x{ANIMATION_SPEEDUP})')
+        time_h = int((sim_time/(60*60))%24)
+        time_m = int((sim_time/60)%60)
+        time_s = int(sim_time%60)
+        plt.title(f'Time: {time_h:02d}h:{time_m:02d}m:{time_s:02d}s (x{ANIMATION_SPEEDUP}, {len(satellites)} satellites)', x=0.5, y=1.0, size=20)
 
         # calculate satellite positions (stations do not change)
         for s in satellites:
