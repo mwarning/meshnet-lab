@@ -40,9 +40,6 @@ for id in 'line' 'grid4' 'rtree'; do
 		'${prefix}gateways1-olsr2-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'olsr2 [KB/s/node]' axis x1y1, \
 		'${prefix}gateways1-olsr2-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'green' title 'olsr2 [%]' axis x1y2, \
 		\
-		'${prefix}gateways1-ospf-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'ospf [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-ospf-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'green' title 'ospf [%]' axis x1y2, \
-		\
 		'${prefix}gateways1-yggdrasil-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'purple' title 'yggdrasil [KB/s/node]' axis x1y1, \
 		'${prefix}gateways1-yggdrasil-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with points linetype rgb 'purple' title 'yggdrasil [%]' axis x1y2, \
 		;\

@@ -23,7 +23,6 @@ for id in 'line' 'rtree' 'grid4'; do
 		'${prefix}convergence1-cjdns-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'dark-red' title 'cjdns', \
 		'${prefix}convergence1-olsr1-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'coral' title 'olsr1', \
 		'${prefix}convergence1-olsr2-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'green' title 'olsr2', \
-		'${prefix}convergence1-ospf-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'green' title 'ospf', \
 		'${prefix}convergence1-yggdrasil-$id.csv' using (column('offset_ms') / 1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'purple' title 'yggdrasil' \
 	; \
 	"
