@@ -65,7 +65,7 @@ def run(protocol, files, csvfile):
 		network.clear(remotes)
 
 for file in ['../../data/line/line-0050.json', '../../data/grid4/grid4-0049.json', '../../data/rtree/rtree-0050.json']:
-	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'ospf', 'yggdrasil']:
+	for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
 		name = file.split('/')[-2]
 		with open(f"{prefix}convergence1-{protocol}-{name}.csv", 'w+') as csvfile:
 			run(protocol, file, csvfile)
