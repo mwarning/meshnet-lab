@@ -149,7 +149,9 @@ def get_connections(stations, satellites):
         for s2 in satellites:
             d2 = distance2(s1.pos, s2.pos)
             if d2 > 0 and d2 <= (MAX_SATELLITE_TO_SATELLITE_DISTANCE ** 2):
-                found.append((s1, s2, d2))
+                # transfer quality
+                tq = 1.0 - (np.sqrt(d2) / MAX_SATELLITE_TO_SATELLITE_DISTANCE) ** 2
+                found.append((s1, s2, tq))
         found.sort(key=lambda s: s[2])
         connections.extend(found[:MAX_SATELLITE_TO_SATELLITE_CONNECTIONS])
 
@@ -159,12 +161,13 @@ def get_connections(stations, satellites):
         for s2 in satellites:
             d2 = distance2(s1.pos, s2.pos)
             if d2 > 0 and d2 <= (MAX_STATION_TO_SATELLITE_DISTANCE ** 2):
-                found.append((s1, s2, d2))
+                # transfer quality
+                tq = 1.0 - (np.sqrt(d2) / MAX_STATION_TO_SATELLITE_DISTANCE) ** 2
+                found.append((s1, s2, tq))
         found.sort(key=lambda s: s[2])
         connections.extend(found[:MAX_STATION_TO_SATELLITE_CONNECTIONS])
 
     return connections
-
 
 # for creating a visual animation
 def start_animation(satellites, stations):
@@ -188,14 +191,6 @@ def start_animation(satellites, stations):
             plots[h] = ax.scatter3D([], [], [])
         return plots[h]
 
-    def getColor(s1, s2, d):
-        if isinstance(s1, Station) or isinstance(s2, Station):
-            r = (d / MAX_STATION_TO_SATELLITE_DISTANCE) ** 2
-            return (r, 1.0 - r, 0.0)
-        else:
-            r = (d / MAX_STATION_TO_SATELLITE_DISTANCE) ** 2
-            return (r, 1.0 - r, 0.0)
-
     for s in stations:
         s.plot = getPlot(s.height)
 
@@ -213,11 +208,10 @@ def start_animation(satellites, stations):
         for c in connections:
             s1 = c[0]
             s2 = c[1]
-            d = np.sqrt(c[2])
+            tq = c[2]
             segments.append((s1.pos, s2.pos))
-            colors.append(getColor(s1, s2, d))
+            colors.append((1.0 - tq, tq, 0.0))
         return Line3DCollection(segments, colors=colors, linewidth=1)
-
 
     started = time.time() # seconds until epoch
 
@@ -264,7 +258,7 @@ def start_animation(satellites, stations):
     exit(0)
 
 # JSON representation of the current state
-# name, x, y, z, distance are optional
+# name, x, y, z, tq are optional
 def get_state(stations, satellites, connections):
     links = []
     nodes = []
@@ -277,7 +271,7 @@ def get_state(stations, satellites, connections):
         nodes.append({"id": s.id, "name": s.name, "x": s.pos[0], "y": s.pos[1], "z": s.pos[2]})
 
     for c in connections:
-        links.append({"source": c[0].id, "target": c[1].id, "distance": np.sqrt(c[2])})
+        links.append({"source": c[0].id, "target": c[1].id, "tq": c[2]})
 
     return {"nodes": nodes, "links": links}
 
