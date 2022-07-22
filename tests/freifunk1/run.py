@@ -66,8 +66,8 @@ def run(protocol, csvfile):
 		traffic_beg = traffic.traffic(remotes)
 
 		paths = ping.get_random_paths(state, 2 * node_count)
-		paths = shared.filter_paths(state, paths, min_hops=2, path_count=node_count)
-		ping_result = shared.ping(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
+		paths = ping.filter_paths(state, paths, min_hops=2, path_count=node_count)
+		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
 		sysload_result = shared.sysload(remotes)
 
