@@ -59,6 +59,12 @@ Test connectivity and traffic on a more complex satellite network.
 
 [Go to Test](satellites2/)
 
+## Satellites3 Test
+
+A more realistic test with packet loss and transmission delay.
+
+[Go to Test](satellites3/)
+
 ## Scalability1 Test
 
 Get the traffic per link that a routing protocol generates under minimal load on different network sizes and topologies.
