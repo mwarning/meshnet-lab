@@ -284,6 +284,7 @@ def print_stations():
 def get_tc_command(link, ifname):
     # map transfer quality to 0-10%
     loss = int(10 * (1.0 - link.get("tq")))
+    # calculate based on the speed of light through vacuum
     delay = int(1000 * link.get("distance") / 300000)
 
     return (
