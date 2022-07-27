@@ -194,7 +194,8 @@ def start_animation(satellites, stations):
             s2 = c[1]
             tq = c[2]
             segments.append((s1.pos, s2.pos))
-            colors.append((1.0 - tq, tq, 0.0))
+            #colors.append((1.0 - tq, tq, 0.0))
+            colors.append((0.1, 0.8, 0.2)) # no packet loss!
         return Line3DCollection(segments, colors=colors, linewidth=1)
 
     started = time.time() # seconds until epoch
