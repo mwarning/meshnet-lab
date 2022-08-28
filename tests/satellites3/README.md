@@ -1,6 +1,6 @@
 # Satellites 3
 
-Like [satellite1](../satellites1/) test, but with packet loss of 0-10% per link and a delay dependent of it's virtual length.
+Like [satellite1](../satellites1/) test, but with packet loss of 0-10% and delay, both dependent on the distance between the virtual ground station/satellite positions.
 The links are also limited to 20MBit/s. This tests also runs in real time (2 hours for each protocol).
 
 ![image](animation.gif)
