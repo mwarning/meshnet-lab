@@ -70,3 +70,15 @@ A more realistic test with packet loss and transmission delay.
 Get the traffic per link that a routing protocol generates under minimal load on different network sizes and topologies.
 
 [Go to Test](scalability1/)
+
+## Scalability2 Test
+
+Send a ping from each node towards a sink and measure traffic.
+
+[Go to Test](scalability2/)
+
+## Scalability3 Test
+
+Send a ping from a sink node towards each other node and measure traffic.
+
+[Go to Test](scalability3/)
