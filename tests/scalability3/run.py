@@ -3,6 +3,7 @@
 import os
 import sys
 import glob
+import random
 
 sys.path.append('../../')
 import software
