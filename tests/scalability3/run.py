@@ -83,7 +83,7 @@ def run(topology, path, state, towards_sink):
 
 		# Send "<node_count> - 1" pings
 		paths = get_paths(state, False)
-		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=(1000*len(paths)), verbosity='verbose')
+		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=(200*len(paths)), verbosity='verbose')
 
 		traffic_stop_ms = shared.millis()
 		traffic_end = traffic.traffic(remotes)
