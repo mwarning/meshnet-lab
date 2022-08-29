@@ -94,7 +94,7 @@ def run(topology, path, state, towards_sink):
 		software.clear(remotes)
 
 		# Add data to csv file
-		extra = (['node_count', 'software_startup_ms', 'traffic_measurement_ms'],
+		extra = (['node_count', 'software_startup_ms', 'traffic_ms'],
 			[node_count, (software_stop_ms - software_start_ms), (traffic_stop_ms - traffic_start_ms)])
 		shared.csv_update(csvfile, '\t', extra,
 			(traffic_end - traffic_begin).getData(), ping_result.getData(), sysload_result)
