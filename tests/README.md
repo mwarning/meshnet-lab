@@ -73,12 +73,12 @@ Get the traffic per link that a routing protocol generates under minimal load on
 
 ## Scalability2 Test
 
-Send a ping from each node towards a sink and measure traffic.
+Send a ping from each node towards a single sink and measure traffic.
 
 [Go to Test](scalability2/)
 
 ## Scalability3 Test
 
-Send a ping from a sink node towards each other node and measure traffic.
+Send a ping from a single sink node towards each other node and measure traffic.
 
 [Go to Test](scalability3/)
