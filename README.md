@@ -18,30 +18,6 @@ Various images from simulations data, animations and result graphs:
 
 (dark background visualizations done with [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer))
 
-## Network Definition
-
-Small JSON example:
-```
-{
-  "links": [
-    {
-      "source": "a",
-      "target": "b"
-    },
-    {
-      "source": "b",
-      "target": "c"
-    }
-  ]
-}
-```
-
-JSON keys:
-
-- `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long. `source` and `target` are interchangeable and have no special distinction.
-- An explicit node list can be added (e.g. `"nodes": [{"id": "a"}, {"id": "b"}]` to define node specific variables for use in combination with the `--node-command`.
-- Other data fields are ignored.
-
 ## Usage
 
 First you need to have at least one mesh routing protocol installed. For batman-adv you also need to have the batctl package installed. There is also a [script](misc/setup.sh) to install all routing protocols.
@@ -84,6 +60,30 @@ As an alternative, you can stop all protocols using `./software.py clear` and re
 The protocol name (e.g. `batman-adv`) refers to the start/stop scripts in the [protocols](protocols/) subfolder. Add your own scripts to support other protocols. The start script is executed once in each virtual node. The stop script is stopping all routing protocol daemons at once for convenience, while this is still a TODO, none of the current tests add/remove nodes during tests yet.
 
 A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder.
+
+## Network Definition
+
+Small JSON example:
+```
+{
+  "links": [
+    {
+      "source": "a",
+      "target": "b"
+    },
+    {
+      "source": "b",
+      "target": "c"
+    }
+  ]
+}
+```
+
+JSON keys:
+
+- `source`, `target`: Mandatory. Name or number of the node. Maximum of 6 characters long. `source` and `target` are interchangeable and have no special distinction.
+- An explicit node list can be added (e.g. `"nodes": [{"id": "a"}, {"id": "b"}]` to define node specific variables for use in combination with the `--node-command`.
+- Other data fields are ignored.
 
 ## Software Components
 
