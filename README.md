@@ -11,7 +11,16 @@ This project is meant to test Mobile AdHoc Mesh routing protocols. Out of the bo
 * [test data sets](data/README.md)
 * [test results](results/README.md)
 
-Small example:
+Various images from simulations data, animations and result graphs:
+
+![Visual Example](misc/feature_image_topologies.png)
+![Visual Example](misc/feature_image_graphs.png)
+
+(dark background visualizations done with [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer))
+
+## Network Definition
+
+Small JSON example:
 ```
 {
   "links": [
