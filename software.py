@@ -9,6 +9,7 @@ import math
 import time
 import sys
 import os
+import re
 
 from shared import (
     eprint, wait_for_completion, exec, default_remotes, check_access,
@@ -175,6 +176,10 @@ def main():
     parser_clear = subparsers.add_parser('clear', help='Run all stop scripts in every namespaces.')
 
     args = parser.parse_args()
+
+    if args.protocol and not re.match(r'^[\w-]+$', args.protocol):
+        eprint('Invalid protocol name: {}'.format(args.protocol))
+        exit(1)
 
     if args.remotes:
         if not os.path.isfile(args.remotes):
