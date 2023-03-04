@@ -89,6 +89,8 @@ def _stop_protocol(protocol, rmap, ids):
         stop_all_terminals()
         exit(1)
 
+    beg_ms = millis()
+
     for id in ids:
         remote = rmap[id]
 
@@ -98,6 +100,10 @@ def _stop_protocol(protocol, rmap, ids):
         _exec_verbose(remote, cmd)
 
     wait_for_completion()
+    end_ms = millis()
+
+    if verbosity != 'quiet':
+        print('stopped {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
 def _start_protocol(protocol, rmap, ids):
     base = os.path.dirname(os.path.realpath(__file__))
@@ -108,6 +114,8 @@ def _start_protocol(protocol, rmap, ids):
         stop_all_terminals()
         exit(1)
 
+    beg_ms = millis()
+
     for id in ids:
         remote = rmap[id]
 
@@ -117,6 +125,10 @@ def _start_protocol(protocol, rmap, ids):
         _exec_verbose(remote, cmd)
 
     wait_for_completion()
+    end_ms = millis()
+
+    if verbosity != 'quiet':
+        print('started {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
 def clear(remotes):
     base = os.path.dirname(os.path.realpath(__file__))
@@ -202,22 +214,10 @@ def main():
 
     if args.action == 'start':
         ids = new_ids if args.to_state else list(rmap.keys())
-
-        beg_ms = millis()
         _start_protocol(args.protocol, rmap, ids)
-        end_ms = millis()
-
-        if verbosity != 'quiet':
-            print('started {} in {} namespaces in {}'.format(args.protocol, len(ids), format_duration(end_ms - beg_ms)))
     elif args.action == 'stop':
         ids = old_ids if args.to_state else list(rmap.keys())
-
-        beg_ms = millis()
         _stop_protocol(args.protocol, rmap, ids)
-        end_ms = millis()
-
-        if verbosity != 'quiet':
-            print('stopped {} in {} namespaces in {}'.format(args.protocol, len(ids), format_duration(end_ms - beg_ms)))
     elif args.action == 'apply':
         beg_ms = millis()
         _stop_protocol(args.protocol, rmap, old_ids)
