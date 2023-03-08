@@ -189,7 +189,7 @@ def main():
 
     args = parser.parse_args()
 
-    if args.protocol and not re.match(r'^[\w-]+$', args.protocol):
+    if 'protocol' in args is not None and not re.match(r'^[\w-]+$', args.protocol):
         eprint('Invalid protocol name: {}'.format(args.protocol))
         exit(1)
 
