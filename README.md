@@ -228,3 +228,4 @@ To lessen the effect of the host system on the results when a lot of processes a
 - [Running Babel/OLSR/BMX7 inside kubernetes](https://media.freifunk.net/v/multipathtcp-with-un-meshed-networks-and-running-babel-olsr-bmx7-inside-kubernetes-and-containers)
 - Freifunk Berlin [firmware test](https://github.com/freifunk-berlin/firmware/wiki/Local-testing) (uses docker containers)
 - [100 hops IPv6 mesh](https://www.thingsquare.com/blog/articles/100-hops-ipv6-mesh/#)
+- [Network-mesh-emulator](https://github.com/dbritos/Network-mesh-emulator) (with VirtualBox and batman-adv, mesh editor UI)
