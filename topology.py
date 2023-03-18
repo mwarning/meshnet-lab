@@ -3,6 +3,7 @@
 import random
 import argparse
 import json
+import math
 import sys
 import os
 import glob
@@ -115,6 +116,100 @@ def create_full(count):
 
     return {'nodes': nodes, 'links': links}
 
+def create_clusters(cluster_xy_count, cluster_xy_size):
+    index_obj = {'index': 0}
+
+    def re_index(cluster, index_obj):
+        tmap = {}
+        def tr(i):
+            if i in tmap:
+                return tmap[i]
+            else:
+                tmap[i] = str(index_obj['index'])
+                index_obj['index'] += 1
+                return tmap[i]
+
+        for link in cluster["links"]:
+            link['source'] = tr(link['source'])
+            link['target'] = tr(link['target'])
+        for node in cluster["nodes"]:
+            node['id'] = tr(node['id'])
+
+    def center(nodes):
+        x, y = 0, 0
+        for node in nodes:
+            x += node['x']
+            y += node['y']
+        return (x / len(nodes), y / len(nodes))
+
+    def position_at(cluster, x, y):
+        count = len(cluster['nodes'])
+        scale = int(math.sqrt(count))
+
+        # center of the cluster
+        center_x, center_y = center(cluster["nodes"])
+        for node in cluster['nodes']:
+            node['x'] = float('{:.2f}'.format(x + (node['x'] - center_x) / scale))
+            node['y'] = float('{:.2f}'.format(y + (node['y'] - center_y) / scale))
+
+    clusters = {}
+
+    # get or create cluster
+    def get_cluster(x, y):
+        key = f'{x} => {y}'
+        if key not in clusters:
+            cluster = create_grid(cluster_xy_size, cluster_xy_size, False)
+            re_index(cluster, index_obj)
+            position_at(cluster, x, y)
+            clusters[key] = cluster
+        return clusters[key]
+
+    def vlen(x, y):
+        return math.sqrt(x ** 2 + y ** 2)
+
+    # create link between both clusters
+    def create_link(cluster1, cluster2):
+        nodes1, nodes2 = cluster1['nodes'], cluster2['nodes']
+
+        c1x, c1y = center(nodes1)
+        c2x, c2y = center(nodes2)
+
+        def nearest(x, y, nodes):
+            d_node = None
+            d_min = None
+            for node in nodes:
+                d = vlen(x - node['x'], y - node['y'])
+                if d_min is None or d < d_min:
+                    d_min = d
+                    d_node = node
+            return d_node
+        n1 = nearest(c2x, c2y, nodes1)
+        n2 = nearest(c1x, c1y, nodes2)
+        return {'source': n1['id'], 'target': n2['id']}
+
+    links = []
+    nodes = []
+
+    def connect(x1, y1, x2, y2):
+        x_count = cluster_xy_count
+        y_count = cluster_xy_count
+        if (x2 < x_count) and (y2 < y_count):
+            cluster1 = get_cluster(x1, y1)
+            cluster2 = get_cluster(x2, y2)
+            links.append(create_link(cluster1, cluster2))
+
+    # connect clusters
+    for x in range(0, cluster_xy_count):
+        for y in range(0, cluster_xy_count):
+            connect(x, y, x, y + 1)
+            connect(x, y, x + 1, y)
+
+    for cluster in clusters.values():
+        links.extend(cluster['links'])
+        nodes.extend(cluster['nodes'])
+
+    return {'links': links, 'nodes': nodes}
+
 def create_nodes(count):
     nodes = []
 
@@ -150,6 +245,9 @@ if __name__ == '__main__':
     parser_rtree.add_argument('intra', type=int, help='Intraconnections that disrupt the tree structure.')
     parser_full = subparsers.add_parser('full', help='Create a full mesh. Every node is connected to everybody else.')
     parser_full.add_argument('n', type=int, help='Number of nodes.')
+    parser_clusters = subparsers.add_parser('clusters', help='Create a lattice of connected grids.')
+    parser_clusters.add_argument('cluster_xy_count', type=int, help='Number of grids in one dimension.')
+    parser_clusters.add_argument('cluster_xy_size', type=int, help='Cluster size in one dimension (it is a grid).')
     parser_nodes = subparsers.add_parser('nodes', help='Create nodes.')
     parser_nodes.add_argument('count', type=int, help='Number of nodes.')
 
@@ -169,6 +267,8 @@ if __name__ == '__main__':
         output = create_tree(args.depth, args.degree)
     elif args.topology == 'rtree':
         output = create_random_tree(args.count, args.intra)
+    elif args.topology == 'clusters':
+        output = create_clusters(args.cluster_xy_count, args.cluster_xy_size)
     elif args.topology == 'full':
         output = create_full(args.n)
     elif args.topology == 'nodes':
