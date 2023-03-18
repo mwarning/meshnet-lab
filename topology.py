@@ -8,8 +8,11 @@ import os
 import glob
 import math
 
-def eprint(s):
-    sys.stderr.write(s + '\n')
+def eprint(message):
+    sys.stderr.write(f"{message}\n")
+
+def hex(number):
+    return f"0x{number:04x}"
 
 def create_grid(x_count, y_count, diag = False):
     nodes = []
@@ -23,11 +26,11 @@ def create_grid(x_count, y_count, diag = False):
         if (x2 < x_count) and (y2 < y_count):
             a = x1 * y_count + y1
             b = x2 * y_count + y2
-            links.append({'source': a, 'target': b})
+            links.append({'source': hex(a), 'target': hex(b)})
 
     for x in range(0, x_count):
         for y in range(0, y_count):
-            nodes.append({'id': (x + y * x_count), 'x': x, 'y': y})
+            nodes.append({'id': hex(x + y * x_count), 'x': x, 'y': y})
             if diag:
                 connect(x, y, x + 1, y + 1)
                 if y > 0:
@@ -46,15 +49,15 @@ def create_line(count, loop = False):
 
     for i in range(0, count):
         if loop:
-            nodes.append({'id': i, 'x': math.sin(i * 2 * math.pi / count), 'y': math.cos(i * 2 * math.pi / count)})
+            nodes.append({'id': hex(i), 'x': math.sin(i * 2 * math.pi / count), 'y': math.cos(i * 2 * math.pi / count)})
         else:
-            nodes.append({'id': i, 'x': i, 'y': 0})
+            nodes.append({'id': hex(i), 'x': i, 'y': 0})
 
         if i > 0:
-            links.append({'source': (i - 1), 'target': (i)})
+            links.append({'source': hex(i - 1), 'target': hex(i)})
 
     if loop and (count > 2):
-        links.append({'source': (0), 'target': (count - 1)})
+        links.append({'source': hex(0), 'target': hex(count - 1)})
 
     return {'nodes': nodes, 'links': links}
 
@@ -66,10 +69,10 @@ def create_tree(depth, degree):
 
     for d in range(0, depth):
         for k in range(0, 0 + int(degree ** d)):
-            nodes.append({'id': i, 'x': k, 'y': d})
+            nodes.append({'id': hex(i), 'x': k, 'y': d})
             for _ in range(0, degree):
                 j += 1
-                links.append({'source': i, 'target': j})
+                links.append({'source': hex(i), 'target': hex(j)})
             i += 1
 
     return {'nodes': nodes, 'links': links}
@@ -78,11 +81,12 @@ def create_random_tree(count, intra = 0):
     nodes = []
     links = {}
 
+    # String representation of a link
     def get_id(i, j):
         if i > j:
-            return '{}-{}'.format(i, j)
+            return f'{i}-{j}'
         else:
-            return '{}-{}'.format(j, i)
+            return f'{j}-{i}'
 
     # Connect random nodes
     for i in range(1, count):
@@ -91,8 +95,8 @@ def create_random_tree(count, intra = 0):
             j = random.randint(0, i)
             id = get_id(i, j)
             if i != j and id not in links:
-                nodes.append({'id': i, 'x': i, 'y': j})
-                links[id] = {'source': i, 'target': j}
+                nodes.append({'id': hex(i), 'x': i, 'y': j})
+                links[id] = {'source': hex(i), 'target': hex(j)}
                 break
 
     return {'nodes': nodes, 'links': list(links.values())}
@@ -102,12 +106,12 @@ def create_full(count):
     links = []
 
     for i in range(0, count):
-        nodes.append({'id': i})
+        nodes.append({'id': hex(i)})
 
     for i in range(0, count):
         for j in range(0, count):
             if i < j:
-                links.append({'source': i, 'target': j})
+                links.append({'source': hex(i), 'target': hex(j)})
 
     return {'nodes': nodes, 'links': links}
 
@@ -115,7 +119,7 @@ def create_nodes(count):
     nodes = []
 
     for i in range(0, count):
-        nodes.append({'id': i})
+        nodes.append({'id': hex(i)})
 
     return {'nodes': nodes, 'links': []}
 
