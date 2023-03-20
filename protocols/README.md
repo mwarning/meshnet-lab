@@ -51,11 +51,10 @@ All of the following protocols are proactive protocols. They are also written in
 ## Yggdrasil
 
 - [website](https://yggdrasil-network.github.io/)
-- [routing core](https://github.com/matrix-org/pinecone)
-- distance vector
-- spanning tree
-- inspired by CJDNS
-- written in Go
+- research project, geared towards P2P Matrix, written in Go
+- [Ironwood](https://github.com/Arceliar/ironwood) routing library for Yggdrasil 0.4.x
+- [Pinecone](https://github.com/matrix-org/pinecone) is very similar to Ironwood, meant for P2P Matrix (some [documentation](https://github.com/matrix-org/pinecone/wiki))
+- distance vector, spanning tree
 - Videos
   - [Growing Pinecones for P2P Matrix](https://fosdem.org/2022/schedule/event/matrix_p2p_pinecone/)
   - [Pinecones and Dendrites - P2P Matrix Progress](https://archive.fosdem.org/2021/schedule/event/matrix_pinecones/)
