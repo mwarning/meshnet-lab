@@ -131,6 +131,8 @@ def _start_protocol(protocol, rmap, ids):
         print('started {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
 def clear(remotes):
+    beg_ms = millis()
+
     base = os.path.dirname(os.path.realpath(__file__))
 
     names = []
@@ -145,6 +147,11 @@ def clear(remotes):
             _exec_verbose(remote, cmd, ignore_error=True)
 
     wait_for_completion()
+
+    end_ms = millis()
+
+    if verbosity != 'quiet':
+        print('cleared on {} remotes in {}'.format(len(remotes), format_duration(end_ms - beg_ms)))
 
 def stop(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
@@ -227,12 +234,7 @@ def main():
         if verbosity != 'quiet':
             print('applied {} in {} namespaces in {}'.format(args.protocol, len(rmap.keys()), format_duration(end_ms - beg_ms)))
     elif args.action == 'clear':
-        beg_ms = millis()
         clear(args.remotes)
-        end_ms = millis()
-
-        if verbosity != 'quiet':
-            print('cleared on {} remotes in {}'.format(len(args.remotes), format_duration(end_ms - beg_ms)))
     elif args.action == 'copy':
         beg_ms = millis()
         copy(args.remotes, args.source, args.destination)
