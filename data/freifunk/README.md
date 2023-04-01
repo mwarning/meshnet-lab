@@ -1,7 +1,7 @@
 # Freifunk Data Sets
 
 [Freifunk](https://freifunk.net) is a mesh network community in Germany with hundreds of independent communities.
-This data has been downloaded from the online maps provided by the communities on their web sites. The map data has been fixed to add connections between gateways/servers that are not shown to also create connected graphs.
+This data has been downloaded from the online maps provided by the communities on their web sites. The map data has been fixed to add connections between gateways/servers in order to create connected graphs.
 
 Most networks run batman-adv. All huge networks are also segmented, meaning that they are multiple smaller networks bound together via dedicated gateways/servers on the Internet. This is to minimize scaling overhead.
 
