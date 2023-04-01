@@ -31,7 +31,7 @@ Assume that there is a small count of gateways/sinks in the network that many no
 
 ## Mobility1 Test
 
-Ping random nodes while they all move around randomly at fixed speed and form new connections. Data for animations of node movements is also generated.
+A dynamic test that pings random nodes while they all move around randomly at fixed speed and form new connections. Data for animations of node movements is also generated.
 
 [Go to Test](mobility1/)
 
