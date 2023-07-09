@@ -93,8 +93,8 @@ def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
     return ts
 
 def main():
-    parser = argparse.ArgumentParser(description='Measure mean traffic.')
-    parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser = argparse.ArgumentParser(description='Measure mean traffic speed.')
+    parser.add_argument('--remotes', help='Measure across remotes described in the provided JSON file.')
     parser.add_argument('--interface', help='Interface to measure traffic on.')
     parser.add_argument('--duration', type=int, help='Measurement duration in seconds.')
 
