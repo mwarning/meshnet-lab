@@ -33,12 +33,12 @@ def run(topology, path, state):
 	with open(f'{prefix}scalability1-{protocol}-{topology}.csv', 'a') as csvfile:
 		print(f'run {protocol} on {path}')
 
-		# Start routing software
+		# Start routing software.
 		software_start_ms = shared.millis()
 		software.start(protocol, remotes)
 		software_stop_ms = shared.millis()
 
-		# Let the nodes start up and discover themselves.
+		print(f'Wait 60s for the nodes start up and discover themselves (for proactive protocols).')
 		shared.sleep(60)
 
 		traffic_start_ms = shared.millis()
