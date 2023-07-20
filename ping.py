@@ -28,7 +28,6 @@ from shared import (
 Dijkstra shortest path algorithm
 """
 
-
 class Dijkstra:
     def __init__(self, network):
         self.dists_cache = {}
@@ -82,7 +81,6 @@ class Dijkstra:
     """
     Calculate shortest path from source to every other node
     """
-
     def _calculate_shortest_paths(self, initial):
         initial = str(initial)
 
@@ -237,8 +235,6 @@ Return an IP address of the interface in this preference order:
 3. IPv6 link local
 4. IPv4 link local
 """
-
-
 def _get_ip_address(remote, id, interface, address_type=None):
     lladdr6 = None
     lladdr4 = None
