@@ -140,12 +140,22 @@ def create_node(node, node_command=None, rmap={}):
     configure_interface(remote, 'switch', downname)
     configure_interface(remote, nsname, upname)
 
-    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv6.conf.{upname}.hop_limit=255')
-    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv6.conf.default.hop_limit=255')
-    exec(remote, f'ip netns exec "ns-{name}" sysctl -w net.ipv4.ip_default_ttl=255')
-
     if node_command is not None:
         exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
+
+# apply useful system defaults
+def system_setup(remotes):
+    for remote in remotes:
+        exec(remote, 'sysctl -w net.ipv6.conf.default.hop_limit=255')
+        exec(remote, 'sysctl -w net.ipv4.ip_default_ttl=255')
+
+        # prevent "neighbour: ndisc_cache: neighbor table overflow!" from Linux kernel
+        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh1=4096')
+        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh2=4096')
+        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh3=4096')
+        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh1=4096')
+        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh2=4096')
+        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh3=4096')
 
 def update_node(node, node_command=None, rmap={}):
     name = str(node['id'])
@@ -505,6 +515,7 @@ def state_empty(state):
 
 def apply(state={}, node_command=None, link_command=None, remotes=default_remotes):
     check_access(remotes)
+    system_setup(remotes)
 
     new_state = state
     (cur_state, cur_state_rmap) = get_current_state(remotes)
