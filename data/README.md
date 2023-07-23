@@ -2,6 +2,7 @@
 
 A collection of several topologies for testing.
 
+* [Basics Data Set](basics/README.md)
 * [Line Data Set](line/README.md)
 * [Grid4 Data Set](grid4/README.md)
 * [Grid8 Data Set](grid8/README.md)
