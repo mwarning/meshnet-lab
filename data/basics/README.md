@@ -34,16 +34,6 @@ A - B |
 
 [JSON data](two_way.json)
 
-## Cross
-
-```
-    B
-    |
-A - E - C
-    |
-    D
-```
-
 ## Feymann S-Channel
 
 Nodes connected in a network resembling an s-channel Feynmann diagram ([Source](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns)).
