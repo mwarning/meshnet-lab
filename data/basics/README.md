@@ -10,14 +10,12 @@ A - B - C
 
 [JSON data](two_hop.json)
 
-## Cross
+## Split
 
 ```
     B
     |
-A - E - C
-    |
-    D
+A - D - C
 ```
 
 [JSON data](cross.json)

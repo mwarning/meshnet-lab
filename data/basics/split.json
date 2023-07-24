@@ -15,28 +15,20 @@
     {
       "id": "0003",
       "name": "D"
-    },
-    {
-      "id": "0004",
-      "name": "E"
     }
   ],
   "links": [
     {
       "source": "0000",
-      "target": "0004"
+      "target": "0003"
     },
     {
       "source": "0001",
-      "target": "0004"
+      "target": "0003"
     },
     {
       "source": "0002",
-      "target": "0004"
-    },
-    {
-      "source": "0003",
-      "target": "0004"
+      "target": "0003"
     }
   ]
 }
