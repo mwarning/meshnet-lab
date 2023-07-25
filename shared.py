@@ -51,7 +51,7 @@ def root():
 def load_json(path):
     with open(path) as file:
         return json.load(file)
-    return None
+    raise f'File not found: {path}'
 
 def seed_random(value):
     random.seed(value)
