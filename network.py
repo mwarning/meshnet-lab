@@ -17,8 +17,7 @@ from shared import (
     get_current_state, link_id, Remote
 )
 
-disable_arp = False
-disable_multicast = False
+enable_layer3 = False
 verbosity = 'normal'
 mtu = 1500
 
@@ -34,14 +33,13 @@ def configure_interface(remote, nsname, ifname):
     # up interface
     exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" up mtu {mtu}')
 
-    # disable arp / multicast
-    # we do not want the OS to send packets on its own,
-    # but many mesh protocols need arp/multicast on each link to work
-    if disable_arp:
-        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off')
-
-    if disable_multicast:
-        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off')
+    # Configure mesh interface for layer 2 use.
+    # - no IP address assigned
+    # - no IP packets (Ethernet only)
+    if not enable_layer3:
+        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off') # probably not needed
+        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
+        exec(remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
 
 def get_filtered_link(link, direction):
     obj = {}
@@ -591,8 +589,7 @@ def main():
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
     parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
-    parser.add_argument('--disable-arp', action='store_true', help='Disable ARP support on each interface.')
-    parser.add_argument('--disable-multicast', action='store_true', help='Disable Multicast support each interface.')
+    parser.add_argument('--enable-layer3', action='store_true', help='Allow IP addresses on mesh interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
 
@@ -605,13 +602,11 @@ def main():
 
     args = parser.parse_args()
 
-    global disable_arp
-    global disable_multicast
+    global enable_layer3
     global verbosity
     global mtu
 
-    disable_arp = args.disable_arp
-    disable_multicast = args.disable_multicast
+    enable_layer3 = args.enable_layer3
     verbosity = args.verbosity
     mtu = args.mtu
 
