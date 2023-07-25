@@ -1,6 +1,6 @@
 # Mesh Network Lab
 
-Emulate mobile ad-hoc mesh networks of hundreds of nodes on a computer. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
+Emulate mobile ad-hoc mesh networks of hundreds of nodes on a computer with basic wireless behavior. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
 
 Supported is the emulation of different network characteristics like bandwidth, packet loss, latency and others using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)). Node mobility is supported as well. The emulation can run distributed on multiple computers. It is lightweight enough to support >200 of nodes on a single desktop computer alone, and >2000 nodes if the amount of traffic is low (e.g. for reactive routing protocols).
 
@@ -171,6 +171,20 @@ Cons:
 ## What about NS-2 or NS-3?
 
 Network Simulator 2 or 3 are popular discrete event simulators that allows fine measurements along with exact reproduceable behavior and a lot of features. The drawback is, that you have to modify your routing program to run in NS. For testing existing routing protocol implementations in different programming languages, this is too much work.
+
+## Connectivity Semantics
+
+Networks in meshnet-lab mimic wireless connections. This means that a packet send on one node, will be received by all neihgbors. It does not matter if a packet is Ethernet or IP broadcast or unicast frame/packet.
+
+Let take a look at this network:
+
+```
+    D
+    |
+A - B - C
+```
+
+If a programm on `A` tries to sends a packet via `B` to `C` (assuming a program on `B` to resends the packet). Then a packet send from `A` will be received by `B`. But when `B` receives and sends a packet addressed to `C`, then it will also be received by `C`, `D` and `A` (again). Overall, 2 packets will be send (TX) and 4 packets will be received (RX). 
 
 ## Internal Working
 
