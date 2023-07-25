@@ -1,38 +1,38 @@
 {
   "nodes": [
     {
-      "id": "0000",
+      "id": "000a",
       "name": "A"
     },
     {
-      "id": "0001",
+      "id": "000b",
       "name": "B"
     },
     {
-      "id": "0002",
+      "id": "000c",
       "name": "C"
     },
     {
-      "id": "0003",
+      "id": "000d",
       "name": "D"
     }
   ],
   "links": [
     {
-      "source": "0000",
-      "target": "0001"
+      "source": "000a",
+      "target": "000b"
     },
     {
-      "source": "0001",
-      "target": "0002"
+      "source": "000b",
+      "target": "000c"
     },
     {
-      "source": "0001",
-      "target": "0003"
+      "source": "000b",
+      "target": "000d"
     },
     {
-      "source": "0002",
-      "target": "0003"
+      "source": "000c",
+      "target": "000d"
     }
   ]
 }

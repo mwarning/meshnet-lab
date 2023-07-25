@@ -27,12 +27,8 @@
   ],
   "links": [
     {
-      "source": "0000",
-      "target": "0002"
-    },
-    {
       "source": "0001",
-      "target": "0002"
+      "target": "0003"
     },
     {
       "source": "0002",
@@ -43,8 +39,12 @@
       "target": "0004"
     },
     {
-      "source": "0003",
+      "source": "0004",
       "target": "0005"
+    },
+    {
+      "source": "0004",
+      "target": "0006"
     }
   ]
 }

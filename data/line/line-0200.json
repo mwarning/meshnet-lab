@@ -1,10 +1,6 @@
 {
   "links": [
     {
-      "source": "0000",
-      "target": "0001"
-    },
-    {
       "source": "0001",
       "target": "0002"
     },
@@ -795,6 +791,10 @@
     {
       "source": "00c6",
       "target": "00c7"
+    },
+    {
+      "source": "00c7",
+      "target": "00c8"
     }
   ]
 }
