@@ -119,14 +119,14 @@ def create_node(node, node_command=None, rmap={}):
     exec(remote, f'ip netns exec "switch" ip link add name "{brname}" type bridge')
     configure_interface(remote, "switch", brname)
 
-    # Disable spanning tree protocol (should be off by default anyway)
+    # disable spanning tree protocol (should be off by default anyway)
     exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge stp_state 0')
 
-    # Make the bridge to act as a hub
+    # make the bridge to act as a hub
     exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge ageing_time 0')
     exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge forward_delay 0')
 
-    # create interface pair in switch namespace
+    # create interface pair in namespace 'switch'
     exec(remote, f'ip netns exec "switch" ip link add name "{upname}" type veth peer name "{downname}"')
 
     # move uplink from namespace 'switch' into the nodes namespace
