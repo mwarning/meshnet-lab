@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "id": "000a",
+      "name": "A"
+    },
+    {
+      "id": "000b",
+      "name": "B"
+    },
+    {
+      "id": "000c",
+      "name": "C"
+    },
+    {
+      "id": "000d",
+      "name": "D"
+    },
+    {
+      "id": "000e",
+      "name": "E"
+    }
+  ],
+  "links": [
+    {
+      "source": "000a",
+      "target": "000e"
+    },
+    {
+      "source": "000b",
+      "target": "000e"
+    },
+    {
+      "source": "000c",
+      "target": "000e"
+    },
+    {
+      "source": "000d",
+      "target": "000e"
+    }
+  ]
+}
