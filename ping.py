@@ -441,7 +441,7 @@ def ping(
                 if len(tasks) == 0:
                     break
 
-                (remote, command, debug) = tasks.pop()
+                (remote, command, debug) = tasks.pop(0)
                 process = create_process(remote, command)
                 started_ms = millis() - start_ms
                 processes.append((process, started_ms, debug, _PingResult(ping_count)))
