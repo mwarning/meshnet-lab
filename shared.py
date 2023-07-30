@@ -51,7 +51,7 @@ def root():
 def load_json(path):
     with open(path) as file:
         return json.load(file)
-    raise f'File not found: {path}'
+    raise ValueError(f'File not found: {path}')
 
 def seed_random(value):
     random.seed(value)
@@ -181,18 +181,17 @@ def sysload(remotes=default_remotes):
 
 
 def create_process(remote, command, add_quotes=True):
+    # remote terminal
     if remote.address:
         if add_quotes:
-            command = command.replace('\'', '\\\'') # need to escape
+            # need to escape
+            command = command.replace('\'', '\\\'')
             command = f'\'{command}\''
 
         if remote.ifile:
             command = f'ssh -p {remote.port} -i {remote.ifile} root@{remote.address} {command}'
         else:
             command = f'ssh -p {remote.port} root@{remote.address} {command}'
-    else:
-        # local terminal
-        command = f'{command}'
 
     return subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
