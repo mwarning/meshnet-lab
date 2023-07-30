@@ -400,22 +400,25 @@ def ping(
                 _parse_ping(result, output.decode())
                 result.processed = True
 
-    # keep track of status ouput lines to delete them for updates
-    lines_printed = 0
+    lines_finished_total = 0
+    lines_unfinished_prev = 0
 
     def print_processes():
-        nonlocal lines_printed
+        nonlocal lines_finished_total
+        nonlocal lines_unfinished_prev
 
-        # delete previous printed lines
-        for _ in range(lines_printed):
-            sys.stdout.write("\x1b[1A\x1b[2K")
+        sys.stdout.write("\x1b[1A\x1b[2K" * lines_unfinished_prev)
 
-        lines_printed = 0
-        process_counter = 0
-        for (process, started_ms, debug, result) in processes:
+        finished_consecutive = 0
+        finished_consecutive_done = False
+        process_counter = lines_finished_total
+        for (process, started_ms, debug, result) in processes[lines_finished_total:]:
             process_counter += 1
             status = "???"
             if result.processed:
+                if not finished_consecutive_done:
+                    finished_consecutive += 1
+
                 if result.packet_loss == 0.0:
                     status = "success"
                 elif result.packet_loss == 100.0:
@@ -423,10 +426,13 @@ def ping(
                 else:
                     status = f"mixed ({result.packet_loss:0.2f}% loss)"
             else:
+                finished_consecutive_done = True
                 status = "running"
 
             print(f"[{process_counter:03}:{started_ms:06}] {debug} => {status}")
-            lines_printed += 1
+
+        lines_finished_total += finished_consecutive
+        lines_unfinished_prev = len(processes) - lines_finished_total
 
     # start tasks in the given time frame
     start_ms = millis()
