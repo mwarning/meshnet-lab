@@ -218,6 +218,22 @@ def create_nodes(count):
 
     return {'nodes': nodes, 'links': []}
 
+def apply_offset(output, id_offset):
+    def plus(id):
+        if id.startswith("0x"):
+            return "0x{:04x}".format(1 + int(id, 16))
+        else:
+            return str(int(id) + 1)
+
+    for node in output['nodes']:
+        node['id'] = plus(node['id'])
+
+    for link in output['links']:
+        link['source'] = plus(link['source'])
+        link['target'] = plus(link['target'])
+
+    return output
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--source-tc', help='Value for each links source_tc.')
@@ -225,6 +241,7 @@ if __name__ == '__main__':
     parser.add_argument('--no-nodes', action='store_true', help='Omit nodes from output.')
     parser.add_argument('--no-links', action='store_true', help='Omit links from output.')
     parser.add_argument('--formatted', action='store_true', help='Output formatted json.')
+    parser.add_argument('--id-offset', type=int, help='Start node identifiers at given number (default: 0).')
 
     subparsers = parser.add_subparsers(dest='topology', required=True)
     parser_grid4 = subparsers.add_parser('grid4', help='Create a grid structure with horizontal and vertical connections.')
@@ -288,6 +305,9 @@ if __name__ == '__main__':
 
     if args.no_links:
         del output['links']
+
+    if args.id_offset:
+        apply_offset(output, args.id_offset)
 
     if args.formatted:
         json.dump(output, sys.stdout, indent='  ')
