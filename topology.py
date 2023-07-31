@@ -10,10 +10,10 @@ import glob
 import math
 
 def eprint(message):
-    sys.stderr.write(f"{message}\n")
+    sys.stderr.write(f'{message}\n')
 
 def hex(number):
-    return f"0x{number:04x}"
+    return f'0x{number:04x}'
 
 def create_grid(x_count, y_count, diag = False):
     nodes = []
@@ -129,10 +129,10 @@ def create_clusters(cluster_xy_count, cluster_xy_size):
                 index_obj['index'] += 1
                 return tmap[i]
 
-        for link in cluster["links"]:
+        for link in cluster['links']:
             link['source'] = tr(link['source'])
             link['target'] = tr(link['target'])
-        for node in cluster["nodes"]:
+        for node in cluster['nodes']:
             node['id'] = tr(node['id'])
 
     def center(nodes):
@@ -147,7 +147,7 @@ def create_clusters(cluster_xy_count, cluster_xy_size):
         scale = int(math.sqrt(count))
 
         # center of the cluster
-        center_x, center_y = center(cluster["nodes"])
+        center_x, center_y = center(cluster['nodes'])
         for node in cluster['nodes']:
             node['x'] = float('{:.2f}'.format(x + (node['x'] - center_x) / scale))
             node['y'] = float('{:.2f}'.format(y + (node['y'] - center_y) / scale))
