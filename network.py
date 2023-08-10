@@ -17,7 +17,7 @@ from shared import (
     get_current_state, link_id, Remote
 )
 
-enable_layer3 = False
+disable_layer3 = False
 verbosity = 'normal'
 mtu = 1500
 
@@ -36,7 +36,7 @@ def configure_interface(remote, nsname, ifname):
     # Configure mesh interface for layer 2 use.
     # - no IP address assigned
     # - no IP packets (Ethernet only)
-    if not enable_layer3:
+    if disable_layer3:
         exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off') # probably not needed
         exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
         exec(remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
@@ -589,7 +589,7 @@ def main():
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
     parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
-    parser.add_argument('--enable-layer3', action='store_true', help='Allow IP addresses on mesh interface.')
+    parser.add_argument('--disable-layer3', action='store_false', help='Disable IP addresses on mesh interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
 
@@ -602,11 +602,11 @@ def main():
 
     args = parser.parse_args()
 
-    global enable_layer3
+    global disable_layer3
     global verbosity
     global mtu
 
-    enable_layer3 = args.enable_layer3
+    disable_layer3 = args.disable_layer3
     verbosity = args.verbosity
     mtu = args.mtu
 
