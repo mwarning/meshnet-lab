@@ -16,7 +16,7 @@ Various images from simulations data, animations and result graphs:
 ![Visual Example](misc/feature_image_topologies.png)
 ![Visual Example](misc/feature_image_graphs.png)
 
-(dark background visualizations done with [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer))
+(topology graphs with [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer), line graphs done with [gnuplot](http://www.gnuplot.info/))
 
 ## Usage
 
