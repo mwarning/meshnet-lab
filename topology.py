@@ -13,7 +13,7 @@ def eprint(message):
     sys.stderr.write(f'{message}\n')
 
 def hex(number):
-    return f'0x{number:04x}'
+    return f'{number:04x}'
 
 def create_grid(x_count, y_count, diag = False):
     nodes = []
@@ -220,10 +220,7 @@ def create_nodes(count):
 
 def apply_offset(output, id_offset):
     def plus(id):
-        if id.startswith("0x"):
-            return "0x{:04x}".format(1 + int(id, 16))
-        else:
-            return str(int(id) + 1)
+        return hex(int(id, 16) + id_offset)
 
     for node in output['nodes']:
         node['id'] = plus(node['id'])
