@@ -293,6 +293,7 @@ def run(protocol, csvfile):
     network.apply(state, remotes=remotes)
     software.start(protocol)
 
+    print(f'Wait 30s for software to start and settle.')
     shared.sleep(30)
 
     test_beg_ms = shared.millis()

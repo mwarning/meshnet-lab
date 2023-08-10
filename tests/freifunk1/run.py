@@ -60,6 +60,7 @@ def run(protocol, csvfile):
 
 		software.start(protocol, remotes)
 
+		print(f'Wait 300s for the nodes start up and discover each other (needed for proactive protocols).')
 		shared.sleep(300)
 
 		start_ms = shared.millis()

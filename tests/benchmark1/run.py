@@ -38,6 +38,7 @@ def run(protocol, csvfile):
 		software.start(protocol, remotes)
 		software_startup_ms = shared.millis() - software_start_ms
 
+		print(f'Wait 30s for the nodes start up and discover each other (needed for proactive protocols).')
 		shared.sleep(30)
 
 		paths = ping.get_random_paths(state, 2 * link_count)

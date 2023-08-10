@@ -38,7 +38,7 @@ def run(topology, path, state):
 		software.start(protocol, remotes)
 		software_stop_ms = shared.millis()
 
-		print(f'Wait 60s for the nodes start up and discover themselves (for proactive protocols).')
+		print(f'Wait 60s for the nodes start up and discover each other (needed for proactive protocols).')
 		shared.sleep(60)
 
 		traffic_start_ms = shared.millis()
