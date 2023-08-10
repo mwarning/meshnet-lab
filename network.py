@@ -589,7 +589,7 @@ def main():
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
     parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
-    parser.add_argument('--disable-layer3', action='store_false', help='Disable IP addresses on mesh interface.')
+    parser.add_argument('--disable-layer3', action='store_true', help='Disable IP addresses on mesh interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
 
