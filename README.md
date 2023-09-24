@@ -59,7 +59,15 @@ As an alternative, you can stop all protocols using `./software.py clear` and re
 
 The protocol name (e.g. `batman-adv`) refers to the start/stop scripts in the [protocols](protocols/) subfolder. Add your own scripts to support other protocols. The start script is executed once in each virtual node. The stop script is stopping all routing protocol daemons at once for convenience, while this is still a TODO, none of the current tests add/remove nodes during tests yet.
 
-A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder.
+A collections of automated tests with data plot generation is available in the [tests](tests/) subfolder:
+
+```
+cd meshnet-lab/tests/benchmark1/
+sudo ./run.py
+./plot.sh
+```
+
+Usually you need to remove unavailable routing protocols from `run.py` first. If everything goes well, you now have a `benchmark1.png` image with the results as graph.
 
 ## Network Definition
 
