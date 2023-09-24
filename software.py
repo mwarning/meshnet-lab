@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import multiprocessing
+import threading
 import datetime
 import argparse
 import subprocess
@@ -13,8 +15,8 @@ import re
 
 from shared import (
     eprint, wait_for_completion, exec, default_remotes, check_access,
-    millis, get_remote_mapping, stop_all_terminals, format_duration,
-    get_current_state, Remote
+    millis, get_remote_mapping, stop_all_terminals, wait_for_completion,
+    format_duration, get_current_state, Remote, globalTerminalGroup
 )
 
 verbosity = 'normal'
@@ -68,17 +70,13 @@ def copy(remotes, source, destination):
             # local terminal
             os.system(f'cp -r {source} {destination}')
 
-def _exec_verbose(remote, cmd, ignore_error=False):
-    if verbosity == 'verbose':
-        stdout, stderr, rcode = exec(remote, cmd, get_output=True, ignore_error=ignore_error, add_quotes=False)
+console_lock = threading.Lock()
 
-        if len(stdout) > 0:
-            sys.stdout.write(stdout)
-
-        if len(stderr) > 0:
-            sys.stderr.write(stderr)
-    else:
-        exec(remote, cmd, get_output=False, ignore_error=ignore_error, add_quotes=False)
+def printConsole(returncode, stdout, errout):
+    console_lock.acquire()
+    sys.stdout.write(stdout)
+    sys.stderr.write(errout)
+    console_lock.release()
 
 def _stop_protocol(protocol, rmap, ids):
     base = os.path.dirname(os.path.realpath(__file__))
@@ -89,19 +87,22 @@ def _stop_protocol(protocol, rmap, ids):
         stop_all_terminals()
         exit(1)
 
+    onResultCallBack = printConsole if verbosity == 'verbose' else None
+
     beg_ms = millis()
 
-    for id in ids:
+    for i, id in enumerate(ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
+        command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
-        _exec_verbose(remote, cmd)
+        tid = label + '_' +  str(i % multiprocessing.cpu_count())
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
 
     wait_for_completion()
-    end_ms = millis()
 
+    end_ms = millis()
     if verbosity != 'quiet':
         print('stopped {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
@@ -114,19 +115,22 @@ def _start_protocol(protocol, rmap, ids):
         stop_all_terminals()
         exit(1)
 
+    onResultCallBack = printConsole if verbosity == 'verbose' else None
+
     beg_ms = millis()
 
-    for id in ids:
+    for i, id in enumerate(ids):
         remote = rmap[id]
 
         label = remote.address or 'local'
-        cmd = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
+        command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
-        _exec_verbose(remote, cmd)
+        tid = label + '_' +  str(i % multiprocessing.cpu_count())
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
 
     wait_for_completion()
-    end_ms = millis()
 
+    end_ms = millis()
     if verbosity != 'quiet':
         print('started {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
@@ -135,21 +139,23 @@ def clear(remotes):
 
     base = os.path.dirname(os.path.realpath(__file__))
 
-    names = []
+    protocols = []
     for name in os.listdir(f'{base}/protocols/'):
         if name.endswith('_stop.sh'):
-            names.append(name)
+            protocols.append(name)
 
+    i = 0
     for remote in remotes:
-        for name in names:
+        for protocol in protocols:
             label = remote.address or 'local'
-            cmd = f'sh -s {label} < {base}/protocols/{name}'
-            _exec_verbose(remote, cmd, ignore_error=True)
+            command = f'sh -s {label} < {base}/protocols/{protocol}'
+            tid = label + '_' +  str(i % multiprocessing.cpu_count())
+            globalTerminalGroup.addTask(tid, remote, command, ignore_error=True)
+            i += 1
 
     wait_for_completion()
 
     end_ms = millis()
-
     if verbosity != 'quiet':
         print('cleared on {} remotes in {}'.format(len(remotes), format_duration(end_ms - beg_ms)))
 
@@ -245,11 +251,13 @@ def main():
     elif args.action == 'run':
         ids = new_ids if args.to_state else list(rmap.keys())
 
-        for id in ids:
+        for i, id in enumerate(ids):
             remote = rmap[id]
             label = remote.address or 'local'
-            cmd = f'ip netns exec ns-{id} {" ".join(args.command)} {label} {id}'
-            _exec_verbose(remote, cmd)
+            command = f'ip netns exec ns-{id} {" ".join(args.command)} {label} {id}'
+            tid = label + '_' +  str(i % multiprocessing.cpu_count())
+            globalTerminalGroup.addTask(tid, remote, command, ignore_error=False)
+            wait_for_completion()
     else:
         eprint('Unknown action: {}'.format(args.action))
         stop_all_terminals()
