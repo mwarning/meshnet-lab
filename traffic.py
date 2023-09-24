@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import multiprocessing
+import threading
 import datetime
 import argparse
 import time
@@ -11,7 +13,7 @@ import shared
 from shared import (
     eprint, create_process, exec, get_remote_mapping, millis,
     default_remotes, convert_to_neighbors, stop_all_terminals,
-    format_size, Remote
+    wait_for_completion, format_size, Remote, globalTerminalGroup
 )
 
 class _Traffic:
@@ -69,14 +71,15 @@ def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
         interface = 'uplink'
 
     ts = _Traffic()
+    ts_lock = threading.Lock()
 
-    for id in ids:
-        remote = rmap[id]
-        stdout = exec(remote, f'ip netns exec ns-{id} ip -statistics link show dev {interface}', get_output=True)[0]
+    def collectResults(returncode, stdout, errout):
         lines = stdout.split('\n')
         link_toks = lines[1].split()
         rx_toks = lines[3].split()
         tx_toks = lines[5].split()
+
+        ts_lock.acquire()
         ts.rx_bytes += int(rx_toks[0])
         ts.rx_packets += int(rx_toks[1])
         ts.rx_errors += int(rx_toks[2])
@@ -89,6 +92,17 @@ def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
         ts.tx_dropped += int(tx_toks[3])
         ts.tx_carrier += int(tx_toks[4])
         ts.tx_collsns += int(tx_toks[5])
+        ts_lock.release()
+
+    for i, id in enumerate(ids):
+        remote = rmap[id]
+
+        command = f'ip netns exec ns-{id} ip -statistics link show dev {interface}'
+        tid = (remote.address or 'local') + '_' +  str(i % multiprocessing.cpu_count())
+
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=collectResults)
+
+    wait_for_completion()
 
     return ts
 

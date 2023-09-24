@@ -196,24 +196,23 @@ def create_process(remote, command, add_quotes=True):
     return subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 '''
-SSH or local terminal thread
-for a higher execution speed
+Execute a command via SSH or local. All tasks in a
+TerminalThread are executed in sequentional order.
 '''
 class TerminalThread(threading.Thread):
-    def __init__(self, remote):
+    def __init__(self, tid, remote):
         super(TerminalThread, self).__init__()
+        self.tid = tid
         self.remote = remote
         self.finish = False
-        self.queue = queue.Queue()
-        self.output_lock = threading.Lock()
-        self.output = {}
+        self.tasks = queue.Queue()
         self.start()
 
     def run(self):
         while True:
             try:
                 # might raise Empty
-                (ignore_error, get_output, add_quotes, command) = self.queue.get(block=True, timeout=1)
+                (ignore_error, add_quotes, command, onResultCallBack) = self.tasks.get(block=True, timeout=0.2)
 
                 p = create_process(self.remote, command, add_quotes)
 
@@ -229,10 +228,8 @@ class TerminalThread(threading.Thread):
                     eprint('Network might be in an undefined state!')
                     exit(1)
 
-                if get_output and self.queue.empty():
-                    self.output_lock.acquire()
-                    self.output[command] = (stdout, errout, p.returncode)
-                    self.output_lock.release()
+                if onResultCallBack:
+                    onResultCallBack(p.returncode, stdout, errout)
             except queue.Empty:
                 # try again or finish loop
                 if self.finish:
@@ -241,35 +238,60 @@ class TerminalThread(threading.Thread):
                 eprint(e)
                 exit(1)
 
+class TerminalGroup():
+    def __init__(self):
+        self.terminals = {}
+
+    def addTask(self, tid, remote, command, ignore_error=False, onResultCallBack=None):
+        terminal = self.terminals.get(tid, None)
+        if not terminal:
+            # create another terminal
+            terminal = TerminalThread(tid, remote)
+            self.terminals[tid] = terminal
+
+        add_quotes=False
+        terminal.tasks.put((ignore_error, add_quotes, command, onResultCallBack))
+        return terminal
+
+    def stopAllTerminals(self):
+        for terminal in self.terminals.values():
+            terminal.finish = True
+        for terminal in self.terminals.values():
+            terminal.join()
+
+    def waitForCompletion(self):
+        for terminal in self.terminals.values():
+            while not terminal.tasks.empty():
+                time.sleep(0.1)
+
+globalTerminalGroup = TerminalGroup()
+
 def exec(remote, command, get_output=False, ignore_error=False, add_quotes=True):
-    if remote not in terminals:
-        terminals[remote] = TerminalThread(remote)
+    tid = str(remote.address or 'local')
 
-    t = terminals[remote]
-    t.queue.put((ignore_error, get_output, add_quotes, command))
+    if get_output:
+        result = None
+        def onResult(rc, stdout, stderr):
+            nonlocal result
+            result = (stdout, stderr, rc)
 
-    while get_output:
-        t.output_lock.acquire()
-        result = t.output.pop(command, None)
-        t.output_lock.release()
-        if result:
-            return result
-        time.sleep(0.05)
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error, onResult)
+
+        while result is None:
+            time.sleep(0.01)
+        return result
+    else:
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error)
 
 '''
 The open terminal threads block our
 program to exit if not finished
 '''
 def stop_all_terminals():
-    for term in terminals.values():
-        term.finish = True
-    for term in terminals.values():
-        term.join()
+    globalTerminalGroup.stopAllTerminals()
 
 def wait_for_completion():
-    for term in terminals.values():
-        while term.queue.qsize() != 0:
-            time.sleep(0.1)
+    globalTerminalGroup.waitForCompletion()
 
 # id independent of source/target direction
 def link_id(source, target):
@@ -320,6 +342,7 @@ def get_remote_mapping(remotes):
     return rmap
 
 # create a neighbor dict from a json network description
+# {node => [node..]}
 def convert_to_neighbors(*networks):
     neighbors = {}
 
