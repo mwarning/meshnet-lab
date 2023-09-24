@@ -56,7 +56,7 @@ The images were created using [MeshGraphViewer](https://github.com/mwarning/Mesh
 ## Freifunk Bremen
 
 * [Freifunk Bremen](https://bremen.freifunk.net/)
-* \~800 nodes)
+* \~800 nodes
 * batman-adv, not segmented
 * [processed data](freifunk-bremen.json)
 * [raw data](original_freifunk_data/freifunk-bremen-meshviewer.json)
