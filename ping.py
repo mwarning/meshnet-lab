@@ -354,7 +354,7 @@ def _get_interface(remote, source):
 
 def ping(
     paths,
-    duration_ms=1000,
+    duration_ms=None,
     remotes=default_remotes,
     interface=None,
     verbosity="normal",
@@ -365,6 +365,9 @@ def ping(
     ping_count = 1
     rmap = get_remote_mapping(remotes)
     path_count = len(paths)
+
+    if duration_ms is None:
+        duration_ms = 1000 * len(paths)
 
     # prepare ping tasks
     tasks = []
