@@ -1,6 +1,6 @@
 # Mesh Network Lab
 
-Emulate Mobile Ad-hoc Networks (MANET) of hundreds of nodes. The network is realized using Linux network namespaces that are connected via virtual Ethernet interfaces. The network is defined in a JSON file.
+Emulate huge Mobile Ad-hoc Networks (MANET) and run tests with several routing protocols. The test results will be compiled into graphs. Networks are defined in JSON files and created based on Linux network namespaces. Everything is run from the command line.
 
 Supported is the emulation of different network characteristics like bandwidth, packet loss, latency and others using [traffic control](https://en.wikipedia.org/wiki/Tc_(Linux)). Node mobility is supported as well. The emulation can run distributed on multiple computers. It is lightweight enough to support >200 of nodes on a single desktop computer alone, and >2000 nodes if the amount of traffic is low (e.g. for reactive routing protocols).
 
@@ -238,6 +238,7 @@ To lessen the effect of the host system on the results when a lot of processes a
 
 ## Related Projects
 
+- [Twenty-five open-source network emulators and simulators you can use in 2023](https://www.brianlinkletter.com/2023/02/network-emulators-and-network-simulators-2023/)
 - [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation without binary modification
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
 - [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
