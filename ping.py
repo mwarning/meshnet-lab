@@ -28,6 +28,7 @@ from shared import (
 Dijkstra shortest path algorithm
 """
 
+
 class Dijkstra:
     def __init__(self, network):
         self.dists_cache = {}
@@ -81,6 +82,7 @@ class Dijkstra:
     """
     Calculate shortest path from source to every other node
     """
+
     def _calculate_shortest_paths(self, initial):
         initial = str(initial)
 
@@ -122,12 +124,15 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
+
 """
 Get list of random pairs (but no path to self).
 
 If sample_without_replacement=True, then the paths will be
 unique and a single node will only receive one ping at most!
 """
+
+
 def _random_paths_generator(nodes, sample_without_replacement=False):
     s = list(range(0, len(nodes)))
     count = 0
@@ -135,7 +140,9 @@ def _random_paths_generator(nodes, sample_without_replacement=False):
         count += 1
         if sample_without_replacement:
             if count > (len(nodes) / 2):
-                eprint(f"Not enough nodes ({len(nodes)}) to generate {count} unique paths.")
+                eprint(
+                    f"Not enough nodes ({len(nodes)}) to generate {count} unique paths."
+                )
                 stop_all_terminals()
                 exit(1)
         else:
@@ -146,28 +153,39 @@ def _random_paths_generator(nodes, sample_without_replacement=False):
 
         a = random.choice(s[:-1])
         a_index = s.index(a)
-        b = random.choice(s[(a_index + 1):])
+        b = random.choice(s[(a_index + 1) :])
         b_index = s.index(b)
 
         if sample_without_replacement:
-            s = s[:a_index] + s[(a_index+1):b_index] + s[(b_index+1):]
+            s = s[:a_index] + s[(a_index + 1) : b_index] + s[(b_index + 1) :]
 
         if random.uniform(0, 1) > 0.5:
             yield (nodes[a], nodes[b])
         else:
             yield (nodes[b], nodes[a])
 
+
 # get a list of random node pairs (unique, no self, no reverses)
 def get_random_paths(nodes, count=10, seed=None, sample_without_replacement=False):
     paths = []
-    for path in _random_paths_generator(nodes=nodes, seed=seed, sample_without_replacement=sample_without_replacement):
-        if (len(paths) >= count):
+    for path in _random_paths_generator(
+        nodes=nodes, seed=seed, sample_without_replacement=sample_without_replacement
+    ):
+        if len(paths) >= count:
             break
         paths.append(path)
     return paths
 
+
 # get a list of random node pairs (unique, no self, no reverses)
-def get_random_paths_filtered(network, path_count=None, min_hops=None, max_hops=None, seed=None, sample_without_replacement=False):
+def get_random_paths_filtered(
+    network,
+    path_count=None,
+    min_hops=None,
+    max_hops=None,
+    seed=None,
+    sample_without_replacement=False,
+):
     dijkstra = Dijkstra(network)
 
     if min_hops is None:
@@ -178,7 +196,9 @@ def get_random_paths_filtered(network, path_count=None, min_hops=None, max_hops=
 
     paths = []
     all_nodes = list(convert_to_neighbors(network).keys())
-    for path in _random_paths_generator(nodes=all_nodes, sample_without_replacement=sample_without_replacement):
+    for path in _random_paths_generator(
+        nodes=all_nodes, sample_without_replacement=sample_without_replacement
+    ):
         d = dijkstra.find_shortest_distance(path[0], path[1])
         if d >= min_hops and d <= max_hops and d != math.inf:
             paths.append(path)
@@ -187,9 +207,11 @@ def get_random_paths_filtered(network, path_count=None, min_hops=None, max_hops=
 
     return paths
 
+
 def get_random_nodes(network, count):
     nodes = list(convert_to_neighbors(network).keys())
     return random.sample(nodes, count)
+
 
 # get all paths to neares gateways
 def get_paths_to_gateways(network, gateways):
@@ -225,6 +247,8 @@ Return an IP address of the interface in this preference order:
 3. IPv6 link local
 4. IPv4 link local
 """
+
+
 def _get_ip_address(remote, id, interface, address_type=None):
     lladdr6 = None
     lladdr4 = None
@@ -362,7 +386,7 @@ def ping(
 
     # prepare ping tasks
     tasks = []
-    for (source, target) in paths:
+    for source, target in paths:
         source_remote = rmap[source]
         target_remote = rmap[target]
 
@@ -389,7 +413,7 @@ def ping(
     started = 0
 
     def process_results(do_wait):
-        for (process, started_ms, debug, result) in processes:
+        for process, started_ms, debug, result in processes:
             if not result.processed:
                 if do_wait or process.poll() is not None:
                     process.wait()
@@ -409,7 +433,7 @@ def ping(
         finished_consecutive = 0
         finished_consecutive_done = False
         process_counter = lines_finished_total
-        for (process, started_ms, debug, result) in processes[lines_finished_total:]:
+        for process, started_ms, debug, result in processes[lines_finished_total:]:
             process_counter += 1
             status = "???"
             if result.processed:
@@ -472,7 +496,11 @@ def ping(
     if (stop1_ms - start_ms) < duration_ms:
         time.sleep((duration_ms - (stop1_ms - start_ms)) / 1000.0)
     else:
-        print("Measurement took {:.2f}sec too long".format((stop1_ms - start_ms - duration_ms) / 1000))
+        print(
+            "Measurement took {:.2f}sec too long".format(
+                (stop1_ms - start_ms - duration_ms) / 1000
+            )
+        )
         stop_all_terminals()
         exit(1)
 
@@ -481,7 +509,7 @@ def ping(
     # collect results
     rtt_avg_ms_count = 0
     ret = _PingStats()
-    for (process, started_ms, debug, result) in processes:
+    for process, started_ms, debug, result in processes:
         ret.send += result.send
         if result.processed:
             ret.received += int(result.send * (1.0 - (result.packet_loss / 100.0)))
@@ -598,7 +626,12 @@ def main():
         paths = [args.path]
     elif args.input:
         state = json.load(args.input)
-        paths = get_random_paths_filtered(network=state, path_count=args.pings, min_hops=args.min_hops, max_hops=args.max_hops)
+        paths = get_random_paths_filtered(
+            network=state,
+            path_count=args.pings,
+            min_hops=args.min_hops,
+            max_hops=args.max_hops,
+        )
     else:
         if args.min_hops is not None or args.max_hops is not None:
             eprint("No min/max hops available without topology information (--input)")
