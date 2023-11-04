@@ -357,6 +357,7 @@ def ping(
     path_count = len(paths)
 
     if duration_ms is None:
+        # give each ping 1 second
         duration_ms = 1000 * len(paths)
 
     # prepare ping tasks
@@ -372,6 +373,8 @@ def ping(
 
         if target_addr is None:
             eprint(f"Cannot get address of {interface} in ns-{target}")
+            stop_all_terminals()
+            exit(1)
         else:
             debug = f"ping {source:>4} => {target:>4} ({target_addr:<18} / {interface})"
             command = (
@@ -469,7 +472,9 @@ def ping(
     if (stop1_ms - start_ms) < duration_ms:
         time.sleep((duration_ms - (stop1_ms - start_ms)) / 1000.0)
     else:
-        print("Warning: measurement took {}ms too long".format((stop1_ms - start_ms) - duration_ms))
+        print("Measurement took {:.2f}sec too long".format((stop1_ms - start_ms - duration_ms) / 1000))
+        stop_all_terminals()
+        exit(1)
 
     stop2_ms = millis()
 
