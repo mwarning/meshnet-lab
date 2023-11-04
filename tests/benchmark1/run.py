@@ -41,8 +41,7 @@ def run(protocol, csvfile):
 		print(f'Wait 30s for the nodes start up and discover each other (needed for proactive protocols).')
 		shared.sleep(30)
 
-		paths = ping.get_random_paths(state, 2 * link_count)
-		paths = ping.filter_paths(state, paths, min_hops=2, path_count=link_count)
+		paths = ping.get_random_paths_filtered(state, min_hops=2, path_count=link_count)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=30000, verbosity='verbose')
 
 		sysload_result = shared.sysload(remotes)

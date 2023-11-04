@@ -48,8 +48,7 @@ def run(protocol, files, csvfile):
 			# Wait until wait seconds are over, else error
 			shared.sleep(offset)
 
-			paths = ping.get_random_paths(state, 2 * 200)
-			paths = ping.filter_paths(state, paths, min_hops=2, path_count=200)
+			paths = ping.get_random_paths_filtered(state, min_hops=2, path_count=200)
 			ping_result = ping.ping(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
 
 			traffic_end = traffic.traffic(remotes)

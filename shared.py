@@ -341,6 +341,9 @@ def get_remote_mapping(remotes):
 
     return rmap
 
+def get_all_nodes(network):
+    return list(convert_to_neighbors(network).keys())
+
 # create a neighbor dict from a json network description
 # {node => [node..]}
 def convert_to_neighbors(*networks):

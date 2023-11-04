@@ -285,11 +285,12 @@ def run(protocol, csvfile):
     # informal, data does not change
     print_stations()
 
+    state = get_state(stations, satellites, [])
+
     # pick 20 random paths between ground stations
-    paths = ping.get_random_paths(get_state(stations, [], []), 20)
+    paths = ping.get_random_paths(nodes=shared.get_all_nodes(state), count=20)
 
     # create network and start routing software
-    state = get_state(stations, satellites, [])
     network.apply(state, remotes=remotes)
     software.start(protocol)
 

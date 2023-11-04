@@ -122,59 +122,28 @@ class Dijkstra:
         self.dists_cache[initial] = dists
         self.prevs_cache[initial] = prevs
 
-def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
-    dijkstra = Dijkstra(network)
-
-    if min_hops is None:
-        min_hops = 1
-
-    if max_hops is None:
-        max_hops = math.inf
-
-    filtered = []
-    for path in paths:
-        d = dijkstra.find_shortest_distance(path[0], path[1])
-        if d >= min_hops and d <= max_hops and d != math.inf:
-            filtered.append(path)
-
-    if path_count is not None:
-        if len(filtered) < path_count:
-            eprint(
-                f"Only {len(filtered)} paths left after filtering. Required were at least {path_count}."
-            )
-            stop_all_terminals()
-            exit(1)
-
-        if len(filtered) > path_count:
-            filtered = filtered[:path_count]
-
-    return filtered
-
-
 """
 Get list of random pairs (but no path to self).
 
 If sample_without_replacement=True, then the paths will be
 unique and a single node will only receive one ping at most!
 """
-def _get_random_paths(nodes, count=10, seed=None, sample_without_replacement=False):
-    if sample_without_replacement:
-        if count > (len(nodes) / 2):
-            eprint(f"Not enough nodes ({len(nodes)}) to generate {count} unique paths.")
-            stop_all_terminals()
-            exit(1)
-    else:
-        if len(nodes) < 2:
-            eprint(f"Not enough nodes ({len(nodes)}) to generate {count} paths.")
-            stop_all_terminals()
-            exit(1)
-
-    if seed is not None:
-        random.seed(seed)
-
-    paths = []
+def _random_paths_generator(nodes, sample_without_replacement=False):
     s = list(range(0, len(nodes)))
-    for i in range(count):
+    count = 0
+    while True:
+        count += 1
+        if sample_without_replacement:
+            if count > (len(nodes) / 2):
+                eprint(f"Not enough nodes ({len(nodes)}) to generate {count} unique paths.")
+                stop_all_terminals()
+                exit(1)
+        else:
+            if len(nodes) < 2:
+                eprint(f"Not enough nodes ({len(nodes)}) to generate {count} paths.")
+                stop_all_terminals()
+                exit(1)
+
         a = random.choice(s[:-1])
         a_index = s.index(a)
         b = random.choice(s[(a_index + 1):])
@@ -184,23 +153,43 @@ def _get_random_paths(nodes, count=10, seed=None, sample_without_replacement=Fal
             s = s[:a_index] + s[(a_index+1):b_index] + s[(b_index+1):]
 
         if random.uniform(0, 1) > 0.5:
-            paths.append((nodes[a], nodes[b]))
+            yield (nodes[a], nodes[b])
         else:
-            paths.append((nodes[b], nodes[a]))
+            yield (nodes[b], nodes[a])
 
+# get a list of random node pairs (unique, no self, no reverses)
+def get_random_paths(nodes, count=10, seed=None, sample_without_replacement=False):
+    paths = []
+    for path in _random_paths_generator(nodes=nodes, seed=seed, sample_without_replacement=sample_without_replacement):
+        if (len(paths) >= count):
+            break
+        paths.append(path)
     return paths
 
+# get a list of random node pairs (unique, no self, no reverses)
+def get_random_paths_filtered(network, path_count=None, min_hops=None, max_hops=None, seed=None, sample_without_replacement=False):
+    dijkstra = Dijkstra(network)
 
-# get random node pairs (unique, no self, no reverses)
-def get_random_paths(network=None, count=10, seed=None):
-    nodes = list(convert_to_neighbors(network).keys())
-    return _get_random_paths(nodes=nodes, count=count, seed=seed)
+    if min_hops is None:
+        min_hops = 1
 
+    if max_hops is None:
+        max_hops = math.inf
+
+    paths = []
+    all_nodes = list(convert_to_neighbors(network).keys())
+    for path in _random_paths_generator(nodes=all_nodes, sample_without_replacement=sample_without_replacement):
+        d = dijkstra.find_shortest_distance(path[0], path[1])
+        if d >= min_hops and d <= max_hops and d != math.inf:
+            paths.append(path)
+        if len(paths) >= path_count:
+            break
+
+    return paths
 
 def get_random_nodes(network, count):
     nodes = list(convert_to_neighbors(network).keys())
     return random.sample(nodes, count)
-
 
 # get all paths to neares gateways
 def get_paths_to_gateways(network, gateways):
@@ -600,10 +589,7 @@ def main():
         paths = [args.path]
     elif args.input:
         state = json.load(args.input)
-        paths = get_random_paths(network=state, count=args.pings)
-        paths = filter_paths(
-            state, paths, min_hops=args.min_hops, max_hops=args.max_hops
-        )
+        paths = get_random_paths_filtered(network=state, path_count=args.pings, min_hops=args.min_hops, max_hops=args.max_hops)
     else:
         if args.min_hops is not None or args.max_hops is not None:
             eprint("No min/max hops available without topology information (--input)")
@@ -611,8 +597,8 @@ def main():
             exit(1)
 
         rmap = get_remote_mapping(args.remotes)
-        all = list(rmap.keys())
-        paths = _get_random_paths(nodes=all, count=args.pings)
+        all_nodes = list(rmap.keys())
+        paths = get_random_paths(nodes=all_nodes, count=args.pings)
 
     address_type = None
     if getattr(args, "4"):

@@ -64,8 +64,7 @@ def run(protocol, csvfile, step_duration, step_distance):
 		# Wait until wait seconds are over, else error
 		shared.wait(wait_beg_ms, step_duration)
 
-		paths = ping.get_random_paths(state, 2 * 400)
-		paths = ping.filter_paths(state, paths, min_hops=2, path_count=200)
+		paths = ping.get_random_paths_filtered(state, min_hops=2, path_count=200)
 		ping_result = ping.ping(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
 
 		# add data to csv file

@@ -46,8 +46,7 @@ def run(topology, path, state):
 
 		# Send <node_count> pings.
 		# For a good routing algorithm, the traffic per node should be constant.
-		paths = ping.get_random_paths(state, 2 * node_count)
-		paths = ping.filter_paths(state, paths, min_hops=2, path_count=node_count)
+		paths = ping.get_random_paths_filtered(state, min_hops=2, path_count=node_count)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=300000, verbosity='verbose')
 
 		traffic_stop_ms = shared.millis()
