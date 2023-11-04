@@ -374,7 +374,7 @@ def ping(
     verbosity="normal",
     address_type=None,
     ping_deadline=1,
-    ping_timeout=None,
+    ping_timeout=1,
 ):
     ping_count = 1
     rmap = get_remote_mapping(remotes)
