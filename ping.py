@@ -142,6 +142,7 @@ def filter_paths(network, paths, min_hops=None, max_hops=None, path_count=None):
             eprint(
                 f"Only {len(filtered)} paths left after filtering. Required were at least {path_count}."
             )
+            stop_all_terminals()
             exit(1)
 
         if len(filtered) > path_count:
@@ -585,6 +586,7 @@ def main():
         if remote.address is None:
             if os.geteuid() != 0:
                 eprint("Need to run as root.")
+                stop_all_terminals()
                 exit(1)
 
     paths = None
