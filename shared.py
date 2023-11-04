@@ -46,6 +46,7 @@ def check_access(remotes):
 def root():
     if os.geteuid() != 0:
         eprint('Need to run as root.')
+        stop_all_terminals()
         exit(1)
 
 def load_json(path):
