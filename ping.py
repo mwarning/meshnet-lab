@@ -385,13 +385,14 @@ def ping(
     processes = []
     started = 0
 
-    def process_results():
+    def process_results(do_wait):
         for (process, started_ms, debug, result) in processes:
-            if not result.processed and process.poll() is not None:
-                process.wait()
-                (output, err) = process.communicate()
-                _parse_ping(result, output.decode())
-                result.processed = True
+            if not result.processed:
+                if do_wait or process.poll() is not None:
+                    process.wait()
+                    (output, err) = process.communicate()
+                    _parse_ping(result, output.decode())
+                    result.processed = True
 
     lines_finished_total = 0
     lines_unfinished_prev = 0
@@ -448,7 +449,7 @@ def ping(
                 # process results and print updates once per second
                 if (last_processed + 1000) < millis():
                     last_processed = millis()
-                    process_results()
+                    process_results(False)
                     if verbosity != "quiet":
                         print_processes()
 
@@ -459,15 +460,18 @@ def ping(
 
     stop1_ms = millis()
 
+    # block until all ping commands finished
+    process_results(True)
+    if verbosity != "quiet":
+        print_processes()
+
     # wait until rest fraction of duration_ms is over
     if (stop1_ms - start_ms) < duration_ms:
         time.sleep((duration_ms - (stop1_ms - start_ms)) / 1000.0)
+    else:
+        print("Warning: measurement took {}ms too long".format((stop1_ms - start_ms) - duration_ms))
 
     stop2_ms = millis()
-
-    process_results()
-    if verbosity != "quiet":
-        print_processes()
 
     # collect results
     rtt_avg_ms_count = 0
