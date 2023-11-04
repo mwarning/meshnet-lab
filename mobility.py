@@ -52,7 +52,7 @@ def connect_range(network, max_distance=None, max_links=None):
             if max_distance is not None and d > max_distance:
                 continue
 
-            link = {'source': i, 'target': j}
+            link = {'source': nodes[i]['id'], 'target': nodes[j]['id']}
 
             if max_links is None:
                 links.append(link)
