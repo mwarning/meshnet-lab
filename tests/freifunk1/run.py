@@ -8,6 +8,8 @@ sys.path.append('../../')
 import software
 import network
 from shared import Remote
+import traffic
+import ping
 import shared
 
 # increase limit for all the parallel pings
