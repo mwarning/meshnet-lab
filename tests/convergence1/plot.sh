@@ -10,7 +10,7 @@ for id in 'line' 'rtree' 'grid4'; do
 		set term png; \
 		set terminal png size 1280,960; \
 		set output '${prefix}convergence1-$id.png'; \
-		set key spacing 2 font 'Helvetica, 18'center right; \
+		set key spacing 2 font 'sans, 18'center right; \
 		set ylabel 'packets arrived [%]'; \
 		set xlabel 'wait after start [sec]'; \
 		set termoption lw 3; \

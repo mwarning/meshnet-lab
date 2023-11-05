@@ -11,7 +11,7 @@ for step_duration in 10 30; do
 			set term png; \
 			set terminal png size 1280,960; \
 			set output '${prefix}mobility1-${step_duration}-${step_distance}_arrival_progress.png'; \
-			set key spacing 2 font 'Helvetica, 18' center right; \
+			set key spacing 2 font 'sans, 18' center right; \
 			set xlabel '${step_duration}s steps [-]'; \
 			set ylabel 'packet arrival [%]'; \
 			set yrange [0:100]; \

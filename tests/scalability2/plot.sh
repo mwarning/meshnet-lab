@@ -10,7 +10,7 @@ for id in 'line' 'grid4' 'grid8' 'rtree'; do
 		set term png; \
 		set terminal png size 1280,960; \
 		set output '${prefix}scalability2-$id.png'; \
-		set key spacing 1 font 'Helvetica, 12'; \
+		set key spacing 1 font 'sans, 12'; \
 		set xlabel '# number of nodes'; \
 		set ylabel 'tx per node [KB/s]'; \
 		set y2label 'packet arrival [%]'; \

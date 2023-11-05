@@ -9,7 +9,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 800,600; \
 	set output '${prefix}benchmark1.png'; \
-	set key spacing 1 font 'Helvetica, 18'; \
+	set key spacing 1 font 'sans, 18'; \
 	set xlabel '# number of nodes'; \
 	set ylabel 'ping arrival [%]'; \
 	set termoption lw 3; \
