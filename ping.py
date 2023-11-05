@@ -166,10 +166,10 @@ def _random_paths_generator(nodes, sample_without_replacement=False):
 
 
 # get a list of random node pairs (unique, no self, no reverses)
-def get_random_paths(nodes, count=10, seed=None, sample_without_replacement=False):
+def get_random_paths(nodes, count=10, sample_without_replacement=False):
     paths = []
     for path in _random_paths_generator(
-        nodes=nodes, seed=seed, sample_without_replacement=sample_without_replacement
+        nodes=nodes, sample_without_replacement=sample_without_replacement
     ):
         if len(paths) >= count:
             break
