@@ -16,14 +16,6 @@ import ping
 
 prefix = os.environ.get('PREFIX', '')
 
-def get_all_paths(node_count):
-	paths = []
-	for i in range(0, node_count):
-		for j in range(0, i):
-			if i != j:
-				paths.append((i, j))
-	return paths
-
 def float_range(start, stop, step):
 	while start < stop:
 		yield float(start)
@@ -68,7 +60,7 @@ def run(node_count, csvfile):
 			mobility.randomize_positions(state, xy_range=1.0)
 			mobility.connect_range(state, max_distance=max_range)
 
-			paths = get_all_paths(node_count)
+			paths = ping.get_random_paths(nodes=shared.get_all_nodes(state), count=node_count)
 
 			(connected_path_count, connected_median_hop_count, connected_max_hop_count) = get_connectivity(state, paths)
 			mean_geo_distance = get_mean_geo_distance(state, paths)
