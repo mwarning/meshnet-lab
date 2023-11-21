@@ -349,7 +349,8 @@ def run(protocol, csvfile):
             network.apply(state=state, remotes=remotes)
 
             # waits until time is up (errors if time is already up!)
-            shared.wait(wait_beg_ms, step_realtime_sec - 2)
+            if not shared.wait(wait_beg_ms, step_realtime_sec - 2):
+                break
 
             ping_result = ping.ping(paths=paths, duration_ms=2000, verbosity='verbose', remotes=remotes)
             ping_results.append(ping_result.getData())

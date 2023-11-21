@@ -340,7 +340,8 @@ def run(protocol, csvfile):
 
         network.apply(state=state, link_command=get_tc_command, remotes=remotes)
 
-        shared.wait(wait_beg_ms, STEP_REALTIME_SEC - 10)
+        if not shared.wait(wait_beg_ms, STEP_REALTIME_SEC - 10):
+            break
 
         ping_result = ping.ping(paths=paths, duration_ms=10_000, verbosity='verbose', remotes=remotes)
 

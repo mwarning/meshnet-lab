@@ -66,10 +66,10 @@ def wait(beg_ms, until_sec):
     # wait until time is over
     if (now_ms - beg_ms) < (until_sec * 1000):
         time.sleep(((until_sec * 1000) - (now_ms - beg_ms)) / 1000.0)
+        return True
     else:
         eprint('Wait timeout already passed by {:.2f}sec'.format(((now_ms - beg_ms) - (until_sec * 1000)) / 1000))
-        stop_all_terminals()
-        exit(1)
+        return False
 
 def _get_clusters_sets(neighbors):
     visited = {}
