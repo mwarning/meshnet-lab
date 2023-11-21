@@ -82,7 +82,7 @@ def run(topology, path, state, towards_sink):
 		traffic_begin = traffic.traffic(remotes)
 
 		# Send "<node_count> - 1" pings
-		paths = get_paths(state, False)
+		paths = get_paths(state, towards_sink)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=(200*len(paths)), verbosity='verbose')
 
 		traffic_stop_ms = shared.millis()
@@ -121,7 +121,7 @@ for topology in ['line', 'grid4', 'grid8', 'rtree']:
 			if f'{protocol}_{topology}' in drop_test:
 				continue
 
-			pc = run(topology, path, state)
+			pc = run(topology, path, state, False)
 
 			# Skip test if the successful pings drop below 60%
 			if pc < 60:
