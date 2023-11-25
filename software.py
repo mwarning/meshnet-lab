@@ -19,6 +19,10 @@ from shared import (
     format_duration, get_current_state, Remote, globalTerminalGroup
 )
 
+from ping import (
+	_get_ip_address, _get_interface
+)
+
 verbosity = 'normal'
 
 
@@ -134,6 +138,38 @@ def _start_protocol(protocol, rmap, ids):
     if verbosity != 'quiet':
         print('started {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
+'''
+Wait for a tunnel interface with an IP address to appear on each node
+'''
+def _wait_till_ready(rmap):
+    started_ms = millis()
+    interface = None
+    iteration = 0
+
+    while True:
+        all_ok = True
+        for node, remote in rmap.items():
+            if interface:
+                address = _get_ip_address(remote, node, interface)
+                if address is None:
+                    all_ok = False
+                    break
+            else:
+                all_ok = False
+                interface = _get_interface(remote, node)
+                break
+
+        if all_ok:
+            break
+
+        time.sleep(1)
+
+        iteration += 1
+        if verbosity != "quiet":
+            if iteration > 1 and math.log(iteration, 2).is_integer():
+                waited = format_duration(millis() - started_ms)
+                print(f"Waited now for {waited} until software is ready.")
+
 def clear(remotes):
     beg_ms = millis()
 
@@ -168,6 +204,7 @@ def start(protocol, remotes=default_remotes):
     rmap = get_remote_mapping(remotes)
     ids = list(rmap.keys())
     _start_protocol(protocol, rmap, ids)
+    _wait_till_ready(rmap)
 
 def main():
     parser = argparse.ArgumentParser()
