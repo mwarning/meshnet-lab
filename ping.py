@@ -256,7 +256,10 @@ def _get_ip_address(remote, id, interface, address_type=None):
     addr4 = None
 
     stdout, stderr, rcode = exec(
-        remote, f'ip netns exec "ns-{id}" ip addr list dev {interface}', get_output=True
+        remote,
+        f'ip netns exec "ns-{id}" ip addr list dev {interface}',
+        get_output=True,
+        ignore_error=True,
     )
     lines = stdout.split("\n")
 
