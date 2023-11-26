@@ -147,19 +147,21 @@ def _wait_till_ready(rmap):
     iteration = 0
 
     while True:
-        all_ok = True
+        # the node that we have to wait for in this iteration
+        wait_for_node = None
         for node, remote in rmap.items():
             if interface:
                 address = _get_ip_address(remote, node, interface)
                 if address is None:
-                    all_ok = False
+                    wait_for_node = node
                     break
             else:
-                all_ok = False
+                wait_for_node = node
                 interface = _get_interface(remote, node)
                 break
 
-        if all_ok:
+        if wait_for_node is None:
+            # all good
             break
 
         time.sleep(1)
@@ -167,8 +169,8 @@ def _wait_till_ready(rmap):
         iteration += 1
         if verbosity != "quiet":
             if iteration > 1 and math.log(iteration, 2).is_integer():
-                waited = format_duration(millis() - started_ms)
-                print(f"Waited now for {waited} until software is ready.")
+                time_waited = format_duration(millis() - started_ms)
+                print(f"Waited now for {time_waited} until software is ready. E.g. for namespace {wait_for_node}")
 
 def clear(remotes):
     beg_ms = millis()
