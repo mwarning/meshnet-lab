@@ -170,7 +170,7 @@ def _wait_till_ready(rmap):
         if verbosity != "quiet":
             if iteration > 1 and math.log(iteration, 2).is_integer():
                 time_waited = format_duration(millis() - started_ms)
-                print(f"Waited now for {time_waited} until software is ready. E.g. for namespace {wait_for_node}")
+                print(f"Waited now for {time_waited} until software is ready. E.g. for namespace ns-{wait_for_node}")
 
 def clear(remotes):
     beg_ms = millis()
