@@ -504,8 +504,6 @@ def ping(
                 (stop1_ms - start_ms - duration_ms) / 1000
             )
         )
-        stop_all_terminals()
-        exit(1)
 
     stop2_ms = millis()
 
