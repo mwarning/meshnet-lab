@@ -387,6 +387,9 @@ def ping(
         # give each ping 1 second
         duration_ms = 1000 * len(paths)
 
+    if duration_ms < 1000 and verbosity != "quiet":
+        print("Warning: ping duration < 1000ms")
+
     # prepare ping tasks
     tasks = []
     for source, target in paths:
