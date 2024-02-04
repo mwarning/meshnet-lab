@@ -244,7 +244,7 @@ To lessen the effect of the host system on the results when a lot of processes a
 - [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
 - [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandened)
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
-- [mininet](http://mininet.org/) (uses VirtualBox images and OpenFlow, every link ends in an interface, otherwise very similar)
+- [mininet](http://mininet.org/) (runs in single computer, uses network and process namespaces, uses virtual switches)
 - [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, simple)
 - [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, very simple)
