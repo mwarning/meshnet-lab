@@ -16,7 +16,7 @@ import re
 from shared import (
     eprint, wait_for_completion, exec, default_remotes, check_access,
     millis, get_remote_mapping, stop_all_terminals, wait_for_completion,
-    format_duration, get_current_state, Remote, globalTerminalGroup
+    format_duration, get_current_state, Remote, get_thread_id
 )
 
 from ping import (
@@ -101,8 +101,8 @@ def _stop_protocol(protocol, rmap, ids):
         label = remote.address or 'local'
         command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
-        tid = label + '_' +  str(i % multiprocessing.cpu_count())
-        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
+        tid = get_thread_id()
+        exec(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
 
     wait_for_completion()
 
@@ -129,8 +129,8 @@ def _start_protocol(protocol, rmap, ids):
         label = remote.address or 'local'
         command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
-        tid = label + '_' +  str(i % multiprocessing.cpu_count())
-        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
+        tid = get_thread_id()
+        exec(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
 
     wait_for_completion()
 
@@ -294,8 +294,8 @@ def main():
             remote = rmap[id]
             label = remote.address or 'local'
             command = f'ip netns exec ns-{id} {" ".join(args.command)} {label} {id}'
-            tid = label + '_' +  str(i % multiprocessing.cpu_count())
-            globalTerminalGroup.addTask(tid, remote, command, ignore_error=False)
+            tid = get_thread_id()
+            exec(tid, remote, command, ignore_error=False)
             wait_for_completion()
     else:
         eprint('Unknown action: {}'.format(args.action))

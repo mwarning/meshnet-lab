@@ -14,7 +14,7 @@ import os
 from shared import (
     eprint, exec, default_remotes, convert_to_neighbors, check_access,
     stop_all_terminals, format_duration, millis, wait_for_completion,
-    get_current_state, link_id, Remote
+    get_current_state, link_id, Remote, get_thread_id
 )
 
 disable_layer3 = False
@@ -29,17 +29,17 @@ def link_num(source, target, min, max):
     n = int.from_bytes(digest, byteorder='little', signed=False)
     return int(min + ((float(n - 0) / float(2**64)) * (max - min)))
 
-def configure_interface(remote, nsname, ifname):
+def configure_interface(tid, remote, nsname, ifname):
     # up interface
-    exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" up mtu {mtu}')
+    exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" up mtu {mtu}')
 
     # Configure mesh interface for layer 2 use.
     # - no IP address assigned
     # - no IP packets (Ethernet only)
     if disable_layer3:
-        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off') # probably not needed
-        exec(remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
-        exec(remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
+        exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" arp off') # probably not needed
+        exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
+        exec(tid, remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
 
 def get_filtered_link(link, direction):
     obj = {}
@@ -91,15 +91,16 @@ def format_node_command(command, node):
 def remove_node(node, rmap={}):
     name = str(node['id'])
     remote = rmap.get(name)
+    tid = get_thread_id()
 
     # remove veth pair upname/downname (removes both)
-    exec(remote, f'ip netns exec "switch" ip link delete "dl-{name}"')
+    exec(tid, remote, f'ip netns exec "switch" ip link delete "dl-{name}"')
 
     # remove bridge (assume that it does not have an interfaces anymore)
-    exec(remote, f'ip netns exec "switch" ip link delete "br-{name}" type bridge')
+    exec(tid, remote, f'ip netns exec "switch" ip link delete "br-{name}" type bridge')
 
     # remove network namespace
-    exec(remote, f'ip netns del "ns-{name}"')
+    exec(tid, remote, f'ip netns del "ns-{name}"')
 
 def create_node(node, node_command=None, rmap={}):
     name = str(node['id'])
@@ -109,61 +110,65 @@ def create_node(node, node_command=None, rmap={}):
     brname = f'br-{name}'
     upname = 'uplink'
     downname = f'dl-{name}'
+    tid = get_thread_id()
 
-    exec(remote, f'ip netns add "{nsname}"')
+    exec(tid, remote, f'ip netns add "{nsname}"')
 
     # up localhost
-    exec(remote, f'ip netns exec "{nsname}" ip link set dev "lo" up')
+    exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "lo" up')
 
     # create bridge
-    exec(remote, f'ip netns exec "switch" ip link add name "{brname}" type bridge')
-    configure_interface(remote, "switch", brname)
+    exec(tid, remote, f'ip netns exec "switch" ip link add name "{brname}" type bridge')
+    configure_interface(tid, remote, "switch", brname)
 
     # disable spanning tree protocol (should be off by default anyway)
-    exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge stp_state 0')
+    exec(tid, remote, f'ip netns exec "switch" ip link set "{brname}" type bridge stp_state 0')
 
     # make the bridge to act as a hub
-    exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge ageing_time 0')
-    exec(remote, f'ip netns exec "switch" ip link set "{brname}" type bridge forward_delay 0')
+    exec(tid, remote, f'ip netns exec "switch" ip link set "{brname}" type bridge ageing_time 0')
+    exec(tid, remote, f'ip netns exec "switch" ip link set "{brname}" type bridge forward_delay 0')
 
-    # create interface pair in namespace 'switch'
-    exec(remote, f'ip netns exec "switch" ip link add name "{upname}" type veth peer name "{downname}"')
+    # create interface pair in node namespace
+    exec(tid, remote, f'ip netns exec "{nsname}" ip link add name "{upname}" type veth peer name "{downname}"')
 
-    # move uplink from namespace 'switch' into the nodes namespace
-    exec(remote, f'ip netns exec "switch" ip link set "{upname}" netns "{nsname}"')
+    # move downlink from node namespace to namespace 'switch'
+    exec(tid, remote, f'ip netns exec "{nsname}" ip link set "{downname}" netns "switch"')
 
     # put uplinkport into bridge
-    exec(remote, f'ip netns exec "switch" ip link set "{downname}" master "{brname}"')
+    exec(tid, remote, f'ip netns exec "switch" ip link set "{downname}" master "{brname}"')
 
-    configure_interface(remote, 'switch', downname)
-    configure_interface(remote, nsname, upname)
+    configure_interface(tid, remote, 'switch', downname)
+    configure_interface(tid, remote, nsname, upname)
 
     if node_command is not None:
-        exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
+        exec(tid, remote, f'ip netns exec "{nsname}" {format_node_command(node_command, node)}')
 
 # apply useful system defaults
 def system_setup(remotes):
     for remote in remotes:
-        exec(remote, 'sysctl -w net.ipv6.conf.default.hop_limit=255')
-        exec(remote, 'sysctl -w net.ipv4.ip_default_ttl=255')
+        tid = get_thread_id()
+        exec(tid, remote, 'sysctl -w net.ipv6.conf.default.hop_limit=255')
+        exec(tid, remote, 'sysctl -w net.ipv4.ip_default_ttl=255')
 
         # prevent "neighbour: ndisc_cache: neighbor table overflow!" from Linux kernel
-        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh1=4096')
-        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh2=4096')
-        exec(remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh3=4096')
-        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh1=4096')
-        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh2=4096')
-        exec(remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh3=4096')
+        exec(tid, remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh1=4096')
+        exec(tid, remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh2=4096')
+        exec(tid, remote, 'sysctl -w net.ipv4.neigh.default.gc_thresh3=4096')
+        exec(tid, remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh1=4096')
+        exec(tid, remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh2=4096')
+        exec(tid, remote, 'sysctl -w net.ipv6.neigh.default.gc_thresh3=4096')
+    wait_for_completion()
 
 def update_node(node, node_command=None, rmap={}):
     name = str(node['id'])
     remote = rmap.get(name)
+    tid = get_thread_id()
 
     if node_command is not None:
         if verbosity == 'normal':
             print(f'  update node {name}')
 
-        exec(remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
+        exec(tid, remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
 def remove_link(link, rmap={}):
     source = str(link['source'])
@@ -174,12 +179,14 @@ def remove_link(link, rmap={}):
     ifname1 = f've-{source}-{target}'
     ifname2 = f've-{target}-{source}'
 
+    tid = get_thread_id()
+
     if source == target:
         eprint(f'Warning: Cannot remove link with identical source ({source}) and target ({target}) => ignore')
         return
 
     if remote1 == remote2:
-        exec(remote1, f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
+        exec(tid, remote1, f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
     else:
         # multiple remotes always have address set
         addr1 = remote1.address
@@ -189,13 +196,13 @@ def remove_link(link, rmap={}):
         tunnel_id = link_num(addr1, addr2, min=1, max=2**32)
         session_id = link_num(source, target, min=1, max=2**32)
 
-        exec(remote1, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
-        if l2tp_session_count(remote1, tunnel_id) == 0:
-            exec(remote1, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
+        exec(tid, remote1, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
+        if l2tp_session_count(tid, remote1, tunnel_id) == 0:
+            exec(tid, remote1, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
 
-        exec(remote2, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
-        if l2tp_session_count(remote2, tunnel_id) == 0:
-            exec(remote2, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
+        exec(tid, remote2, f'ip l2tp del session tunnel_id {tunnel_id} session_id {session_id}')
+        if l2tp_session_count(tid, remote2, tunnel_id) == 0:
+            exec(tid, remote2, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
 
 def update_link(link, link_command=None, rmap={}):
     source = str(link['source'])
@@ -206,21 +213,23 @@ def update_link(link, link_command=None, rmap={}):
     ifname1 = f've-{source}-{target}'
     ifname2 = f've-{target}-{source}'
 
+    tid = get_thread_id()
+
     if source == target:
         eprint(f'Warning: Cannot update link with identical source ({source}) and target ({target}) => ignore')
         return
 
     if link_command is not None:
         # source -> target
-        exec(remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
         # target -> source
-        exec(remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
+        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
-def l2tp_session_count(remote, tunnel_id):
-    return int(exec(remote, f'ip l2tp show session | grep -c "tunnel {tunnel_id}" || true', get_output=True)[0])
+def l2tp_session_count(tid, remote, tunnel_id):
+    return int(exec(tid, remote, f'ip l2tp show session | grep -c "tunnel {tunnel_id}" || true', get_output=True)[0])
 
-def l2tp_tunnel_exists(remote, tunnel_id):
-    return int(exec(remote, f'ip l2tp show tunnel | grep -c "Tunnel {tunnel_id}" || true', get_output=True)[0]) != 0
+def l2tp_tunnel_exists(tid, remote, tunnel_id):
+    return int(exec(tid, remote, f'ip l2tp show tunnel | grep -c "Tunnel {tunnel_id}" || true', get_output=True)[0]) != 0
 
 def create_link(link, link_command=None, rmap={}):
     source = str(link['source'])
@@ -233,13 +242,15 @@ def create_link(link, link_command=None, rmap={}):
     brname1 = f'br-{source}'
     brname2 = f'br-{target}'
 
+    tid = get_thread_id()
+
     if source == target:
         eprint(f'Warning: Cannot create link with identical source ({source}) and target ({target}) => ignore')
         return
 
     if remote1 == remote2:
         # create veth interface pair
-        exec(remote1, f'ip netns exec "switch" ip link add "{ifname1}" type veth peer name "{ifname2}"')
+        exec(tid, remote1, f'ip netns exec "switch" ip link add "{ifname1}" type veth peer name "{ifname2}"')
     else:
         # create l2tp connection
         addr1 = remote1.address
@@ -250,33 +261,33 @@ def create_link(link, link_command=None, rmap={}):
         session_id = link_num(source, target, min=1, max=2**32)
         port = link_num(addr1, addr2, min=1024, max=2**16)
 
-        if not l2tp_tunnel_exists(remote1, tunnel_id):
-            exec(remote1, f'ip l2tp add tunnel tunnel_id {tunnel_id} peer_tunnel_id {tunnel_id} encap udp local {addr1} remote {addr2} udp_sport {port} udp_dport {port}')
-        exec(remote1, f'ip l2tp add session name {ifname1} tunnel_id {tunnel_id} session_id {session_id} peer_session_id {session_id}')
-        exec(remote1, f'ip link set "{ifname1}" netns "switch"')
+        if not l2tp_tunnel_exists(tid, remote1, tunnel_id):
+            exec(tid, remote1, f'ip l2tp add tunnel tunnel_id {tunnel_id} peer_tunnel_id {tunnel_id} encap udp local {addr1} remote {addr2} udp_sport {port} udp_dport {port}')
+        exec(tid, remote1, f'ip l2tp add session name {ifname1} tunnel_id {tunnel_id} session_id {session_id} peer_session_id {session_id}')
+        exec(tid, remote1, f'ip link set "{ifname1}" netns "switch"')
 
-        if not l2tp_tunnel_exists(remote2, tunnel_id):
-            exec(remote2, f'ip l2tp add tunnel tunnel_id {tunnel_id} peer_tunnel_id {tunnel_id} encap udp local {addr2} remote {addr1} udp_sport {port} udp_dport {port}')
-        exec(remote2, f'ip l2tp add session name {ifname2} tunnel_id {tunnel_id} session_id {session_id} peer_session_id {session_id}')
-        exec(remote2, f'ip link set "{ifname2}" netns "switch"')
+        if not l2tp_tunnel_exists(tid, remote2, tunnel_id):
+            exec(tid, remote2, f'ip l2tp add tunnel tunnel_id {tunnel_id} peer_tunnel_id {tunnel_id} encap udp local {addr2} remote {addr1} udp_sport {port} udp_dport {port}')
+        exec(tid, remote2, f'ip l2tp add session name {ifname2} tunnel_id {tunnel_id} session_id {session_id} peer_session_id {session_id}')
+        exec(tid, remote2, f'ip link set "{ifname2}" netns "switch"')
 
-    configure_interface(remote1, 'switch', ifname1)
-    configure_interface(remote2, 'switch', ifname2)
+    configure_interface(tid, remote1, 'switch', ifname1)
+    configure_interface(tid, remote2, 'switch', ifname2)
 
     # put into bridge
-    exec(remote1, f'ip netns exec "switch" ip link set "{ifname1}" master "{brname1}"')
-    exec(remote2, f'ip netns exec "switch" ip link set "{ifname2}" master "{brname2}"')
+    exec(tid, remote1, f'ip netns exec "switch" ip link set "{ifname1}" master "{brname1}"')
+    exec(tid, remote2, f'ip netns exec "switch" ip link set "{ifname2}" master "{brname2}"')
 
     # isolate interfaces (they can only speak to the downlink interface in the bridge they are)
-    exec(remote1, f'ip netns exec "switch" bridge link set dev "{ifname1}" isolated on')
-    exec(remote2, f'ip netns exec "switch" bridge link set dev "{ifname2}" isolated on')
+    exec(tid, remote1, f'ip netns exec "switch" bridge link set dev "{ifname1}" isolated on')
+    exec(tid, remote2, f'ip netns exec "switch" bridge link set dev "{ifname2}" isolated on')
 
     # e.g. execute tc command on link
     if link_command is not None:
         # source -> target
-        exec(remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
         # target -> source
-        exec(remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
+        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
 class _Task:
     def __init__(self):
@@ -386,9 +397,10 @@ def show(remotes=default_remotes):
     check_access(remotes)
 
     for remote_id, remote in enumerate(remotes):
-        nodes = exec(remote, 'ip netns list', get_output=True)[0].count('ns-')
-        veth = int(exec(remote, 'ip netns exec switch ip addr list | grep -c "@ve-" || true', get_output=True)[0]) // 2
-        l2tp = int(exec(remote, 'ip l2tp show session | grep -c "ve-" || true', get_output=True)[0])
+        tid = get_thread_id()
+        nodes = exec(tid, remote, 'ip netns list', get_output=True)[0].count('ns-')
+        veth = int(exec(tid, remote, 'ip netns exec switch ip addr list | grep -c "@ve-" || true', get_output=True)[0]) // 2
+        l2tp = int(exec(tid, remote, 'ip l2tp show session | grep -c "ve-" || true', get_output=True)[0])
         label = remote.address or 'local'
         print(f'{label}: {nodes} nodes, {veth} veth links, {l2tp} l2tp links')
 
@@ -396,9 +408,10 @@ def clear(remotes=default_remotes):
     check_access(remotes)
 
     for remote in remotes:
-        exec(remote, 'ip -all netns delete || true')
+        tid = get_thread_id()
+        exec(tid, remote, 'ip -all netns delete || true')
         # removal of all l2tp tunnels - removes all sessions as well
-        exec(remote, 'ip l2tp show tunnel | grep Tunnel | tr "," " " | cut -d" " -f2 | xargs -r -n1 ip l2tp del tunnel tunnel_id')
+        exec(tid, remote, 'ip l2tp show tunnel | grep Tunnel | tr "," " " | cut -d" " -f2 | xargs -r -n1 ip l2tp del tunnel tunnel_id')
 
 '''
 Get a dict to map nodes to remote computers
@@ -541,40 +554,54 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
     # add "switch" namespace
     if state_empty(cur_state):
         for remote in remotes:
+            tid = get_thread_id()
             # add switch if it does not exist yet
-            exec(remote, 'ip netns add "switch" || true')
+            exec(tid, remote, 'ip netns add "switch" || true')
             # disable IPv6 in switch namespace (no need, less overhead)
-            exec(remote, 'ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
+            exec(tid, remote, 'ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
     for node in data.nodes_update:
         update_node(node, node_command, rmap)
 
+    wait_for_completion()
+
     for link in data.links_update:
         update_link(link, link_command, rmap)
+
+    wait_for_completion()
 
     for node in data.nodes_create:
         create_node(node, node_command, rmap)
 
+    wait_for_completion()
+
     for link in data.links_create:
         create_link(link, link_command, rmap)
+
+    wait_for_completion()
 
     for link in data.links_remove:
         remove_link(link, rmap)
 
+    wait_for_completion()
+
     for node in data.nodes_remove:
         remove_node(node, rmap)
+
+    wait_for_completion()
 
     # remove "switch" namespace
     if state_empty(new_state):
         for remote in remotes:
-            exec(remote, 'ip netns del "switch" || true')
+            tid = get_thread_id()
+            exec(tid, remote, 'ip netns del "switch" || true')
 
     # wait for tasks to complete
     wait_for_completion()
     end_ms = millis()
 
     if verbosity != 'quiet':
-        print('Network setup in {}:'.format(format_duration(end_ms - beg_ms)))
+        print('network setup in {}:'.format(format_duration(end_ms - beg_ms)))
         print(f'  nodes: {len(data.nodes_create)} created, {len(data.nodes_remove)} removed, {len(data.nodes_update)} updated')
         print(f'  links: {len(data.links_create)} created, {len(data.links_remove)} removed, {len(data.links_update)} updated')
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import multiprocessing
 import threading
 import datetime
 import argparse
@@ -13,7 +12,7 @@ import shared
 from shared import (
     eprint, create_process, exec, get_remote_mapping, millis,
     default_remotes, convert_to_neighbors, stop_all_terminals,
-    wait_for_completion, format_size, Remote, globalTerminalGroup
+    wait_for_completion, format_size, Remote, get_thread_id
 )
 
 class _Traffic:
@@ -98,9 +97,8 @@ def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
         remote = rmap[id]
 
         command = f'ip netns exec ns-{id} ip -statistics link show dev {interface}'
-        tid = (remote.address or 'local') + '_' +  str(i % multiprocessing.cpu_count())
-
-        globalTerminalGroup.addTask(tid, remote, command, ignore_error=False, onResultCallBack=collectResults)
+        tid = get_thread_id()
+        exec(tid, remote, command, ignore_error=False, onResultCallBack=collectResults)
 
     wait_for_completion()
 

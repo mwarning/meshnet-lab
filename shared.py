@@ -1,3 +1,4 @@
+import multiprocessing
 import datetime
 import subprocess
 import threading
@@ -125,6 +126,7 @@ def make_connected(network):
             center = get_center_node(neighbors, cluster)
             network['links'].append({'source': central, 'target': center, 'type': 'vpn'})
 
+# return number of nodes and links
 def json_count(path):
     obj = path
 
@@ -167,13 +169,19 @@ def sysload(remotes=default_remotes):
     load1 = 0
     load5 = 0
     load15 = 0
+    load_lock = threading.Lock()
 
-    for remote in remotes:
-        stdout = exec(remote, 'uptime', get_output=True)[0]
+    def collectResults(returncode, stdout, errout):
         t = stdout.split('load average:')[1].split(',')
+        load_lock.acquire()
         load1 += float(t[0])
         load5 += float(t[1])
         load15 += float(t[2])
+        load_lock.release()
+
+    for remote in remotes:
+        tid = get_thread_id()
+        exec(tid, remote, 'uptime', onResultCallBack=collectResults)
 
     titles = ['load1', 'load5', 'load15']
     values = [load1 / len(remotes), load5 / len(remotes), load15 / len(remotes)]
@@ -201,9 +209,9 @@ Execute a command via SSH or local. All tasks in a
 TerminalThread are executed in sequentional order.
 '''
 class TerminalThread(threading.Thread):
-    def __init__(self, tid, remote):
+    def __init__(self, num, remote):
         super(TerminalThread, self).__init__()
-        self.tid = tid
+        self.num = num
         self.remote = remote
         self.finish = False
         self.tasks = queue.Queue()
@@ -242,13 +250,16 @@ class TerminalThread(threading.Thread):
 class TerminalGroup():
     def __init__(self):
         self.terminals = {}
+        self.cpu_count = multiprocessing.cpu_count()
+        self.cpu_counter = 0
 
     def addTask(self, tid, remote, command, ignore_error=False, onResultCallBack=None):
-        terminal = self.terminals.get(tid, None)
+        idx = abs(tid) % self.cpu_count
+        terminal = self.terminals.get(idx, None)
         if not terminal:
             # create another terminal
-            terminal = TerminalThread(tid, remote)
-            self.terminals[tid] = terminal
+            terminal = TerminalThread(idx, remote)
+            self.terminals[idx] = terminal
 
         add_quotes=False
         terminal.tasks.put((ignore_error, add_quotes, command, onResultCallBack))
@@ -267,14 +278,21 @@ class TerminalGroup():
 
 globalTerminalGroup = TerminalGroup()
 
-def exec(remote, command, get_output=False, ignore_error=False, add_quotes=True):
-    tid = str(remote.address or 'local')
+def get_thread_id():
+    globalTerminalGroup.cpu_counter += 1
+    return globalTerminalGroup.cpu_counter
 
+def exec(tid, remote, command, get_output=False, ignore_error=False, onResultCallBack=None):
     if get_output:
         result = None
         def onResult(rc, stdout, stderr):
             nonlocal result
             result = (stdout, stderr, rc)
+
+        if onResultCallBack is not None:
+            eprint('onResultCallBack not supported for get_output=True.')
+            stop_all_terminals()
+            exit(1)
 
         globalTerminalGroup.addTask(tid, remote, command, ignore_error, onResult)
 
@@ -282,7 +300,7 @@ def exec(remote, command, get_output=False, ignore_error=False, add_quotes=True)
             time.sleep(0.01)
         return result
     else:
-        globalTerminalGroup.addTask(tid, remote, command, ignore_error)
+        globalTerminalGroup.addTask(tid, remote, command, ignore_error, onResultCallBack)
 
 '''
 The open terminal threads block our
@@ -310,7 +328,8 @@ def get_current_state(remotes):
     link_re = re.compile(r'\d+: ve-([^@:]+).*(?<= master )br-([^ ]+)')
 
     for remote in remotes:
-        stdout, stderr, rcode = exec(remote, f'ip netns exec "switch" ip a l || true', get_output=True)
+        tid = get_thread_id()
+        stdout, stderr, rcode = exec(tid, remote, f'ip netns exec "switch" ip a l || true', get_output=True)
 
         for line in stdout.splitlines():
             m = link_re.search(line)
@@ -335,7 +354,8 @@ def get_remote_mapping(remotes):
     rmap = {}
 
     for remote in remotes:
-        (stdout, _, _) = exec(remote, 'ip netns list', get_output=True)
+        tid = get_thread_id()
+        (stdout, _, _) = exec(tid, remote, 'ip netns list', get_output=True)
         for line in stdout.split():
             if line.startswith('ns-'):
                 rmap[line.strip()[3:]] = remote
@@ -379,18 +399,21 @@ def check_access(remotes):
             exit(1)
 
     for remote in remotes:
+        tid = get_thread_id()
+
         if remote.address is None:
             eprint('Need external address for all remotes.')
             stop_all_terminals()
             exit(1)
 
         # check if we can execute something
-        (stdout, stderr, rcode) = exec(remote, 'true', get_output=True, ignore_error=True)
+        (stdout, stderr, rcode) = exec(tid, remote, 'true', get_output=True, ignore_error=True)
         if rcode != 0:
             eprint(stdout)
             eprint(stderr)
             stop_all_terminals()
             exit(1)
+    wait_for_completion()
 
 def format_duration(time_ms):
     d, remainder = divmod(time_ms, 24 * 60 * 60 * 1000)
