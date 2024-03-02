@@ -82,7 +82,7 @@ def printConsole(returncode, stdout, errout):
     sys.stderr.write(errout)
     console_lock.release()
 
-def _stop_protocol(protocol, rmap, ids):
+def _stop_protocol(protocol, rmap, ids, duration_ms=0):
     base = os.path.dirname(os.path.realpath(__file__))
     path = f'{base}/protocols/{protocol}_stop.sh'
 
@@ -94,23 +94,39 @@ def _stop_protocol(protocol, rmap, ids):
     onResultCallBack = printConsole if verbosity == 'verbose' else None
 
     beg_ms = millis()
+    count = 0
 
     for i, id in enumerate(ids):
         remote = rmap[id]
+
+        if duration_ms > 0:
+            # delay until we meet sheduled duration
+            sheduled = beg_ms + count * (duration_ms / len(ids))
+            now = millis()
+            if now <= sheduled:
+                time.sleep((sheduled - now) / 1000.0)
 
         label = remote.address or 'local'
         command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
         tid = get_thread_id()
         exec(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
+        count += 1
 
     wait_for_completion()
+
+    if duration_ms > 0:
+        # delay until we meet sheduled duration
+        sheduled = count * (duration_ms / len(ids))
+        now = millis() - beg_ms
+        if now < sheduled:
+            time.sleep((sheduled - now) / 1000.0)
 
     end_ms = millis()
     if verbosity != 'quiet':
         print('stopped {} in {} namespaces in {}'.format(protocol, len(ids), format_duration(end_ms - beg_ms)))
 
-def _start_protocol(protocol, rmap, ids):
+def _start_protocol(protocol, rmap, ids, duration_ms=0):
     base = os.path.dirname(os.path.realpath(__file__))
     path = f'{base}/protocols/{protocol}_start.sh'
 
@@ -122,17 +138,33 @@ def _start_protocol(protocol, rmap, ids):
     onResultCallBack = printConsole if verbosity == 'verbose' else None
 
     beg_ms = millis()
+    count = 0
 
     for i, id in enumerate(ids):
         remote = rmap[id]
+
+        if duration_ms > 0:
+            # delay until we meet sheduled duration
+            sheduled = beg_ms + count * (duration_ms / len(ids))
+            now = millis()
+            if now <= sheduled:
+                time.sleep((sheduled - now) / 1000.0)
 
         label = remote.address or 'local'
         command = f'ip netns exec ns-{id} sh -s {label} {id} < {path}'
 
         tid = get_thread_id()
         exec(tid, remote, command, ignore_error=False, onResultCallBack=onResultCallBack)
+        count += 1
 
     wait_for_completion()
+
+    if duration_ms > 0:
+        # delay until we meet sheduled duration
+        sheduled = count * (duration_ms / len(ids))
+        now = millis() - beg_ms
+        if now < sheduled:
+            time.sleep((sheduled - now) / 1000.0)
 
     end_ms = millis()
     if verbosity != 'quiet':
@@ -212,6 +244,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
+    parser.add_argument('--duration',  type=int, default=0, help='Start/Stop software over a duration [ms].')
     parser.set_defaults(to_state=None)
 
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
@@ -266,14 +299,14 @@ def main():
 
     if args.action == 'start':
         ids = new_ids if args.to_state else list(rmap.keys())
-        _start_protocol(args.protocol, rmap, ids)
+        _start_protocol(args.protocol, rmap, ids, args.duration)
     elif args.action == 'stop':
         ids = old_ids if args.to_state else list(rmap.keys())
-        _stop_protocol(args.protocol, rmap, ids)
+        _stop_protocol(args.protocol, rmap, ids, args.duration)
     elif args.action == 'apply':
         beg_ms = millis()
-        _stop_protocol(args.protocol, rmap, old_ids)
-        _start_protocol(args.protocol, rmap, new_ids)
+        _stop_protocol(args.protocol, rmap, old_ids, args.duration)
+        _start_protocol(args.protocol, rmap, new_ids, args.duration)
         end_ms = millis()
 
         if verbosity != 'quiet':
