@@ -189,7 +189,7 @@ def sysload(remotes=default_remotes):
     return (titles, values)
 
 
-def create_process(remote, command, add_quotes=True):
+def create_process(remote, command, add_quotes=False):
     # remote terminal
     if remote.address:
         if add_quotes:
@@ -221,9 +221,9 @@ class TerminalThread(threading.Thread):
         while True:
             try:
                 # might raise Empty
-                (ignore_error, add_quotes, command, onResultCallBack) = self.tasks.get(block=True, timeout=0.2)
+                (ignore_error, command, onResultCallBack) = self.tasks.get(block=True, timeout=0.2)
 
-                p = create_process(self.remote, command, add_quotes)
+                p = create_process(self.remote, command)
 
                 (std, err) = p.communicate()
                 stdout = std.decode()
@@ -261,8 +261,7 @@ class TerminalGroup():
             terminal = TerminalThread(idx, remote)
             self.terminals[idx] = terminal
 
-        add_quotes=False
-        terminal.tasks.put((ignore_error, add_quotes, command, onResultCallBack))
+        terminal.tasks.put((ignore_error, command, onResultCallBack))
         return terminal
 
     def stopAllTerminals(self):
