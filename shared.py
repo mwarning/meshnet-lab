@@ -273,7 +273,7 @@ class TerminalGroup():
     def waitForCompletion(self):
         for terminal in self.terminals.values():
             while not terminal.tasks.empty():
-                time.sleep(0.1)
+                time.sleep(0.01)
 
 globalTerminalGroup = TerminalGroup()
 
