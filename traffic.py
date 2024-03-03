@@ -108,7 +108,7 @@ def main():
     parser = argparse.ArgumentParser(description='Measure mean traffic speed.')
     parser.add_argument('--remotes', help='Measure across remotes described in the provided JSON file.')
     parser.add_argument('--interface', help='Interface to measure traffic on.')
-    parser.add_argument('--duration', type=int, help='Measurement duration in seconds.')
+    parser.add_argument('--duration', type=int, help='Measurement duration [ms].')
 
     args = parser.parse_args()
 
@@ -132,7 +132,7 @@ def main():
 
     rmap = get_remote_mapping(args.remotes)
     if args.duration:
-        ds = args.duration
+        ds = args.duration / 1000
         ts_beg = traffic(args.remotes, interface=args.interface, rmap=rmap)
         time.sleep(ds)
         ts_end = traffic(args.remotes, interface=args.interface, rmap=rmap)

@@ -45,7 +45,7 @@ sleep 30
 # Run some test commands (output omitted)
 ./ping.py
 ./ping.py --path 0 49
-./traffic.py --duration 3
+./traffic.py --duration 3000
 ./software.py --verbosity verbose run 'ip a && echo "Hello from inside node"'
 
 # Stop software
