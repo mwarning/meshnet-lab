@@ -174,6 +174,9 @@ def sysload(remotes=default_remotes):
     def collectResults(returncode, stdout, errout):
         t = stdout.split('load average:')[1].split(',')
         load_lock.acquire()
+        nonlocal load1
+        nonlocal load5
+        nonlocal load15
         load1 += float(t[0])
         load5 += float(t[1])
         load15 += float(t[2])
