@@ -219,8 +219,8 @@ def clear(remotes):
         for protocol in protocols:
             label = remote.address or 'local'
             command = f'sh -s {label} < {base}/protocols/{protocol}'
-            tid = label + '_' +  str(i % multiprocessing.cpu_count())
-            globalTerminalGroup.addTask(tid, remote, command, ignore_error=True)
+            tid = get_thread_id()
+            exec(tid, remote, command, ignore_error=True)
             i += 1
 
     wait_for_completion()

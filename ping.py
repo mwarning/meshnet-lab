@@ -22,6 +22,7 @@ from shared import (
     stop_all_terminals,
     format_size,
     Remote,
+    get_thread_id
 )
 
 """
@@ -254,8 +255,10 @@ def _get_ip_address(remote, id, interface, address_type=None):
     lladdr4 = None
     addr6 = None
     addr4 = None
+    tid = get_thread_id()
 
     stdout, stderr, rcode = exec(
+        tid,
         remote,
         f'ip netns exec "ns-{id}" ip addr list dev {interface}',
         get_output=True,
@@ -358,7 +361,9 @@ def _parse_ping(result, output):
 def _get_interface(remote, source):
     # batman-adv uses bat0 as default entry interface
     for interface in ["tun0", "bat0"]:
+        tid = get_thread_id()
         rcode = exec(
+            tid,
             remote,
             f"ip netns exec ns-{source} ip addr list dev {interface}",
             get_output=True,
@@ -549,8 +554,9 @@ def check_access(remotes):
 
 def namespace_exists(remotes, ns):
     for remote in remotes:
+        tid = get_thread_id()
         rcode = exec(
-            remote, f"ip netns exec ns-{ns} true", get_output=True, ignore_error=True
+            tid, remote, f"ip netns exec ns-{ns} true", get_output=True, ignore_error=True
         )[2]
         if rcode == 0:
             return True
