@@ -274,8 +274,8 @@ def main():
 
     args = parser.parse_args()
 
-    if 'protocol' in args is not None and not re.match(r'^[\w-]+$', args.protocol):
-        eprint('Invalid protocol name: {}'.format(args.protocol))
+    if 'protocol' in args and not re.match(r'^[\w_\.\-]+$', args.protocol):
+        eprint(f'Invalid protocol name: {args.protocol}')
         exit(1)
 
     if args.remotes:
