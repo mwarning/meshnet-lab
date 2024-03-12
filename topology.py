@@ -288,7 +288,7 @@ if __name__ == '__main__':
     elif args.topology == 'nodes':
         output = create_nodes(args.count)
     else:
-        eprint('Unknown topology: {}'.format(args.topology))
+        eprint(f'Unknown topology: {args.topology}')
         exit(1)
 
     for link in output['links']:
