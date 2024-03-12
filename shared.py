@@ -186,6 +186,8 @@ def sysload(remotes=default_remotes):
         tid = get_thread_id()
         exec(tid, remote, 'uptime', onResultCallBack=collectResults)
 
+    wait_for_completion()
+
     titles = ['load1', 'load5', 'load15']
     values = [load1 / len(remotes), load5 / len(remotes), load15 / len(remotes)]
 
