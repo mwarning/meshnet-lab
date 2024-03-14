@@ -81,7 +81,7 @@ def run(protocol, csvfile):
 	network.clear(remotes)
 
 # remove none, after it has been verified to be 0% (also for mobility1)
-for protocol in ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']:
+for protocol in ['yggdrasil-0.3.16', 'yggdrasil-0.4.7', 'yggdrasil-0.5.5']:
 	with open(f"{prefix}mobility2-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
 

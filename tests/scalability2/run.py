@@ -103,7 +103,7 @@ def run(topology, path, state):
 
 # Keep track of tests that exceed the machines resources and drop bigger networks
 drop_test = set()
-protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
+protocols = ['yggdrasil-0.3.16', 'yggdrasil-0.4.7', 'yggdrasil-0.5.5']
 
 for topology in ['line', 'grid4', 'grid8', 'rtree']:
 	for path in sorted(glob.glob(f'../../data/{topology}/*.json')):

@@ -58,7 +58,7 @@ def run(protocol, csvfile):
 		if ping_result.send == 0 or (ping_result.received / ping_result.send) < 0.4:
 			break
 
-for protocol in ['babel', 'batman-adv', 'yggdrasil']:
+for protocol in ['yggdrasil-0.3.16', 'yggdrasil-0.4.7', 'yggdrasil-0.5.5']:
 	with open(f"{prefix}benchmark1-{protocol}.csv", 'w+') as csvfile:
 		run(protocol, csvfile)
 

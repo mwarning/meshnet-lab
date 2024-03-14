@@ -19,8 +19,8 @@ gnuplot -e "
 	set yrange [0:100]; \
 	set ytics 0, 10; \
 	plot \
-	'${prefix}benchmark1-babel.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'babel', \
-	'${prefix}benchmark1-batman-adv.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'batman-adv', \
-	'${prefix}benchmark1-yggdrasil.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil', \
+	'${prefix}benchmark1-yggdrasil-0.3.16.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil-0.3.16', \
+	'${prefix}benchmark1-yggdrasil-0.4.7.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil-0.4.7', \
+	'${prefix}benchmark1-yggdrasil-0.5.5.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints title 'yggdrasil-0.5.5', \
 	;
 "

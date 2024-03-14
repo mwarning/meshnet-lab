@@ -18,14 +18,9 @@ for step_duration in 10 30; do
 			set yrange [0:100]; \
 			set termoption lw 3; \
 			plot \
-			'${prefix}mobility1-${step_duration}-${step_distance}-babel.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-violet' title 'babel [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-batman-adv.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'skyblue' title 'batman-adv [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx6.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-bmx7.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'gold' title 'bmx7 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-cjdns.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-red' title 'cjdns [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-olsr1.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'coral' title 'olsr1 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-olsr2.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'green' title 'olsr2 [%]' axis x1y1, \
-			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'purple' title 'yggdrasil [%]' axis x1y1 \
+			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil-0.3.16.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'dark-red' title 'yggdrasil-0.3.16 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil-0.4.7.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'coral' title 'yggdrasil-0.4.7 [%]' axis x1y1, \
+			'${prefix}mobility1-${step_duration}-${step_distance}-yggdrasil-0.5.5.csv' using 0:(100 * (column('packets_received') / column('packets_send'))) with linespoints linetype rgb 'green' title 'yggdrasil-0.5.5 [%]' axis x1y1 \
 			;\
 		"
 
@@ -36,7 +31,7 @@ for step_duration in 10 30; do
 			set grid back lc rgb '#808080' lt 0 lw 1; \
 			set border 3 back lc rgb '#808080' lt 1; \
 			set tics nomirror; \
-			array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
+			array protocols = ['yggdrasil-0.3.16', 'yggdrasil-0.4.7', 'yggdrasil-0.5.5']; \
 			array SUM[|protocols|]; \
 			do for [i=1:|protocols|] { \
 				file = '${prefix}mobility1-${step_duration}-${step_distance}-'.protocols[i].'.csv'; \

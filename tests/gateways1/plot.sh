@@ -20,29 +20,14 @@ for id in 'line' 'grid4' 'rtree'; do
 		set ytics nomirror; \
 		set termoption lw 3; \
 		plot \
-		'${prefix}gateways1-babel-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-violet' title 'babel [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-babel-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'dark-violet' title 'babel [%]' axis x1y2, \
+		'${prefix}gateways1-yggdrasil-0.3.16-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-violet' title 'yggdrasil-0.3.16 [KB/s/node]' axis x1y1, \
+		'${prefix}gateways1-yggdrasil-0.3.16-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'dark-violet' title 'yggdrasil-0.3.16 [%]' axis x1y2, \
 		\
-		'${prefix}gateways1-batman-adv-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'skyblue' title 'batman-adv [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-batman-adv-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'skyblue' title 'batman-adv [%]' axis x1y2, \
+		'${prefix}gateways1-yggdrasil-0.4.7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'skyblue' title 'yggdrasil-0.4.7 [KB/s/node]' axis x1y1, \
+		'${prefix}gateways1-yggdrasil-0.4.7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'skyblue' title 'yggdrasil-0.4.7 [%]' axis x1y2, \
 		\
-		'${prefix}gateways1-bmx6-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-yellow' title 'bmx6 [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-bmx6-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'dark-yellow' title 'bmx6 [%]' axis x1y2, \
-		\
-		'${prefix}gateways1-bmx7-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'gold' title 'bmx7 [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-bmx7-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'gold' title 'bmx7 [%]' axis x1y2, \
-		\
-		'${prefix}gateways1-cjdns-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-red' title 'cjdns [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-cjdns-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'dark-red' title 'cjdns [%]' axis x1y2, \
-		\
-		'${prefix}gateways1-olsr1-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'coral' title 'olsr1 [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-olsr1-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'coral' title 'olsr1 [%]' axis x1y2, \
-		\
-		'${prefix}gateways1-olsr2-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'green' title 'olsr2 [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-olsr2-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'green' title 'olsr2 [%]' axis x1y2, \
-		\
-		'${prefix}gateways1-yggdrasil-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'purple' title 'yggdrasil [KB/s/node]' axis x1y1, \
-		'${prefix}gateways1-yggdrasil-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'purple' title 'yggdrasil [%]' axis x1y2, \
+		'${prefix}gateways1-yggdrasil-0.5.5-$id.csv' using (column('node_count')):(((column('tx_bytes') / 1000) / (column('traffic_ms') / 1000)) / column('node_count')) with linespoints linetype rgb 'dark-yellow' title 'yggdrasil-0.5.5 [KB/s/node]' axis x1y1, \
+		'${prefix}gateways1-yggdrasil-0.5.5-$id.csv' using (column('node_count')):(100 * column('packets_received') / column('packets_send')) with linespoints dashtype 2 linewidth 1.5 linecolor rgb 'dark-yellow' title 'yggdrasil-0.5.5 [%]' axis x1y2, \
 		;\
 	"
 done
