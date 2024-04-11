@@ -583,16 +583,16 @@ def main():
         "--pings",
         type=int,
         default=10,
-        help="Number of pings (unique, no self, no reverse paths).",
+        help="Number of pings. Unique, no self, no reverse paths. (default: 10)",
     )
     parser.add_argument(
-        "--duration", type=int, default=1000, help="Spread pings over duration in ms."
+        "--duration", type=int, default=1000, help="Spread pings over duration in milliseconds. (default: 1000)"
     )
     parser.add_argument(
         "--deadline",
         type=int,
         default=1,
-        help="Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received. In this case ping does not stop after count packet are sent, it waits either for deadline expire or until count probes are answered or for some error notification from network.",
+        help="Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received. In this case ping does not stop after count packet are sent, it waits either for deadline expire or until count probes are answered or for some error notification from network. (default: 1)",
     )
     parser.add_argument(
         "--timeout",
