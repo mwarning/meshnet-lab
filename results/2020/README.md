@@ -131,5 +131,5 @@ Notes:
 - based on Gilbert's random disk model
 - the connectivity rises exponentionally
 - the standard deviation decreases very quickly near 100%
-- further reading: [Insights From Percolation Theory](https://inthemesh.com/archive/from-mocha-to-mesh-insights-from-percolation-theory/)
+- further reading: [Insights From Percolation Theory](https://web.archive.org/web/20230530174607/https://inthemesh.com/archive/from-mocha-to-mesh-insights-from-percolation-theory/)
 - rough threshold radius approximation: 2 * sqrt(overall_area / (PI * node_count))
