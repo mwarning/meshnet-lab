@@ -4,7 +4,7 @@
 prefix="$1"
 
 gnuplot -e "
-	set title \"Reachability and traffix between 6 ground stations and 3 orbits of 30 satellites.\nA span of 2 hours is simulated at different speedups.\"; \
+	set title \"Reachability and traffic between 6 ground stations and 3 orbits of 30 satellites.\nA span of 2 hours is simulated at different speedups.\"; \
 	set grid; \
 	set term png; \
 	set terminal png size 1280,960; \
