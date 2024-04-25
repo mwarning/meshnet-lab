@@ -3,12 +3,12 @@
 from cmath import pi
 import random
 import argparse
+import json
 import math
 import time
 import sys
 import os
 import re
-import json
 
 import shared
 from shared import (
@@ -260,27 +260,23 @@ def _get_ip_address(remote, id, interface, address_type=None):
     stdout, stderr, rcode = exec(
         tid,
         remote,
-        f'ip netns exec "ns-{id}" ip addr list dev {interface}',
+        f'ip netns exec "ns-{id}" ip -j addr list dev {interface}',
         get_output=True,
         ignore_error=True,
     )
-    lines = stdout.split("\n")
 
-    for line in lines:
-        if "inet " in line:
-            addr4 = line.split()[1].split("/")[0]
-            if addr4.startswith("169.254."):
-                lladdr4 = addr4
-            else:
-                break
+    js = json.loads(stdout)
+    addr_info = js[0]['addr_info']
 
-    for line in lines:
-        if "inet6 " in line:
-            addr6 = line.split()[1].split("/")[0]
-            if addr6.startswith("fe80:"):
-                lladdr6 = addr6
-            else:
-                break
+    for addr in addr_info:
+        if addr['family'] == 'inet' and addr['local'].startswith("169.254."):
+            lladdr4 = addr['local']
+            break
+
+    for addr in addr_info:
+        if addr['family'] == 'inet6' and addr['local'].startswith("fe80:"):
+            lladdr6 = addr['local']
+            break
 
     if address_type is None:
         if addr4 is not None:
