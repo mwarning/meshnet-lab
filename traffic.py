@@ -4,6 +4,7 @@ import threading
 import datetime
 import argparse
 import time
+import json
 import sys
 import os
 import re
@@ -73,30 +74,30 @@ def traffic(remotes=default_remotes, ids=None, interface=None, rmap=None):
     ts_lock = threading.Lock()
 
     def collectResults(returncode, stdout, errout):
-        lines = stdout.split('\n')
-        link_toks = lines[1].split()
-        rx_toks = lines[3].split()
-        tx_toks = lines[5].split()
+        js = json.loads(stdout)
+        stats64 = js[0]['stats64']
+        rx = stats64['rx']
+        tx = stats64['tx']
 
         ts_lock.acquire()
-        ts.rx_bytes += int(rx_toks[0])
-        ts.rx_packets += int(rx_toks[1])
-        ts.rx_errors += int(rx_toks[2])
-        ts.rx_dropped += int(rx_toks[3])
-        ts.rx_overrun += int(rx_toks[4])
-        ts.rx_mcast += int(rx_toks[5])
-        ts.tx_bytes += int(tx_toks[0])
-        ts.tx_packets += int(tx_toks[1])
-        ts.tx_errors += int(tx_toks[2])
-        ts.tx_dropped += int(tx_toks[3])
-        ts.tx_carrier += int(tx_toks[4])
-        ts.tx_collsns += int(tx_toks[5])
+        ts.rx_bytes += rx['bytes']
+        ts.rx_packets += rx['packets']
+        ts.rx_errors += rx['errors']
+        ts.rx_dropped += rx['dropped']
+        ts.rx_overrun += rx['over_errors']
+        ts.rx_mcast += rx['multicast']
+        ts.tx_bytes += tx['bytes']
+        ts.tx_packets += tx['packets']
+        ts.tx_errors += tx['errors']
+        ts.tx_dropped += tx['dropped']
+        ts.tx_carrier += tx['carrier_errors']
+        ts.tx_collsns += tx['collisions']
         ts_lock.release()
 
     for i, id in enumerate(ids):
         remote = rmap[id]
 
-        command = f'ip netns exec ns-{id} ip -statistics link show dev {interface}'
+        command = f'ip netns exec ns-{id} ip -j -statistics link show dev {interface}'
         tid = get_thread_id()
         exec(tid, remote, command, ignore_error=False, onResultCallBack=collectResults)
 
