@@ -244,6 +244,8 @@ class TerminalThread(threading.Thread):
 
                 if onResultCallBack:
                     onResultCallBack(p.returncode, stdout, errout)
+
+                self.tasks.task_done()
             except queue.Empty:
                 # try again or finish loop
                 if self.finish:
@@ -277,8 +279,7 @@ class TerminalGroup():
 
     def waitForCompletion(self):
         for terminal in self.terminals.values():
-            while not terminal.tasks.empty():
-                time.sleep(0.01)
+            terminal.tasks.join()
 
 globalTerminalGroup = TerminalGroup()
 
