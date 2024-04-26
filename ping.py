@@ -269,14 +269,16 @@ def _get_ip_address(remote, id, interface, address_type=None):
     addr_info = js[0]['addr_info']
 
     for addr in addr_info:
-        if addr['family'] == 'inet' and addr['local'].startswith("169.254."):
-            lladdr4 = addr['local']
-            break
-
-    for addr in addr_info:
-        if addr['family'] == 'inet6' and addr['local'].startswith("fe80:"):
-            lladdr6 = addr['local']
-            break
+        if addr['family'] == 'inet':
+            if addr['scope'] == 'global':
+                addr4 = addr['local']
+            elif addr['scope'] == 'link':
+                lladdr4 = addr['local']
+        elif addr['family'] == 'inet6':
+            if addr['scope'] == 'global':
+                addr6 = addr['local']
+            elif addr['scope'] == 'link':
+                lladdr6 = addr['local']
 
     if address_type is None:
         if addr4 is not None:
