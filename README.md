@@ -169,7 +169,7 @@ Host *
 
 Pro:
 - no need to modify existing routing protocol implementations
-- test the same binaries that are deployed
+- test the same code that is deployed
 
 Cons:
 - no discrete event simulation that can run faster than real time
