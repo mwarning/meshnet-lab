@@ -149,8 +149,9 @@ def csv_update(file, delimiter, *args):
     values = list()
 
     for arg in args:
-        titles += arg[0]
-        values += arg[1]
+        if arg:
+            titles += arg[0]
+            values += arg[1]
 
     # convert elements to str
     for i in range(0, len(titles)):

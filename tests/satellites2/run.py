@@ -298,6 +298,9 @@ def print_stations():
 # input: [([...], [...]), ([...], [...]), ...]
 # output: [(...), (...)]
 def merge_results(results):
+    if len(results) == 0:
+        return None
+
     ret = copy.copy(results[0])
     for result in results[1:]:
         for i, value in enumerate(result[1]):
