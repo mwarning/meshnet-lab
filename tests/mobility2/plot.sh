@@ -9,8 +9,7 @@ title='Mobility2 Test for 50 randomly placed nodes in a 1x1km square.\nMove in r
 gnuplot -e "
 	set title \"$title\" noenhanced; \
 	set grid; \
-	set term png; \
-	set terminal png size 1280,960; \
+	set terminal pngcairo size 1280,960; \
 	set output '${prefix}mobility2_arrival_progress.png'; \
 	set key spacing 2 font 'sans, 18' top right; \
 	set ylabel 'packet arrival [%]'; \
@@ -31,8 +30,7 @@ gnuplot -e "
 gnuplot -e "
 	set title \"$title\" noenhanced; \
 	set grid; \
-	set term png; \
-	set terminal png size 1280,960; \
+	set terminal pngcairo size 1280,960; \
 	set output '${prefix}mobility2_traffic_progress.png'; \
 	set key spacing 2 font 'sans, 18' top right; \
 	set ylabel 'tx traffic per node [KB/s]'; \
@@ -52,8 +50,7 @@ gnuplot -e "
 # packet arrival stats
 gnuplot -e "
 	set grid; \
-	set term png; \
-	set terminal png size 1280,480; \
+	set terminal pngcairo size 1280,480; \
 	set output '${prefix}mobility2_arrival_stats.png'; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
@@ -76,8 +73,7 @@ gnuplot -e "
 # tx traffic stats
 gnuplot -e "
 	set grid; \
-	set term png; \
-	set terminal png size 1280,480; \
+	set terminal pngcairo size 1280,480; \
 	set output '${prefix}mobility2_traffic_stats.png'; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \

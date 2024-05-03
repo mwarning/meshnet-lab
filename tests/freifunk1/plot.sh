@@ -32,7 +32,7 @@ gnuplot -e "
 	set term png; \
 	set terminal png size 1280,960; \
 	set output '${prefix}freifunk1_arrival_stats.png'; \
-	set key spacing 3 font 'sans, 18'; \
+	set nokey; \
 	set style data histogram; \
 	set style histogram cluster gap 3; \
 	set style fill solid border -1; \
@@ -49,5 +49,5 @@ gnuplot -e "
 "
 
 # combine graphs
-convert	\( "${prefix}freifunk1_traffic_stats.png" "${prefix}freifunk1_arrival_stats.png" -append \) \
+convert	\( "${prefix}freifunk1_arrival_stats.png" "${prefix}freifunk1_traffic_stats.png" +append \) \
 		+append "${prefix}freifunk1.png"

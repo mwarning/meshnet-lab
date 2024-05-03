@@ -5,16 +5,17 @@ prefix="$1"
 
 gnuplot -e "
 	set title \"Benchmark to see how many nodes of a grid4 network the host system can sustain.\"; \
-	set grid; \
-	set term png; \
-	set terminal png size 800,600; \
+	set terminal pngcairo size 1280,960; \
 	set output '${prefix}benchmark1.png'; \
-	set key spacing 1 font 'sans, 18'; \
+	set grid back lc rgb '#808080' lt 0 lw 1; \
+	set border 3 back lc rgb '#808080' lt 1; \
+	set tics nomirror; \
+	set key left center spacing 1 font 'sans, 18'; \
 	set xlabel '# number of nodes'; \
 	set ylabel 'ping arrival [%]'; \
 	set termoption lw 3; \
-	set xrange [0:500]; \
-	set xtics 0, 50; \
+	set xrange [0:1500]; \
+	set xtics 0, 100; \
 	set yrange [0:100]; \
 	set ytics 0, 10; \
 	plot \

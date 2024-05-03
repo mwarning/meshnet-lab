@@ -7,7 +7,7 @@ gnuplot -e "
 	set title \"Reachability between 6 ground stations and 3 orbits of 30 satellites.\nAt 2x real time with packet loss of 0-10%.\"; \
 	set grid; \
 	set term png; \
-	set terminal png size 1280,960; \
+	set terminal pngcairo size 1280,960; \
 	set output '${prefix}satellites3.png'; \
 	set key spacing 2 font 'sans, 18'center right; \
 	set ylabel 'packets arrived [%]'; \
