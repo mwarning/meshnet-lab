@@ -6,9 +6,11 @@ prefix="$1"
 for id in 'line' 'grid4' 'rtree'; do
 	gnuplot -e "
 		set title \"Traffic by routing protocol on $id dataset with 100MBit/s - 1ms latency links.\n1. Start daemons, 2. Wait 300s, 3. Measure for 300s with <node_count> random pings to a gateway\" noenhanced; \
-		set grid; \
 		set terminal pngcairo size 1280,960; \
 		set output '${prefix}gateways1-$id.png'; \
+		set grid back lc rgb '#808080' lt 0 lw 1; \
+		set border 3 back lc rgb '#808080' lt 1; \
+		set tics nomirror; \
 		set key left top spacing 1 font 'sans, 12'; \
 		set xlabel '# number of nodes'; \
 		set ylabel 'tx per node [KB/s]'; \

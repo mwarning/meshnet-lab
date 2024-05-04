@@ -7,9 +7,11 @@ for step_duration in 10 30; do
 	for step_distance in 10 30 60; do
 		gnuplot -e "
 			set title \"Mobility1 test of 50 nodes. Start inside 1x1km square.\nStep duration is ${step_duration} seconds. Step width is 0-${step_distance}m. 100MBit/s - 1ms latency links.\" noenhanced; \
-			set grid; \
 			set terminal pngcairo size 1280,960; \
 			set output '${prefix}mobility1-${step_duration}-${step_distance}_arrival_progress.png'; \
+			set grid back lc rgb '#808080' lt 0 lw 1; \
+			set border 3 back lc rgb '#808080' lt 1; \
+			set tics nomirror; \
 			set key spacing 2 font 'sans, 18' center right; \
 			set xlabel '${step_duration}s steps [-]'; \
 			set ylabel 'packet arrival [%]'; \
@@ -29,9 +31,11 @@ for step_duration in 10 30; do
 
 		# packet arrival stats
 		gnuplot -e "
-			set grid; \
 			set terminal pngcairo size 1280,480; \
 			set output '${prefix}mobility1-${step_duration}-${step_distance}_arrival_stats.png'; \
+			set grid back lc rgb '#808080' lt 0 lw 1; \
+			set border 3 back lc rgb '#808080' lt 1; \
+			set tics nomirror; \
 			array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 			array SUM[|protocols|]; \
 			do for [i=1:|protocols|] { \

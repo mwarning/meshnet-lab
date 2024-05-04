@@ -8,9 +8,11 @@ title='Mobility2 Test for 50 randomly placed nodes in a 1x1km square.\nMove in r
 # progress of packet arrival rate
 gnuplot -e "
 	set title \"$title\" noenhanced; \
-	set grid; \
 	set terminal pngcairo size 1280,960; \
 	set output '${prefix}mobility2_arrival_progress.png'; \
+	set grid back lc rgb '#808080' lt 0 lw 1; \
+	set border 3 back lc rgb '#808080' lt 1; \
+	set tics nomirror; \
 	set key spacing 2 font 'sans, 18' top right; \
 	set ylabel 'packet arrival [%]'; \
 	set termoption lw 3; \
@@ -29,9 +31,11 @@ gnuplot -e "
 # progress of tx bytes rate
 gnuplot -e "
 	set title \"$title\" noenhanced; \
-	set grid; \
 	set terminal pngcairo size 1280,960; \
 	set output '${prefix}mobility2_traffic_progress.png'; \
+	set grid back lc rgb '#808080' lt 0 lw 1; \
+	set border 3 back lc rgb '#808080' lt 1; \
+	set tics nomirror; \
 	set key spacing 2 font 'sans, 18' top right; \
 	set ylabel 'tx traffic per node [KB/s]'; \
 	set termoption lw 3; \
@@ -49,9 +53,11 @@ gnuplot -e "
 
 # packet arrival stats
 gnuplot -e "
-	set grid; \
 	set terminal pngcairo size 1280,480; \
 	set output '${prefix}mobility2_arrival_stats.png'; \
+	set grid back lc rgb '#808080' lt 0 lw 1; \
+	set border 3 back lc rgb '#808080' lt 1; \
+	set tics nomirror; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
@@ -72,9 +78,11 @@ gnuplot -e "
 
 # tx traffic stats
 gnuplot -e "
-	set grid; \
 	set terminal pngcairo size 1280,480; \
 	set output '${prefix}mobility2_traffic_stats.png'; \
+	set grid back lc rgb '#808080' lt 0 lw 1; \
+	set border 3 back lc rgb '#808080' lt 1; \
+	set tics nomirror; \
 	array protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']; \
 	array SUM[|protocols|]; \
 	do for [i=1:|protocols|] { \
