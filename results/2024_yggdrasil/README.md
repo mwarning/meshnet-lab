@@ -33,6 +33,7 @@ Routing Software
 
 Notes
 
+* Ignore test results that are outside the safe range of nodes/links counts!
 * All Yggdrasil version were compiled using Go 1.22.1.
 * RAM and storage were much more than needed.
 * Links are configured to have 1ms latency and no packet loss.
