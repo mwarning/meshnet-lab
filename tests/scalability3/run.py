@@ -28,7 +28,7 @@ network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
-def get_paths(network, towards_sink=True):
+def get_sink_paths(network, towards_sink=True):
 	def get_nodes(network):
 		nodes = set()
 
@@ -64,7 +64,7 @@ def get_paths(network, towards_sink=True):
 
 	return paths
 
-def run(topology, path, state, towards_sink):
+def run(topology, path, state):
 	(node_count, link_count) = shared.json_count(state)
 
 	with open(f'{prefix}scalability3-{protocol}-{topology}.csv', 'a') as csvfile:
@@ -82,7 +82,7 @@ def run(topology, path, state, towards_sink):
 		traffic_begin = traffic.traffic(remotes)
 
 		# Send "<node_count> - 1" pings
-		paths = get_paths(state, towards_sink)
+		paths = get_sink_paths(state, False)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=(200*len(paths)), verbosity='verbose')
 
 		traffic_stop_ms = shared.millis()
@@ -121,7 +121,7 @@ for topology in ['line', 'grid4', 'grid8', 'rtree']:
 			if f'{protocol}_{topology}' in drop_test:
 				continue
 
-			pc = run(topology, path, state, False)
+			pc = run(topology, path, state)
 
 			# Skip test if the successful pings drop below 60%
 			if pc < 60:
