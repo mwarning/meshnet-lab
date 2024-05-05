@@ -39,7 +39,7 @@ Notes
 
 ## Topologies
 
-An overview of the tested topologies can be found [here](../../data/README.md).
+An overview of the tested topologies can be found [here](/data/README.md).
 
 ## Benchmark1 Test
 
@@ -187,6 +187,8 @@ Notes
 ## Satellites1 Test
 
 ![image](satellites1/satellites1.png)
+
+![image](/tests/satellites1/animation.gif)
 
 Test procedure
 
