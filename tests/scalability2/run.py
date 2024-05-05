@@ -28,7 +28,7 @@ network.clear(remotes)
 
 prefix = os.environ.get('PREFIX', '')
 
-def get_paths(network, towards_sink=True):
+def get_sink_paths(network, towards_sink=True):
 	def get_nodes(network):
 		nodes = set()
 
@@ -82,7 +82,7 @@ def run(topology, path, state):
 		traffic_begin = traffic.traffic(remotes)
 
 		# Send "<node_count> - 1" pings
-		paths = get_paths(state, True)
+		paths = get_sink_paths(state, True)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=(200*len(paths)), verbosity='verbose')
 
 		traffic_stop_ms = shared.millis()
