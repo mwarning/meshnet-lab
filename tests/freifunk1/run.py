@@ -52,7 +52,7 @@ def run(protocol, csvfile):
 		dataset_name = '{}-{:04d}'.format(os.path.basename(path)[9:-5], node_count)
 
 		# limit to what the host can handle
-		if node_count > 310:
+		if node_count > 1000:
 			continue
 
 		print(f'run {protocol} on {path}')
