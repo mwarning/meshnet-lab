@@ -13,7 +13,7 @@ gnuplot -e "
 	set key spacing 2 font 'sans, 18'center right; \
 	set ylabel 'packets arrived [%]'; \
 	set yrange [0:105]; \
-	set xlabel 'real_time [sec]'; \
+	set xlabel 'real time [sec]'; \
 	set termoption lw 3; \
 	plot \
 	'${prefix}satellites1-batman-adv.csv' using (column('real_time_sec')/1000):(100 * column('packets_received') / column('packets_send')) with linespoints linetype rgb 'skyblue' title 'batman-adv', \
