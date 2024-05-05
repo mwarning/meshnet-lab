@@ -58,7 +58,8 @@ Test procedure
 
 Notes
 
-- up to 1000 nodes looks safe to simulate
+- up to 1000 nodes looks safe to simulate for grid4 and probably line and rtree
+    * grid8 would need more resources
 - the number of Yggdrasil 0.5.5 instances that can be simulated seems to be higher than for the other versions
 - the data for the graph took \~5 hours to generate
 
