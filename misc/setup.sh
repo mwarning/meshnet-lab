@@ -5,7 +5,9 @@
 set -xe
 
 apt-get update
-apt-get install -y sudo time git subversion build-essential g++ bash make golang libssl-dev patch libncurses5 libncurses5-dev zlib1g-dev gawk flex gettext wget unzip xz-utils python3 python3-distutils-extra rsync linux-headers-$(uname -r) pkg-config libnl-3-dev libnl-genl-3-dev libiw-dev bison cmake
+
+# packages python3-numpy and python3-matplotlib are only needed for the satellite tests
+apt-get install -y sudo time git subversion build-essential g++ bash make golang libssl-dev patch libncurses5 libncurses5-dev zlib1g-dev gawk flex gettext wget unzip xz-utils python3 python3-distutils-extra rsync linux-headers-$(uname -r) pkg-config libnl-3-dev libnl-genl-3-dev libiw-dev bison cmake python3-numpy python3-matplotlib
 
 WD="/tmp/work/"
 mkdir $WD
