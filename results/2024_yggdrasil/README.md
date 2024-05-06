@@ -59,20 +59,15 @@ Test procedure
 
 Notes
 
-- up to 1000 nodes looks safe to simulate for grid4 and probably line and rtree
-    * grid8 would need more resources
+- up to 1000 nodes looks safe to simulate for grid, line and tree topologies
 - the number of Yggdrasil 0.5.5 instances that can be simulated seems to be higher than for the other versions
 - the data for the graph took \~5 hours to generate
 
 ## Convergence1 Test
 
-![image](convergence1/convergence1-line.png)
-![image](convergence1/convergence1-rtree.png)
-![image](convergence1/convergence1-grid4.png)
-
 Test procedure
 
-1. creat topology
+1. for each topology:
 2. wait 10 seconds
 3. start Yggdrasil on each node
 4. wait 0-60 seconds (increase by 2 on each iteration)
@@ -85,6 +80,18 @@ Notes
 - Yggdrasil 0.5.5 has the lowest convergence time, albeit very small except for the line topology
 - the data for the graphs took \~4.5 hours to generate
 
+### Line Topology
+
+![image](convergence1/convergence1-line.png)
+
+### Tree Topology
+
+![image](convergence1/convergence1-rtree.png)
+
+### Grid Topology
+
+![image](convergence1/convergence1-grid4.png)
+
 ## Mobility1 Test
 
 ![image](mobility1/mobility1-10-10.png)
@@ -94,7 +101,6 @@ Notes
 ![image](mobility1/mobility1-30-10.png)
 ![image](mobility1/mobility1-30-30.png)
 ![image](mobility1/mobility1-30-60.png)
-
 
 Test procedure
 
@@ -142,10 +148,6 @@ Notes
 
 ## Gateways1 Test
 
-![image](gateways1/gateways1-grid4.png)
-![image](gateways1/gateways1-rtree.png)
-![image](gateways1/gateways1-line.png)
-
 Test procedure
 
 1. for each topology of different sizes:
@@ -162,6 +164,18 @@ Notes
 - all tested Yggdrasil version have a 100% successfull transfer rate on the grid and tree topology
 - Yggdrasil 0.3.16 has a very visible linear increasing overhead per link, but others seem to have a linear overhead
 - the data for the graphs took \~4.5 hours to generate
+
+### Line Topology
+
+![image](gateways1/gateways1-line.png)
+
+### Tree Topology
+
+![image](gateways1/gateways1-rtree.png)
+
+### Grid Topology
+
+![image](gateways1/gateways1-grid4.png)
 
 ## Freifunk1 Test
 
@@ -212,11 +226,6 @@ Notes
 
 ## Scalability1 Test
 
-![image](scalability1/scalability1-grid4.png)
-![image](scalability1/scalability1-grid8.png)
-![image](scalability1/scalability1-line.png)
-![image](scalability1/scalability1-rtree.png)
-
 Test procedure
 
 1. for each topology of various sizes
@@ -234,12 +243,19 @@ Notes
 - Yggdrasil 0.5.5 and 0.4.7 have bestr scaling behavior
 - the data for the graphs took \~47 hours to generate
 
-## Scalability2 Test
+### Line Topology
 
-![image](scalability2/scalability2-grid4.png)
-![image](scalability2/scalability2-grid8.png)
-![image](scalability2/scalability2-line.png)
-![image](scalability2/scalability2-rtree.png)
+![image](scalability1/scalability1-line.png)
+
+### Tree Toplogy
+
+![image](scalability1/scalability1-rtree.png)
+
+### Grid Topology
+
+![image](scalability1/scalability1-grid4.png)
+
+## Scalability2 Test
 
 Test procedure
 
@@ -257,12 +273,19 @@ Notes
 - Yggdrasil 0.4.16 handles the lines topology best by a wide margin
 - the data for the graphs took \~22 hours to generate
 
-## Scalability3 Test
+### Line Topology
 
-![image](scalability3/scalability3-grid4.png)
-![image](scalability3/scalability3-grid8.png)
-![image](scalability3/scalability3-line.png)
-![image](scalability3/scalability3-rtree.png)
+![image](scalability2/scalability2-line.png)
+
+### Tree Topology
+
+![image](scalability2/scalability2-rtree.png)
+
+### Grid Topology
+
+![image](scalability2/scalability2-grid4.png)
+
+## Scalability3 Test
 
 Test procedure
 
@@ -278,3 +301,15 @@ Notes
 
 - results similar to the scalability2 test
 - the data for the graphs took \~30 hours to generate
+
+### Line Topology
+
+![image](scalability3/scalability3-line.png)
+
+### Tree Topology
+
+![image](scalability3/scalability3-rtree.png)
+
+### Grid Topology
+
+![image](scalability3/scalability3-grid4.png)
