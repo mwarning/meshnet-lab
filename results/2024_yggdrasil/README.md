@@ -165,7 +165,7 @@ Notes
 
 ## Freifunk1 Test
 
-Freifunk is a grassroots public and free mesh network community. The topologies are a mix of WiFi and Internet connections through servers. The topology has been extracted from the public map data.
+[Freifunk](https://freifunk.net/) is a grassroots public and free mesh network community. The [topologies](/data/freifunk/README.md) are a mix of WiFi and Internet connections through servers. The topology has been extracted from the public map data.
 
 ![image](freifunk1/freifunk1.png)
 
