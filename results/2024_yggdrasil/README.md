@@ -1,6 +1,6 @@
 # 2024 Yggdrasil Test Results
 
-Test of different versions of the Yggdrasil routing daemon (0.3.16, 0.4.7 and 0.5.5). Each version uses a different routing approach and they are not compatible to each other. The raw test data (CSV) files are available here as well. meshnet-lab was [adapted](https://github.com/mwarning/meshnet-lab/tree/2024_yggdrasil) ([revison](https://github.com/mwarning/meshnet-lab/commit/f4747f60a975c472037bcc71f7adc052b80b3a35)) for this Yggdrasil only test.
+Test of different versions of the Yggdrasil routing daemon (0.3.16, 0.4.7 and 0.5.5). Each version uses a different routing approach and they are not compatible to each other. The raw test data (CSV) files are available here as well. meshnet-lab was [adapted](https://github.com/mwarning/meshnet-lab/tree/2024_yggdrasil) ([revison](https://github.com/mwarning/meshnet-lab/commit/e52fbb62056f42ce4af63a851398f847553b1c80)) for this Yggdrasil only test.
 
 ## Disclaimer
 
