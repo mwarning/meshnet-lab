@@ -2,14 +2,18 @@
 
 Test nodes move around randomly and form new connections.
 
-1. 50 nodes are distributed on a 1km x 1km square
-2. for distances of 50m to 400m in steps of 50m do six times:
-    1. move nodes in random directions of current distance
-    2. 150 nearest links are established
-    3. wait 10 seconds
-    4. 200 pings are send from a random source node to random destination node
+## Test
 
-The graphs contain the arrival rate and traffic rate progress as well as statistic.
+1. create 50 nodes on a 1km x 1km area
+2. connect all nodes with increasing link length until 150 links are created
+3. start Yggdrasil on each node and wait 30 seconds
+4. for each \<step_distance\> in [50, 100, 150, 200, 250, 300, 350, 400] meters do 6 times:
+5. move nodes by \<step_distance\> in a random direction
+6. reconnect with increasing link length until 150 links are created
+7. wait 15 seconds
+8. send 200 pings between random pairs of nodes over a period of 2 seconds
+9. record ping statistics and traffic
+10. continue at 4.
 
 ## Run
 
