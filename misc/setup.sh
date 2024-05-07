@@ -95,7 +95,7 @@ cd $WD
 wget https://github.com/cjdelisle/cjdns/archive/cjdns-v20.6.tar.gz -O cjdns.tar.gz
 tar -xvf cjdns.tar.gz
 cd cjdns-*
-./do
+NSA_APPROVED=true Seccomp_NO=1 NO_TEST=1 NO_NEON=1 CFLAGS="-O0" ./do
 cp cjdroute /usr/bin/
 
 # install yggdrasil
