@@ -49,7 +49,7 @@ def run(protocol, csvfile):
 		software.clear(remotes)
 
 		# add data to csv file
-		extra = (['node_count', 'software_startup_ms'], [node_count, software_startup_ms])
+		extra = (['node_count', 'link_count', 'software_startup_ms'], [node_count, link_count, software_startup_ms])
 		shared.csv_update(csvfile, '\t', extra, ping_result.getData(), sysload_result)
 
 		network.clear(remotes)
