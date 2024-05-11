@@ -69,7 +69,7 @@ def run(topology, path, state):
 drop_test = set()
 protocols = ['babel', 'batman-adv', 'bmx6', 'bmx7', 'cjdns', 'olsr1', 'olsr2', 'yggdrasil']
 
-for topology in ['line', 'grid4', 'grid8', 'rtree']:
+for topology in ['line', 'grid4', 'rtree']:
 	for path in sorted(glob.glob(f'../../data/{topology}/*.json')):
 		state = shared.load_json(path)
 		(node_count, link_count) = shared.json_count(state)

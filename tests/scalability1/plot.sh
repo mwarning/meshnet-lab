@@ -3,7 +3,7 @@
 # to distinguish multiple runs (if needed)
 prefix="$1"
 
-for id in 'line' 'grid4' 'grid8' 'rtree'; do
+for id in 'line' 'grid4' 'rtree'; do
 	gnuplot -e "
 		set title \"Traffic by routing protocol on $id dataset with 100MBit/s - 1ms latency links.\n1. Start daemons, 2. Wait 300s, 3. Measure for 300s with <node_count> random pings\" noenhanced; \
 		set terminal pngcairo size 1280,960; \
