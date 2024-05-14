@@ -1,5 +1,15 @@
 # Test Results Overview
 
+* [2024 Results](2024/README.md)
+  * batman-adv (2023.2)
+  * Babel (1.13.1)
+  * BMX 6 (1.0)
+  * BMX 7 (7.1.1)
+  * OLSRd (0.9.8, 204a44adc7e98b826833b6fac2f7673735832427)
+  * OLSR2 (0.15.1, fb15d54d6a7a087cb0c5ec37c49804f6ce432396)
+  * CJDNS (20.6)
+  * Yggdrasil (0.5.2)
+
 * [2024 Yggdrasil Results](2024_yggdrasil/README.md)
   * Yggdrasil (0.5.5)
   * Yggdrasil (0.4.7)

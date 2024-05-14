@@ -1,0 +1,4 @@
+node_count	software_startup_ms	traffic_measurement_ms	rx_bytes	rx_packets	rx_errors	rx_dropped	rx_overrun	rx_mcast	tx_bytes	tx_packets	tx_errors	tx_dropped	tx_carrier	tx_collsns	packets_send	packets_received	rtt_avg_ms	load1	load5	load15
+50	2312	300640	87467434	415915	0	0	0	0	44406057	211523	0	0	0	0	50	45	0.5600888888888889	0.2	0.16	0.38
+100	3910	301228	232320606	929644	0	0	0	0	116877127	468484	0	0	0	0	100	76	1.1189473684210525	0.21	0.24	0.27
+150	4832	301858	383616696	1448350	0	0	0	0	192531038	727809	0	0	0	0	150	83	1.746939759036145	0.15	0.38	0.88
