@@ -5,7 +5,7 @@ prefix="$1"
 
 for id in 'line' 'rtree' 'grid4'; do
 	gnuplot -e "
-		set title \"Reachability on a $id of 50 nodes with 100MBit/s - 1ms latency links.\n200 random pings in 2 seconds for each test point.\"; \
+		set title \"Reachability on a $id of 49 nodes with 100MBit/s - 1ms latency links.\n200 random pings in 2 seconds for each test point.\"; \
 		set terminal pngcairo size 1280,960; \
 		set output '${prefix}convergence1-$id.png'; \
 		set grid back lc rgb '#808080' lt 0 lw 1; \
