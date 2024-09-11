@@ -194,6 +194,35 @@ A - B - C
 
 If a programm on `A` tries to sends a packet via `B` to `C` (assuming a program on `B` to resends the packet). Then a packet send from `A` will be received by `B`. But when `B` receives and sends a packet addressed to `C`, then it will also be received by `C`, `D` and `A` (again). Overall, 2 packets will be send (TX) and 4 packets will be received (RX). 
 
+## How to Connect a Virtual Node to the Internet
+
+These commands create a network connection from the Linux network namespace `ns-0001` to the default namespace:
+
+```
+ip link add dev "outlink2" type veth peer name "outlink1"
+ip link set "outlink2" netns "ns-0001"
+ip netns exec ns-0001 ip a a 192.168.66.2/24 dev "outlink2"
+ip netns exec ns-0001 ip link set dev "outlink2" up
+ip a a 192.168.66.1/24 dev outlink1
+ip link set dev "outlink1" up
+```
+
+Now an interface `outlink1` with IP address `192.168.66.1` can be used to ping the IP address `192.168.66.2` of an interface `outlink2` that is inside namespace `ns-0001`.
+
+To allow access of the namespace `ns-0001` to the Internet, you can enable NAT:
+
+```
+sysctl -w "net.ipv4.ip_forward=1"
+iptables -t nat -A POSTROUTING -s "192.168.66.0/24" -o "outlink1" -j MASQUERADE
+iptables -A FORWARD -i "outlink1" -o "wan1" -j ACCEPT
+iptables -A FORWARD -o "outlink1" -i "wan1" -j ACCEPT
+```
+(The Internet facing interface is called "wan1" here.)
+
+Now you can ping the Internet from namespace `ns-0001`:
+
+`ip netns exec ns-0001 ping -I outlink2 8.8.8.8`
+
 ## Internal Working
 
 Every node is represented by its own network namespace (`ns-*`) and a namespace called `switch` that contains all the cabling. The node namespace and bridge in `switch` are connected by a veth peer pair `uplink` and `dl-<node>`.
