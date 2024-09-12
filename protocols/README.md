@@ -93,3 +93,12 @@ All of the following protocols are proactive protocols. They are also written in
 - spanning tree
 - greedy routing (instead of source routing)
 - leave nodes send bloom filters towards root
+
+## Qaul
+
+[Qaul](https://github.com/qaul)
+
+- a meshenger that uses a gossip protocol
+- provides core functionality as a daemon
+- does not provide a network tunnel
+- for ping tests, a wrapper needs to be used
