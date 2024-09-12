@@ -38,8 +38,8 @@ def run(protocol, csvfile):
 		software.start(protocol, remotes)
 		software_startup_ms = shared.millis() - software_start_ms
 
-		print(f'Wait 30s for the nodes start up and discover each other (needed for proactive protocols).')
-		shared.sleep(30)
+		print(f'Wait 60s for the nodes start up and discover each other (needed for proactive protocols) and let the system load settle.')
+		shared.sleep(60)
 
 		paths = ping.get_random_paths_filtered(state, min_hops=2, path_count=link_count)
 		ping_result = ping.ping(remotes=remotes, paths=paths, duration_ms=30000, verbosity='verbose')
@@ -53,6 +53,10 @@ def run(protocol, csvfile):
 		shared.csv_update(csvfile, '\t', extra, ping_result.getData(), sysload_result)
 
 		network.clear(remotes)
+
+		# system load too high
+		if sysload_result[0] > multiprocessing.cpu_count():
+			break
 
 		# abort benchmark when less than 40% of the pings arrive
 		if ping_result.send == 0 or (ping_result.received / ping_result.send) < 0.4:
