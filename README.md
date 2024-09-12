@@ -199,29 +199,29 @@ If a programm on `A` tries to sends a packet via `B` to `C` (assuming a program 
 These commands create a network connection from the Linux network namespace `ns-0001` to the default namespace:
 
 ```
-ip link add dev "outlink2" type veth peer name "outlink1"
-ip link set "outlink2" netns "ns-0001"
-ip netns exec ns-0001 ip a a 192.168.66.2/24 dev "outlink2"
-ip netns exec ns-0001 ip link set dev "outlink2" up
-ip a a 192.168.66.1/24 dev outlink1
-ip link set dev "outlink1" up
+ip link add dev "inner" type veth peer name "outer"
+ip link set "inner" netns "ns-0001"
+ip netns exec "ns-0001" ip a a 192.168.66.2/24 dev "inner"
+ip netns exec "ns-0001" ip link set dev "inner" up
+ip a a 192.168.66.1/24 dev "outer"
+ip link set dev "outer" up
 ```
 
-Now an interface `outlink1` with IP address `192.168.66.1` can be used to ping the IP address `192.168.66.2` of an interface `outlink2` that is inside namespace `ns-0001`.
+Now an interface `outer` with IP address `192.168.66.1` can be used to ping the IP address `192.168.66.2` of an interface called `inner` that is inside namespace `ns-0001`.
 
 To allow access of the namespace `ns-0001` to the Internet, you can enable NAT:
 
 ```
 sysctl -w "net.ipv4.ip_forward=1"
-iptables -t nat -A POSTROUTING -s "192.168.66.0/24" -o "outlink1" -j MASQUERADE
-iptables -A FORWARD -i "outlink1" -o "wan1" -j ACCEPT
-iptables -A FORWARD -o "outlink1" -i "wan1" -j ACCEPT
+iptables -t nat -A POSTROUTING -s "192.168.66.0/24" -o "outer" -j MASQUERADE
+iptables -A FORWARD -i "outer" -o "wan1" -j ACCEPT
+iptables -A FORWARD -o "outer" -i "wan1" -j ACCEPT
 ```
 (The Internet facing interface is called "wan1" here.)
 
 Now you can ping the Internet from namespace `ns-0001`:
 
-`ip netns exec ns-0001 ping -I outlink2 8.8.8.8`
+`ip netns exec "ns-0001" ping -I "inner" 8.8.8.8`
 
 ## Internal Working
 
