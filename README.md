@@ -265,6 +265,8 @@ All bridges have `ageing_time` and `forward_delay` set to 0 to make them behave 
 
 To lessen the effect of the host system on the results when a lot of processes are run, it is advisable to slow down the running speed of the routing protocols (use `cpulimit` or croups) and slow down time as well ([libfaketime](https://github.com/wolfcw/libfaketime)). This has not been tried here yet!
 
+A somewhat different approach is to link the interfaces of all nodes in one big bridge and use ebtables to setup the desired connectivity. This is done in [MLC](https://github.com/axn/mlc).
+
 ## Related Projects
 
 - [Twenty-five open-source network emulators and simulators you can use in 2023](https://www.brianlinkletter.com/2023/02/network-emulators-and-network-simulators-2023/)
