@@ -170,6 +170,7 @@ Host *
 Pro:
 - no need to modify existing routing protocol implementations
 - test the same code that is deployed
+- minimal dependencies (Linux, Python, ip, ping)
 
 Cons:
 - no discrete event simulation that can run faster than real time
