@@ -133,12 +133,18 @@ def json_count(path):
         with open(path) as file:
             obj = json.load(file)
 
-    links = obj.get('links', [])
-    nodes = {}
-    for link in links:
-        nodes[link['source']] = 0;
-        nodes[link['target']] = 0;
-    links = obj.get('links', [])
+    links = set()
+    nodes = set()
+
+    for link in obj.get('links', []):
+        source = str(link['source'])
+        target = str(link['target'])
+        nodes.add(source)
+        nodes.add(target)
+        links.add(link_id(source, target))
+
+    for node in obj.get('nodes', []):
+        nodes.add(str(node['id']))
 
     return (len(nodes), len(links))
 
