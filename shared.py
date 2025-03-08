@@ -1,4 +1,3 @@
-import multiprocessing
 import datetime
 import subprocess
 import threading
@@ -258,7 +257,7 @@ class TerminalThread(threading.Thread):
 class TerminalGroup():
     def __init__(self):
         self.terminals = {}
-        self.cpu_count = multiprocessing.cpu_count()
+        self.cpu_count = os.cpu_count()
         self.cpu_counter = 0
 
     def addTask(self, tid, remote, command, ignore_error=False, onResultCallBack=None):
