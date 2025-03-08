@@ -170,7 +170,7 @@ Host *
 Pro:
 - no need to modify existing routing protocol implementations
 - test the same code that is deployed
-- minimal dependencies (Linux, Python, ip, ping)
+- minimal dependencies (Linux, Python, ip, ping, pkill)
 
 Cons:
 - no discrete event simulation that can run faster than real time
@@ -195,7 +195,7 @@ A - B - C
 
 If a programm on `A` tries to sends a packet via `B` to `C` (assuming a program on `B` to resends the packet). Then a packet send from `A` will be received by `B`. But when `B` receives and sends a packet addressed to `C`, then it will also be received by `C`, `D` and `A` (again). Overall, 2 packets will be send (TX) and 4 packets will be received (RX). 
 
-## How to Connect a Virtual Node to the Internet
+## Expose a Virtual Node to the Internet
 
 These commands create a network connection from the Linux network namespace `ns-0001` to the default namespace:
 
@@ -268,13 +268,13 @@ To lessen the effect of the host system on the results when a lot of processes a
 
 A somewhat different approach is to link the interfaces of all nodes in one big bridge and use ebtables to setup the desired connectivity. This is done in [MLC](https://github.com/axn/mlc).
 
-## Related Projects
+## Related Projects / Articles
 
 - [Twenty-five open-source network emulators and simulators you can use in 2023](https://www.brianlinkletter.com/2023/02/network-emulators-and-network-simulators-2023/)
 - [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation without binary modification
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
 - [CORE](https://github.com/coreemu/core): Common Open Research Emulator (looks good and mature, very similar to this project)
-- [Ad hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandened)
+- [Ad-hoc Protocol Evaluation testbed](http://apetestbed.sourceforge.net/) (old and abandoned)
 - [MeshGraphViewer](https://github.com/mwarning/MeshGraphViewer) can show the topology JSON files in a browser using d3.js.
 - [mininet](http://mininet.org/) (runs in single computer, uses network and process namespaces, uses virtual switches)
 - [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
