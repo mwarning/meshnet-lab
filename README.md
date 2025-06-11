@@ -170,7 +170,7 @@ Host *
 Pro:
 - no need to modify existing routing protocol implementations
 - test the same code that is deployed
-- minimal dependencies (Linux, Python, ip, ping, pkill)
+- minimal dependencies (Linux, Python, ip, ping, pkill, vmstat)
 
 Cons:
 - no discrete event simulation that can run faster than real time
@@ -270,6 +270,7 @@ A somewhat different approach is to link the interfaces of all nodes in one big 
 
 ## Related Projects / Articles
 
+- [Common Open Research Emulator](https://github.com/coreemu/core)
 - [Twenty-five open-source network emulators and simulators you can use in 2023](https://www.brianlinkletter.com/2023/02/network-emulators-and-network-simulators-2023/)
 - [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation without binary modification
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
