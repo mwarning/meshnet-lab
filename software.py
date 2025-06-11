@@ -214,15 +214,17 @@ def main():
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--duration',  type=int, default=0, help='Start/Stop software over a duration [ms].')
-    parser.set_defaults(to_state=None)
+    parser.set_defaults(ids=None)
 
     subparsers = parser.add_subparsers(dest='action', required=True, help='Action')
 
     parser_start = subparsers.add_parser('start', help='Run start script in every namespace.')
     parser_start.add_argument('protocol', help='Routing protocol script prefix.')
+    parser_start.add_argument('ids', nargs='*')
 
     parser_stop = subparsers.add_parser('stop', help='Run stop script in every namespace.')
     parser_stop.add_argument('protocol', help='Routing protocol script prefix.')
+    parser_stop.add_argument('ids', nargs='*')
 
     parser_change = subparsers.add_parser('apply', help='Run stop/start scripts in every namespace.')
     parser_change.add_argument('protocol', help='Routing protocol script prefix.')
@@ -260,7 +262,7 @@ def main():
     verbosity = args.verbosity
 
     rmap = get_remote_mapping(args.remotes)
-    ids = list(rmap.keys())
+    ids = args.ids if args.ids else list(rmap.keys())
 
     if args.action == 'start':
         _start_protocol(args.protocol, rmap, ids, args.duration)
