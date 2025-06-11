@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import multiprocessing
 import threading
 import datetime
 import argparse
@@ -20,42 +19,11 @@ from shared import (
 )
 
 from ping import (
-	_get_ip_address, _get_interface
+    _get_ip_address, _get_interface
 )
 
 verbosity = 'normal'
 
-
-def _get_update(to_state, remotes):
-    (from_state, rmap) = get_current_state(remotes)
-
-    if to_state == None:
-        to_state = {}
-    elif isinstance(to_state, str):
-        with open(to_state) as file:
-            to_state = json.load(file)
-
-    def get_id_set(state):
-        nodes = set()
-
-        if state is not None:
-            for link in state.get('links', []):
-                nodes.add(str(link['source']))
-                nodes.add(str(link['target']))
-
-            for node in state.get('nodes', []):
-                nodes.add(str(node['id']))
-
-        return nodes
-
-    from_ids = get_id_set(from_state)
-    to_ids = get_id_set(to_state)
-
-    a = from_ids.difference(to_ids)
-    b = to_ids.difference(from_ids)
-
-    # (old_ids, new_ids)
-    return (a, b, rmap)
 
 '''
 Distribute files to different remotes
@@ -77,6 +45,7 @@ def copy(remotes, source, destination):
 console_lock = threading.Lock()
 
 def printConsole(returncode, stdout, errout):
+    # use lock to prevent interleaving output to the terminal
     console_lock.acquire()
     sys.stdout.write(stdout)
     sys.stderr.write(errout)
@@ -251,20 +220,16 @@ def main():
 
     parser_start = subparsers.add_parser('start', help='Run start script in every namespace.')
     parser_start.add_argument('protocol', help='Routing protocol script prefix.')
-    parser_start.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_stop = subparsers.add_parser('stop', help='Run stop script in every namespace.')
     parser_stop.add_argument('protocol', help='Routing protocol script prefix.')
-    parser_stop.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_change = subparsers.add_parser('apply', help='Run stop/start scripts in every namespace.')
     parser_change.add_argument('protocol', help='Routing protocol script prefix.')
-    parser_change.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_run = subparsers.add_parser('run', help='Execute any command in every namespace.')
     parser_run.add_argument('command', nargs=argparse.REMAINDER,
         help='Shell command that is run. Remote address and namespace id is added to call arguments.')
-    parser_run.add_argument('to_state', nargs='?', default=None, help='To state')
 
     parser_copy = subparsers.add_parser('copy', help='Copy to all remotes.')
     parser_copy.add_argument('source', nargs='+')
@@ -294,23 +259,13 @@ def main():
     global verbosity
     verbosity = args.verbosity
 
-    # get nodes that have been added or will be removed
-    (old_ids, new_ids, rmap) = _get_update(args.to_state, args.remotes)
+    rmap = get_remote_mapping(args.remotes)
+    ids = list(rmap.keys())
 
     if args.action == 'start':
-        ids = new_ids if args.to_state else list(rmap.keys())
         _start_protocol(args.protocol, rmap, ids, args.duration)
     elif args.action == 'stop':
-        ids = old_ids if args.to_state else list(rmap.keys())
         _stop_protocol(args.protocol, rmap, ids, args.duration)
-    elif args.action == 'apply':
-        beg_ms = millis()
-        _stop_protocol(args.protocol, rmap, old_ids, args.duration)
-        _start_protocol(args.protocol, rmap, new_ids, args.duration)
-        end_ms = millis()
-
-        if verbosity != 'quiet':
-            print('applied {} in {} namespaces in {}'.format(args.protocol, len(rmap.keys()), format_duration(end_ms - beg_ms)))
     elif args.action == 'clear':
         clear(args.remotes)
     elif args.action == 'copy':
@@ -321,8 +276,6 @@ def main():
         if verbosity != 'quiet':
             print('copied on {} remotes in {}'.format(len(args.remotes), format_duration(end_ms - beg_ms)))
     elif args.action == 'run':
-        ids = new_ids if args.to_state else list(rmap.keys())
-
         for i, id in enumerate(ids):
             remote = rmap[id]
             label = remote.address or 'local'
