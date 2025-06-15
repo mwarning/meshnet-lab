@@ -126,12 +126,12 @@ def system_setup(remotes):
 def update_node(node, node_command=None, rmap={}):
     name = str(node['id'])
     remote = rmap.get(name)
-    tid = get_thread_id()
 
     if node_command is not None:
         if verbosity == 'normal':
             print(f'  update node {name}')
 
+        tid = get_thread_id()
         exec(tid, remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
 
 def remove_link(link, rmap={}):
