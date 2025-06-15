@@ -333,12 +333,12 @@ def _get_task(old_state, new_state):
     (links_new, nodes_new) = _process_json(new_state)
 
     # if some property (e.g. for tc) has changed
-    def obj_equal(link1, link2):
-        if len(link1) != len(link2):
+    def obj_equal(obj1, obj2):
+        if len(obj1) != len(obj2):
             return False
 
-        for key1, value1 in link1.items():
-            value2 = link2.get(key1)
+        for key1, value1 in obj1.items():
+            value2 = obj2.get(key1)
             if value1 != value2:
                 return False
 
