@@ -12,3 +12,5 @@ else
     ip netns exec "$ns" batctl meshif "bat0" interface destroy 2> /dev/null
   done
 fi
+
+true

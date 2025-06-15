@@ -6,10 +6,13 @@ PROGRAM="/usr/bin/true"
 address="$1"
 id="$2"
 
-echo "start custom mesh on ${address} in ${id}"
+if ! test -f "/tmp/custom-${id}.pid"; then
+  echo "start custom on ${address} in ${id}"
 
-ip link set "uplink" down
-ip link set "uplink" up
+  ip link set "uplink" down
+  ip link set "uplink" up
 
-prefix=$(basename "${PROGRAM}")
-${PROGRAM} -p "$PROTOCOL" -d -i "uplink" -s /tmp/${prefix}-${id}.sock -l /tmp/${prefix}-${id}.log
+  ${PROGRAM} -p "$PROTOCOL" -d -i "uplink" -s "/tmp/custom-${id}.sock" -l "/tmp/custom-${id}.log" --pidfile "/tmp/custom-${id}.pid"
+else
+    echo "custom already runs on ${address} in ${id}"
+fi

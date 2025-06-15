@@ -1,9 +1,16 @@
 #!/bin/sh
 
-pkill -SIGKILL -x bird
-rm -f /tmp/bird-ospf-*.conf
+address="$1"
+id="$2"
 
-pkill -SIGKILL -x bird6
-rm -f /tmp/bird6-ospf-*.conf
+if [ -n "$id" ]; then
+  # called for each node
+  kill -9 $(cat "/tmp/bird-ospf-${id}.pid")
+  rm -f /tmp/bird-ospf-${id}.*
+else
+  # called once per remote
+  pkill -SIGKILL -x bird
+  rm -f /tmp/bird-ospf-*
+fi
 
 true
