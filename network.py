@@ -318,10 +318,7 @@ def _process_json(json_data):
         if target not in nodes:
             nodes[target] = {'id': target}
 
-        if source > target:
-            links[f'{source}-{target}'] = link
-        else:
-            links[f'{target}-{source}'] = link
+        links[link_id(source, target)] = link
 
     return (links, nodes)
 
