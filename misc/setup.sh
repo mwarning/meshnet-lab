@@ -17,14 +17,14 @@ export PATH=$PATH:/usr/sbin
 
 # install batman-adv
 cd $WD
-wget https://downloads.open-mesh.org/batman/releases/batman-adv-2023.2/batctl-2023.2.tar.gz -O batctl.tar.gz
+wget https://downloads.open-mesh.org/batman/releases/batman-adv-2024.4/batctl-2024.4.tar.gz -O batctl.tar.gz
 tar -xvf batctl.tar.gz
 cd batctl-*
 make
 make install
 
 cd $WD
-wget https://downloads.open-mesh.org/batman/releases/batman-adv-2023.2/batman-adv-2023.2.tar.gz -O batman-adv.tar.gz
+wget https://downloads.open-mesh.org/batman/releases/batman-adv-2024.4/batman-adv-2024.4.tar.gz -O batman-adv.tar.gz
 tar -xvf batman-adv.tar.gz
 cd batman-adv-*
 make
@@ -70,7 +70,7 @@ wget https://github.com/OLSR/olsrd/archive/204a44adc7e98b826833b6fac2f7673735832
 tar -xvf olsrd.tar.gz
 cd olsrd-*
 make
-make install
+make SBINDIR=/usr/sbin install
 
 # install olsr2/OONF
 cd $WD
@@ -85,10 +85,10 @@ SET (OONF_VERSION 0.15.1)
 SET (OONF_LIB_GIT v0.15.1-112-gfb15d54d-dirty)
 EOF
 cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B. -S..
 make
 make install
-ln -s /usr/local/sbin/olsrd2_static /usr/local/sbin/olsrd2
+ln -sf /usr/sbin/olsrd2_static /usr/sbin/olsrd2
 
 # install cjdns
 cd $WD
