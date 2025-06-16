@@ -41,6 +41,42 @@ def configure_interface(tid, remote, nsname, ifname):
         exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
         exec(tid, remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
 
+def get_filtered_link(link, direction):
+    obj = {}
+    for key, value in link.items():
+        if key == 'source' or key == 'target':
+            continue
+
+        if direction == 'source':
+            if key.startswith('source_'):
+                obj[key[7:]] = value
+            elif key.startswith('target_'):
+                continue
+            else:
+                obj[key] = value
+
+        if direction == 'target':
+            if key.startswith('target_'):
+                obj[key[7:]] = value
+            elif key.startswith('source_'):
+                continue
+            else:
+                obj[key] = value
+    return obj
+
+def format_link_command(command, link, direction, ifname):
+    link = get_filtered_link(link, direction)
+
+    if not isinstance(command, str):
+        # threat as lambda
+        return command(link, ifname)
+    else:
+        command = command.replace('{{ifname}}', ifname)
+        for key, value in node.items():
+            command = command.replace(f'{{key}}', str(value))
+
+        return command
+
 def format_node_command(command, node):
     if not isinstance(command, str):
         # threat as lambda
@@ -168,37 +204,7 @@ def remove_link(link, rmap={}):
         if l2tp_session_count(tid, remote2, tunnel_id) == 0:
             exec(tid, remote2, f'ip l2tp del tunnel tunnel_id {tunnel_id}')
 
-def set_link_properties(tid, rmap, link):
-    source = str(link['source'])
-    target = str(link['target'])
-    remote1 = rmap.get(source)
-    remote2 = rmap.get(target)
-
-    ifname1 = f've-{source}-{target}'
-    ifname2 = f've-{target}-{source}'
-
-    def exec_tc(tid, remote, ifname):
-        packetloss = link.get('packetloss', 0)
-        bandwidth = link.get('bandwidth', 9999)
-        latency = link.get('latency', 0)
-
-        if ((packetloss != 0) and (bandwidth != 9999) and (latency != 0)):
-            tc_command = ('sh -c "('
-                f'tc qdisc del dev {ifname} root;'
-                f'tc qdisc add dev {ifname} root handle 1: netem delay {latency}ms loss {packetloss}%;'
-                f'tc qdisc add dev {ifname} parent 1: handle 2: tbf rate 100mbit burst 8192 latency {latency}ms;'
-                ')"'
-            )
-
-            exec(tid, remote, 'ip netns exec "switch" ' + tc_command)
-
-    # source -> target
-    exec_tc(tid, remote1, ifname1)
-
-    # target -> source (but we apply it only on one end)
-    #exec_tc(tid, remote1, ifname2)
-
-def update_link(link, rmap={}):
+def update_link(link, link_command=None, rmap={}):
     source = str(link['source'])
     target = str(link['target'])
     remote1 = rmap.get(source)
@@ -213,7 +219,11 @@ def update_link(link, rmap={}):
         eprint(f'Warning: Cannot update link with identical source ({source}) and target ({target}) => ignore')
         return
 
-    set_link_properties(tid, rmap, link)
+    if link_command is not None:
+        # source -> target
+        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        # target -> source
+        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
 def l2tp_session_count(tid, remote, tunnel_id):
     return int(exec(tid, remote, f'ip l2tp show session | grep -c "tunnel {tunnel_id}" || true', get_output=True)[0])
@@ -221,7 +231,7 @@ def l2tp_session_count(tid, remote, tunnel_id):
 def l2tp_tunnel_exists(tid, remote, tunnel_id):
     return int(exec(tid, remote, f'ip l2tp show tunnel | grep -c "Tunnel {tunnel_id}" || true', get_output=True)[0]) != 0
 
-def create_link(link, rmap={}):
+def create_link(link, link_command=None, rmap={}):
     source = str(link['source'])
     target = str(link['target'])
     remote1 = rmap.get(source)
@@ -272,7 +282,12 @@ def create_link(link, rmap={}):
     exec(tid, remote1, f'ip netns exec "switch" bridge link set dev "{ifname1}" isolated on')
     exec(tid, remote2, f'ip netns exec "switch" bridge link set dev "{ifname2}" isolated on')
 
-    set_link_properties(tid, rmap, link)
+    # e.g. execute tc command on link
+    if link_command is not None:
+        # source -> target
+        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        # target -> source
+        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
 
 class _Task:
     def __init__(self):
@@ -506,7 +521,7 @@ def _get_remote_mapping(cur_state, new_state, remotes, cur_state_rmap):
 def state_empty(state):
     return (len(state.get('links', []))) == 0 and (len(state.get('nodes', [])) == 0)
 
-def apply(state={}, node_command=None, remotes=default_remotes):
+def apply(state={}, node_command=None, link_command=None, remotes=default_remotes):
     check_access(remotes)
     system_setup(remotes)
 
@@ -548,7 +563,7 @@ def apply(state={}, node_command=None, remotes=default_remotes):
     wait_for_completion()
 
     for link in data.links_update:
-        update_link(link, rmap)
+        update_link(link, link_command, rmap)
 
     wait_for_completion()
 
@@ -558,7 +573,7 @@ def apply(state={}, node_command=None, remotes=default_remotes):
     wait_for_completion()
 
     for link in data.links_create:
-        create_link(link, rmap)
+        create_link(link, link_command, rmap)
 
     wait_for_completion()
 
@@ -596,6 +611,7 @@ def main():
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
 
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
+    parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
     parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
     parser.add_argument('--disable-layer3', action='store_true', help='Disable IP addresses on mesh interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
@@ -634,7 +650,7 @@ def main():
     elif args.action == 'show':
         show(args.remotes)
     elif args.action == 'apply':
-        apply(args.new_state, args.node_command, args.remotes)
+        apply(args.new_state, args.node_command, args.link_command, args.remotes)
     else:
         eprint(f'Invalid command: {args.action}')
         exit(1)
