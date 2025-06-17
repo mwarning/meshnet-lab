@@ -68,21 +68,21 @@ def format_link_command(command, link, direction, ifname):
     link = get_filtered_link(link, direction)
 
     if not isinstance(command, str):
-        # threat as lambda
+        # treat as lambda
         return command(link, ifname)
     else:
-        command = command.replace('{{ifname}}', ifname)
-        for key, value in node.items():
+        command = command.replace('{ifname}', ifname)
+        for key, value in link.items():
             command = command.replace(f'{{key}}', str(value))
 
         return command
 
 def format_node_command(command, node):
     if not isinstance(command, str):
-        # threat as lambda
+        # treat as lambda
         return command(node, 'uplink')
     else:
-        command = command.replace('{{ifname}}', 'uplink')
+        command = command.replace('{ifname}', 'uplink')
         for key, value in node.items():
             command = command.replace(f'{{key}}', str(value))
 
