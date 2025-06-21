@@ -281,7 +281,8 @@ def print_stations():
         print(f'{s.id} => {s.name}')
 
 # set packet loss on links
-def get_tc_command(link, ifname):
+def get_tc_command(link, extra):
+    ifname = extra.ifname
     # map transfer quality to 0-10%
     loss = int(10 * (1.0 - link.get("tq")))
     # calculate based on the speed of light through vacuum

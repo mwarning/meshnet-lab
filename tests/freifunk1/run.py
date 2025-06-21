@@ -25,7 +25,8 @@ network.clear(remotes)
 prefix = os.environ.get('PREFIX', '')
 
 # LAN cable and WiFi connection mix
-def get_tc_command(link, ifname):
+def get_tc_command(link, extra):
+	ifname = extra.ifname
 	'''
 	# How to include packet loss:
 	loss = 100 * (1 - link.get('tq', 1))

@@ -120,14 +120,15 @@ Given some link:
 The command can now make use of the following variables:
 ```
 ./network.py \
-  --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192 latency {latency}ms' \
+  --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192' \
   apply graph.json
 ```
 
 Notes:
-- the command is called for each end of a link
-- `source_` and `target_` prefixes are omitted
-- `ifname` is always provided
+- the command is called for each end of a link!
+- `ifname` and `direction` (might be "source" or "target") is always provided
+- the command output is only printed on error
+- use a script with argument to differentiate between directions
 
 ## Distributed Execution
 

@@ -41,50 +41,17 @@ def configure_interface(tid, remote, nsname, ifname):
         exec(tid, remote, f'ip netns exec "{nsname}" ip link set dev "{ifname}" multicast off') # probably not needed
         exec(tid, remote, f'ip netns exec "{nsname}" sysctl -q -w net.ipv6.conf.{ifname}.disable_ipv6=1')
 
-def get_filtered_link(link, direction):
-    obj = {}
-    for key, value in link.items():
-        if key == 'source' or key == 'target':
-            continue
-
-        if direction == 'source':
-            if key.startswith('source_'):
-                obj[key[7:]] = value
-            elif key.startswith('target_'):
-                continue
-            else:
-                obj[key] = value
-
-        if direction == 'target':
-            if key.startswith('target_'):
-                obj[key[7:]] = value
-            elif key.startswith('source_'):
-                continue
-            else:
-                obj[key] = value
-    return obj
-
-def format_link_command(command, link, direction, ifname):
-    link = get_filtered_link(link, direction)
-
+def format_command(command, item, extra):
     if not isinstance(command, str):
         # treat as lambda
-        return command(link, ifname)
+        return command(item, extra)
     else:
-        command = command.replace('{ifname}', ifname)
-        for key, value in link.items():
-            command = command.replace(f'{{key}}', str(value))
+        for key, value in extra.items():
+            command = command.replace(f'{{{key}}}', str(value))
 
-        return command
 
-def format_node_command(command, node):
-    if not isinstance(command, str):
-        # treat as lambda
-        return command(node, 'uplink')
-    else:
-        command = command.replace('{ifname}', 'uplink')
-        for key, value in node.items():
-            command = command.replace(f'{{key}}', str(value))
+        for key, value in item.items():
+            command = command.replace(f'{{{key}}}', str(value))
 
         return command
 
@@ -141,7 +108,9 @@ def create_node(node, node_command=None, rmap={}):
     configure_interface(tid, remote, nsname, upname)
 
     if node_command is not None:
-        exec(tid, remote, f'ip netns exec "{nsname}" {format_node_command(node_command, node)}')
+        command = format_command(node_command, node, {'ifname': 'uplink'})
+        if command is not None:
+            exec(tid, remote, f'ip netns exec "{nsname}" {command}')
 
 # apply useful system defaults
 def system_setup(remotes):
@@ -168,7 +137,9 @@ def update_node(node, node_command=None, rmap={}):
             print(f'  update node {name}')
 
         tid = get_thread_id()
-        exec(tid, remote, f'ip netns exec "ns-{name}" {format_node_command(node_command, node)}')
+        command = format_command(node_command, node, {'ifname': 'uplink'})
+        if command is not None:
+            exec(tid, remote, f'ip netns exec "ns-{name}" {command}')
 
 def remove_link(link, rmap={}):
     source = str(link['source'])
@@ -221,9 +192,14 @@ def update_link(link, link_command=None, rmap={}):
 
     if link_command is not None:
         # source -> target
-        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        source_command = format_command(link_command, link, {'direction': 'source', 'ifname': ifname1})
+        if source_command is not None:
+            exec(tid, remote1, f'ip netns exec "switch" {source_command}')
+
         # target -> source
-        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
+        target_command = format_command(link_command, link, {'direction': 'target', 'ifname': ifname2})
+        if target_command is not None:
+            exec(tid, remote2, f'ip netns exec "switch" {target_command}')
 
 def l2tp_session_count(tid, remote, tunnel_id):
     return int(exec(tid, remote, f'ip l2tp show session | grep -c "tunnel {tunnel_id}" || true', get_output=True)[0])
@@ -285,9 +261,14 @@ def create_link(link, link_command=None, rmap={}):
     # e.g. execute tc command on link
     if link_command is not None:
         # source -> target
-        exec(tid, remote1, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'source', ifname1))
+        source_command = format_command(link_command, link, {'direction': 'source', 'ifname': ifname1})
+        if source_command is not None:
+            exec(tid, remote1, f'ip netns exec "switch" {source_command}')
+
         # target -> source
-        exec(tid, remote2, 'ip netns exec "switch" ' + format_link_command(link_command, link, 'target', ifname2))
+        target_command = format_command(link_command, link, {'direction': 'target', 'ifname': ifname2})
+        if target_command is not None:
+            exec(tid, remote2, f'ip netns exec "switch" {target_command}')
 
 class _Task:
     def __init__(self):
@@ -558,7 +539,8 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
             exec(tid, remote, 'ip netns exec "switch" sysctl -q -w net.ipv6.conf.all.disable_ipv6=1')
 
     for node in data.nodes_update:
-        update_node(node, node_command, rmap)
+        if node_command:
+            update_node(node, node_command, rmap)
 
     wait_for_completion()
 
@@ -611,8 +593,8 @@ def main():
         description='Create a virtual network based on linux network names and virtual network interfaces:\n ./network.py change none test.json')
 
     parser.add_argument('--verbosity', choices=['verbose', 'normal', 'quiet'], default='normal', help='Set verbosity.')
-    parser.add_argument('--link-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {tq}"')
-    parser.add_argument('--node-command', help='Execute a command to change link properties. JSON elements are accessible. E.g. "myscript.sh {ifname} {id}"')
+    parser.add_argument('--link-command', help='Execute a command for each link twice. All link object elements are available plus direction and ifname. E.g. "myscript.sh {direction} {ifname} {source} {target}"')
+    parser.add_argument('--node-command', help='Execute a command to change link properties. All node object elements are available plus ifname. E.g. "myscript.sh {ifname} {id}"')
     parser.add_argument('--disable-layer3', action='store_true', help='Disable IP addresses on mesh interface.')
     parser.add_argument('--remotes', help='Distribute nodes and links on remotes described in the JSON file.')
     parser.add_argument('--mtu', type=int, default=1500, help='Set Maximum Transfer Unit (MTU) on each interface.')
