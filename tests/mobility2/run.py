@@ -27,8 +27,8 @@ network.clear(remotes)
 prefix = os.environ.get('PREFIX', '')
 
 # 100MBit LAN cable
-def get_tc_command(link, ifname):
-	return f'tc qdisc replace dev "{ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
+def get_tc_command(link, extra):
+	return f'tc qdisc replace dev "{extra.ifname}" root tbf rate 100mbit burst 8192 latency 1ms'
 
 def run(protocol, csvfile):
 	shared.seed_random(23)
