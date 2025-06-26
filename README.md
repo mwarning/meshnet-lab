@@ -126,7 +126,7 @@ The command can now make use of the following variables:
 
 Notes:
 - the command is called for each end of a link!
-- `ifname` and `direction` (might be "source" or "target") is always provided
+- `ifname`, `direction` ("source"/"target") and `action` ("create", "update", "remove") are always provided
 - the command output is only printed on error
 - use a script with argument to differentiate between directions
 

@@ -58,10 +58,16 @@ def format_command(command, item, extra):
 
         return command
 
-def remove_node(node, rmap={}):
+def remove_node(node, node_command, rmap={}):
     name = str(node['id'])
     remote = rmap.get(name)
     tid = get_thread_id()
+
+    if node_command is not None:
+        extra = {'action': 'remove', 'ifname': 'uplink'}
+        command = format_command(node_command, node, extra)
+        if command is not None:
+            exec(tid, remote, f'ip netns exec "{nsname}" {command}')
 
     # remove veth pair upname/downname (removes both)
     exec(tid, remote, f'ip netns exec "switch" ip link delete "dl-{name}"')
@@ -111,7 +117,8 @@ def create_node(node, node_command=None, rmap={}):
     configure_interface(tid, remote, nsname, upname)
 
     if node_command is not None:
-        command = format_command(node_command, node, {'ifname': 'uplink'})
+        extra = {'action': 'create', 'ifname': 'uplink'}
+        command = format_command(node_command, node, extra)
         if command is not None:
             exec(tid, remote, f'ip netns exec "{nsname}" {command}')
 
@@ -140,11 +147,12 @@ def update_node(node, node_command=None, rmap={}):
             print(f'  update node {name}')
 
         tid = get_thread_id()
-        command = format_command(node_command, node, {'ifname': 'uplink'})
+        extra = {'action': 'update', 'ifname': 'uplink'}
+        command = format_command(node_command, node, extra)
         if command is not None:
             exec(tid, remote, f'ip netns exec "ns-{name}" {command}')
 
-def remove_link(link, rmap={}):
+def remove_link(link, link_command=None, rmap={}):
     source = str(link['source'])
     target = str(link['target'])
     remote1 = rmap.get(source)
@@ -158,6 +166,19 @@ def remove_link(link, rmap={}):
     if source == target:
         eprint(f'Warning: Cannot remove link with identical source ({source}) and target ({target}) => ignore')
         return
+
+    if link_command is not None:
+        # source -> target
+        extra = {'action': 'remove', 'direction': 'source', 'ifname': ifname1}
+        source_command = format_command(link_command, link, extra)
+        if source_command is not None:
+            exec(tid, remote1, f'ip netns exec "switch" {source_command}')
+
+        # target -> source
+        extra = {'action': 'remove', 'direction': 'target', 'ifname': ifname2}
+        target_command = format_command(link_command, link, extra)
+        if target_command is not None:
+            exec(tid, remote2, f'ip netns exec "switch" {target_command}')
 
     if remote1 == remote2:
         exec(tid, remote1, f'ip netns exec "switch" ip link del "{ifname1}" type veth peer name "{ifname2}"')
@@ -195,12 +216,14 @@ def update_link(link, link_command=None, rmap={}):
 
     if link_command is not None:
         # source -> target
-        source_command = format_command(link_command, link, {'direction': 'source', 'ifname': ifname1})
+        extra = {'action': 'update', 'direction': 'source', 'ifname': ifname1}
+        source_command = format_command(link_command, link, extra)
         if source_command is not None:
             exec(tid, remote1, f'ip netns exec "switch" {source_command}')
 
         # target -> source
-        target_command = format_command(link_command, link, {'direction': 'target', 'ifname': ifname2})
+        extra = {'action': 'update', 'direction': 'target', 'ifname': ifname2}
+        target_command = format_command(link_command, link, extra)
         if target_command is not None:
             exec(tid, remote2, f'ip netns exec "switch" {target_command}')
 
@@ -264,12 +287,14 @@ def create_link(link, link_command=None, rmap={}):
     # e.g. execute tc command on link
     if link_command is not None:
         # source -> target
-        source_command = format_command(link_command, link, {'direction': 'source', 'ifname': ifname1})
+        extra = {'action': 'create', 'direction': 'source', 'ifname': ifname1}
+        source_command = format_command(link_command, link, extra)
         if source_command is not None:
             exec(tid, remote1, f'ip netns exec "switch" {source_command}')
 
         # target -> source
-        target_command = format_command(link_command, link, {'direction': 'target', 'ifname': ifname2})
+        extra = {'action': 'create', 'direction': 'target', 'ifname': ifname2}
+        target_command = format_command(link_command, link, extra)
         if target_command is not None:
             exec(tid, remote2, f'ip netns exec "switch" {target_command}')
 
@@ -563,12 +588,12 @@ def apply(state={}, node_command=None, link_command=None, remotes=default_remote
     wait_for_completion()
 
     for link in data.links_remove:
-        remove_link(link, rmap)
+        remove_link(link, link_command, rmap)
 
     wait_for_completion()
 
     for node in data.nodes_remove:
-        remove_node(node, rmap)
+        remove_node(node, node_command, rmap)
 
     wait_for_completion()
 
