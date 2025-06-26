@@ -14,7 +14,7 @@ import os
 from shared import (
     eprint, exec, default_remotes, convert_to_neighbors, check_access,
     stop_all_terminals, format_duration, millis, wait_for_completion,
-    get_current_state, link_id, Remote, get_thread_id
+    get_current_state, link_id, Remote, get_thread_id, globalTerminalGroup
 )
 
 disable_layer3 = False
@@ -643,6 +643,8 @@ def main():
     disable_layer3 = args.disable_layer3
     verbosity = args.verbosity
     mtu = args.mtu
+
+    globalTerminalGroup.setVerbosity(args.verbosity)
 
     if args.remotes:
         if not os.path.isfile(args.remotes):

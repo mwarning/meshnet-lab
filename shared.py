@@ -220,12 +220,13 @@ Execute a command via SSH or local. All tasks in a
 TerminalThread are executed in sequentional order.
 '''
 class TerminalThread(threading.Thread):
-    def __init__(self, num, remote):
+    def __init__(self, num, remote, verbosity='normal'):
         super(TerminalThread, self).__init__()
         self.num = num
         self.remote = remote
         self.finish = False
         self.tasks = queue.Queue()
+        self.verbosity = verbosity
         self.start()
 
     def run(self):
@@ -233,6 +234,9 @@ class TerminalThread(threading.Thread):
             try:
                 # might raise Empty
                 (ignore_error, command, onResultCallBack) = self.tasks.get(block=True, timeout=0.2)
+
+                if self.verbosity == 'verbose':
+                    print(command)
 
                 p = create_process(self.remote, command)
 
@@ -248,6 +252,12 @@ class TerminalThread(threading.Thread):
                     eprint('Network might be in an undefined state!')
                     exit(1)
 
+                if self.verbosity == 'verbose':
+                    if stdout:
+                        print(stdout)
+                    if errout:
+                        print(errout)
+
                 if onResultCallBack:
                     onResultCallBack(p.returncode, stdout, errout)
 
@@ -261,17 +271,21 @@ class TerminalThread(threading.Thread):
                 exit(1)
 
 class TerminalGroup():
-    def __init__(self):
+    def __init__(self, verbosity='normal'):
         self.terminals = {}
         self.cpu_count = os.cpu_count()
         self.cpu_counter = 0
+        self.verbosity = verbosity
+
+    def setVerbosity(self, verbosity):
+        self.verbosity = verbosity
 
     def addTask(self, tid, remote, command, ignore_error=False, onResultCallBack=None):
         idx = abs(tid) % self.cpu_count
         terminal = self.terminals.get(idx, None)
         if not terminal:
             # create another terminal
-            terminal = TerminalThread(idx, remote)
+            terminal = TerminalThread(idx, remote, self.verbosity)
             self.terminals[idx] = terminal
 
         terminal.tasks.put((ignore_error, command, onResultCallBack))
