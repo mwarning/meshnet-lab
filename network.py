@@ -53,6 +53,9 @@ def format_command(command, item, extra):
         for key, value in item.items():
             command = command.replace(f'{{{key}}}', str(value))
 
+        # remove variables that were not replaced
+        command = re.sub('{[^}]*}', '', command)
+
         return command
 
 def remove_node(node, rmap={}):
