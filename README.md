@@ -106,29 +106,28 @@ The code is written for Python 3 and uses the `ip`, `ping` and `pkill` commands.
 
 ## Add Traffic Control
 
-The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace). It is meant to be used to configure the kernel packet scheduler.
+The command provided via the `--link-command` parameter of the network.py script will be executed twice. Once for every device end of a link (in the `switch` namespace).
 
 Given some link:
 ```
 {
 "links": [
-    {"source": 0, "target": 1, "rate": "100mbit", "source_latency": 2, "target_latency": 10}
+    {"source": 0, "target": 1, "bandwidth_mbit": "100"}
   ]
 }
 ```
 
-The command can now make use of the following variables:
+The command can now be used to set link properties:
 ```
 ./network.py \
-  --link-command 'tc qdisc replace dev "{ifname}" root tbf rate {rate} burst 8192' \
-  apply graph.json
+  --link-command 'tc qdisc add dev "{ifname}" root tbf rate {bandwidth_mbit}mbit' apply graph.json
 ```
 
 Notes:
-- the command is called for each end of a link!
+- more complex tc (Traffic Control) commands can be placed in a script (see [misc/tc.sh](misc/tc.sh))
+- the command is called for each direction of a link. Check the direction!
 - `ifname`, `direction` ("source"/"target") and `action` ("create", "update", "remove") are always provided
-- the command output is only printed on error
-- use a script with argument to differentiate between directions
+- the command output is only printed on error (unless `--verbosity verbose` is used)
 
 ## Distributed Execution
 
