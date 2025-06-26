@@ -532,10 +532,13 @@ def state_empty(state):
 
 def apply(state={}, node_command=None, link_command=None, remotes=default_remotes):
     check_access(remotes)
-    system_setup(remotes)
 
     new_state = state
     (cur_state, cur_state_rmap) = get_current_state(remotes)
+
+    # Only needs to be execute once
+    if len(cur_state_rmap) == 0:
+        system_setup(remotes)
 
     # handle different new_state types
     if isinstance(new_state, str):
