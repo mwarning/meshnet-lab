@@ -237,6 +237,7 @@ if __name__ == '__main__':
     parser.add_argument('--target-tc', help='Value for each links target_tc.')
     parser.add_argument('--no-nodes', action='store_true', help='Omit nodes from output.')
     parser.add_argument('--no-links', action='store_true', help='Omit links from output.')
+    parser.add_argument('--no-coords', action='store_true', help='Omit coordinates from nodes.')
     parser.add_argument('--formatted', action='store_true', help='Output formatted json.')
     parser.add_argument('--id-offset', type=int, help='Start node identifiers at given number (default: 0).')
 
@@ -302,6 +303,11 @@ if __name__ == '__main__':
 
     if args.no_links:
         del output['links']
+
+    if args.no_coords:
+        for node in output.get('nodes', []):
+            node.pop("x", None)
+            node.pop("y", None)
 
     if args.id_offset:
         apply_offset(output, args.id_offset)
