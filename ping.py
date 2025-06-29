@@ -67,7 +67,7 @@ class Dijkstra:
         if prevs is None:
             return None
 
-        path = []
+        path = [target]
         next = target
 
         while True:
@@ -78,6 +78,7 @@ class Dijkstra:
             else:
                 break
 
+        path.reverse()
         return path
 
     """
