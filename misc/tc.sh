@@ -12,7 +12,7 @@ latency_ms="${4:-1}"
 loss_pc="${5:-0}"
 bandwidth_mbit="${6:-10}"
 
-if [ "$direction" = "source" ]; then
+#if [ "$direction" = "source" ]; then
   case "$action" in
     "create")
       tc qdisc add dev ${ifname} root handle 1: netem delay ${latency_ms}ms loss ${loss_pc}%
@@ -26,4 +26,4 @@ if [ "$direction" = "source" ]; then
       tc qdisc del dev ${ifname} root
       ;;
   esac
-fi
+#fi
