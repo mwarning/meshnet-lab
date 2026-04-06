@@ -271,6 +271,7 @@ A somewhat different approach is to link the interfaces of all nodes in one big 
 ## Related Projects / Articles
 
 - [Common Open Research Emulator](https://github.com/coreemu/core)
+- [Meshtasticator](https://github.com/meshtastic/Meshtasticator)
 - [Twenty-five open-source network emulators and simulators you can use in 2023](https://www.brianlinkletter.com/2023/02/network-emulators-and-network-simulators-2023/)
 - [Shadow](https://github.com/shadow): intercepts system calls, discrete event simulation without binary modification
 - [Mininet-WiFi](https://mininet-wifi.github.io/): Looks good. But because of 80211_hwsim probably slow.
@@ -280,6 +281,7 @@ A somewhat different approach is to link the interfaces of all nodes in one big 
 - [mininet](http://mininet.org/) (runs in single computer, uses network and process namespaces, uses virtual switches)
 - [mlc](https://github.com/axn/mlc) (uses LXC Containers, supports BMX7 and Babel, very complex)
 - [network-lab](https://github.com/sudomesh/network-lab) (mesh networks with network namespace, simple)
+- [patchbay](https://github.com/n0-computer/patchbay) create complex networks, written in Rust
 - [yggdrasil netns](https://github.com/yggdrasil-network/yggdrasil-go/blob/master/misc/run-schannel-netns) (for yggdrasil only, very simple)
 - [Running Babel/OLSR/BMX7 inside kubernetes](https://media.freifunk.net/v/multipathtcp-with-un-meshed-networks-and-running-babel-olsr-bmx7-inside-kubernetes-and-containers)
 - Freifunk Berlin [firmware test](https://github.com/freifunk-berlin/firmware/wiki/Local-testing) (uses docker containers)
